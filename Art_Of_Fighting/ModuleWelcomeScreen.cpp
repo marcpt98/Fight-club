@@ -24,7 +24,7 @@ bool ModuleWelcomeScreen::Start()
 	LOG("Loading background assets");
 	bool ret = true;
 	graphics = App->textures->Load("welcomescreen.png");
-	welcomeScreenMusic = App->audio->LoadMusic("ken.ogg");
+	welcomeScreenMusic = App->audio->LoadMusic("WelcomeScreen.ogg");
 
 	App->audio->PlayMusic(welcomeScreenMusic);
 
