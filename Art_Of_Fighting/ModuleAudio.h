@@ -3,7 +3,7 @@
 
 #include "Module.h"
 #include "Globals.h"
-#include "../SDL5_Handout/SDL_mixer/include/SDL_mixer.h"
+#include "../Art_Of_Fighting/SDL_mixer/include/SDL_mixer.h"
 
 #define MAX_AUDIO 50
 
