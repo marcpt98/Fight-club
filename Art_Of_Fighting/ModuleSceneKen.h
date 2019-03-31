@@ -23,6 +23,7 @@ public:
 
 	SDL_Rect background1;
 
+	int Scene1_Fight = 0;
 	float foreground_pos;
 	bool forward;
 };

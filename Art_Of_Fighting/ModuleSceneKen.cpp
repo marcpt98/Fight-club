@@ -7,6 +7,7 @@
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleSceneHonda.h"
+#include "ModuleAudio.h"
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
@@ -28,6 +29,9 @@ bool ModuleSceneKen::Start()
 	
 	graphics = App->textures->Load("level_1.png");
 
+	Scene1_Fight = App->audio->LoadMusic("Scene1_Fight.ogg");
+
+	App->audio->PlayMusic(Scene1_Fight);
 	// TODO 1: Enable (and properly disable) the player module
 	App->player->Enable();
 	return true;
@@ -39,6 +43,7 @@ bool ModuleSceneKen::CleanUp()
 	LOG("Unloading ken scene");
 	App->player->Disable();
 	App->textures->Unload(graphics);
+	App->audio->UnLoadMusic(Scene1_Fight);
 	return true;
 }
 
