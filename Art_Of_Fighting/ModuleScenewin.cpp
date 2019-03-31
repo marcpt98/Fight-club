@@ -10,7 +10,7 @@
 #include "ModuleWelcomeScreen.h"
 
 ModuleScenewin::ModuleScenewin() {
-	winimage = { 284,327,454,287 };
+	winimage = { 0, 0,304,224 };
 }
 
 ModuleScenewin::~ModuleScenewin()
@@ -43,7 +43,7 @@ bool ModuleScenewin::CleanUp()
 update_status ModuleScenewin::Update()
 {
 	// Draw everything --------------------------------------	
-	App->render->Blit(graphics, -30, -60, &winimage);
+	App->render->Blit(graphics, 0, 0, &winimage);
 
 	// TODO 2: make so pressing SPACE the KEN stage is loaded
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)

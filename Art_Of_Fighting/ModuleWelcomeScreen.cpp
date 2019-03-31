@@ -12,6 +12,7 @@
 ModuleWelcomeScreen::ModuleWelcomeScreen()
 {
 	Welcomeimage = { 0,0,304,224 };
+
 }
 
 
