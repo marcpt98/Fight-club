@@ -8,7 +8,7 @@
 #include "ModuleFadeToBlack.h"
 #include "ModuleWelcomeScreen.h"
 #include "ModuleScenewin.h"
-
+#include "ModuleAudio.h"
 // Reference at https://youtu.be/6OlenbCC4WI?t=382
 
 ModuleSceneHonda::ModuleSceneHonda()
@@ -29,7 +29,8 @@ bool ModuleSceneHonda::Start()
 	LOG("Loading background assets");
 	bool ret = true;
 	graphics = App->textures->Load("level_2.png");
-
+	Scene2_Fight = App->audio->LoadMusic("Scene2_Fight.ogg");
+	App->audio->PlayMusic(Scene2_Fight);
 	// TODO 1: Enable (and properly disable) the player module
 	App->player->Enable();
 
@@ -45,6 +46,7 @@ bool ModuleSceneHonda::CleanUp()
 	LOG("Unloading honda stage");
 	App->player->Disable();
 	App->textures->Unload(graphics);
+	App->audio->UnLoadMusic(Scene2_Fight);
 	return true;
 }
 

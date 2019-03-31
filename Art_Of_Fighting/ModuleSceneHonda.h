@@ -21,7 +21,7 @@ public:
 
 	SDL_Texture* graphics = nullptr;
 	SDL_Rect background2;
-	
+	int Scene2_Fight = 0;
 };
 
 #endif // __MODULESCENEHONDA_H__
