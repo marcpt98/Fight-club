@@ -10,7 +10,7 @@
 #include "ModuleWelcomeScreen.h"
 #include "ModuleScenewin.h"
 #include "ModuleAudio.h"
-#include "ModuleAnimationHaduken.h"
+#include "ModuleParticles.h"
 
 Application::Application()
 {
@@ -23,7 +23,7 @@ Application::Application()
 	modules[6] = scene_Welcome = new ModuleWelcomeScreen();
 	modules[7] = scene_win = new ModuleScenewin();
 	modules[8] = player = new ModulePlayer();
-	modules[9] = ball = new ModuleAnimationHaduken();
+	modules[9] = particles = new ModuleParticles();
 	modules[10] = fade = new ModuleFadeToBlack();
 	modules[11] = audio = new ModuleAudio();
 	

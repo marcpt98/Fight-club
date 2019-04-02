@@ -16,7 +16,7 @@ class ModuleFadeToBlack;
 class ModuleWelcomeScreen;
 class ModuleScenewin;
 class ModuleAudio;
-class ModuleAnimationHaduken;
+class ModuleParticles;
 class Module;
 
 
@@ -36,7 +36,7 @@ public:
 	ModulePlayer* player;
 	ModuleFadeToBlack* fade;
 	ModuleAudio* audio;
-	ModuleAnimationHaduken* ball;
+	ModuleParticles* particles;
 
 public:
 

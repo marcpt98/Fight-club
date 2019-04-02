@@ -1,7 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleTextures.h"
-#include "ModuleAnimationHaduken.h"
+#include "ModuleParticles.h"
 #include "ModuleInput.h"
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
@@ -131,23 +131,19 @@ update_status ModulePlayer::Update()
 	if (App->input->j == 0 && position.y != 210) {
 		position.y++; position.y++; current_animation = &jump;
 	}
-	//////////////////////////////////////////////////////////////////////////
-	if (App->input->keyboard[SDL_SCANCODE_R] == 1)
+	
+	if (App->input->keyboard[SDL_SCANCODE_R] == KEY_STATE::KEY_REPEAT)
 	{
 		current_animation = &hadouken;
-	}                                                           //special atack
-	//if (App->input->keyboard[SDL_SCANCODE_I] == 1) {
-	//	current_animation = &ball;
-	//	position.x += speed;
-	//}
-	///////////////////////////////////////////////////////////////////////
+	}                                                         
+	
 	if (App->input->keyboard[SDL_SCANCODE_K] == KEY_STATE::KEY_REPEAT)
 	{
 		current_animation = &punch;
 
 	}                                                      //normal atacks
 
-	if (App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_DOWN)
+	if (App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_REPEAT)
 	{
 		current_animation = &kick;
 
@@ -155,9 +151,9 @@ update_status ModulePlayer::Update()
 	////////////////////////////////////////////////////////////////
 
 
-	if (App->input->keyboard[SDL_SCANCODE_R] == 1)
+	if (App->input->keyboard[SDL_SCANCODE_R] == KEY_STATE::KEY_REPEAT)
 	{
-		App->ball->AddParticle(App->ball->Hadouken, position.x +90, position.y-110);  // hariouken
+		App->particles->AddParticle(App->particles->Hadouken, position.x +90, position.y-110);  // hadouken
 	}
 
 	///////////////////////////////////////////////////////////////////////

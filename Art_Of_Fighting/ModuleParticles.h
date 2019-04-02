@@ -1,5 +1,5 @@
-#ifndef __ModuleAnimationHaduken_H__
-#define __ModuleAnimationHaduken_H__
+#ifndef __ModuleParticles_H__
+#define __ModuleParticles_H__
 
 #include "Module.h"
 #include "Animation.h"
@@ -26,11 +26,11 @@ struct Particle
 	bool Update();
 };
 
-class ModuleAnimationHaduken : public Module
+class ModuleParticles : public Module
 {
 public:
-	ModuleAnimationHaduken();
-	~ModuleAnimationHaduken();
+	ModuleParticles();
+	~ModuleParticles();
 
 	bool Start();
 	update_status Update();

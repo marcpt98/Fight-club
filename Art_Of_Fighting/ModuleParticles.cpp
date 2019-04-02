@@ -3,21 +3,21 @@
 #include "ModuleTextures.h"
 #include "ModuleInput.h"
 #include "ModuleRender.h"
-#include "ModuleAnimationHaduken.h"
+#include "ModuleParticles.h"
 #include "SDL/include/SDL_timer.h"
 #include <math.h>
 
-ModuleAnimationHaduken::ModuleAnimationHaduken()
+ModuleParticles::ModuleParticles()
 {
 
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 		active[i] = nullptr;
 }
 
-ModuleAnimationHaduken::~ModuleAnimationHaduken()
+ModuleParticles::~ModuleParticles()
 {}
 
-bool ModuleAnimationHaduken::Start() {
+bool ModuleParticles::Start() {
 	LOG("Loading particles");
 	graphics = App->textures->Load("Ryo_SpriteSheet.png");
 
@@ -42,7 +42,7 @@ bool ModuleAnimationHaduken::Start() {
 }
 
 // Unload assets
-bool ModuleAnimationHaduken::CleanUp()
+bool ModuleParticles::CleanUp()
 {
 	LOG("Unloading particles");
 	App->textures->Unload(graphics);
@@ -59,7 +59,7 @@ bool ModuleAnimationHaduken::CleanUp()
 	return true;
 }
 
-update_status  ModuleAnimationHaduken::Update()
+update_status  ModuleParticles::Update()
 {
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
@@ -87,7 +87,7 @@ update_status  ModuleAnimationHaduken::Update()
 	return UPDATE_CONTINUE;
 }
 
-void ModuleAnimationHaduken::AddParticle(const Particle& particle, int x, int y, Uint32 delay)
+void ModuleParticles::AddParticle(const Particle& particle, int x, int y, Uint32 delay)
 {
 	Particle* p = new Particle(particle);
 	p->born = SDL_GetTicks() + delay;
