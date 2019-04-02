@@ -1,9 +1,11 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleTextures.h"
+#include "ModuleAnimationHaduken.h"
 #include "ModuleInput.h"
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
+
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
@@ -68,21 +70,6 @@ ModulePlayer::ModulePlayer()
 	hadouken.speed = 0.15f;
 
 	//ball animation
-
-	/*ball.PushBack({ 682, 869, 25,36 });
-	ball.PushBack({ 706, 869, 22,36 });
-	ball.PushBack({ 729, 878, 26,27 });
-	ball.PushBack({ 682, 913, 54,39 });
-	ball.PushBack({ 736, 905, 72,47 });
-	ball.PushBack({ 808, 921, 53,31 });
-	ball.PushBack({ 861, 931, 36,21 });
-	ball.PushBack({ 940, 613, 30,37 });
-	ball.PushBack({ 971, 613, 22,36 });
-	ball.PushBack({ 940, 665, 21,37 });
-	ball.PushBack({ 961, 666, 23,36 });
-	ball.PushBack({ 984, 666, 35,36 });
-
-	ball.speed = 0.05f;*/
 
 }
 
@@ -153,6 +140,15 @@ update_status ModulePlayer::Update()
 
 	}
 	////////////////////////////////////////////////////////////////
+
+
+	if (App->input->keyboard[SDL_SCANCODE_R] == 1)
+	{
+		App->ball->AddParticle(App->ball->Hadouken, position.x +90, position.y-110);  // hariouken
+	}
+
+	///////////////////////////////////////////////////////////////////////
+
 	// Draw everything --------------------------------------
 	SDL_Rect r = current_animation->GetCurrentFrame();
 

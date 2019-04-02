@@ -23,9 +23,10 @@ Application::Application()
 	modules[6] = scene_Welcome = new ModuleWelcomeScreen();
 	modules[7] = scene_win = new ModuleScenewin();
 	modules[8] = player = new ModulePlayer();
-	modules[9] = fade = new ModuleFadeToBlack();
-	modules[10] = audio = new ModuleAudio();
-	modules[11] = ball = new ModuleAnimationHaduken();
+	modules[9] = ball = new ModuleAnimationHaduken();
+	modules[10] = fade = new ModuleFadeToBlack();
+	modules[11] = audio = new ModuleAudio();
+	
 }	
 
 Application::~Application()

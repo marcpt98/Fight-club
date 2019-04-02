@@ -4,57 +4,127 @@
 #include "ModuleInput.h"
 #include "ModuleRender.h"
 #include "ModuleAnimationHaduken.h"
+#include "SDL/include/SDL_timer.h"
+#include <math.h>
 
 ModuleAnimationHaduken::ModuleAnimationHaduken()
 {
 
-	ball.PushBack({ 682, 869, 25,36 });
-	ball.PushBack({ 706, 869, 22,36 });
-	ball.PushBack({ 729, 878, 26,27 });
-	ball.PushBack({ 682, 913, 54,39 });
-	ball.PushBack({ 736, 905, 72,47 });
-	ball.PushBack({ 808, 921, 53,31 });
-	ball.PushBack({ 861, 931, 36,21 });
-	ball.PushBack({ 940, 613, 30,37 });
-	ball.PushBack({ 971, 613, 22,36 });
-	ball.PushBack({ 940, 665, 21,37 });
-	ball.PushBack({ 961, 666, 23,36 });
-	ball.PushBack({ 984, 666, 35,36 });
-
-	ball.speed = 0.05f;
+	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
+		active[i] = nullptr;
 }
 
 ModuleAnimationHaduken::~ModuleAnimationHaduken()
 {}
 
-// Load assets
-bool ModuleAnimationHaduken::Start()
-{
-	LOG("Loading player textures");
-	bool ret = true;
-	graphics = App->textures->Load("Ryo_SpriteSheet.png"); // arcade version
-	return ret;
+bool ModuleAnimationHaduken::Start() {
+	LOG("Loading particles");
+	graphics = App->textures->Load("Ryo_SpriteSheet.png");
+
+	Hadouken.anim.PushBack({ 682, 869, 25,36 });
+	Hadouken.anim.PushBack({ 706, 869, 22,36 });
+	Hadouken.anim.PushBack({ 729, 878, 26,27 });
+	Hadouken.anim.PushBack({ 682, 913, 54,39 });
+	Hadouken.anim.PushBack({ 736, 905, 72,47 });
+	Hadouken.anim.PushBack({ 808, 921, 53,31 });
+	Hadouken.anim.PushBack({ 861, 931, 36,21 });
+	Hadouken.anim.PushBack({ 940, 613, 30,37 });
+	Hadouken.anim.PushBack({ 971, 613, 22,36 });
+	Hadouken.anim.PushBack({ 940, 665, 21,37 });
+	Hadouken.anim.PushBack({ 961, 666, 23,36 });
+	Hadouken.anim.PushBack({ 984, 666, 35,36 });
+	Hadouken.anim.loop = true;
+	Hadouken.anim.speed = 0.2f;
+	Hadouken.life = 2000;
+	Hadouken.speed.x = +4;
+	Hadouken.speed.y = 0;
+	return true;
 }
 
-// Update: draw background
-update_status ModuleAnimationHaduken::Update()
+// Unload assets
+bool ModuleAnimationHaduken::CleanUp()
 {
-	Animation *current_animation = &idle;
-	float ballspeed = 1;
+	LOG("Unloading particles");
+	App->textures->Unload(graphics);
 
-	//////////////////////////////////////////////////////////////////////////
-	                                                  //special atack
-	if (App->input->keyboard[SDL_SCANCODE_I] == 1) {
-		current_animation = &ball;
-		ballposition.x += ballspeed;
+	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
+	{
+		if (active[i] != nullptr)
+		{
+			delete active[i];
+			active[i] = nullptr;
+		}
 	}
-	///////////////////////////////////////////////////////////////////////
-	
-	// Draw everything --------------------------------------
-	SDL_Rect r = current_animation->GetCurrentFrame();
 
-	App->render->Blit(graphics, position.x, position.y - r.h, &r);
+	return true;
+}
+
+update_status  ModuleAnimationHaduken::Update()
+{
+	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
+	{
+		Particle* p = active[i];
+
+		if (p == nullptr)
+			continue;
+
+		if (p->Update() == false)
+		{
+			delete p;
+			active[i] = nullptr;
+		}
+		else if (SDL_GetTicks() >= p->born)
+		{
+			App->render->Blit(graphics, p->position.x, p->position.y, &(p->anim.GetCurrentFrame()));
+			if (p->fx_played == false)
+			{
+				p->fx_played = true;
+				// Play particle fx here
+			}
+		}
+	}
 
 	return UPDATE_CONTINUE;
 }
+
+void ModuleAnimationHaduken::AddParticle(const Particle& particle, int x, int y, Uint32 delay)
+{
+	Particle* p = new Particle(particle);
+	p->born = SDL_GetTicks() + delay;
+	p->position.x = x;
+	p->position.y = y;
+
+	active[last_particle++] = p;
+}
+
+Particle::Particle()
+{
+	position.SetToZero();
+	speed.SetToZero();
+}
+
+Particle::Particle(const Particle& p) :
+	anim(p.anim), position(p.position), speed(p.speed),
+	fx(p.fx), born(p.born), life(p.life)
+{}
+
+bool Particle::Update()
+{
+	bool ret = true;
+
+	if (life > 0)
+	{
+		if ((SDL_GetTicks() - born) > life)
+			ret = false;
+	}
+	else
+		if (anim.Finished())
+			ret = false;
+
+	position.x += speed.x;
+	position.y += speed.y;
+
+	return ret;
+}
+
 
