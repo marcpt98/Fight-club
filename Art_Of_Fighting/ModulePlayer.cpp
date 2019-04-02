@@ -44,6 +44,19 @@ ModulePlayer::ModulePlayer()
 	backward.PushBack({ 636, 477, 54, 108 });
 	backward.speed = 0.07f;
 
+	//punch animation(arcade sprite sheet)
+
+	punch.PushBack({ 485, 350, 58, 106 });
+	punch.PushBack({ 543, 350, 89, 106 });
+	punch.speed = 0.1f;
+
+	//kick animation(arcade sprite sheet)
+	kick.PushBack({ 669, 238, 60, 110 });
+	kick.PushBack({ 729, 235, 61, 113 });
+	kick.PushBack({ 790, 235, 103, 113 });
+	kick.PushBack({ 893, 235, 61, 113 });
+	kick.speed = 0.15f;
+
 	//Hadouken animation
 
 	hadouken.PushBack({ 176, 882, 65, 103 });
@@ -56,7 +69,7 @@ ModulePlayer::ModulePlayer()
 
 	//ball animation
 
-	ball.PushBack({ 682, 869, 25,36 });
+	/*ball.PushBack({ 682, 869, 25,36 });
 	ball.PushBack({ 706, 869, 22,36 });
 	ball.PushBack({ 729, 878, 26,27 });
 	ball.PushBack({ 682, 913, 54,39 });
@@ -69,22 +82,7 @@ ModulePlayer::ModulePlayer()
 	ball.PushBack({ 961, 666, 23,36 });
 	ball.PushBack({ 984, 666, 35,36 });
 
-	ball.speed = 0.05f;
-
-
-	//punch animation(arcade sprite sheet)
-	
-	punch.PushBack({ 485, 350, 58, 106 });
-	punch.PushBack({ 543, 350, 89, 106 });
-	punch.speed = 0.1f;
-
-	//kick animation(arcade sprite sheet)
-	kick.PushBack({ 669, 238, 60, 110 });
-	kick.PushBack({ 729, 235, 61, 113 });
-	kick.PushBack({ 790, 235, 103, 113 });
-	kick.PushBack({ 893, 235, 61, 113 });
-	kick.speed = 0.15f;
-
+	ball.speed = 0.05f;*/
 
 }
 
@@ -105,8 +103,8 @@ update_status ModulePlayer::Update()
 {
 	Animation *current_animation = &idle;
 	float speed = 1;
+	float hadspeed = 1;
 	int inicial = 120;
-
 	if (App->input->keyboard[SDL_SCANCODE_D] == 1)
 	{
 		current_animation = &forward;
@@ -138,10 +136,10 @@ update_status ModulePlayer::Update()
 	{
 		current_animation = &hadouken;
 	}                                                           //special atack
-	if (App->input->keyboard[SDL_SCANCODE_I] == 1) {
-		current_animation = &ball;
-		position.x += speed;
-	}
+	//if (App->input->keyboard[SDL_SCANCODE_I] == 1) {
+	//	current_animation = &ball;
+	//	position.x += speed;
+	//}
 	///////////////////////////////////////////////////////////////////////
 	if (App->input->keyboard[SDL_SCANCODE_K] == 1)
 	{

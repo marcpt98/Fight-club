@@ -65,6 +65,9 @@
     <ClInclude Include="ModuleScenelevel_1.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleAnimationHaduken.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -107,6 +110,9 @@
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleScenelevel_1.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleAnimationHaduken.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>

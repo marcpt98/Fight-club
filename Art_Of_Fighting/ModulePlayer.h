@@ -26,7 +26,7 @@ public:
 	Animation backward;
 	iPoint position;
 	Animation hadouken;
-	Animation ball;
+	//Animation ball;
 	Animation punch;
 	Animation kick;
 
