@@ -60,9 +60,10 @@ ModulePlayer::ModulePlayer()
 	kick.PushBack({ 729, 235, 61, 113 });
 	kick.PushBack({ 790, 235, 103, 113 });
 	kick.PushBack({ 893, 235, 61, 113 });
+	kick.loop = false;
 	kick.speed = 0.15f;
 
-	//Hadouken animation
+	//Hadouken ryo animation
 
 	hadouken.PushBack({ 176, 882, 65, 103 });
 	hadouken.PushBack({ 242, 883, 88, 102 });
@@ -71,9 +72,6 @@ ModulePlayer::ModulePlayer()
 	hadouken.PushBack({ 496, 878, 102, 107 });
 
 	hadouken.speed = 0.15f;
-
-	//ball animation
-
 }
 
 ModulePlayer::~ModulePlayer()
@@ -132,31 +130,27 @@ update_status ModulePlayer::Update()
 		position.y++; position.y++; current_animation = &jump;
 	}
 	
+	if (App->input->keyboard[SDL_SCANCODE_R] == KEY_STATE::KEY_DOWN)
+	{
+		App->particles->AddParticle(App->particles->Hadouken, position.x+90, position.y-110);
+	}    
+
 	if (App->input->keyboard[SDL_SCANCODE_R] == KEY_STATE::KEY_REPEAT)
 	{
 		current_animation = &hadouken;
-	}                                                         
+	}
 	
 	if (App->input->keyboard[SDL_SCANCODE_K] == KEY_STATE::KEY_REPEAT)
 	{
 		current_animation = &punch;
-
 	}                                                      //normal atacks
 
 	if (App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_REPEAT)
 	{
 		current_animation = &kick;
-
 	}
+
 	////////////////////////////////////////////////////////////////
-
-
-	if (App->input->keyboard[SDL_SCANCODE_R] == KEY_STATE::KEY_REPEAT)
-	{
-		App->particles->AddParticle(App->particles->Hadouken, position.x +90, position.y-110);  // hadouken
-	}
-
-	///////////////////////////////////////////////////////////////////////
 
 	// Draw everything --------------------------------------
 	SDL_Rect r = current_animation->GetCurrentFrame();
