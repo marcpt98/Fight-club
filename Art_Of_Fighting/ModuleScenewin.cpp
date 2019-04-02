@@ -23,6 +23,9 @@ bool ModuleScenewin::Start()
 	bool ret = true;
  	graphics = App->textures->Load("Victory.png");
 
+	App->render->camera.x = 0;
+	App->render->camera.y = 0;
+
 	// TODO 1: Enable (and properly disable) the player module
 	//App->player->Enable();
 

@@ -29,6 +29,9 @@ bool ModuleWelcomeScreen::Start()
 
 	App->audio->PlayMusic(welcomeScreenMusic);
 
+	App->render->camera.x = 0;
+	App->render->camera.y = 0;
+
 	// TODO 1: Enable (and properly disable) the player module
 	//App->player->Enable();
 

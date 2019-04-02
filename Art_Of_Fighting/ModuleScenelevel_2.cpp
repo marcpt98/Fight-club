@@ -31,6 +31,9 @@ bool ModuleScenelevel_2::Start()
 	graphics = App->textures->Load("level_2.png");
 	Scene2_Fight = App->audio->LoadMusic("Scene2_Fight.ogg");
 	App->audio->PlayMusic(Scene2_Fight);
+
+	App->render->camera.x = 0;
+	App->render->camera.y = 0;
 	// TODO 1: Enable (and properly disable) the player module
 	App->player->Enable();
 

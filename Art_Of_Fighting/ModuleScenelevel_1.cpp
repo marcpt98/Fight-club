@@ -32,6 +32,9 @@ bool ModuleScenelevel_1::Start()
 	Scene1_Fight = App->audio->LoadMusic("Scene1_Fight.ogg");
 
 	App->audio->PlayMusic(Scene1_Fight);
+
+	App->render->camera.x = 0;
+	App->render->camera.y = 0;
 	// TODO 1: Enable (and properly disable) the player module
 	App->player->Enable();
 	return true;
