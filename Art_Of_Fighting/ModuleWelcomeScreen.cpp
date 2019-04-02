@@ -11,8 +11,9 @@
 
 ModuleWelcomeScreen::ModuleWelcomeScreen()
 {
-	Welcomeimage = { 0,0,304,224 };
-
+	Welcomeimage.PushBack({ 35, 22, 304, 224 });
+	Welcomeimage.PushBack({ 344, 22, 304, 224 });
+	Welcomeimage.speed = 0.05f;
 }
 
 
@@ -48,7 +49,7 @@ bool ModuleWelcomeScreen::CleanUp()
 update_status ModuleWelcomeScreen::Update()
 {
 	// Draw everything --------------------------------------	
-	App->render->Blit(graphics, 0, 0, &Welcomeimage);
+	App->render->Blit(graphics, 0, 0, &(Welcomeimage.GetCurrentFrame()));
 
 	// TODO 2: make so pressing SPACE the KEN stage is loaded
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)

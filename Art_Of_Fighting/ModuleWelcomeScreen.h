@@ -19,7 +19,7 @@ public:
 public:
 
 	SDL_Texture* graphics = nullptr;
-	SDL_Rect Welcomeimage;
+	Animation Welcomeimage;
 	int welcomeScreenMusic = 0;
 };
 #endif // __MODULEWELCOMESCREEN_H__
