@@ -11,6 +11,9 @@
 
 ModulePlayer::ModulePlayer()
 {
+	graphics = NULL;
+	current_animation = NULL;
+
 	position.x = 100;
 	position.y = 210;
 
@@ -85,6 +88,15 @@ bool ModulePlayer::Start()
 	return ret;
 }
 
+bool ModulePlayer::CleanUp()
+{
+	LOG("Unloading player");
+
+	App->textures->Unload(graphics);
+
+	return true;
+}
+
 // Update: draw background
 update_status ModulePlayer::Update()
 {
@@ -92,20 +104,21 @@ update_status ModulePlayer::Update()
 	float speed = 1;
 	float hadspeed = 1;
 	int inicial = 120;
-	if (App->input->keyboard[SDL_SCANCODE_D] == 1)
+
+	if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT)
 	{
 		current_animation = &forward;
 		position.x += speed;
 	}
 
-	if (App->input->keyboard[SDL_SCANCODE_A] == 1)
+	if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT)
 	{
 		current_animation = &backward;
 		position.x -= speed;
 	}
 
 	////////////////////////////////////////////////////////
-	if (App->input->keyboard[SDL_SCANCODE_W] == 1)
+	if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT)
 	{
 		App->input->j = 1;
 		current_animation = &jump;
@@ -128,13 +141,13 @@ update_status ModulePlayer::Update()
 	//	position.x += speed;
 	//}
 	///////////////////////////////////////////////////////////////////////
-	if (App->input->keyboard[SDL_SCANCODE_K] == 1)
+	if (App->input->keyboard[SDL_SCANCODE_K] == KEY_STATE::KEY_REPEAT)
 	{
 		current_animation = &punch;
 
 	}                                                      //normal atacks
 
-	if (App->input->keyboard[SDL_SCANCODE_J] == 1)
+	if (App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_DOWN)
 	{
 		current_animation = &kick;
 
