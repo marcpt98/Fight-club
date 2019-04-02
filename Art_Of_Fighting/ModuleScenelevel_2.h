@@ -1,5 +1,5 @@
-#ifndef __MODULESCENEHONDA_H__
-#define __MODULESCENEHONDA_H__
+#ifndef __MODULESCENELEVEL_2_H__
+#define __MODULESCENELEVEL_2_H__
 
 #include "Module.h"
 #include "Animation.h"
@@ -7,11 +7,11 @@
 
 struct SDL_Texture;
 
-class ModuleSceneHonda : public Module
+class ModuleScenelevel_2 : public Module
 {
 public:
-	ModuleSceneHonda();
-	~ModuleSceneHonda();
+	ModuleScenelevel_2();
+	~ModuleScenelevel_2();
 
 	bool Start();
 	update_status Update();
@@ -24,4 +24,4 @@ public:
 	int Scene2_Fight = 0;
 };
 
-#endif // __MODULESCENEHONDA_H__
+#endif // __MODULESCENELEVEL_2_H__

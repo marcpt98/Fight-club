@@ -1,5 +1,5 @@
-#ifndef __MODULESCENEKEN_H__
-#define __MODULESCENEKEN_H__
+#ifndef __MODULESCENELEVEL_1_H__
+#define __MODULESCENELEVEL_1_H__
 
 #include "Module.h"
 #include "Animation.h"
@@ -7,11 +7,11 @@
 
 struct SDL_Texture;
 
-class ModuleSceneKen : public Module
+class ModuleScenelevel_1 : public Module
 {
 public:
-	ModuleSceneKen();
-	~ModuleSceneKen();
+	ModuleScenelevel_1();
+	~ModuleScenelevel_1();
 
 	bool Start();
 	update_status Update();
@@ -28,4 +28,4 @@ public:
 	bool forward;
 };
 
-#endif // __MODULESCENEKEN_H__
+#endif // __MODULESCENELEVEL_1_H__
