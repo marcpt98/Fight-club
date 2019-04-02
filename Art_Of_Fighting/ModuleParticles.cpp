@@ -21,24 +21,28 @@ bool ModuleParticles::Start() {
 	LOG("Loading particles");
 	graphics = App->textures->Load("Ryo_SpriteSheet.png");
 
-	Hadouken.anim.PushBack({ 682, 869, 25,36 });	//First hadouken frame (hand, orange particles) (Starts on the second frame of Ryo hadouken animation)
-	Hadouken.anim.PushBack({ 706, 869, 22,36 });	//Second hadouken frame (hand, orange ball)
-	Hadouken.anim.PushBack({ 729, 878, 26,27 });	//Third hadouken frame (hand, bigger and whiter orange ball)
+	Hadouken1.anim.PushBack({ 682, 869, 25,36 });	//First hadouken frame (hand, orange particles) (Starts on the second frame of Ryo hadouken animation)
+	Hadouken2.anim.PushBack({ 706, 869, 22,36 });	//Second hadouken frame (hand, orange ball)
+	Hadouken3.anim.PushBack({ 729, 878, 26,27 });	//Third hadouken frame (hand, bigger and whiter orange ball)
 													//Still third hadouken frame (hand, bigger and whiter orange ball)
-	Hadouken.anim.PushBack({ 682, 913, 54,39 });	//Fourth hadouken frame (on Ryo, big blue ball) (ball start to move forward)
-	Hadouken.anim.PushBack({ 736, 905, 72,47 });	//Fifht hadouken frame (on Ryo, vey big blue ball)
-	Hadouken.anim.PushBack({ 808, 921, 53,31 });	//Six hadouken frame (almost out Ryo, blue ball moving forward)
-	Hadouken.anim.PushBack({ 861, 931, 36,21 });	//Seventh hadouken frame (out Ryo, little blue ball moving forward)
+	Hadouken4.anim.PushBack({ 682, 913, 54,39 });	//Fourth hadouken frame (on Ryo, big blue ball) (ball start to move forward)
+	Hadouken4.anim.PushBack({ 736, 905, 72,47 });	//Fifht hadouken frame (on Ryo, vey big blue ball)
+	Hadouken4.anim.PushBack({ 808, 921, 53,31 });	//Six hadouken frame (almost out Ryo, blue ball moving forward)
+	Hadouken4.anim.PushBack({ 861, 931, 36,21 });	//Seventh hadouken frame (out Ryo, little blue ball moving forward)
 	/*Hadouken.anim.PushBack({ 940, 613, 30,37 });	//Starts again with a big blue ball (loop to frame 4 to 7)
 	Hadouken.anim.PushBack({ 971, 613, 22,36 });	
 	Hadouken.anim.PushBack({ 940, 665, 21,37 });	
 	Hadouken.anim.PushBack({ 961, 666, 23,36 });	
 	Hadouken.anim.PushBack({ 984, 666, 35,36 });*/
-	Hadouken.anim.loop = true;
-	Hadouken.anim.speed = 0.2f;
-	Hadouken.life = 2000;
-	Hadouken.speed.x = +4;
-	Hadouken.speed.y = 0;
+	Hadouken4.anim.loop = true;
+	Hadouken1.anim.speed = 0.02f;
+	Hadouken2.anim.speed = 0.02f;
+	Hadouken3.anim.speed = 0.02f;
+	Hadouken4.anim.speed = 0.02f;
+	Hadouken1.life = 2000;
+	Hadouken4.life = 20000;
+	Hadouken4.speed.x = +1;
+	Hadouken4.speed.y = 0;
 
 	return true;
 }

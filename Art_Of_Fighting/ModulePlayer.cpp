@@ -71,7 +71,7 @@ ModulePlayer::ModulePlayer()
 	hadouken.PushBack({ 415, 888, 81, 97 });
 	hadouken.PushBack({ 496, 878, 102, 107 });
 
-	hadouken.speed = 0.15f;
+	hadouken.speed = 0.015f;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -132,12 +132,21 @@ update_status ModulePlayer::Update()
 	
 	if (App->input->keyboard[SDL_SCANCODE_R] == KEY_STATE::KEY_DOWN)
 	{
-		App->particles->AddParticle(App->particles->Hadouken, position.x+90, position.y-110);
+		App->particles->AddParticle(App->particles->Hadouken1, position.x+40, position.y-110);
+		App->particles->AddParticle(App->particles->Hadouken2, position.x+50, position.y-80);
+		App->particles->AddParticle(App->particles->Hadouken3, position.x+50, position.y-80);
+		App->particles->AddParticle(App->particles->Hadouken4, position.x+90, position.y-80);
 	}    
 
 	if (App->input->keyboard[SDL_SCANCODE_R] == KEY_STATE::KEY_REPEAT)
 	{
 		current_animation = &hadouken;
+
+		if (current_animation != &hadouken)
+		{
+			hadouken.Reset();
+			current_animation = &hadouken;
+		}
 	}
 	
 	if (App->input->keyboard[SDL_SCANCODE_K] == KEY_STATE::KEY_REPEAT)
