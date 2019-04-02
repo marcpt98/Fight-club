@@ -8,6 +8,7 @@
 #include "ModuleFadeToBlack.h"
 #include "ModuleScenewin.h"
 #include "ModuleWelcomeScreen.h"
+#include "ModuleScenelevel_2.h"
 
 ModuleScenewin::ModuleScenewin() {
 	winimage = { 0, 0,304,224 };
@@ -51,7 +52,7 @@ update_status ModuleScenewin::Update()
 	// TODO 2: make so pressing SPACE the KEN stage is loaded
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{
-		App->fade->FadeToBlack(App->scene_win, App->scene_Welcome, 2);
+		App->fade->FadeToBlack(App->scene_win, App->scene_Jack, 2);
 	}
 
 	return UPDATE_CONTINUE;

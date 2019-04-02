@@ -8,6 +8,7 @@
 #include "ModuleFadeToBlack.h"
 #include "ModuleScenelevel_2.h"
 #include "ModuleAudio.h"
+#include "ModuleSceneWin.h"
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
@@ -58,7 +59,7 @@ update_status ModuleScenelevel_1::Update()
 	// TODO 2: make so pressing SPACE the HONDA stage is loaded
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{
-		App->fade->FadeToBlack(App->scene_Todoh, App->scene_Jack, 2);
+		App->fade->FadeToBlack(App->scene_Todoh, App->scene_win, 2);
 	}
 
 

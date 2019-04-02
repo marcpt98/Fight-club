@@ -61,7 +61,7 @@ update_status ModuleScenelevel_2::Update()
 	// TODO 2: make so pressing SPACE the KEN stage is loaded
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{
-		App->fade->FadeToBlack(App->scene_Jack, App->scene_win, 2);
+		App->fade->FadeToBlack(App->scene_Jack, App->scene_Welcome, 2);
 	}
 
 	return UPDATE_CONTINUE;
