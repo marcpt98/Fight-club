@@ -21,7 +21,7 @@ ModulePlayer::ModulePlayer()
 	idle.PushBack({ 0, 10, 66, 106 });
 	idle.PushBack({ 66, 10, 67, 106 });
 	idle.PushBack({ 133, 9, 69, 107 });
-	idle.speed = 0.15f;
+	idle.speed = 0.13f;
 
 
 	//jump animation(arcade sprite sheet)
@@ -99,7 +99,7 @@ bool ModulePlayer::CleanUp()
 update_status ModulePlayer::Update()
 {
 	Animation *current_animation = &idle;
-	float speed = 2;
+	float speed = 1;
 	float hadspeed = 1;
 	int inicial = 120;
 
