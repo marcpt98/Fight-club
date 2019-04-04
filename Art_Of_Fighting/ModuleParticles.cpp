@@ -36,14 +36,11 @@ bool ModuleParticles::Start() {
 	Hadouken.anim.PushBack({ 984, 666, 35,36 });*/
 	Hadouken4.anim.loop = true;
 	Hadouken1.anim.speed = 0.02f;
-	Hadouken2.anim.speed = 0.02f;
-	Hadouken3.anim.speed = 0.02f;
+	Hadouken2.anim.speed = 0.2f;
+	Hadouken3.anim.speed = 0.2f;
 	Hadouken4.anim.speed = 0.02f;
-	Hadouken1.life = 2000;
-	Hadouken2.life = 2000;
-	Hadouken3.life = 2000;
-	Hadouken4.life = 20000;
-	Hadouken4.speed.x = +1;
+	Hadouken1.life = 100;
+	Hadouken4.speed.x = +3;
 	Hadouken4.speed.y = 0;
 
 	return true;

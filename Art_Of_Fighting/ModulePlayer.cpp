@@ -71,7 +71,7 @@ ModulePlayer::ModulePlayer()
 	hadouken.PushBack({ 415, 888, 81, 97 });
 	hadouken.PushBack({ 496, 878, 102, 107 });
 
-	hadouken.speed = 0.015f;
+	hadouken.speed = 0.15f;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -130,29 +130,46 @@ update_status ModulePlayer::Update()
 		position.y++; position.y++; current_animation = &jump;
 	}
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	if (App->input->keyboard[SDL_SCANCODE_R] == KEY_STATE::KEY_DOWN)                                               // HADOUKEN
+	if (App->input->keyboard[SDL_SCANCODE_R] == KEY_STATE::KEY_DOWN)                                          // HADOUKEN
 	{
 		App->particles->AddParticle(App->particles->Hadouken1, position.x - 10, position.y - 110);
-		App->particles->AddParticle(App->particles->Hadouken2, position.x-8, position.y-85);
-		App->particles->AddParticle(App->particles->Hadouken3, position.x-10, position.y-80);
-		App->particles->AddParticle(App->particles->Hadouken4, position.x, position.y-80);
+		App->particles->AddParticle(App->particles->Hadouken2, position.x-8, position.y-85,100);
+		App->particles->AddParticle(App->particles->Hadouken3, position.x-10, position.y-80,300);
+		App->particles->AddParticle(App->particles->Hadouken4, position.x-60, position.y-80,400);
 	}    
 
-	if (App->input->keyboard[SDL_SCANCODE_R] == KEY_STATE::KEY_REPEAT)
+	if (App->input->keyboard[SDL_SCANCODE_R] == KEY_STATE::KEY_DOWN && App->input->m == 0)
 	{
+		App->input->m = 1;
 		current_animation = &hadouken;
+	}
+	if (App->input->m == 1) {
 
-		if (current_animation != &hadouken)
-		{
+		current_animation = &hadouken;
+		time++;
+		if (time == 25) {
 			hadouken.Reset();
-			current_animation = &hadouken;
+			App->input->m = 0;
+			time = 0;
 		}
 	}
 	
-	if (App->input->keyboard[SDL_SCANCODE_K] == KEY_STATE::KEY_REPEAT)
+	if (App->input->keyboard[SDL_SCANCODE_K] == KEY_STATE::KEY_DOWN && App->input->l == 0)
 	{
+		App->input->l = 1;
 		current_animation = &punch;
-	}                                                      //normal atacks
+	}    
+	if (App->input->l == 1) {
+
+		current_animation = &punch;
+		time++;
+		if (time == 25) {
+			punch.Reset();
+			App->input->l = 0;
+			time = 0;
+		}
+	}
+                                                  //normal atacks
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 	if (App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_DOWN && App->input->k == 0)                                     //Kick
@@ -165,6 +182,7 @@ update_status ModulePlayer::Update()
 		current_animation = &kick;
 		time++;
 		if (time==25) {
+			kick.Reset();
 			App->input->k = 0;
 			time = 0;
 		}
