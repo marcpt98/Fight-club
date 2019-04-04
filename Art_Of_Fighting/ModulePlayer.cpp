@@ -104,7 +104,7 @@ bool ModulePlayer::CleanUp()
 update_status ModulePlayer::Update()
 {
 	Animation *current_animation = &idle;
-	float speed = 1;
+	float speed = 2;
 	float hadspeed = 1;
 	int inicial = 120;
 
