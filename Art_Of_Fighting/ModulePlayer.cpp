@@ -42,12 +42,17 @@ ModulePlayer::ModulePlayer()
 	forward.PushBack({ 897, 350, 67, 106 });
 	forward.speed = 0.1f;
 
-	// TODO 4: Make ryu walk backwards with the correct animations
+	//backawrd animation
 	backward.PushBack({ 577, 479, 60, 108 });
 	backward.PushBack({ 636, 477, 54, 108 });
 	backward.PushBack({ 690, 479, 61, 108 });
 	backward.PushBack({ 636, 477, 54, 108 });
 	backward.speed = 0.07f;
+
+	//crouch animation
+
+	crouch.PushBack({ 0, 503,60,83 });
+	crouch.PushBack({ 576, 42,67,74 });
 
 	//punch animation(arcade sprite sheet)
 
