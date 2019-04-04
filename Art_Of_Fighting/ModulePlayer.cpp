@@ -93,7 +93,8 @@ bool ModulePlayer::Start()
 	ryokick = App->audio->LoadFX("ryo_kick.wav");
 	ryopunch = App->audio->LoadFX("Ryo_punch.wav");
 	ryojump = App->audio->LoadFX("Ryojump.wav");
-	
+	ryoKoOuKen= App->audio->LoadFX("Ryo_KoOuKen.wav");
+	ryoKoOuKensound= App->audio->LoadFX("ryoKoOuKensound.wav");
 	return ret;
 }
 
@@ -152,8 +153,11 @@ update_status ModulePlayer::Update()
 
 	if (App->input->keyboard[SDL_SCANCODE_R] == KEY_STATE::KEY_DOWN && App->input->m == 0)
 	{
+		App->audio->PlayFX(ryoKoOuKen);
+		App->audio->PlayFX(ryoKoOuKensound);
 		App->input->m = 1;
 		current_animation = &hadouken;
+		
 	}
 	if (App->input->m == 1) {
 

@@ -36,6 +36,8 @@ public:
 	int ryokick = 0;
 	int ryopunch = 0;
 	int ryojump = 0;
+	int ryoKoOuKen = 0;
+	int ryoKoOuKensound = 0;
 };
 
 #endif
