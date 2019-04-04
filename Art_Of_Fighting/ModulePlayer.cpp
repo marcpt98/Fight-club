@@ -132,10 +132,10 @@ update_status ModulePlayer::Update()
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	if (App->input->keyboard[SDL_SCANCODE_R] == KEY_STATE::KEY_DOWN)                                               // HADOUKEN
 	{
-		App->particles->AddParticle(App->particles->Hadouken1, position.x+40, position.y-110);
-		App->particles->AddParticle(App->particles->Hadouken2, position.x+50, position.y-80);
-		App->particles->AddParticle(App->particles->Hadouken3, position.x+50, position.y-80);
-		App->particles->AddParticle(App->particles->Hadouken4, position.x+90, position.y-80);
+		App->particles->AddParticle(App->particles->Hadouken1, position.x - 10, position.y - 110);
+		App->particles->AddParticle(App->particles->Hadouken2, position.x-8, position.y-85);
+		App->particles->AddParticle(App->particles->Hadouken3, position.x-10, position.y-80);
+		App->particles->AddParticle(App->particles->Hadouken4, position.x, position.y-80);
 	}    
 
 	if (App->input->keyboard[SDL_SCANCODE_R] == KEY_STATE::KEY_REPEAT)
@@ -164,7 +164,7 @@ update_status ModulePlayer::Update()
 		
 		current_animation = &kick;
 		time++;
-		if (time==22) {
+		if (time==25) {
 			App->input->k = 0;
 			time = 0;
 		}
