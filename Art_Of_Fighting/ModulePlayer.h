@@ -34,6 +34,7 @@ public:
 	Animation kick;
 	int time =0;
 	int ryokick = 0;
+	int ryopunch = 0;
 };
 
 #endif

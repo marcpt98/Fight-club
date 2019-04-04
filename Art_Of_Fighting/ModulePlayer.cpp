@@ -91,7 +91,7 @@ bool ModulePlayer::Start()
 	graphics = App->textures->Load("Ryo_SpriteSheet.png"); // arcade version
 
 	ryokick = App->audio->LoadFX("ryo_kick.wav");
-
+	ryopunch = App->audio->LoadFX("Ryo_punch.wav");
 	
 	return ret;
 }
@@ -166,6 +166,7 @@ update_status ModulePlayer::Update()
 	
 	if (App->input->keyboard[SDL_SCANCODE_K] == KEY_STATE::KEY_DOWN && App->input->l == 0)
 	{
+		App->audio->PlayFX(ryopunch);
 		App->input->l = 1;
 		current_animation = &punch;
 	}    
