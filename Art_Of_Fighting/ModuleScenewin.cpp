@@ -4,6 +4,7 @@
 #include "ModuleRender.h"
 #include "ModuleScenelevel_1.h"
 #include "ModulePlayer.h"
+#include "ModulePlayer2.h"
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleScenewin.h"
@@ -29,7 +30,7 @@ bool ModuleScenewin::Start()
 
 	// TODO 1: Enable (and properly disable) the player module
 	//App->player->Enable();
-
+	
 	return ret;
 }
 
@@ -40,6 +41,7 @@ bool ModuleScenewin::CleanUp()
 	//SDL_DestroyTexture(graphics);
 	LOG("Unloading honda stage");
 	App->player->Disable();
+	App->player2->Disable();
 	App->textures->Unload(graphics);
 	return true;
 }

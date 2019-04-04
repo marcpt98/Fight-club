@@ -11,6 +11,7 @@
 #include "ModuleScenewin.h"
 #include "ModuleAudio.h"
 #include "ModuleParticles.h"
+#include "ModulePlayer2.h"
 
 Application::Application()
 {
@@ -26,6 +27,7 @@ Application::Application()
 	modules[9] = particles = new ModuleParticles();
 	modules[10] = fade = new ModuleFadeToBlack();
 	modules[11] = audio = new ModuleAudio();
+	modules[12] = player2 = new ModulePlayer2();
 	
 }	
 
@@ -41,6 +43,7 @@ bool Application::Init()
 
 	// Player will be enabled on the first update of a new scene
 	player->Disable();
+	player2->Disable();
 	// Disable the map that you do not start with
 	scene_Jack->Disable();
 	scene_Todoh-> Disable();

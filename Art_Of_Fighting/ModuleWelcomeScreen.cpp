@@ -8,6 +8,7 @@
 #include "ModuleFadeToBlack.h"
 #include "ModuleScenelevel_1.h"
 #include "ModuleAudio.h"
+#include "ModulePlayer2.h"
 
 ModuleWelcomeScreen::ModuleWelcomeScreen()
 {
@@ -34,7 +35,7 @@ bool ModuleWelcomeScreen::Start()
 
 	// TODO 1: Enable (and properly disable) the player module
 	//App->player->Enable();
-
+	
 	return ret;
 }
 
@@ -44,6 +45,7 @@ bool ModuleWelcomeScreen::CleanUp()
 	//SDL_DestroyTexture(graphics);
 	LOG("Unloading honda stage");
 	App->player->Disable();
+	App->player2->Disable();
 	App->textures->Unload(graphics);
 	App->audio->UnLoadMusic(welcomeScreenMusic);
 	return true;

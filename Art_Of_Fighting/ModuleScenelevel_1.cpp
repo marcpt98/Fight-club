@@ -9,6 +9,7 @@
 #include "ModuleScenelevel_2.h"
 #include "ModuleAudio.h"
 #include "ModuleSceneWin.h"
+#include "ModulePlayer2.h"
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
@@ -38,6 +39,7 @@ bool ModuleScenelevel_1::Start()
 	App->render->camera.y = 0;
 	// TODO 1: Enable (and properly disable) the player module
 	App->player->Enable();
+	App->player2->Enable();
 	return true;
 }
 
@@ -46,6 +48,7 @@ bool ModuleScenelevel_1::CleanUp()
 {
 	LOG("Unloading ken scene");
 	App->player->Disable();
+	App->player2->Disable();
 	App->textures->Unload(graphics);
 	App->audio->UnLoadMusic(Scene1_Fight);
 	return true;

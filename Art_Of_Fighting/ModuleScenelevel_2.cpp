@@ -9,6 +9,8 @@
 #include "ModuleWelcomeScreen.h"
 #include "ModuleScenewin.h"
 #include "ModuleAudio.h"
+#include "ModulePlayer2.h"
+
 // Reference at https://youtu.be/6OlenbCC4WI?t=382
 
 ModuleScenelevel_2::ModuleScenelevel_2()
@@ -36,7 +38,7 @@ bool ModuleScenelevel_2::Start()
 	App->render->camera.y = 0;
 	// TODO 1: Enable (and properly disable) the player module
 	App->player->Enable();
-
+	App->player2->Enable();
 
 	return ret;
 }
@@ -48,6 +50,7 @@ bool ModuleScenelevel_2::CleanUp()
 	//SDL_DestroyTexture(graphics);
 	LOG("Unloading honda stage");
 	App->player->Disable();
+	App->player2->Disable();
 	App->textures->Unload(graphics);
 	App->audio->UnLoadMusic(Scene2_Fight);
 	return true;

@@ -1,5 +1,5 @@
-#ifndef __ModulePlayer_H__
-#define __ModulePlayer_H__
+#ifndef __ModulePlayer2_H__
+#define __ModulePlayer2_H__
 
 #include "Module.h"
 #include "Animation.h"
@@ -8,11 +8,11 @@
 
 struct SDL_Texture;
 
-class ModulePlayer : public Module
+class ModulePlayer2 : public Module
 {
 public:
-	ModulePlayer();
-	~ModulePlayer();
+	ModulePlayer2();
+	~ModulePlayer2();
 
 	bool Start();
 	update_status Update();
@@ -20,18 +20,18 @@ public:
 
 public:
 
-	SDL_Texture* graphics = nullptr;
+	SDL_Texture * graphics = nullptr;
+	iPoint position;
 	Animation* current_animation = nullptr;
 	Animation idle;
-	Animation jump;
+	/*Animation jump;
 	Animation forward;
 	Animation backward;
-	iPoint position;
 	Animation hadouken;
 	//Animation ball;
 	Animation punch;
 	Animation kick;
-	int time =0;
+	int time = 0;*/
 };
 
 #endif
