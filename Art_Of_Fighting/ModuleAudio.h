@@ -25,7 +25,7 @@ public:
 
 private:
 	Mix_Music * Musics[MAX_AUDIO];
-	Mix_Music * FX[MAX_AUDIO];
+	Mix_Chunk * FX[MAX_AUDIO];
 
 	int lastMusic = 0;
 	int lastFX = 0;

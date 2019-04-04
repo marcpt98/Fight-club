@@ -5,6 +5,7 @@
 #include "ModuleInput.h"
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
+#include "ModuleAudio.h"
 
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
@@ -88,6 +89,10 @@ bool ModulePlayer::Start()
 	LOG("Loading player textures");
 	bool ret = true;
 	graphics = App->textures->Load("Ryo_SpriteSheet.png"); // arcade version
+
+	ryokick = App->audio->LoadFX("ryo_kick.wav");
+
+	
 	return ret;
 }
 
@@ -181,6 +186,7 @@ update_status ModulePlayer::Update()
 	{
 		App->input->k = 1;
 		current_animation = &kick;
+		App->audio->PlayFX(ryokick);
 	}
 	if (App->input->k == 1) {
 		
