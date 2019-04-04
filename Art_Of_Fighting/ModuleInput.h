@@ -29,6 +29,7 @@ public:
 public:
 	KEY_STATE keyboard[MAX_KEYS];
 	int j = 0;
+	int k = 0;
 };
 
 #endif // __ModuleInput_H__

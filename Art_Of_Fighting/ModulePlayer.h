@@ -31,6 +31,7 @@ public:
 	//Animation ball;
 	Animation punch;
 	Animation kick;
+	int time =0 ;
 };
 
 #endif

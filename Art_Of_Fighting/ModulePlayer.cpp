@@ -60,7 +60,7 @@ ModulePlayer::ModulePlayer()
 	kick.PushBack({ 729, 235, 61, 113 });
 	kick.PushBack({ 790, 235, 103, 113 });
 	kick.PushBack({ 893, 235, 61, 113 });
-	kick.loop = false;
+
 	kick.speed = 0.15f;
 
 	//Hadouken ryo animation
@@ -115,8 +115,8 @@ update_status ModulePlayer::Update()
 		position.x -= speed;
 	}
 
-	///////////////////////////////////////////////////////////////////////////////////////////////
-	if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN && position.y == 210)         //        JUMP
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN && position.y == 210)                             //   JUMP
 	{
 		App->input->j = 1;
 		current_animation = &jump;
@@ -129,8 +129,8 @@ update_status ModulePlayer::Update()
 	if (App->input->j == 0 && position.y != 210) {
 		position.y++; position.y++; current_animation = &jump;
 	}
-	////////////////////////////////////////////////////////////////////////////////////////////////
-	if (App->input->keyboard[SDL_SCANCODE_R] == KEY_STATE::KEY_DOWN)
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	if (App->input->keyboard[SDL_SCANCODE_R] == KEY_STATE::KEY_DOWN)                                               // HADOUKEN
 	{
 		App->particles->AddParticle(App->particles->Hadouken1, position.x+40, position.y-110);
 		App->particles->AddParticle(App->particles->Hadouken2, position.x+50, position.y-80);
@@ -154,12 +154,23 @@ update_status ModulePlayer::Update()
 		current_animation = &punch;
 	}                                                      //normal atacks
 
-	if (App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_REPEAT)
+	//////////////////////////////////////////////////////////////////////////////////////////////////////
+	if (App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_DOWN && App->input->k == 0)                                     //Kick
 	{
+		App->input->k = 1;
 		current_animation = &kick;
 	}
+	if (App->input->k == 1) {
+		
+		current_animation = &kick;
+		time++;
+		if (time==22) {
+			App->input->k = 0;
+			time = 0;
+		}
+	}
 
-	////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Draw everything --------------------------------------
 	SDL_Rect r = current_animation->GetCurrentFrame();
