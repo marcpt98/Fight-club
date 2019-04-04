@@ -35,6 +35,7 @@ public:
 	int time =0;
 	int ryokick = 0;
 	int ryopunch = 0;
+	int ryojump = 0;
 };
 
 #endif

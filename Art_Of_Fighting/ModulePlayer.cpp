@@ -92,6 +92,7 @@ bool ModulePlayer::Start()
 
 	ryokick = App->audio->LoadFX("ryo_kick.wav");
 	ryopunch = App->audio->LoadFX("Ryo_punch.wav");
+	ryojump = App->audio->LoadFX("Ryojump.wav");
 	
 	return ret;
 }
@@ -126,8 +127,9 @@ update_status ModulePlayer::Update()
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN && position.y == 210)                             //   JUMP
+	if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN && position.y == 210)                             //   JUMP  
 	{
+		App->audio->PlayFX(ryojump);
 		App->input->j = 1;
 		current_animation = &jump;
 	}
