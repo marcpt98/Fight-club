@@ -31,7 +31,6 @@ public:
 	//Animation ball;
 	Animation punch;
 	Animation kick;
-
 };
 
 #endif

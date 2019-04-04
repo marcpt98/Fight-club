@@ -115,21 +115,21 @@ update_status ModulePlayer::Update()
 		position.x -= speed;
 	}
 
-	////////////////////////////////////////////////////////
-	if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT)
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN && position.y == 210)         //        JUMP
 	{
 		App->input->j = 1;
 		current_animation = &jump;
-
 	}
+
 	if (App->input->j == 1) {
-		position.y--; position.y = position.y - 0.5; current_animation = &jump;
+		position.y--; position.y = position.y - 0.5; current_animation = &jump;               
 	}
 	if (position.y == 120) { App->input->j = 0; }
 	if (App->input->j == 0 && position.y != 210) {
 		position.y++; position.y++; current_animation = &jump;
 	}
-	
+	////////////////////////////////////////////////////////////////////////////////////////////////
 	if (App->input->keyboard[SDL_SCANCODE_R] == KEY_STATE::KEY_DOWN)
 	{
 		App->particles->AddParticle(App->particles->Hadouken1, position.x+40, position.y-110);
