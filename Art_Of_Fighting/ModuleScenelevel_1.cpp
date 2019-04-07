@@ -50,6 +50,7 @@ bool ModuleScenelevel_1::CleanUp()
 	App->player->Disable();
 	App->player2->Disable();
 	App->textures->Unload(graphics);
+	
 	App->audio->UnLoadMusic(Scene1_Fight);
 	return true;
 }

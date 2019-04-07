@@ -241,5 +241,6 @@ update_status ModulePlayer::Update()
 
 	ryohitbox->SetPos(position.x, position.y - r.h);
 
+
 	return UPDATE_CONTINUE;
 }

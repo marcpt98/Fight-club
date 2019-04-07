@@ -54,7 +54,8 @@ public:
 	Particle Hadouken1;
 	Particle Hadouken2;
 	Particle Hadouken3;
-	Particle Hadouken4;
+	Particle Hadouken4;/*
+	Collider *hadukenhitbox;*/
 };
 
 #endif
