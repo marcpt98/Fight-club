@@ -24,6 +24,7 @@ public:
 	iPoint position;
 	Animation* current_animation = nullptr;
 	Animation idle;
+	Collider *playerhitbox;
 	/*Animation jump;
 	Animation forward;
 	Animation backward;

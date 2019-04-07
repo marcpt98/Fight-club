@@ -14,8 +14,7 @@ ModulePlayer2::ModulePlayer2()
 	graphics = NULL;
 	current_animation = NULL;
 
-	position.x = 200;
-	position.y = 210;
+	
 
 	// idle animation (arcade sprite sheet)
 	idle.PushBack({ 0, 10, 66, 106 });
@@ -84,6 +83,11 @@ bool ModulePlayer2::Start()
 	LOG("Loading player textures");
 	bool ret = true;
 	graphics = App->textures->Load("Ryo_SpriteSheet.png"); // arcade version
+
+	position.x = 200;
+	position.y = 210;
+
+	playerhitbox = App->collision->AddCollider({ position.x,position.y, 50, 97 }, COLLIDER_WALL);
 	return ret;
 }
 
@@ -192,9 +196,13 @@ update_status ModulePlayer2::Update()
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Draw everything --------------------------------------
+
 	SDL_Rect r = current_animation->GetCurrentFrame();
 
 	App->render->Blit(graphics, position.x, position.y - r.h, &r);
 
+	playerhitbox->SetPos(position.x, position.y - r.h);
+
+	
 	return UPDATE_CONTINUE;
 }
