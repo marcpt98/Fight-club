@@ -26,7 +26,8 @@ public:
 	Animation jump;
 	Animation forward;
 	Animation backward;
-	Animation crouch;
+	Animation crouch1;
+	Animation crouch2;
 	iPoint position;
 	Animation hadouken;
 	//Animation ball;

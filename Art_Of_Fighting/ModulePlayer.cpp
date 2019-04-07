@@ -52,8 +52,8 @@ ModulePlayer::ModulePlayer()
 
 	//crouch animation
 
-	crouch.PushBack({ 0, 503,60,83 });
-	crouch.PushBack({ 576, 42,67,74 });
+	crouch1.PushBack({ 0, 503,60,83 });
+	crouch2.PushBack({ 576, 42,67,74 });
 
 	//punch animation(arcade sprite sheet)
 
@@ -78,6 +78,12 @@ ModulePlayer::ModulePlayer()
 	hadouken.PushBack({ 496, 878, 102, 107 });
 
 	hadouken.speed = 0.15f;
+
+	// crouch animation
+	crouch1.PushBack({ 0, 503,60,83 });
+	crouch2.PushBack({ 576, 42,67,74 });
+	crouch1.speed = 0.1f;
+	crouch2.speed = 0.1f;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -124,6 +130,11 @@ update_status ModulePlayer::Update()
 	}
 	///////////////////////////////////////////////////////////////////////////////////
 
+	if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT)
+	{
+		current_animation = &crouch1;
+		current_animation = &crouch2;
+	}
 
 	if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT)
 	{
@@ -155,10 +166,10 @@ update_status ModulePlayer::Update()
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	if (App->input->keyboard[SDL_SCANCODE_R] == KEY_STATE::KEY_DOWN)                                          // HADOUKEN
 	{
-		App->particles->AddParticle(App->particles->Hadouken1, position.x - 10, position.y - 110);
-		App->particles->AddParticle(App->particles->Hadouken2, position.x-8, position.y-85,100);
-		App->particles->AddParticle(App->particles->Hadouken3, position.x-10, position.y-80,300);
-		App->particles->AddParticle(App->particles->Hadouken4, position.x-60, position.y-80,400);
+		App->particles->AddParticle(App->particles->Hadouken1, position.x - 10, position.y - 110,COLLIDER_PLAYER_SHOT);
+		App->particles->AddParticle(App->particles->Hadouken2, position.x-8, position.y-85, COLLIDER_PLAYER_SHOT,100);
+		App->particles->AddParticle(App->particles->Hadouken3, position.x-10, position.y-80, COLLIDER_PLAYER_SHOT,300);
+		App->particles->AddParticle(App->particles->Hadouken4, position.x-60, position.y-80, COLLIDER_PLAYER_SHOT,400);
 	}    
 
 	if (App->input->keyboard[SDL_SCANCODE_R] == KEY_STATE::KEY_DOWN && App->input->m == 0)
