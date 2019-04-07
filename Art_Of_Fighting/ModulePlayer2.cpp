@@ -23,6 +23,7 @@ ModulePlayer2::ModulePlayer2()
 	idle.PushBack({ 133, 9, 69, 107 });
 	idle.speed = 0.15f;
 
+	
 
 	//jump animation(arcade sprite sheet)
 	/*jump.PushBack({ 0,504,60,82 });

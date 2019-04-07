@@ -6,7 +6,8 @@
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
 #include "ModuleAudio.h"
-
+#include "ModuleCollision.h"
+#include "ModuleFadeToBlack.h"
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
@@ -15,8 +16,7 @@ ModulePlayer::ModulePlayer()
 	graphics = NULL;
 	current_animation = NULL;
 
-	position.x = 100;
-	position.y = 210;
+
 
 	// idle animation (arcade sprite sheet)
 	idle.PushBack({ 0, 10, 66, 106 });
@@ -101,6 +101,10 @@ bool ModulePlayer::Start()
 	ryojump = App->audio->LoadFX("Ryojump.wav");
 	ryoKoOuKen= App->audio->LoadFX("Ryo_KoOuKen.wav");
 	ryoKoOuKensound= App->audio->LoadFX("ryoKoOuKensound.wav");
+
+	position.x = 100;
+	position.y = 210;
+	ryohitbox=App->collision->AddCollider({position.x,position.y, 50, 97 }, COLLIDER_PLAYER);
 	return ret;
 }
 
@@ -149,6 +153,7 @@ update_status ModulePlayer::Update()
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
 	if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN && position.y == 210)                             //   JUMP  
 	{
 		App->audio->PlayFX(ryojump);
@@ -233,6 +238,8 @@ update_status ModulePlayer::Update()
 	SDL_Rect r = current_animation->GetCurrentFrame();
 
 	App->render->Blit(graphics, position.x, position.y - r.h, &r);
+
+	ryohitbox->SetPos(position.x, position.y - r.h);
 
 	return UPDATE_CONTINUE;
 }

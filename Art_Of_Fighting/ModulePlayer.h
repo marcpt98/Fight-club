@@ -33,6 +33,8 @@ public:
 	//Animation ball;
 	Animation punch;
 	Animation kick;
+	Collider *ryohitbox;
+
 	int time =0;
 	int ryokick = 0;
 	int ryopunch = 0;
