@@ -21,18 +21,28 @@ public:
 public:
 
 	SDL_Texture * graphics = nullptr;
-	iPoint position;
 	Animation* current_animation = nullptr;
+	Collider *ryohitbox;
+	iPoint position;
 	Animation idle;
-	Collider *playerhitbox;
+
 	/*Animation jump;
 	Animation forward;
 	Animation backward;
+	Animation crouch1;
+	Animation crouch2;
 	Animation hadouken;
 	//Animation ball;
 	Animation punch;
 	Animation kick;
-	int time = 0;*/
+	
+
+	int time = 0;
+	int ryokick = 0;
+	int ryopunch = 0;
+	int ryojump = 0;
+	int ryoKoOuKen = 0;
+	int ryoKoOuKensound = 0;*/
 };
 
 #endif

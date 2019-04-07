@@ -5,7 +5,9 @@
 #include "ModuleInput.h"
 #include "ModuleRender.h"
 #include "ModulePlayer2.h"
-
+#include "ModuleAudio.h"
+#include "ModuleCollision.h"
+#include "ModuleFadeToBlack.h"
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
@@ -14,15 +16,14 @@ ModulePlayer2::ModulePlayer2()
 	graphics = NULL;
 	current_animation = NULL;
 
-	
+
 
 	// idle animation (arcade sprite sheet)
 	idle.PushBack({ 0, 10, 66, 106 });
 	idle.PushBack({ 66, 10, 67, 106 });
 	idle.PushBack({ 133, 9, 69, 107 });
-	idle.speed = 0.15f;
+	idle.speed = 0.13f;
 
-	
 
 	//jump animation(arcade sprite sheet)
 	/*jump.PushBack({ 0,504,60,82 });
@@ -42,12 +43,17 @@ ModulePlayer2::ModulePlayer2()
 	forward.PushBack({ 897, 350, 67, 106 });
 	forward.speed = 0.1f;
 
-	// TODO 4: Make ryu walk backwards with the correct animations
+	//backawrd animation
 	backward.PushBack({ 577, 479, 60, 108 });
 	backward.PushBack({ 636, 477, 54, 108 });
 	backward.PushBack({ 690, 479, 61, 108 });
 	backward.PushBack({ 636, 477, 54, 108 });
 	backward.speed = 0.07f;
+
+	//crouch animation
+
+	crouch1.PushBack({ 0, 503,60,83 });
+	crouch2.PushBack({ 576, 42,67,74 });
 
 	//punch animation(arcade sprite sheet)
 
@@ -71,7 +77,13 @@ ModulePlayer2::ModulePlayer2()
 	hadouken.PushBack({ 415, 888, 81, 97 });
 	hadouken.PushBack({ 496, 878, 102, 107 });
 
-	hadouken.speed = 0.15f;*/
+	hadouken.speed = 0.15f;
+
+	// crouch animation
+	crouch1.PushBack({ 0, 503,60,83 });
+	crouch2.PushBack({ 576, 42,67,74 });
+	crouch1.speed = 0.1f;
+	crouch2.speed = 0.1f;*/
 }
 
 ModulePlayer2::~ModulePlayer2()
@@ -84,10 +96,15 @@ bool ModulePlayer2::Start()
 	bool ret = true;
 	graphics = App->textures->Load("Ryo_SpriteSheet.png"); // arcade version
 
+	/*ryokick = App->audio->LoadFX("ryo_kick.wav");
+	ryopunch = App->audio->LoadFX("Ryo_punch.wav");
+	ryojump = App->audio->LoadFX("Ryojump.wav");
+	ryoKoOuKen = App->audio->LoadFX("Ryo_KoOuKen.wav");
+	ryoKoOuKensound = App->audio->LoadFX("ryoKoOuKensound.wav");*/
+
 	position.x = 200;
 	position.y = 210;
-
-	playerhitbox = App->collision->AddCollider({ position.x,position.y, 50, 97 }, COLLIDER_WALL);
+	ryohitbox = App->collision->AddCollider({ position.x,position.y, 50, 97 }, COLLIDER_ENEMY);
 	return ret;
 }
 
@@ -108,7 +125,22 @@ update_status ModulePlayer2::Update()
 	float hadspeed = 1;
 	int inicial = 120;
 
-	/*if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT)
+	////////////////////////////////////////////////////////////////////////////////////  Camera LIMITS
+	if (position.x < 0) {
+		position.x = position.x + 2;
+	}
+	if (position.x > 552) {
+		position.x = position.x - 2;
+	}
+	///////////////////////////////////////////////////////////////////////////////////
+
+	/*if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT)
+	{
+		current_animation = &crouch1;
+		current_animation = &crouch2;
+	}
+
+	if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT)
 	{
 		current_animation = &forward;
 		position.x += speed;
@@ -121,8 +153,10 @@ update_status ModulePlayer2::Update()
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN && position.y == 210)                             //   JUMP
+
+	if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN && position.y == 210)                             //   JUMP  
 	{
+		App->audio->PlayFX(ryojump);
 		App->input->j = 1;
 		current_animation = &jump;
 	}
@@ -137,16 +171,19 @@ update_status ModulePlayer2::Update()
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	if (App->input->keyboard[SDL_SCANCODE_R] == KEY_STATE::KEY_DOWN)                                          // HADOUKEN
 	{
-		App->particles->AddParticle(App->particles->Hadouken1, position.x - 10, position.y - 110);
-		App->particles->AddParticle(App->particles->Hadouken2, position.x - 8, position.y - 85, 100);
-		App->particles->AddParticle(App->particles->Hadouken3, position.x - 10, position.y - 80, 300);
-		App->particles->AddParticle(App->particles->Hadouken4, position.x - 60, position.y - 80, 400);
+		App->particles->AddParticle(App->particles->Hadouken1, position.x - 10, position.y - 110, COLLIDER_PLAYER_SHOT);
+		App->particles->AddParticle(App->particles->Hadouken2, position.x - 8, position.y - 85, COLLIDER_PLAYER_SHOT, 100);
+		App->particles->AddParticle(App->particles->Hadouken3, position.x - 10, position.y - 80, COLLIDER_PLAYER_SHOT, 300);
+		App->particles->AddParticle(App->particles->Hadouken4, position.x - 60, position.y - 80, COLLIDER_PLAYER_SHOT, 400);
 	}
 
 	if (App->input->keyboard[SDL_SCANCODE_R] == KEY_STATE::KEY_DOWN && App->input->m == 0)
 	{
+		App->audio->PlayFX(ryoKoOuKen);
+		App->audio->PlayFX(ryoKoOuKensound);
 		App->input->m = 1;
 		current_animation = &hadouken;
+
 	}
 	if (App->input->m == 1) {
 
@@ -161,6 +198,7 @@ update_status ModulePlayer2::Update()
 
 	if (App->input->keyboard[SDL_SCANCODE_K] == KEY_STATE::KEY_DOWN && App->input->l == 0)
 	{
+		App->audio->PlayFX(ryopunch);
 		App->input->l = 1;
 		current_animation = &punch;
 	}
@@ -181,6 +219,7 @@ update_status ModulePlayer2::Update()
 	{
 		App->input->k = 1;
 		current_animation = &kick;
+		App->audio->PlayFX(ryokick);
 	}
 	if (App->input->k == 1) {
 
@@ -196,13 +235,12 @@ update_status ModulePlayer2::Update()
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Draw everything --------------------------------------
-
 	SDL_Rect r = current_animation->GetCurrentFrame();
 
 	App->render->Blit(graphics, position.x, position.y - r.h, &r);
 
-	playerhitbox->SetPos(position.x, position.y - r.h);
+	ryohitbox->SetPos(position.x, position.y - r.h);
 
-	
+
 	return UPDATE_CONTINUE;
 }
