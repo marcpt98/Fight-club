@@ -10,6 +10,8 @@
 #include "ModuleScenewin.h"
 #include "ModuleAudio.h"
 #include "ModulePlayer2.h"
+#include "ModuleCollision.h"
+
 
 // Reference at https://youtu.be/6OlenbCC4WI?t=382
 
@@ -39,6 +41,7 @@ bool ModuleScenelevel_2::Start()
 	// TODO 1: Enable (and properly disable) the player module
 	App->player->Enable();
 	App->player2->Enable();
+	App->collision->Enable();
 
 	return ret;
 }
@@ -53,6 +56,7 @@ bool ModuleScenelevel_2::CleanUp()
 	App->player2->Disable();
 	App->textures->Unload(graphics);
 	App->audio->UnLoadMusic(Scene2_Fight);
+	App->collision->Disable();
 	return true;
 }
 
