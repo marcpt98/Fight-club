@@ -115,6 +115,16 @@ update_status ModulePlayer::Update()
 	float hadspeed = 1;
 	int inicial = 120;
 
+	////////////////////////////////////////////////////////////////////////////////////  Camera LIMITS
+	if (position.x < 0) {
+		position.x = position.x + 2;
+	}
+	if (position.x > 552) {
+		position.x = position.x - 2;
+	}
+	///////////////////////////////////////////////////////////////////////////////////
+
+
 	if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT)
 	{
 		current_animation = &forward;
