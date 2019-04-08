@@ -231,6 +231,18 @@ update_status ModulePlayer::Update()
 			time = 0;
 		}
 	}
+	if (App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN)
+	{
+		int a = 0;
+
+		if (a == 0) {
+			App->collision->Enable();
+		}
+		if (a == 1) {
+			App->collision->Disable();
+			a = 0;
+		}
+	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 
