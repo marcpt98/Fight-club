@@ -104,7 +104,7 @@ bool ModulePlayer2::Start()
 
 	position.x = 200;
 	position.y = 210;
-	ryohitbox = App->collision->AddCollider({ position.x,position.y, 50, 97 }, COLLIDER_ENEMY);
+	ryohitbox2 = App->collision->AddCollider({ position.x,position.y, 50, 97 }, COLLIDER_ENEMY);
 	return ret;
 }
 
@@ -239,7 +239,7 @@ update_status ModulePlayer2::Update()
 
 	App->render->Blit(graphics, position.x, position.y - r.h, &r);
 
-	ryohitbox->SetPos(position.x, position.y - r.h);
+	ryohitbox2->SetPos(position.x, position.y - r.h);
 
 
 	return UPDATE_CONTINUE;

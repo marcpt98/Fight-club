@@ -231,18 +231,18 @@ update_status ModulePlayer::Update()
 			time = 0;
 		}
 	}
-	if (App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN)
+	// God mode /////////////////////////////////////////////////////////////
+	if ((App->input->keyboard[SDL_SCANCODE_F5] && god == 0) == KEY_STATE::KEY_DOWN)
 	{
-		int a = 0;
-
-		if (a == 0) {
-			App->collision->Enable();
-		}
-		if (a == 1) {
-			App->collision->Disable();
-			a = 0;
-		}
+		App->collision->Disable();
+		god = 1;
 	}
+	if ((App->input->keyboard[SDL_SCANCODE_F5] && god == 1) == KEY_STATE::KEY_DOWN)
+	{
+		App->collision->Enable();
+		god = 0;
+	}
+	////////////////////////////////////////////////////////////////////////////
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 

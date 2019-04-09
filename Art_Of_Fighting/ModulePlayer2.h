@@ -22,7 +22,7 @@ public:
 
 	SDL_Texture * graphics = nullptr;
 	Animation* current_animation = nullptr;
-	Collider *ryohitbox;
+	Collider *ryohitbox2;
 	iPoint position;
 	Animation idle;
 
