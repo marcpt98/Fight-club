@@ -232,15 +232,17 @@ update_status ModulePlayer::Update()
 		}
 	}
 	// God mode /////////////////////////////////////////////////////////////
-	if ((App->input->keyboard[SDL_SCANCODE_F5] && god == 0) == KEY_STATE::KEY_DOWN)
+	if ((App->input->keyboard[SDL_SCANCODE_F5]) == KEY_STATE::KEY_DOWN)
+	{
+			App->collision->Disable();
+			ryohitbox = App->collision->AddCollider({ position.x,position.y, 50, 97 }, COLLIDER_NONE);
+			App->collision->Enable();
+	}
+	if ((App->input->keyboard[SDL_SCANCODE_F6]) == KEY_STATE::KEY_DOWN) 
 	{
 		App->collision->Disable();
-		god = 1;
-	}
-	if ((App->input->keyboard[SDL_SCANCODE_F5] && god == 1) == KEY_STATE::KEY_DOWN)
-	{
+		ryohitbox = App->collision->AddCollider({ position.x,position.y, 50, 97 }, COLLIDER_PLAYER);
 		App->collision->Enable();
-		god = 0;
 	}
 	////////////////////////////////////////////////////////////////////////////
 

@@ -231,6 +231,14 @@ update_status ModulePlayer2::Update()
 			time = 0;
 		}
 	}*/
+	if ((App->input->keyboard[SDL_SCANCODE_F5]) == KEY_STATE::KEY_DOWN)
+	{
+		ryohitbox2 = App->collision->AddCollider({ position.x,position.y, 50, 97 }, COLLIDER_ENEMY);
+	}
+	if ((App->input->keyboard[SDL_SCANCODE_F6]) == KEY_STATE::KEY_DOWN)
+	{
+		ryohitbox2 = App->collision->AddCollider({ position.x,position.y, 50, 97 }, COLLIDER_ENEMY);
+	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 
