@@ -35,6 +35,7 @@ bool ModuleScenelevel_1::Start()
 
 	Scene1_Fight = App->audio->LoadMusic("Scene1_Fight.ogg");
 
+
 	App->audio->PlayMusic(Scene1_Fight);
 
 	App->render->camera.x = 0;
@@ -42,6 +43,11 @@ bool ModuleScenelevel_1::Start()
 	App->player->Enable();
 	App->player2->Enable();
 	App->collision->Enable();
+
+	//Scene limits from left and right
+	colliderMap = App->collision->AddCollider({ 0, -150, 25, 500 }, COLLIDER_WALL);
+	colliderMap2 = App->collision->AddCollider({ 609, -150, 25, 500 }, COLLIDER_WALL);
+
 	return true;
 }
 

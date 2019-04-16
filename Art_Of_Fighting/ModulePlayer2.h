@@ -25,7 +25,7 @@ public:
 	Collider *ryohitbox2;
 	iPoint position;
 	Animation idle;
-
+	void OnCollision(Collider* c1, Collider* c2);
 	/*Animation jump;
 	Animation forward;
 	Animation backward;

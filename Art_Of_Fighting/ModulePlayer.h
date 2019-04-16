@@ -10,6 +10,9 @@ struct SDL_Texture;
 
 class ModulePlayer : public Module
 {
+private:
+	bool wall = false;
+	int speed = 2;
 public:
 	ModulePlayer();
 	~ModulePlayer();
@@ -34,6 +37,7 @@ public:
 	Animation punch;
 	Animation kick;
 	Collider *ryohitbox;
+	void OnCollision(Collider* c1, Collider* c2);
 
 	int time =0;
 	int ryokick = 0;

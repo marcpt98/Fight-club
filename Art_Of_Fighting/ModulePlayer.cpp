@@ -8,7 +8,7 @@
 #include "ModuleAudio.h"
 #include "ModuleCollision.h"
 #include "ModuleFadeToBlack.h"
-
+#include "ModulePlayer2.h"
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
 ModulePlayer::ModulePlayer()
@@ -104,7 +104,7 @@ bool ModulePlayer::Start()
 
 	position.x = 100;
 	position.y = 210;
-	ryohitbox=App->collision->AddCollider({position.x,position.y, 50, 97 }, COLLIDER_PLAYER);
+	ryohitbox=App->collision->AddCollider({position.x,position.y, 50, 97 }, COLLIDER_PLAYER,this);
 	return ret;
 }
 
@@ -121,17 +121,13 @@ bool ModulePlayer::CleanUp()
 update_status ModulePlayer::Update()
 {
 	Animation *current_animation = &idle;
-	float speed = 2;
+	
 	float hadspeed = 1;
 	int inicial = 120;
 
 	////////////////////////////////////////////////////////////////////////////////////  Camera LIMITS
-	if (position.x < 0) {
-		position.x = position.x + 2;
-	}
-	if (position.x > 552) {
-		position.x = position.x - 2;
-	}
+	
+	
 	///////////////////////////////////////////////////////////////////////////////////
 
 	if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT)
@@ -142,14 +138,21 @@ update_status ModulePlayer::Update()
 
 	if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT)
 	{
+		if (wall == true && position.x > 552) {}
+		else {
 		current_animation = &forward;
 		position.x += speed;
+	}
+		
 	}
 
 	if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT)
 	{
-		current_animation = &backward;
-		position.x -= speed;
+		if (wall == true && (position.x > 0 && position.x < 200)) {}
+		else {
+			current_animation = &backward;
+			position.x -= speed;
+		}
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -246,8 +249,9 @@ update_status ModulePlayer::Update()
 	}
 	////////////////////////////////////////////////////////////////////////////
 
-	///////////////////////////////////////////////////////////////////////////////////////////////////////
-
+	///////////////////////////////////////////////////////////////////////////////////////////////////
+	////
+	speed = 2;
 	// Draw everything --------------------------------------
 	SDL_Rect r = current_animation->GetCurrentFrame();
 
@@ -255,6 +259,22 @@ update_status ModulePlayer::Update()
 
 	ryohitbox->SetPos(position.x, position.y - r.h);
 
-
+	wall = false;
 	return UPDATE_CONTINUE;
+}
+
+
+
+void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
+
+	if (ryohitbox == c1 && c2->type == COLLIDER_WALL)
+	{
+		wall = true;
+	}
+	if (ryohitbox == c1 && c2->type == COLLIDER_ENEMY)
+	{
+		App->player2->position.x = position.x + 50;
+		speed = 1;
+	}
+
 }

@@ -8,6 +8,7 @@
 #include "ModuleAudio.h"
 #include "ModuleCollision.h"
 #include "ModuleFadeToBlack.h"
+#include "ModulePlayer.h"
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
@@ -104,7 +105,7 @@ bool ModulePlayer2::Start()
 
 	position.x = 200;
 	position.y = 210;
-	ryohitbox2 = App->collision->AddCollider({ position.x,position.y, 50, 97 }, COLLIDER_ENEMY);
+	ryohitbox2 = App->collision->AddCollider({ position.x,position.y, 50, 97 }, COLLIDER_ENEMY,this);
 	return ret;
 }
 
@@ -126,12 +127,12 @@ update_status ModulePlayer2::Update()
 	int inicial = 120;
 
 	////////////////////////////////////////////////////////////////////////////////////  Camera LIMITS
-	if (position.x < 0) {
+	/*if (position.x < 0) {
 		position.x = position.x + 2;
 	}
 	if (position.x > 552) {
 		position.x = position.x - 2;
-	}
+	}*/
 	///////////////////////////////////////////////////////////////////////////////////
 
 	/*if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT)
@@ -244,11 +245,23 @@ update_status ModulePlayer2::Update()
 
 	// Draw everything --------------------------------------
 	SDL_Rect r = current_animation->GetCurrentFrame();
+	ryohitbox2->SetPos(position.x, position.y - r.h);
 
 	App->render->Blit(graphics, position.x, position.y - r.h, &r);
 
-	ryohitbox2->SetPos(position.x, position.y - r.h);
+	
 
 
 	return UPDATE_CONTINUE;
+}
+
+void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
+
+	
+	if (ryohitbox2 == c1 && c2->type == COLLIDER_ENEMY)
+	{
+		App->player->position.x = position.x - 50;
+		
+	}
+
 }

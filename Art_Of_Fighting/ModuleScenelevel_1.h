@@ -22,7 +22,8 @@ public:
 	SDL_Texture* graphics = nullptr;
 
 	SDL_Rect background1;
-
+	Collider* colliderMap;
+	Collider* colliderMap2;
 	int Scene1_Fight = 0;
 	float foreground_pos;
 	bool forward;
