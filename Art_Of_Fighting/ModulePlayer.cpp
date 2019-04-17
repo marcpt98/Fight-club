@@ -34,7 +34,7 @@ ModulePlayer::ModulePlayer()
 	jump.PushBack({ 299,471,56,114 });
 	jump.PushBack({ 0,504,60,82 });
 
-	jump.speed = 0.07f;
+	jump.speed = 0.1f;
 
 	// walk forward animation (arcade sprite sheet)
 	forward.PushBack({ 691, 348, 58, 108 });
@@ -84,6 +84,8 @@ ModulePlayer::ModulePlayer()
 	crouch2.PushBack({ 576, 42,67,74 });
 	crouch1.speed = 0.1f;
 	crouch2.speed = 0.1f;
+
+
 }
 
 ModulePlayer::~ModulePlayer()
@@ -165,11 +167,11 @@ update_status ModulePlayer::Update()
 	}
 
 	if (App->input->j == 1) {
-		position.y--; position.y = position.y - 0.5; current_animation = &jump;               
+		position.y--; position.y = position.y - 2; current_animation = &jump;               
 	}
 	if (position.y == 120) { App->input->j = 0; }
 	if (App->input->j == 0 && position.y != 210) {
-		position.y++; position.y++; current_animation = &jump;
+		position.y=position.y+3; /*position.y++*/; current_animation = &jump;
 	}
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	if (App->input->keyboard[SDL_SCANCODE_R] == KEY_STATE::KEY_DOWN)                                          // HADOUKEN
