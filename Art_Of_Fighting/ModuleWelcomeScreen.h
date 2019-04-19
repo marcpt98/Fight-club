@@ -4,7 +4,15 @@
 #include "Module.h"
 #include "Animation.h"
 #include "Globals.h"
+#include "p2Point.h"
 struct SDL_Texture;
+
+struct AnimationObject
+{
+	iPoint position;
+	SDL_Rect rect;
+	float scale;
+};
 
 class ModuleWelcomeScreen: public Module
 {
@@ -19,7 +27,15 @@ public:
 public:
 
 	SDL_Texture* graphics = nullptr;
+	SDL_Texture* introTexture = nullptr;
 	Animation Welcomeimage;
 	int welcomeScreenMusic = 0;
+
+private:
+
+	AnimationObject art;
+	AnimationObject of;
+	AnimationObject fighting;
 };
+
 #endif // __MODULEWELCOMESCREEN_H__
