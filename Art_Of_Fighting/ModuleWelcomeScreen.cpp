@@ -19,15 +19,7 @@ ModuleWelcomeScreen::ModuleWelcomeScreen()
 	art.rect = { 0, 0, 100, 78 };
 	of.rect = { 101, 0, 94, 63 };
 	fighting.rect = { 0, 80, 200, 75 };
-
-	art.position = { -100, 15 };
-	of.position = { SCREEN_WIDTH / 3, 35 };
-	fighting.position = { 50, 200 };
-	of.scale = 0.0f;
-
-
 }
-
 
 ModuleWelcomeScreen::~ModuleWelcomeScreen()
 {}
@@ -36,6 +28,16 @@ bool ModuleWelcomeScreen::Start()
 {
 	LOG("Loading background assets");
 	bool ret = true;
+
+	art.position = { -94, 16 };
+	of.position = { SCREEN_WIDTH / 3, 24 };
+	fighting.position = { 50, 300 };
+	of.scale = 0.0f;
+	finalArtPosition1 = { 230 / 40 , 0 };
+	finalArtPosition2 = { 2 , 0 };
+	animationState = Enter;
+	step = 0;
+
 	graphics = App->textures->Load("welcomescreen.png");
 	introTexture = App->textures->Load("introtitle.png");
 	welcomeScreenMusic = App->audio->LoadMusic("welcomescreen.ogg");
@@ -63,29 +65,60 @@ bool ModuleWelcomeScreen::CleanUp()
 	return true;
 }
 
+void ModuleWelcomeScreen::RenderWords()
+{
+	App->render->BlitWithScale(introTexture, of.position.x, of.position.y, &(of.rect), of.scale);
+	App->render->Blit(introTexture, art.position.x, art.position.y, &(art.rect));
+	App->render->Blit(introTexture, fighting.position.x, fighting.position.y, &(fighting.rect));
+	App->render->DrawQuad({ 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT }, 255, 255, 255, 255 * (1 - of.scale), true);
+}
+
 update_status ModuleWelcomeScreen::Update()
 {
-	// Draw everything --------------------------------------	
-
-
-	if(art.position.x < SCREEN_WIDTH /2 - art.rect.w)
+	// Draw everything --------------------------------------
+	switch (animationState)
 	{
-		App->render->BlitWithScale(introTexture, of.position.x, of.position.y, &(of.rect), of.scale);
-		App->render->Blit(introTexture, art.position.x, art.position.y, &(art.rect));
-		App->render->Blit(introTexture, fighting.position.x, fighting.position.y, &(fighting.rect));
+		case Enter:
+			art.position += finalArtPosition1;
+			of.scale += 0.02f;
+			step++;
+			if(step >= 40)
+			{
+				animationState = GoBack;	
+				step = 0;
+			}
+			RenderWords();
+			break;
+		case GoBack:
+			art.position -= finalArtPosition2;
+			of.scale += 0.02f;
+			fighting.position += {0, -4};
 
-		of.scale += 0.01f;
-		art.position.x += 2;
-		fighting.position.y -= 2;
-		App->render->DrawQuad({ 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT }, 255, 255, 255, 255 * (1- of.scale), true);
-
+			step++;
+			if (step >= 20)
+			{
+				step = 0;
+				animationState = Fighting;
+			}
+			RenderWords();
+			break;
+		case Fighting:
+			fighting.position += {0, -7};
+			step++;
+			if (step >= 20)
+			{
+				animationState = Done;
+			}
+			RenderWords();
+			break;
+		case Done:
+			//RenderWords();
+			App->render->Blit(graphics, 0, 0, &(Welcomeimage.GetCurrentFrame()));
+			break;
+	default:
+		break;
 	}
-	else
-	{
-		App->render->Blit(graphics, 0, 0, &(Welcomeimage.GetCurrentFrame()));
-	}
-
-
+	
 	// TODO 2: make so pressing SPACE the KEN stage is loaded
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{
@@ -94,3 +127,4 @@ update_status ModuleWelcomeScreen::Update()
 
 	return UPDATE_CONTINUE;
 }
+

@@ -85,6 +85,32 @@ public:
 		return (x != v.x || y != v.y);
 	}
 
+	const p2Point& operator /=(const p2Point& v)
+	{
+		x /= v.x;
+		y /= v.y;
+
+		return(*this);
+	}
+
+	const p2Point& operator /=(const int v)
+	{
+		x /= v;
+		y /= v;
+
+		return(*this);
+	}
+
+	const p2Point& operator / (const int v)
+	{
+		p2Point r;
+
+		r.x = x / v;
+		r.y = y / v;
+
+		return(r);
+	}
+
 	// Utils ------------------------------------------------
 	bool IsZero() const
 	{

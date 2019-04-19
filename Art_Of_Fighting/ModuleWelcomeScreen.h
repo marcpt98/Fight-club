@@ -7,6 +7,14 @@
 #include "p2Point.h"
 struct SDL_Texture;
 
+enum IntroAnimationState
+{
+	Enter,
+	GoBack,
+	Fighting,
+	Done
+};
+
 struct AnimationObject
 {
 	iPoint position;
@@ -24,6 +32,8 @@ public:
 	update_status Update();
 	bool CleanUp();
 
+	void RenderWords();
+
 public:
 
 	SDL_Texture* graphics = nullptr;
@@ -36,6 +46,11 @@ private:
 	AnimationObject art;
 	AnimationObject of;
 	AnimationObject fighting;
+	IntroAnimationState animationState;
+	int step = 0;
+	iPoint finalArtPosition1;
+	iPoint finalArtPosition2;
+
 };
 
 #endif // __MODULEWELCOMESCREEN_H__
