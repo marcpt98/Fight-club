@@ -20,7 +20,10 @@ public:
 public:
 	
 	SDL_Texture* graphics = nullptr;
+	SDL_Texture* graphicsLive = nullptr;
 
+	SDL_Rect lifeFull;
+	SDL_Rect liveEmpty;
 	SDL_Rect background1;
 	Collider* colliderMap;
 	Collider* colliderMap2;

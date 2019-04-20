@@ -9,6 +9,7 @@
 #include "ModuleCollision.h"
 #include "ModuleFadeToBlack.h"
 #include "ModulePlayer2.h"
+#include "ModuleFonts.h"
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
 ModulePlayer::ModulePlayer()
@@ -106,7 +107,13 @@ bool ModulePlayer::Start()
 
 	position.x = 100;
 	position.y = 210;
+
 	ryohitbox=App->collision->AddCollider({position.x,position.y, 50, 97 }, COLLIDER_PLAYER,this);
+
+	// TODO 0: Notice how a font is loaded and the meaning of all its arguments 
+	font_score = App->fonts->Load("fonts/rtype_font.png", "! @,_./0123456789$;<&?abcdefghijklmnopqrstuvwxyz", 1);
+
+	// TODO 4: Try loading "rtype_font3.png" that has two rows to test if all calculations are correct
 	return ret;
 }
 

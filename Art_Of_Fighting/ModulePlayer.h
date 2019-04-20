@@ -23,6 +23,7 @@ public:
 
 public:
 
+	int font_score = -1;
 	SDL_Texture* graphics = nullptr;
 	Animation* current_animation = nullptr;
 	Animation idle;
@@ -38,7 +39,8 @@ public:
 	Animation kick;
 	Collider *ryohitbox;
 	void OnCollision(Collider* c1, Collider* c2);
-
+	int Life = 100;
+	float MaxLife = 100;
 	int time =0;
 	int ryokick = 0;
 	int ryopunch = 0;
