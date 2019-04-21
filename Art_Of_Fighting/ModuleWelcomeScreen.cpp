@@ -67,7 +67,7 @@ bool ModuleWelcomeScreen::CleanUp()
 
 void ModuleWelcomeScreen::RenderWords()
 {
-	App->render->BlitWithScale(introTexture, of.position.x, of.position.y, &(of.rect), of.scale, 1.0f, MIDDLE);
+	App->render->BlitWithScale(introTexture, of.position.x, of.position.y, &(of.rect), of.scale, 1.0f, 1.0f, MIDDLE);
 	App->render->Blit(introTexture, art.position.x, art.position.y, &(art.rect));
 	App->render->Blit(introTexture, fighting.position.x, fighting.position.y, &(fighting.rect));
 	App->render->DrawQuad({ 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT }, 255, 255, 255, 255 * (1 - of.scale), true);

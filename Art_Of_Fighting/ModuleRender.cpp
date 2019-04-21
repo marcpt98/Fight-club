@@ -117,25 +117,28 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section, f
 	return ret;
 }
 
-bool ModuleRender::BlitWithScale(SDL_Texture * texture, int x, int y, SDL_Rect * section, float scale, float speed, RENDER_PIVOT pivot)
+bool ModuleRender::BlitWithScale(SDL_Texture * texture, int x, int y, SDL_Rect * _section, float scale, float speed,float fillAmount, RENDER_PIVOT pivot)
 {
 	bool ret = true;
 	SDL_Rect rect;
+	SDL_Rect section = *_section;
+	int w = section.w - section.w * fillAmount;
 
+	section.w -= w;
 
 	switch (pivot)
 	{
 	case TOP_RIGHT:
-		rect.x = (int)(camera.x * speed) + (x + section->x)* SCREEN_SIZE;
+		rect.x = (int)(camera.x * speed) + (x + section.x + w)* SCREEN_SIZE;
 		rect.y = (int)(camera.y * speed) + y * SCREEN_SIZE;
 		break;
 	case TOP_LEFT:
-		rect.x = (int)(camera.x * speed) + x * SCREEN_SIZE;
+		rect.x = (int)(camera.x * speed) + (x)* SCREEN_SIZE;
 		rect.y = (int)(camera.y * speed) + y * SCREEN_SIZE;
 		break;
 	case MIDDLE:
-		rect.x = (int)(camera.x * speed) + (x + section->x / 2)* SCREEN_SIZE;
-		rect.y = (int)(camera.y * speed) + (y + section->y / 2)* SCREEN_SIZE;
+		rect.x = (int)(camera.x * speed) + (x + w + section.x / 2)* SCREEN_SIZE;
+		rect.y = (int)(camera.y * speed) + (y + section.y / 2)* SCREEN_SIZE;
 		break;
 	}
 
@@ -147,10 +150,10 @@ bool ModuleRender::BlitWithScale(SDL_Texture * texture, int x, int y, SDL_Rect *
 		flip = SDL_FLIP_HORIZONTAL;
 	}
 
-	if (section != NULL)
+	if (&section != NULL)
 	{
-		rect.w = section->w * scale;
-		rect.h = section->h * scale;
+		rect.w = section.w * scale;
+		rect.h = section.h * scale;
 	}
 	else
 	{
@@ -159,8 +162,8 @@ bool ModuleRender::BlitWithScale(SDL_Texture * texture, int x, int y, SDL_Rect *
 
 	rect.w *= SCREEN_SIZE;
 	rect.h *= SCREEN_SIZE;
-
-	if (SDL_RenderCopyEx(renderer, texture, section, &rect, 0, NULL, flip) != 0)
+	
+	if (SDL_RenderCopyEx(renderer, texture, &section, &rect, 0, NULL, flip) != 0)
 	{
 		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 		ret = false;

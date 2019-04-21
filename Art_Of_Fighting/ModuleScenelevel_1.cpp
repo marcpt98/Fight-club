@@ -25,12 +25,12 @@ ModuleScenelevel_1::ModuleScenelevel_1()
 	lifeFull.x = 0;
 	lifeFull.y = 0;
 	lifeFull.w = 129;
-	lifeFull.h = 9;
+	lifeFull.h = 8;
 
 	liveEmpty.x = 0;
-	liveEmpty.y = 9;
+	liveEmpty.y = 8;
 	liveEmpty.w = 129;
-	liveEmpty.h = 7;
+	liveEmpty.h = 8;
 }
 
 ModuleScenelevel_1::~ModuleScenelevel_1()
@@ -88,7 +88,15 @@ update_status ModuleScenelevel_1::Update()
 		App->fade->FadeToBlack(App->scene_Todoh, App->scene_win, 2);
 	}
 
-	App->render->BlitWithScale(graphicsLive, 0, 15, &SDL_Rect({ lifeFull.x, lifeFull.y,(int)( lifeFull.w * App->player->Life/App->player->MaxLife), lifeFull.h }), -1, 0.75f, TOP_LEFT);
+	App->render->BlitWithScale(graphicsLive, 20, 15, &liveEmpty, -1, 1.0f, 1.0f, TOP_RIGHT);
+
+	App->render->BlitWithScale(graphicsLive, 20, 15, &lifeFull, -1, 1.0f, App->player->Life / App->player->MaxLife,  TOP_RIGHT);
+
+
+	App->render->BlitWithScale(graphicsLive, 150, 15, &liveEmpty, -1, 1.0f, 1.0f, TOP_LEFT);
+
+	App->render->BlitWithScale(graphicsLive, 150, 15, &lifeFull, 1, 1.0f, App->player->Life / App->player->MaxLife, TOP_LEFT);
+
 
 	if (App->input->keyboard[SDL_SCANCODE_B] == 1)
 	{
