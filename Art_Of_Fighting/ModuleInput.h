@@ -34,6 +34,7 @@ public:
 	int r = 0;
 	int o = 0;
 	int p = 0;
+	int i = 0;
 };
 
 #endif // __ModuleInput_H__

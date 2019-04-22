@@ -276,7 +276,7 @@ update_status ModulePlayer::Update()
 	
 	if (r == &punch.frames[punch.last_frame - 1])
 	{
-		punchCollider->SetPos(position.x + 50, position.y+10 - r->h);
+		punchCollider->SetPos(position.x + 50, position.y+12 - r->h);
 
 		punchCollider->Enabled = true;
 	}
@@ -295,11 +295,12 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 	{
 		wall = true;
 	}
+	/*
 	if (ryohitbox == c1 && c2->type == COLLIDER_ENEMY)
 	{
 		App->player2->position.x = position.x + 50;
 		speed = 1;
-	}
+	}*/
 	if(kickCollider == c1 && c2->type == COLLIDER_ENEMY)
 	{
 		App->player2->Life--;
