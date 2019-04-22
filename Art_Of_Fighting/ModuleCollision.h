@@ -37,6 +37,7 @@ struct Collider
 	}
 
 	bool CheckCollision(const SDL_Rect& r) const;
+	bool Enabled = true;
 };
 
 class ModuleCollision : public Module
@@ -52,7 +53,7 @@ public:
 
 	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback = nullptr);
 	void DebugDraw();
-
+	
 private:
 
 	Collider* colliders[MAX_COLLIDERS];

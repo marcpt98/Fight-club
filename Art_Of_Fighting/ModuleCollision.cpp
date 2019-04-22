@@ -67,6 +67,10 @@ update_status ModuleCollision::PreUpdate()
 			continue;
 
 		c1 = colliders[i];
+		if(c1->Enabled == false)
+		{
+			continue;
+		}
 
 		// avoid checking collisions already checked
 		for (uint k = i + 1; k < MAX_COLLIDERS; ++k)
@@ -76,7 +80,10 @@ update_status ModuleCollision::PreUpdate()
 				continue;
 
 			c2 = colliders[k];
-
+			if (c2->Enabled == false)
+			{
+				continue;
+			}
 			if (c1->CheckCollision(c2->rect) == true)
 			{
 				if (matrix[c1->type][c2->type] && c1->callback)
@@ -190,5 +197,4 @@ bool Collider::CheckCollision(const SDL_Rect& r) const
 		return true;
 	}
 	
-	return false;
 }

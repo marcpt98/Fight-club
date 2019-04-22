@@ -29,9 +29,11 @@ public:
 public:
 	KEY_STATE keyboard[MAX_KEYS];
 	int j = 0;
-	int k = 0;
-	int l = 0;
-	int m = 0;
+	int y = 0;
+	int t = 0;
+	int r = 0;
+	int o = 0;
+	int p = 0;
 };
 
 #endif // __ModuleInput_H__

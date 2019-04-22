@@ -49,16 +49,20 @@ int ModuleFonts::Load(const char* texture_path, const char* characters, uint row
 	fonts[id].len = strlen(characters); // len: length of the table
 
 	// TODO 1: Finish storing font data
-	strcpy_s(fonts[id].table, characters);
+	
 
-	uint withd, height;
+	uint width, height;
 
-	App->textures->GetSize(tex, withd, height);
+	App->textures->GetSize(tex, width, height);
 
 	// table: array of chars to have the list of characters
+	strcpy_s(fonts[id].table, characters);
 	// row_chars: amount of chars per row of the texture
+	fonts[id].row_chars = strlen(characters) / rows;
 	// char_w: width of each character
+	fonts[id].char_w = width / strlen(characters);
 	// char_h: height of each character
+	fonts[id].char_h = height / rows;
 
 	LOG("Successfully loaded BMP font from %s", texture_path);
 

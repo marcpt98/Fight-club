@@ -38,6 +38,8 @@ public:
 	Animation punch;
 	Animation kick;
 	Collider *ryohitbox;
+	Collider *kickCollider;
+	Collider *punchCollider;
 	void OnCollision(Collider* c1, Collider* c2);
 	int Life = 100;
 	float MaxLife = 100;

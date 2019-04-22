@@ -81,26 +81,31 @@ bool ModuleScenelevel_1::CleanUp()
 // Update: draw background
 update_status ModuleScenelevel_1::Update()
 {
+
 	// Draw everything --------------------------------------
 	App->render->Blit(graphics, 0, 0, &background1, 0.75f);
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{
 		App->fade->FadeToBlack(App->scene_Todoh, App->scene_win, 2);
 	}
+	
+	App->render->BlitWithScale(graphicsLive, 149, 15, &liveEmpty, -1, 0.0f, 1.0f, TOP_RIGHT);
 
-	App->render->BlitWithScale(graphicsLive, 20, 15, &liveEmpty, -1, 1.0f, 1.0f, TOP_RIGHT);
+	App->render->BlitWithScale(graphicsLive, 149, 15, &lifeFull, -1, 0.0f, App->player->Life / App->player->MaxLife,  TOP_RIGHT);
 
-	App->render->BlitWithScale(graphicsLive, 20, 15, &lifeFull, -1, 1.0f, App->player->Life / App->player->MaxLife,  TOP_RIGHT);
+	App->render->BlitWithScale(graphicsLive, 150, 15, &liveEmpty, -1, 0.0f, 1.0f, TOP_LEFT);
 
-
-	App->render->BlitWithScale(graphicsLive, 150, 15, &liveEmpty, -1, 1.0f, 1.0f, TOP_LEFT);
-
-	App->render->BlitWithScale(graphicsLive, 150, 15, &lifeFull, 1, 1.0f, App->player->Life / App->player->MaxLife, TOP_LEFT);
+	App->render->BlitWithScale(graphicsLive, 150, 15, &lifeFull, 1, 0.0f, App->player2->Life / App->player2->MaxLife, TOP_LEFT);
 
 
 	if (App->input->keyboard[SDL_SCANCODE_B] == 1)
 	{
 		App->player->Life--;
+	}
+
+	if (App->input->keyboard[SDL_SCANCODE_V] == 1)
+	{
+		App->player2->Life--;
 	}
 
 

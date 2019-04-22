@@ -129,7 +129,7 @@ bool ModuleRender::BlitWithScale(SDL_Texture * texture, int x, int y, SDL_Rect *
 	switch (pivot)
 	{
 	case TOP_RIGHT:
-		rect.x = (int)(camera.x * speed) + (x + section.x + w)* SCREEN_SIZE;
+		rect.x = (int)(camera.x * speed) + (x - section.w)* SCREEN_SIZE;
 		rect.y = (int)(camera.y * speed) + y * SCREEN_SIZE;
 		break;
 	case TOP_LEFT:
