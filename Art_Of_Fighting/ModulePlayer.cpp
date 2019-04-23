@@ -109,9 +109,9 @@ bool ModulePlayer::Start()
 	position.y = 210;
 
 	ryohitbox = App->collision->AddCollider({position.x,position.y, 50, 97 }, COLLIDER_PLAYER, this);
-	kickCollider = App->collision->AddCollider({ position.x,position.y, 60, 70 }, COLLIDER_PLAYER, this);
+	kickCollider = App->collision->AddCollider({ position.x,position.y, 60, 30 }, COLLIDER_PLAYER, this);
 	kickCollider->Enabled = false;
-	punchCollider = App->collision->AddCollider({ position.x,position.y, 40, 20 }, COLLIDER_PLAYER, this);
+	punchCollider = App->collision->AddCollider({ position.x,position.y, 40, 15 }, COLLIDER_PLAYER, this);
 	punchCollider->Enabled = false;
 
 	// TODO 0: Notice how a font is loaded and the meaning of all its arguments 
@@ -311,4 +311,5 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		App->player2->Life--;
 		App->player2->position.x += 5;
 	}
+	
 }

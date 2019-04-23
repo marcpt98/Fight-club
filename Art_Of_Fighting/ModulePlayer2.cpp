@@ -108,9 +108,9 @@ bool ModulePlayer2::Start()
 	position.y = 210;
 
 	ryohitbox = App->collision->AddCollider({ position.x,position.y, 50, 97 }, COLLIDER_ENEMY, this);
-	kickCollider = App->collision->AddCollider({ position.x,position.y, 60, 70 }, COLLIDER_ENEMY, this);
+	kickCollider = App->collision->AddCollider({ position.x,position.y, 60, 30 }, COLLIDER_ENEMY, this);
 	kickCollider->Enabled = false;
-	punchCollider = App->collision->AddCollider({ position.x,position.y, 40, 20 }, COLLIDER_ENEMY, this);
+	punchCollider = App->collision->AddCollider({ position.x,position.y, 40, 15 }, COLLIDER_ENEMY, this);
 	punchCollider->Enabled = false;
 	return ret;
 }
@@ -267,10 +267,12 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 	if (kickCollider == c1 && c2->type == COLLIDER_PLAYER)
 	{
 		App->player->Life--;
+		App->player->position.x -= 5;
 	}
 	if (punchCollider == c1 && c2->type == COLLIDER_PLAYER)
 	{
 		App->player->Life--;
+		App->player->position.x -= 5;
 	}
 	
 }

@@ -39,7 +39,7 @@ bool ModuleParticles::Start() {
 	Hadouken1.anim.speed = 0.02f;
 	Hadouken2.anim.speed = 0.2f;
 	Hadouken3.anim.speed = 0.2f;
-	Hadouken4.anim.speed = 0.02f;
+	Hadouken4.anim.speed = 0.025f;
 	Hadouken1.life = 100;
 	Hadouken4.speed.x = +3;
 	Hadouken4.speed.y = 0;

@@ -23,7 +23,7 @@ bool ModuleScenewin::Start()
 {
 	LOG("Loading background assets");
 	bool ret = true;
- 	graphics = App->textures->Load("media/Victory.png");
+ 	graphics = App->textures->Load("media/WinCondition.png");
 
 	App->render->camera.x = 0;
 	App->render->camera.y = 0;
@@ -54,7 +54,7 @@ update_status ModuleScenewin::Update()
 	// TODO 2: make so pressing SPACE the KEN stage is loaded
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{
-		App->fade->FadeToBlack(App->scene_win, App->scene_Jack, 2);
+		App->fade->FadeToBlack(App->scene_win, App->scene_Welcome, 2);
 	}
 
 	return UPDATE_CONTINUE;
