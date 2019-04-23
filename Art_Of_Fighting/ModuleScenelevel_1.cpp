@@ -41,9 +41,9 @@ bool ModuleScenelevel_1::Start()
 {
 	LOG("Loading ryo scene");
 	
-	graphics = App->textures->Load("level_1.png");
+	graphics = App->textures->Load("media/level_1.png");
 
-	Scene1_Fight = App->audio->LoadMusic("Scene1_Fight.ogg");
+	Scene1_Fight = App->audio->LoadMusic("media/Scene1_Fight.ogg");
 
 
 	App->audio->PlayMusic(Scene1_Fight);
@@ -54,7 +54,7 @@ bool ModuleScenelevel_1::Start()
 	App->player2->Enable();
 	App->collision->Enable();
 
-	graphicsLive = App->textures->Load("live.png");
+	graphicsLive = App->textures->Load("media/live.png");
 
 	//Scene limits from left and right
 	colliderMap = App->collision->AddCollider({ 0, -150, 25, 500 }, COLLIDER_WALL);

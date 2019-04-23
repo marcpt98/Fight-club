@@ -38,9 +38,9 @@ bool ModuleWelcomeScreen::Start()
 	animationState = Enter;
 	step = 0;
 
-	graphics = App->textures->Load("welcomescreen.png");
-	introTexture = App->textures->Load("introtitle.png");
-	welcomeScreenMusic = App->audio->LoadMusic("welcomescreen.ogg");
+	graphics = App->textures->Load("media/welcomescreen.png");
+	introTexture = App->textures->Load("media/introtitle.png");
+	welcomeScreenMusic = App->audio->LoadMusic("media/welcomescreen.ogg");
 
 	App->audio->PlayMusic(welcomeScreenMusic);
 
@@ -61,6 +61,8 @@ bool ModuleWelcomeScreen::CleanUp()
 	App->player->Disable();
 	App->player2->Disable();
 	App->textures->Unload(graphics);
+	App->textures->Unload(introTexture);
+
 	App->audio->UnLoadMusic(welcomeScreenMusic);
 	return true;
 }
