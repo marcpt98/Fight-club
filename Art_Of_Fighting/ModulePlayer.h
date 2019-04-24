@@ -49,6 +49,7 @@ public:
 	int ryojump = 0;
 	int ryoKoOuKen = 0;
 	int ryoKoOuKensound = 0;
+	//int GodMode = false;
 };
 
 #endif

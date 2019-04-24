@@ -253,6 +253,19 @@ update_status ModulePlayer::Update()
 	speed = 2;
 	////////////////////////////////////////////////////////////////////////////
 
+	/*if (App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN) {															//God mode 
+		if (GodMode == false) {
+			delete ryohitbox;
+
+			GodMode = true;
+		}
+		else if (GodMode == true) {
+			ryohitbox = App->collision->AddCollider({ position.x,position.y,50, 97 }, COLLIDER_PLAYER, this);
+
+			GodMode = false;
+		}
+	}*/
+
 	// Draw everything --------------------------------------
 	SDL_Rect* r = &current_animation->GetCurrentFrame();
 
