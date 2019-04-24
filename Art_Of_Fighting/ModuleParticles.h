@@ -54,8 +54,13 @@ public:
 	Particle Hadouken1;
 	Particle Hadouken2;
 	Particle Hadouken3;
-	Particle Hadouken4;/*
-	Collider *hadukenhitbox;*/
+	Particle Hadouken4;
+	
+	Particle Hadouken1Player2;
+	Particle Hadouken2Player2;
+	Particle Hadouken3Player2;
+	Particle Hadouken4Player2;
+
 };
 
 #endif

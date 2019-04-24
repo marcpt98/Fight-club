@@ -3,6 +3,8 @@
 #include "ModuleTextures.h"
 #include "ModuleInput.h"
 #include "ModuleRender.h"
+#include "ModulePlayer.h"
+#include "ModulePlayer2.h"
 #include "ModuleParticles.h"
 #include "SDL/include/SDL_timer.h"
 #include <math.h>
@@ -43,6 +45,30 @@ bool ModuleParticles::Start() {
 	Hadouken1.life = 100;
 	Hadouken4.speed.x = +3;
 	Hadouken4.speed.y = 0;
+
+	/////////////////////////////////////////////////////////////////////////
+
+	Hadouken1Player2.anim.PushBack({ 682, 869, 25,36 });	//First hadouken frame (hand, orange particles) (Starts on the second frame of Ryo hadouken animation)
+	Hadouken2Player2.anim.PushBack({ 706, 869, 22,36 });	//Second hadouken frame (hand, orange ball)
+	Hadouken3Player2.anim.PushBack({ 729, 878, 26,27 });	//Third hadouken frame (hand, bigger and whiter orange ball)
+													//Still third hadouken frame (hand, bigger and whiter orange ball)
+	Hadouken4Player2.anim.PushBack({ 682, 913, 54,39 });	//Fourth hadouken frame (on Ryo, big blue ball) (ball start to move forward)
+	Hadouken4Player2.anim.PushBack({ 736, 905, 72,47 });	//Fifht hadouken frame (on Ryo, vey big blue ball)
+	Hadouken4Player2.anim.PushBack({ 808, 921, 53,31 });	//Six hadouken frame (almost out Ryo, blue ball moving forward)
+	Hadouken4Player2.anim.PushBack({ 861, 931, 36,21 });	//Seventh hadouken frame (out Ryo, little blue ball moving forward)
+	/*Hadouken.anim.PushBack({ 940, 613, 30,37 });	//Starts again with a big blue ball (loop to frame 4 to 7)
+	Hadouken.anim.PushBack({ 971, 613, 22,36 });
+	Hadouken.anim.PushBack({ 940, 665, 21,37 });
+	Hadouken.anim.PushBack({ 961, 666, 23,36 });
+	Hadouken.anim.PushBack({ 984, 666, 35,36 });*/
+	Hadouken4Player2.anim.loop = true;
+	Hadouken1Player2.anim.speed = 0.02f;
+	Hadouken2Player2.anim.speed = 0.2f;
+	Hadouken3Player2.anim.speed = 0.2f;
+	Hadouken4Player2.anim.speed = 0.025f;
+	Hadouken1Player2.life = 100;
+	Hadouken4Player2.speed.x = -3;
+	Hadouken4Player2.speed.y = 0;
 
 	return true;
 }
@@ -121,6 +147,15 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 		{
 			delete active[i];
 			active[i] = nullptr;
+			if(c1->type == COLLIDER_PLAYER_SHOT && c2->type == COLLIDER_ENEMY)
+			{
+				App->player2->Life = App->player2->Life - 10;
+			}
+			if (c1->type == COLLIDER_ENEMY_SHOT && c2->type == COLLIDER_PLAYER)
+			{
+				App->player->Life = App->player->Life - 10;
+			}
+
 			break;
 		}
 	}

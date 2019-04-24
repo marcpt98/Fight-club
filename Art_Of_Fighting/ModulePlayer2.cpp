@@ -161,6 +161,35 @@ update_status ModulePlayer2::Update()
 		}
 	}
 
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	if (App->input->keyboard[SDL_SCANCODE_U] == KEY_STATE::KEY_DOWN)                                          // HADOUKEN
+	{
+		App->particles->AddParticle(App->particles->Hadouken1Player2, position.x - 10, position.y - 110, COLLIDER_ENEMY_SHOT);
+		App->particles->AddParticle(App->particles->Hadouken2Player2, position.x - 8, position.y - 85, COLLIDER_ENEMY_SHOT, 100);
+		App->particles->AddParticle(App->particles->Hadouken3Player2, position.x - 10, position.y - 80, COLLIDER_ENEMY_SHOT, 300);
+		App->particles->AddParticle(App->particles->Hadouken4Player2, position.x - 60, position.y - 80, COLLIDER_ENEMY_SHOT, 400);
+	}
+
+	if (App->input->keyboard[SDL_SCANCODE_U] == KEY_STATE::KEY_DOWN && App->input->u == 0)
+	{
+		App->audio->PlayFX(ryoKoOuKen);
+		App->audio->PlayFX(ryoKoOuKensound);
+		App->input->u = 1;
+		current_animation = &hadouken;
+
+	}
+	if (App->input->u == 1) {
+
+		current_animation = &hadouken;
+		time++;
+		if (time == 25) {
+			hadouken.Reset();
+			App->input->u = 0;
+			time = 0;
+		}
+	}
+
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 																																//Punch
 
