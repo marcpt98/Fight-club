@@ -222,7 +222,7 @@ update_status ModulePlayer2::Update()
 	{
 		position.y = position.y + 3; /*position.y++*/; current_animation = &jump;
 	}
-
+	speed = 2;
 	// Draw everything --------------------------------------
 	SDL_Rect* r = &current_animation->GetCurrentFrame();
 
@@ -268,6 +268,18 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 	{
 		App->player->Life--;
 		App->player->position.x -= 5;
+	}
+
+	if (ryohitbox == c1 && c2->type == COLLIDER_PLAYER)
+	{
+		if (App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_REPEAT && App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT) {
+			speed = 0;
+		}
+		else if (App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_REPEAT) {
+			App->player->position.x = position.x - 101;
+			speed = 1;
+		}
+		
 	}
 	if (punchCollider == c1 && c2->type == COLLIDER_PLAYER)
 	{

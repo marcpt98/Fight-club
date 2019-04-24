@@ -250,7 +250,7 @@ update_status ModulePlayer::Update()
 			time = 0;
 		}
 	}
-
+	speed = 2;
 	////////////////////////////////////////////////////////////////////////////
 
 	// Draw everything --------------------------------------
@@ -295,12 +295,19 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 	{
 		wall = true;
 	}
-	/*
+	
 	if (ryohitbox == c1 && c2->type == COLLIDER_ENEMY)
 	{
-		App->player2->position.x = position.x + 50;
-		speed = 1;
-	}*/
+		if (App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_REPEAT && App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT) {
+			speed = 0;
+		}
+		else if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT) {
+			App->player2->position.x = position.x + 101;
+			speed = 1;
+		}
+
+	}
+
 	if(kickCollider == c1 && c2->type == COLLIDER_ENEMY)
 	{
 		App->player2->Life--;
