@@ -87,10 +87,9 @@ ModulePlayer::ModulePlayer()
 	crouch2.speed = 0.1f;
 
 	//beat animation
-
-	beat.PushBack({ 356,479,88,143 });
-	beat.PushBack({ 356,479,88,143 });
-	beat.PushBack({ 356,479,88,143 });
+	beat.PushBack({ 863,748,71,109 });
+	beat.PushBack({ 935,748,79,109 });
+	beat.PushBack({ 863,748,71,109 });
 
 	beat.speed = 0.1f;
 
@@ -111,7 +110,6 @@ bool ModulePlayer::Start()
 	bool ret = true;
 	graphics = App->textures->Load("media/Ryo_SpriteSheet.png"); // arcade version
 	graphicsWin = App->textures->Load("media/WinPlayer.png");
-	graphicsbeat = App->textures->Load("media/Sprites_beat_ryo.png");
 
 	ryokick = App->audio->LoadFX("media/ryo_kick.wav");
 	ryopunch = App->audio->LoadFX("media/Ryo_punch.wav");
@@ -141,7 +139,6 @@ bool ModulePlayer::CleanUp()
 
 	App->textures->Unload(graphics);
 	App->textures->Unload(graphicsWin);
-	App->textures->Unload(graphicsbeat);
 
 
 	return true;
@@ -161,6 +158,8 @@ update_status ModulePlayer::Update()
 	{
 		current_animation = &crouch1;
 		current_animation = &crouch2;
+		current_animation = &beat;
+
 	}
 
 	if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT)
@@ -356,7 +355,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 	if (punchCollider == c1 && c2->type == COLLIDER_ENEMY)
 	{
 		App->player2->Life--;
-		current_animation2 = &App->player->beat;
+		current_animation2 = &beat;
 		App->player2->position.x += 5;
 	}
 	

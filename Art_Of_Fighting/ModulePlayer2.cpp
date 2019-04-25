@@ -88,9 +88,9 @@ ModulePlayer2::ModulePlayer2()
 
 	//beat animation
 
-	beat.PushBack({ 356,479,88,143 });
-	beat.PushBack({ 356,479,88,143 });
-	beat.PushBack({ 356,479,88,143 });
+	beat.PushBack({ 863,748,71,109});
+	beat.PushBack({ 935,748,79,109 });
+	beat.PushBack({ 863,748,71,109 });
 
 	beat.speed = 0.1f;
 
@@ -111,7 +111,6 @@ bool ModulePlayer2::Start()
 	bool ret = true;
 	graphics = App->textures->Load("media/Ryo_SpriteSheet.png"); // arcade version
 	graphicsWin = App->textures->Load("media/WinPlayer.png");
-	graphicsbeat = App->textures->Load("media/Sprites_beat_ryo.png");
 
 	ryokick = App->audio->LoadFX("media/ryo_kick.wav");
 	ryopunch = App->audio->LoadFX("media/Ryo_punch.wav");
@@ -136,7 +135,6 @@ bool ModulePlayer2::CleanUp()
 
 	App->textures->Unload(graphics);
 	App->textures->Unload(graphicsWin);
-	App->textures->Unload(graphicsbeat);
 
 
 	return true;
@@ -318,7 +316,7 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 	if (kickCollider == c1 && c2->type == COLLIDER_PLAYER)
 	{
 		App->player->Life--;
-		current_animation = &App->player->beat;
+		current_animation = &beat;
 		App->player->position.x -= 5;
 	}
 
@@ -336,7 +334,7 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 	if (punchCollider == c1 && c2->type == COLLIDER_PLAYER)
 	{
 		App->player->Life--;
-		current_animation = &App->player->beat;
+		current_animation = &beat;
 		App->player->position.x -= 5;
 	}
 	
