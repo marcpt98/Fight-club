@@ -253,9 +253,9 @@ update_status ModulePlayer::Update()
 	speed = 2;
 	////////////////////////////////////////////////////////////////////////////
 
-	/*if (App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN) {															//God mode 
+	if (App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN) {															//God mode 
 		if (GodMode == false) {
-			delete ryohitbox;
+			ryohitbox->to_delete = true;
 
 			GodMode = true;
 		}
@@ -264,8 +264,7 @@ update_status ModulePlayer::Update()
 
 			GodMode = false;
 		}
-	}*/
-
+	}
 	// Draw everything --------------------------------------
 	SDL_Rect* r = &current_animation->GetCurrentFrame();
 
