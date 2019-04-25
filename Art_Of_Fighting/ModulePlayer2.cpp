@@ -86,6 +86,11 @@ ModulePlayer2::ModulePlayer2()
 	crouch1.speed = 0.1f;
 	crouch2.speed = 0.1f;
 
+	player2Win.x = 0;
+	player2Win.y = 0;
+	player2Win.w = 120;
+	player2Win.h = 41;
+
 }
 
 ModulePlayer2::~ModulePlayer2()
@@ -97,6 +102,7 @@ bool ModulePlayer2::Start()
 	LOG("Loading player textures");
 	bool ret = true;
 	graphics = App->textures->Load("media/Ryo_SpriteSheet.png"); // arcade version
+	graphicsWin = App->textures->Load("media/WinPlayer.png");
 
 	ryokick = App->audio->LoadFX("media/ryo_kick.wav");
 	ryopunch = App->audio->LoadFX("media/Ryo_punch.wav");
@@ -120,6 +126,7 @@ bool ModulePlayer2::CleanUp()
 	LOG("Unloading player");
 
 	App->textures->Unload(graphics);
+	App->textures->Unload(graphicsWin);
 
 	return true;
 }
@@ -283,6 +290,10 @@ update_status ModulePlayer2::Update()
 		punchCollider->Enabled = false;
 	}
 
+	if (App->player->Life <= 0)
+	{
+		App->render->BlitWithScale(graphicsWin, 212, 70, &player2Win, 1, 0.0f, 1.0f, TOP_RIGHT);
+	}
 	return UPDATE_CONTINUE;
 }
 

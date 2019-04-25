@@ -25,6 +25,7 @@ public:
 
 	int font_score = -1;
 	SDL_Texture* graphics = nullptr;
+	SDL_Texture * graphicsWin = nullptr;
 	Animation* current_animation = nullptr;
 	Animation idle;
 	Animation jump;
@@ -40,6 +41,7 @@ public:
 	Collider *ryohitbox;
 	Collider *kickCollider;
 	Collider *punchCollider;
+	SDL_Rect player1Win;
 	void OnCollision(Collider* c1, Collider* c2);
 	int Life = 100;
 	float MaxLife = 100;

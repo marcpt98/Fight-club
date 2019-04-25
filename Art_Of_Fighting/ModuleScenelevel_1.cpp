@@ -31,6 +31,7 @@ ModuleScenelevel_1::ModuleScenelevel_1()
 	liveEmpty.y = 8;
 	liveEmpty.w = 129;
 	liveEmpty.h = 8;
+
 }
 
 ModuleScenelevel_1::~ModuleScenelevel_1()
@@ -73,6 +74,7 @@ bool ModuleScenelevel_1::CleanUp()
 	App->player->Disable();
 	App->player2->Disable();
 	App->textures->Unload(graphics);
+	App->textures->Unload(graphicsLive);
 	App->collision->Disable();
 
 	App->audio->UnLoadMusic(Scene1_Fight);
@@ -108,8 +110,9 @@ update_status ModuleScenelevel_1::Update()
 	{
 		App->player2->Life--;
 	}
-	if (App->player->Life <= 0 || App->player2->Life <= 0) {
-		App->fade->FadeToBlack(App->scene_Todoh, App->scene_win, 2);
+	if (App->player->Life <= 0 || App->player2->Life <= 0) 
+	{
+		App->fade->FadeToBlack(App->scene_Todoh, App->scene_win, 5);
 	}
 
 
