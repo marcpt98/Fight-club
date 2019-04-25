@@ -44,7 +44,8 @@ bool ModuleScenelevel_1::Start()
 	graphics = App->textures->Load("media/level_1.png");
 
 	Scene1_Fight = App->audio->LoadMusic("media/Scene1_Fight.ogg");
-
+	App->player->Life = 100;
+	App->player2->Life = 100;
 
 	App->audio->PlayMusic(Scene1_Fight);
 
@@ -107,7 +108,9 @@ update_status ModuleScenelevel_1::Update()
 	{
 		App->player2->Life--;
 	}
-
+	if (App->player->Life <= 0 || App->player2->Life <= 0) {
+		App->fade->FadeToBlack(App->scene_Todoh, App->scene_win, 2);
+	}
 
 
 	return UPDATE_CONTINUE;
