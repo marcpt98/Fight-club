@@ -10,11 +10,11 @@
 #include "ModuleFadeToBlack.h"
 #include "ModulePlayer2.h"
 #include "ModuleFonts.h"
-// Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
 ModulePlayer::ModulePlayer()
 {
 	graphics = NULL;
+	graphicsbeat = NULL;
 	current_animation = NULL;
 
 
@@ -86,6 +86,14 @@ ModulePlayer::ModulePlayer()
 	crouch1.speed = 0.1f;
 	crouch2.speed = 0.1f;
 
+	//beat animation
+
+	beat.PushBack({ 356,479,88,143 });
+	beat.PushBack({ 356,479,88,143 });
+	beat.PushBack({ 356,479,88,143 });
+
+	beat.speed = 0.1f;
+
 	player1Win.x = 0;
 	player1Win.y = 40;
 	player1Win.w = 116;
@@ -103,6 +111,7 @@ bool ModulePlayer::Start()
 	bool ret = true;
 	graphics = App->textures->Load("media/Ryo_SpriteSheet.png"); // arcade version
 	graphicsWin = App->textures->Load("media/WinPlayer.png");
+	graphicsbeat = App->textures->Load("media/Sprites_beat_ryo.png");
 
 	ryokick = App->audio->LoadFX("media/ryo_kick.wav");
 	ryopunch = App->audio->LoadFX("media/Ryo_punch.wav");
@@ -132,6 +141,8 @@ bool ModulePlayer::CleanUp()
 
 	App->textures->Unload(graphics);
 	App->textures->Unload(graphicsWin);
+	App->textures->Unload(graphicsbeat);
+
 
 	return true;
 }
@@ -337,9 +348,15 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		App->player2->Life--;
 		App->player2->position.x += 5;
 	}
+	if (kickCollider == c1 && c2->type == COLLIDER_ENEMY)
+	{
+		current_animation = &beat;
+	}
+
 	if (punchCollider == c1 && c2->type == COLLIDER_ENEMY)
 	{
 		App->player2->Life--;
+		current_animation2 = &App->player->beat;
 		App->player2->position.x += 5;
 	}
 	

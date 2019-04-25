@@ -26,13 +26,17 @@ public:
 	int font_score = -1;
 	SDL_Texture* graphics = nullptr;
 	SDL_Texture * graphicsWin = nullptr;
+	SDL_Texture * graphicsbeat = nullptr;
 	Animation* current_animation = nullptr;
+	Animation* current_animation2 = nullptr;
+
 	Animation idle;
 	Animation jump;
 	Animation forward;
 	Animation backward;
 	Animation crouch1;
 	Animation crouch2;
+	Animation beat;
 	iPoint position;
 	Animation hadouken;
 	//Animation ball;
