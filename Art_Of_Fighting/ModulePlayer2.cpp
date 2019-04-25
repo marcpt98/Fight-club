@@ -86,13 +86,7 @@ ModulePlayer2::ModulePlayer2()
 	crouch1.speed = 0.1f;
 	crouch2.speed = 0.1f;
 
-	//beat animation
 
-	beat.PushBack({ 863,748,71,109});
-	beat.PushBack({ 935,748,79,109 });
-	beat.PushBack({ 863,748,71,109 });
-
-	beat.speed = 0.1f;
 
 	player2Win.x = 0;
 	player2Win.y = 0;
@@ -316,7 +310,6 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 	if (kickCollider == c1 && c2->type == COLLIDER_PLAYER)
 	{
 		App->player->Life--;
-		current_animation = &beat;
 		App->player->position.x -= 5;
 	}
 
@@ -334,7 +327,6 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 	if (punchCollider == c1 && c2->type == COLLIDER_PLAYER)
 	{
 		App->player->Life--;
-		current_animation = &beat;
 		App->player->position.x -= 5;
 	}
 	

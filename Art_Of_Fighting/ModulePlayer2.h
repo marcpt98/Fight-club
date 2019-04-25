@@ -36,7 +36,6 @@ public:
 	Animation backward;
 	Animation crouch1;
 	Animation crouch2;
-	Animation beat;
 	iPoint position;
 	Animation hadouken;
 	//Animation ball;

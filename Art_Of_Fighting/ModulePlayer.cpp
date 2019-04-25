@@ -86,13 +86,6 @@ ModulePlayer::ModulePlayer()
 	crouch1.speed = 0.1f;
 	crouch2.speed = 0.1f;
 
-	//beat animation
-	beat.PushBack({ 863,748,71,109 });
-	beat.PushBack({ 935,748,79,109 });
-	beat.PushBack({ 863,748,71,109 });
-
-	beat.speed = 0.1f;
-
 	player1Win.x = 0;
 	player1Win.y = 40;
 	player1Win.w = 116;
@@ -157,8 +150,7 @@ update_status ModulePlayer::Update()
 	if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT)
 	{
 		current_animation = &crouch1;
-		current_animation = &crouch2;
-		current_animation = &beat;
+		current_animation = &crouch2;												
 
 	}
 
@@ -347,15 +339,10 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		App->player2->Life--;
 		App->player2->position.x += 5;
 	}
-	if (kickCollider == c1 && c2->type == COLLIDER_ENEMY)
-	{
-		current_animation = &beat;
-	}
 
 	if (punchCollider == c1 && c2->type == COLLIDER_ENEMY)
 	{
 		App->player2->Life--;
-		current_animation2 = &beat;
 		App->player2->position.x += 5;
 	}
 	
