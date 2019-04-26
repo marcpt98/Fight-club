@@ -7,7 +7,8 @@
 
 ModuleRender::ModuleRender() : Module()
 {
-	camera.x = camera.y = 0;
+	camera.x = 0;
+	camera.y = 0;
 	camera.w = SCREEN_WIDTH;
 	camera.h = SCREEN_HEIGHT;
 }
@@ -50,12 +51,6 @@ update_status ModuleRender::PreUpdate()
 update_status ModuleRender::Update()
 {
 	int speed = 3;
-
-	if (camera.y > 224 && App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_REPEAT)
-		camera.y += speed;
-
-	if (camera.y > 0 && App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT)
-		camera.y -= speed;
 
 	if (camera.x < 0 && App->input->keyboard[SDL_SCANCODE_LEFT] == KEY_STATE::KEY_REPEAT)
 		camera.x += speed;

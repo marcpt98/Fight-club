@@ -50,7 +50,7 @@ bool ModuleScenelevel_1::Start()
 
 	App->audio->PlayMusic(Scene1_Fight);
 
-	App->render->camera.x = 0;
+	App->render->camera.x = -315;
 	App->render->camera.y = 0;
 	App->player->Enable();
 	App->player2->Enable();

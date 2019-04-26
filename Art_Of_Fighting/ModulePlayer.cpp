@@ -110,7 +110,7 @@ bool ModulePlayer::Start()
 	ryoKoOuKen= App->audio->LoadFX("media/Ryo_KoOuKen.wav");
 	ryoKoOuKensound= App->audio->LoadFX("media/ryoKoOuKensound.wav");
 
-	position.x = 50;
+	position.x = 168;
 	position.y = 210;
 
 	ryohitbox = App->collision->AddCollider({position.x,position.y, 50, 97 }, COLLIDER_PLAYER, this);
