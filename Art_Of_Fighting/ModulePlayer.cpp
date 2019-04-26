@@ -10,6 +10,7 @@
 #include "ModuleFadeToBlack.h"
 #include "ModulePlayer2.h"
 #include "ModuleFonts.h"
+#include "SDL/include/SDL_timer.h"
 
 ModulePlayer::ModulePlayer()
 {
@@ -112,6 +113,7 @@ bool ModulePlayer::Start()
 
 	position.x = 168;
 	position.y = 210;
+	InitialPosition = position.y;
 
 	ryohitbox = App->collision->AddCollider({position.x,position.y, 50, 97 }, COLLIDER_PLAYER, this);
 	kickCollider = App->collision->AddCollider({ position.x,position.y, 60, 30 }, COLLIDER_PLAYER, this);
@@ -140,6 +142,123 @@ bool ModulePlayer::CleanUp()
 // Update: draw background
 update_status ModulePlayer::Update()
 {
+
+	Animation* current_animation = &idle;
+
+	ryo_states current_state = ST_UNKNOWN;
+	ryo_states state = process_fsm(App->input->inputs);
+
+	if (state != current_state)
+	{
+		switch (state)
+		{
+		case ST_IDLE:
+
+			break;
+
+		case ST_WALK_FORWARD:
+			current_animation = &forward;
+			position.x += speed;
+			break;
+
+		case ST_WALK_BACKWARD:
+			current_animation = &backward;
+			position.x -= speed;
+			break;
+
+		case ST_JUMP_NEUTRAL:
+
+			App->audio->PlayFX(ryojump);
+			App->input->j = 1;
+			current_animation = &jump;
+
+			if (App->input->j == 1) {
+				position.y--; position.y = position.y - 2; current_animation = &jump;
+			}
+			if (position.y == 120) { App->input->j = 0; }
+			if (App->input->j == 0 && position.y != 210) {
+				position.y = position.y + 3; /*position.y++*/; current_animation = &jump;
+			}
+			break;
+	
+		case ST_JUMP_FORWARD:
+			LOG("JUMPING FORWARD ^^>>\n");
+			break;
+		case ST_JUMP_BACKWARD:
+			LOG("JUMPING BACKWARD ^^<<\n");
+			break;
+		case ST_CROUCH:
+			LOG("CROUCHING ****\n");
+			break;
+		case ST_PUNCH_CROUCH:
+			LOG("PUNCH CROUCHING **++\n");
+			break;
+		case ST_PUNCH_STANDING:
+			if (App->input->t == 0) {
+				App->audio->PlayFX(ryopunch);
+				App->input->t = 1;
+				current_animation = &punch;
+
+				if (App->input->t == 1)
+				{
+					current_animation = &punch;
+					time++;
+				}
+				if (time == 25)
+				{
+					punch.Reset();
+					App->input->t = 0;
+					time = 0;
+				}
+			}
+			break;
+
+			LOG("PUNCH STANDING ++++\n");
+			break;
+		case ST_PUNCH_NEUTRAL_JUMP:
+			LOG("PUNCH NEUTRAL JUMP ++++\n");
+		case ST_PUNCH_FORWARD_JUMP:
+			LOG("PUNCH JUMP FORWARD ^>>+\n");
+			break;
+		case ST_PUNCH_BACKWARD_JUMP:
+			LOG("PUNCH JUMP BACKWARD ^<<+\n");
+			break;
+		case ST_KICK_CROUCH:
+			LOG("KICK CROUCHING **--\n");
+			break;
+		case ST_KICK_STANDING:
+			if(App->input->y==0){
+			App->input->y = 1;
+			current_animation = &kick;
+			App->audio->PlayFX(ryokick);
+
+		}
+			if (App->input->y == 1) {
+
+				current_animation = &kick;
+				time++;
+				if (time == 25) {
+					kick.Reset();
+					App->input->y = 0;
+					time = 0;
+				}
+			}
+
+			break;
+		case ST_KICK_NEUTRAL_JUMP:
+			LOG("KICK JUMP NEUTRAL ^^--\n");
+			break;
+		case ST_KICK_FORWARD_JUMP:
+			LOG("KICK JUMP FORWARD ^>>-\n");
+			break;
+		case ST_KICK_BACKWARD_JUMP:
+			LOG("KICK JUMP BACKWARD ^<<-\n");
+			break;
+		}
+	}
+	current_state = state;
+
+	/*
 	Animation *current_animation = &idle;
 	
 	float hadspeed = 1;
@@ -175,19 +294,24 @@ update_status ModulePlayer::Update()
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN && position.y == 210)                             //   JUMP  
+	if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN)                             //   JUMP  
 	{
-		App->audio->PlayFX(ryojump);
-		App->input->j = 1;
-		current_animation = &jump;
-	}
+		if (animStart == 0) {
+			App->audio->PlayFX(ryojump);
+			current_animation = &jump;
+			position.y -= jSpeed;
 
-	if (App->input->j == 1) {
-		position.y--; position.y = position.y - 2; current_animation = &jump;               
-	}
-	if (position.y == 120) { App->input->j = 0; }
-	if (App->input->j == 0 && position.y != 210) {
-		position.y=position.y+3; /*position.y++*/; current_animation = &jump;
+
+			if (position.y < 120) {
+				jSpeed -= 0.5;
+				if (jSpeed < 0) jSpeed = -6;
+			}
+			if (position.y >= InitialPosition && jSpeed < 0) {
+				animStart = 1;
+				position.y = InitialPosition;
+				jSpeed = 6;
+			}
+		}
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -258,7 +382,7 @@ update_status ModulePlayer::Update()
 			time = 0;
 		}
 	}
-	speed = 2;
+	speed = 2;*/
 	////////////////////////////////////////////////////////////////////////////
 
 	if (App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN) {															//God mode 
@@ -278,6 +402,8 @@ update_status ModulePlayer::Update()
 
 		return UPDATE_STOP;
 	}
+
+	
 
 	// Draw everything --------------------------------------
 	SDL_Rect* r = &current_animation->GetCurrentFrame();
@@ -317,6 +443,146 @@ update_status ModulePlayer::Update()
 		App->render->BlitWithScale(graphicsWin, 210, 70, &player1Win, 1, 0.0f, 1.0f, TOP_RIGHT);
 	}
 	return UPDATE_CONTINUE;
+}
+
+ryo_states ModulePlayer::process_fsm(p2Qeue<ryo_inputs>& inputs)
+{
+	static ryo_states state = ST_IDLE;
+	ryo_inputs last_input;
+
+	while (inputs.Pop(last_input))
+	{
+		switch (state)
+		{
+		case ST_IDLE:
+		{
+			switch (last_input)
+			{
+			case IN_RIGHT_DOWN: state = ST_WALK_FORWARD; break;
+			case IN_LEFT_DOWN: state = ST_WALK_BACKWARD; break;
+			case IN_JUMP: state = ST_JUMP_NEUTRAL; App->input->jump_timer = SDL_GetTicks();  break;
+			case IN_CROUCH_DOWN: state = ST_CROUCH; break;
+			case IN_X: state = ST_PUNCH_STANDING; App->input->punch_timer = SDL_GetTicks();  break;
+			}
+		}
+		break;
+
+		case ST_WALK_FORWARD:
+		{
+			switch (last_input)
+			{
+			case IN_RIGHT_UP: state = ST_IDLE; break;
+			case IN_LEFT_AND_RIGHT: state = ST_IDLE; break;
+			case IN_JUMP: state = ST_JUMP_FORWARD;  App->input->jump_timer = SDL_GetTicks();  break;
+			case IN_CROUCH_DOWN: state = ST_CROUCH; break;
+			}
+		}
+		break;
+
+		case ST_WALK_BACKWARD:
+		{
+			switch (last_input)
+			{
+			case IN_LEFT_UP: state = ST_IDLE; break;
+			case IN_LEFT_AND_RIGHT: state = ST_IDLE; break;
+			case IN_JUMP: state = ST_JUMP_BACKWARD;  App->input->jump_timer = SDL_GetTicks();  break;
+			case IN_CROUCH_DOWN: state = ST_CROUCH; break;
+			}
+		}
+		break;
+
+		case ST_JUMP_NEUTRAL:
+		{
+			switch (last_input)
+			{
+			case IN_JUMP_FINISH: state = ST_IDLE; break;
+			case IN_X: state = ST_PUNCH_NEUTRAL_JUMP;  App->input->punch_timer = SDL_GetTicks(); break;
+			}
+		}
+		break;
+
+		case ST_JUMP_FORWARD:
+		{
+			switch (last_input)
+			{
+				// TODO: Add links
+			case IN_JUMP_FINISH: state = ST_IDLE; break;
+			case IN_X: state = ST_PUNCH_FORWARD_JUMP;  App->input->punch_timer = SDL_GetTicks(); break;
+			}
+		}
+		break;
+
+		case ST_JUMP_BACKWARD:
+		{
+			switch (last_input)
+			{
+				// TODO: Add Links
+			case IN_JUMP_FINISH: state = ST_IDLE; break;
+			case IN_X: state = ST_PUNCH_BACKWARD_JUMP;  App->input->punch_timer = SDL_GetTicks(); break;
+			}
+		}
+		break;
+
+		case ST_PUNCH_NEUTRAL_JUMP:
+		{
+			switch (last_input)
+			{
+				// TODO: Add Links
+			case IN_PUNCH_FINISH: state = ST_IDLE; break;
+			case IN_X: state = ST_PUNCH_NEUTRAL_JUMP;  App->input->punch_timer = SDL_GetTicks(); break;
+			}
+		}
+		break;
+
+		case ST_PUNCH_FORWARD_JUMP:
+		{
+			switch (last_input)
+			{
+				// TODO: Add Links
+			case IN_PUNCH_FINISH: state = ST_IDLE; break;
+			case IN_X: state = ST_PUNCH_FORWARD_JUMP;  App->input->punch_timer = SDL_GetTicks(); break;
+			}
+		}
+		break;
+
+		case ST_PUNCH_BACKWARD_JUMP:
+		{
+			switch (last_input)
+			{
+				// TODO: Add Links
+			}
+		}
+		break;
+
+		case ST_PUNCH_STANDING:
+		{
+			switch (last_input)
+			{
+				// TODO: Add Links
+			}
+		}
+		break;
+
+		case ST_CROUCH:
+		{
+			switch (last_input)
+			{
+				// TODO: Add Links
+			}
+		}
+		break;
+		case ST_PUNCH_CROUCH:
+		{
+			switch (last_input)
+			{
+				// TODO: Add Links
+			}
+		}
+		break;
+		}
+	}
+
+	return state;
 }
 
 

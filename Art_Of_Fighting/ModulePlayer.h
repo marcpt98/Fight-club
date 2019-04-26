@@ -13,6 +13,9 @@ class ModulePlayer : public Module
 private:
 	bool wall = false;
 	int speed = 2;
+	int animStart = 0;
+	float jSpeed = 6;
+	int InitialPosition;
 public:
 	ModulePlayer();
 	~ModulePlayer();
@@ -20,6 +23,7 @@ public:
 	bool Start();
 	update_status Update();
 	bool CleanUp();
+	ryo_states process_fsm(p2Qeue<ryo_inputs>& inputs);
 
 public:
 
