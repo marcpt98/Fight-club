@@ -273,6 +273,12 @@ update_status ModulePlayer::Update()
 			GodMode = false;
 		}
 	}
+
+	if (App->input->keyboard[SDL_SCANCODE_ESCAPE] == KEY_STATE::KEY_DOWN) {															//Get out of game
+
+		return UPDATE_STOP;
+	}
+
 	// Draw everything --------------------------------------
 	SDL_Rect* r = &current_animation->GetCurrentFrame();
 
