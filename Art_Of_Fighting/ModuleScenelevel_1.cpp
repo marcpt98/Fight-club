@@ -112,7 +112,6 @@ update_status ModuleScenelevel_1::Update()
 	}
 	if (App->player->Life <= 0 || App->player2->Life <= 0) 
 	{
-		
 		App->fade->FadeToBlack(App->scene_Todoh, App->scene_win, 2);
 	}
 

@@ -54,6 +54,10 @@ public:
 	int ryojump = 0;
 	int ryoKoOuKen = 0;
 	int ryoKoOuKensound = 0;
+
+	Uint32 jump_timer = 0;
+	Uint32 punch_timer = 0;
+	Uint32 kick_timer = 0;
 };
 
 #endif
