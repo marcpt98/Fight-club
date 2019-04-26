@@ -9,7 +9,7 @@
 #include "SDL/include/SDL_timer.h"
 
 #define MAX_KEYS 300
-#define JUMP_TIME 3000
+#define JUMP_TIME 650
 #define PUNCH_TIME 400
 #define KICK_TIME  500
 
@@ -30,6 +30,8 @@ public:
 	bool Start();
 	update_status Update();
 	bool CleanUp();
+	bool JumpMax = false;
+	bool JumpMin = false;
 
 public:
 
@@ -40,7 +42,8 @@ public:
 	Animation* current_animation = nullptr;
 	Animation* current_animation2 = nullptr;
 	Animation idle;
-	Animation jump;
+	Animation jumping;
+	Animation jumpFalling;
 	Animation forward;
 	Animation backward;
 	Animation crouch;
@@ -67,6 +70,7 @@ public:
 	int ryoKoOuKen = 0;
 	int ryoKoOuKensound = 0;
 	int GodMode = false;
+	int Jump = 0;
 
 	enum ryo_states
 	{

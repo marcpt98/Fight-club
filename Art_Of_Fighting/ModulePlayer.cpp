@@ -30,15 +30,16 @@ ModulePlayer::ModulePlayer()
 
 
 	//jump animation(arcade sprite sheet)
-	jump.PushBack({ 0,504,60,82 });
-	jump.PushBack({ 60,456,65,129 });
-	jump.PushBack({ 126,473,61,112 });
-	jump.PushBack({ 188,476,57,109 });
-	jump.PushBack({ 245,495,53,90 });
-	jump.PushBack({ 299,471,56,114 });
-	jump.PushBack({ 0,504,60,82 });
+	jumping.PushBack({ 0,504,60,82 });
+	jumping.PushBack({ 60,456,65,129 });
+	jumping.PushBack({ 126,473,61,112 });
+	jumping.PushBack({ 245,495,54,91 });
+	jumping.speed = 0.15f;
 
-	jump.speed = 0.1f;
+	jumpFalling.PushBack({ 299,471,58, 116 });
+	jumpFalling.PushBack({ 0,504,60,82 });
+	jumpFalling.speed = 0.1f;
+	
 
 	// walk forward animation (arcade sprite sheet)
 	forward.PushBack({ 691, 348, 58, 108 });
@@ -143,7 +144,7 @@ update_status ModulePlayer::Update()
 	p2Qeue<ryo_inputs> inputs;
 	ryo_states current_state = ST_UNKNOWN;
 
-	int speed = 1;
+	int speed = 2;
 
 	if (App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN) {															//God mode 
 		if (GodMode == false) 
@@ -198,18 +199,36 @@ update_status ModulePlayer::Update()
 
 			case ST_JUMP_NEUTRAL:
 
-				App->audio->PlayFX(ryojump);
-				App->input->j = 1;
-				current_animation = &jump;
+				Jump = 1;
+				speed = 3;
 
-				if (App->input->j == 1) {
-					position.y--; position.y = position.y - 2; current_animation = &jump;
-				}
-				if (position.y == 120) { App->input->j = 0; }
-				if (App->input->j == 0 && position.y != 210) {
-					position.y = position.y + 3; /*position.y++*/; current_animation = &jump;
-				}
-				break;
+				if(Jump == 1)
+				{
+					if(position.y == 210)
+					{
+						JumpMax = false;
+						JumpMin = true;
+					}
+					if(position.y == 150)
+					{
+						JumpMin = false;
+						JumpMax = true;
+					}
+
+					if(JumpMin == true)
+					{
+						jumpFalling.Reset();
+						position.y -= speed;
+						current_animation = &jumping;
+					}
+					if (JumpMax == true)
+					{
+						jumping.Reset();
+						position.y += speed;
+						current_animation = &jumpFalling;
+					}
+					
+				}break;
 
 			case ST_JUMP_FORWARD:
 				LOG("JUMPING FORWARD ^^>>\n");
