@@ -91,7 +91,7 @@ ModulePlayer2::ModulePlayer2()
 	player2Win.x = 0;
 	player2Win.y = 0;
 	player2Win.w = 120;
-	player2Win.h = 41;
+	player2Win.h = 39;
 
 }
 

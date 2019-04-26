@@ -89,7 +89,7 @@ ModulePlayer::ModulePlayer()
 	player1Win.x = 0;
 	player1Win.y = 40;
 	player1Win.w = 116;
-	player1Win.h = 41;
+	player1Win.h = 39;
 
 }
 
