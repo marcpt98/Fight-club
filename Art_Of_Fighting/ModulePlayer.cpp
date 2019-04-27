@@ -562,7 +562,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 			position.x += 2;
 		}
 		if (App->input->keyboard[SDL_SCANCODE_D] != NULL) {
-			speed = 2;
+			position.x += 2;
 		}
 	}
 	/////////////////////////////////////////////////////////////////////////////////////// KICK HITBOX

@@ -352,20 +352,20 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 
 	if (ryohitbox == c1 && App->scene_Todoh->colliderMap2 == c2)   //Colisions with second wall
 	{
-		if (App->input->keyboard[SDL_SCANCODE_J] == NULL) {
-			speed = 0;
+		if (App->input->keyboard[SDL_SCANCODE_L] == NULL) {
+			position.x -= 2;
 		}
-		if (App->input->keyboard[SDL_SCANCODE_J] != NULL) {
-			speed = 2;
+		if (App->input->keyboard[SDL_SCANCODE_L] != NULL) {
+			speed = 0;
 		}
 	}
 	if (ryohitbox == c1 && App->scene_Todoh->colliderMap == c2)   //Colisions with first wall
 	{
-		if (App->input->keyboard[SDL_SCANCODE_L] == NULL) {
-			speed = 0;
+		if (App->input->keyboard[SDL_SCANCODE_J] == NULL) {
+			position.x += 2;
 		}
-		if (App->input->keyboard[SDL_SCANCODE_L] != NULL) {
-			speed = 2;
+		if (App->input->keyboard[SDL_SCANCODE_J] != NULL) {
+			speed = 0;
 		}
 	}
 	if (punchCollider == c1 && c2->type == COLLIDER_PLAYER)
