@@ -81,9 +81,16 @@ ModulePlayer::ModulePlayer()
 	hadouken.speed = 0.15f;
 
 	// crouch animation
-	crouch.PushBack({ 0, 503,60,83 });
-	crouch.PushBack({ 576, 42,67,74 });
-	crouch.speed = 0.1f;
+	crouch1.PushBack({ 0, 503,60,83 });
+	crouch2.PushBack({ 576, 42,67,74 });
+	crouch1.speed = 0.1f;
+	crouch2.speed = 0.1f;
+
+	////beat animation
+
+	//beat.PushBack({ 863, 748,66,106 });
+	//beat.PushBack({ 937, 747,78,109 });
+	//beat.PushBack({ 863, 748,66,106 });
 
 	player1Win.x = 0;
 	player1Win.y = 40;
@@ -175,7 +182,8 @@ update_status ModulePlayer::Update()
 				current_animation = &idle;
 				forward.Reset();
 				backward.Reset();
-				crouch.Reset();
+				crouch1.Reset();
+				crouch2.Reset();
 				kick.Reset();
 				punch.Reset();
 				break;
@@ -184,7 +192,8 @@ update_status ModulePlayer::Update()
 				current_animation = &forward;
 				position.x += speed;
 				backward.Reset();
-				crouch.Reset();
+				crouch1.Reset();
+				crouch2.Reset();				
 				kick.Reset();
 				punch.Reset();
 				break;
@@ -193,7 +202,8 @@ update_status ModulePlayer::Update()
 				current_animation = &backward;
 				position.x -= speed;
 				forward.Reset();
-				crouch.Reset();
+				crouch1.Reset();
+				crouch2.Reset();
 				kick.Reset();
 				punch.Reset();
 				break;
@@ -238,7 +248,9 @@ update_status ModulePlayer::Update()
 				LOG("JUMPING BACKWARD ^^<<\n");
 				break;
 			case ST_CROUCH:
-				current_animation = &crouch;
+				current_animation = &crouch1;	
+				current_animation = &crouch2;
+
 				LOG("CROUCHING ****\n");
 				break;
 			case ST_PUNCH_CROUCH:
