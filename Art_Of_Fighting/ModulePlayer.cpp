@@ -584,12 +584,15 @@ bool ModulePlayer::external_input(p2Qeue<ryo_inputs>& inputs)
 			{
 			case SDLK_r:
 				inputs.Push(IN_R);
+				App->audio->PlayFX(ryokick);
 				break;
 			case SDLK_t:
 				inputs.Push(IN_T);
+				App->audio->PlayFX(ryopunch);
 				break;
 			case SDLK_w:
 				up = true;
+				App->audio->PlayFX(ryojump);
 				break;
 			case SDLK_s:
 				down = true;
