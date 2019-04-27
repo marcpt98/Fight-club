@@ -266,7 +266,16 @@ update_status ModulePlayer2::Update()
 	// Draw everything --------------------------------------
 	SDL_Rect* r = &current_animation->GetCurrentFrame();
 
-	App->render->BlitWithScale(graphics, position.x, position.y - r->h, r, -1, 1.0f, 1, TOP_RIGHT);
+	
+	
+		if ((position.x-25) >= (App->player->position.x+25)) {
+			App->render->BlitWithScale(graphics, position.x, position.y - r->h, r, -1, 1.0f, 1, TOP_RIGHT);
+		}
+		else {
+			App->render->Blit(graphics, position.x-50, position.y - r->h, r);
+		}
+
+	
 
 	ryohitbox->SetPos(position.x-50, position.y - r->h);
 
@@ -296,6 +305,7 @@ update_status ModulePlayer2::Update()
 
 	if (App->player->Life <= 0)
 	{
+
 		App->render->BlitWithScale(graphicsWin, 212, 70, &player2Win, 1, 0.0f, 1.0f, TOP_RIGHT);
 	}
 	return UPDATE_CONTINUE;

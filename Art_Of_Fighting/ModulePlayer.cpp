@@ -436,34 +436,64 @@ update_status ModulePlayer::Update()
 		// Draw everything --------------------------------------
 		SDL_Rect* r = &current_animation->GetCurrentFrame();
 
-		App->render->Blit(graphics, position.x, position.y - r->h, r);
+		
+
+		if ((position.x+25) >=( App->player2->position.x-25)) {
+			App->render->BlitWithScale(graphics, position.x+50, position.y - r->h, r, -1, 1.0f, 1, TOP_RIGHT);
+			if (r == &kick.frames[kick.last_frame - 1])
+			{
+				kickCollider->SetPos(position.x - 40, position.y - r->h);
+
+				kickCollider->Enabled = true;
+			}
+			else
+			{
+				kickCollider->Enabled = false;
+			}
+
+			if (r == &punch.frames[punch.last_frame - 1])
+			{
+				punchCollider->SetPos(position.x - 50, position.y + 12 - r->h);
+
+				punchCollider->Enabled = true;
+			}
+			else
+			{
+				punchCollider->Enabled = false;
+			}
+		}
+		else {
+			App->render->Blit(graphics, position.x, position.y - r->h, r);
+
+			if (r == &kick.frames[kick.last_frame - 1])
+			{
+				kickCollider->SetPos(position.x + 40, position.y - r->h);
+
+				kickCollider->Enabled = true;
+			}
+			else
+			{
+				kickCollider->Enabled = false;
+			}
+
+			if (r == &punch.frames[punch.last_frame - 1])
+			{
+				punchCollider->SetPos(position.x + 50, position.y + 12 - r->h);
+
+				punchCollider->Enabled = true;
+			}
+			else
+			{
+				punchCollider->Enabled = false;
+			}
+		}
+
 
 		ryohitbox->SetPos(position.x, position.y - r->h);
 
 		wall = false;
 
 
-		if (r == &kick.frames[kick.last_frame - 1])
-		{
-			kickCollider->SetPos(position.x + 40, position.y - r->h);
-
-			kickCollider->Enabled = true;
-		}
-		else
-		{
-			kickCollider->Enabled = false;
-		}
-
-		if (r == &punch.frames[punch.last_frame - 1])
-		{
-			punchCollider->SetPos(position.x + 50, position.y + 12 - r->h);
-
-			punchCollider->Enabled = true;
-		}
-		else
-		{
-			punchCollider->Enabled = false;
-		}
 
 
 		if (App->player2->Life <= 0)
@@ -534,26 +564,42 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 			speed = 2;
 		}
 	}
+	/////////////////////////////////////////////////////////////////////////////////////// KICK HITBOX
 	if (kickCollider == c1 && c2->type == COLLIDER_ENEMY)
 	{
 		App->player2->Life--;
 
+		if ((position.x + 25) >= (App->player2->position.x - 25)) {
+			
+			App->player2->position.x -= 5;
+			
 
-		if ((App->player2->position.x) <= (App->scene_Todoh->positionlimitright.x + 300)) {
-			App->player2->position.x += 5;
+			if ((App->player2->position.x) >= (App->scene_Todoh->positionlimitright.x + 300)) {
+				position.x -= 5;
+				App->player2->position.x += 3;
+			}
 		}
 
-		if ((App->player2->position.x) >= (App->scene_Todoh->positionlimitright.x + 300)) {
-			position.x -= 5;
-			App->player2->position.x -= 3;
-		}
+		else {
+			if ((App->player2->position.x) <= (App->scene_Todoh->positionlimitright.x + 300)) {
+				App->player2->position.x += 5;
+			}
 
+			if ((App->player2->position.x) >= (App->scene_Todoh->positionlimitright.x + 300)) {
+				position.x -= 5;
+				App->player2->position.x -= 3;
+			}
+		}
 	}
-
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////// PUNCH HITBOX
 	if (punchCollider == c1 && c2->type == COLLIDER_ENEMY)
 	{
 		App->player2->Life--;
+		if ((position.x + 25) >= (App->player2->position.x - 25)) {
+			App->player2->position.x -= 5;
+		}
 
+	else {
 		if ((App->player2->position.x) <= (App->scene_Todoh->positionlimitright.x + 300)) {
 			App->player2->position.x += 5;
 		}
@@ -562,6 +608,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 			position.x -= 5;
 			App->player2->position.x -= 3;
 		}
+	}
 	}
 	
 }
