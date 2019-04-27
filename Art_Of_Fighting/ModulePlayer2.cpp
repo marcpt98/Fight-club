@@ -104,7 +104,7 @@ bool ModulePlayer2::Start()
 {
 	LOG("Loading player textures");
 	bool ret = true;
-	graphics = App->textures->Load("media/Ryo_SpriteSheet.png"); // arcade version
+	graphics = App->textures->Load("media/Ryo_SpriteSheet_enemy.png"); // arcade version
 	graphicsWin = App->textures->Load("media/WinPlayer.png");
 
 	ryokick = App->audio->LoadFX("media/ryo_kick.wav");

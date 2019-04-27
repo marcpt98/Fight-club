@@ -92,7 +92,7 @@ update_status ModuleScenelevel_1::Update()
 	App->render->camera.x = (distance*-1);
 
 	colliderMap->SetPos((((App->render->camera.x*-1) - 10) / 2), positionlimitleft.y);//NEW
-	colliderMap2->SetPos((((App->render->camera.x*-1) + 575) / 2), positionlimitleft.y);//NEW
+	colliderMap2->SetPos((((App->render->camera.x*-1) + 595) / 2), positionlimitleft.y);//NEW
 
 	// Draw everything --------------------------------------
 	App->render->Blit(graphics, 0, 0, &background1, 0.75f);
