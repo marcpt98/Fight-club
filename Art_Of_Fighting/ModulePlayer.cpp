@@ -86,11 +86,11 @@ ModulePlayer::ModulePlayer()
 	crouch1.speed = 0.1f;
 	crouch2.speed = 0.1f;
 
-	////beat animation
+	//beat animation
 
-	//beat.PushBack({ 863, 748,66,106 });
-	//beat.PushBack({ 937, 747,78,109 });
-	//beat.PushBack({ 863, 748,66,106 });
+	beat.PushBack({ 863, 748,66,106 });
+	beat.PushBack({ 937, 747,78,109 });
+	beat.PushBack({ 863, 748,66,106 });
 
 	player1Win.x = 0;
 	player1Win.y = 40;
@@ -283,12 +283,12 @@ update_status ModulePlayer::Update()
 			case ST_KICK_BACKWARD_JUMP:
 				LOG("KICK JUMP BACKWARD ^<<-\n");
 				break;
+			case ST_DAMAGE_RECEIVED:
+				current_animation = &beat;
+				break;
 			}
 		}
 		current_state = state;
-
-
-
 
 		/*
 		Animation *current_animation = &idle;

@@ -48,6 +48,7 @@ public:
 	Animation backward;
 	Animation crouch1;
 	Animation crouch2;
+	Animation beat;
 	iPoint position;
 	Animation hadouken;
 	Animation punch;
@@ -93,7 +94,8 @@ public:
 		ST_KICK_NEUTRAL_JUMP,
 		ST_KICK_FORWARD_JUMP,
 		ST_KICK_BACKWARD_JUMP,
-		ST_KICK_CROUCH
+		ST_KICK_CROUCH,
+		ST_DAMAGE_RECEIVED
 	};
 
 	enum ryo_inputs
@@ -112,7 +114,9 @@ public:
 		IN_R,
 		IN_JUMP_FINISH,
 		IN_PUNCH_FINISH,
-		IN_KICK_FINISH
+		IN_KICK_FINISH,
+		IN_PUNCH_RECEIVED,
+		IN_PUNCH_RECEIVED_FINISH
 	};
 
 	bool external_input(p2Qeue<ryo_inputs>&);
@@ -287,6 +291,14 @@ public:
 				}
 				
 			}break;
+			case ST_DAMAGE_RECEIVED:
+			{
+				switch (last_input)
+				{
+				case IN_PUNCH_RECEIVED: state = ST_DAMAGE_RECEIVED; break;
+				case IN_PUNCH_RECEIVED_FINISH: state = ST_IDLE; break;
+				}
+			} break;
 			
 			}
 			
