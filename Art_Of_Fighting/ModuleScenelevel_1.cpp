@@ -63,8 +63,8 @@ bool ModuleScenelevel_1::Start()
 	positionlimitright.x = 250;//NEW
 	positionlimitright.y = -150;//NEW
 	//Scene limits from left and right
-	colliderMap = App->collision->AddCollider({ positionlimitleft.x, positionlimitleft.y, 25, 500 }, COLLIDER_WALL, this);//NEW
-	colliderMap2 = App->collision->AddCollider({ positionlimitright.x, positionlimitright.y , 33, 500 }, COLLIDER_WALL, this);//NEW
+	colliderMap = App->collision->AddCollider({ positionlimitleft.x, positionlimitleft.y, 15, 500 }, COLLIDER_WALL, this);//NEW
+	colliderMap2 = App->collision->AddCollider({ positionlimitright.x, positionlimitright.y , 15, 500 }, COLLIDER_WALL, this);//NEW
 
 	
 

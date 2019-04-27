@@ -509,6 +509,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 	{
 		if (App->input->keyboard[SDL_SCANCODE_A] == NULL) {
 			speed = 0;
+			position.x -= 2;
 		}
 		if (App->input->keyboard[SDL_SCANCODE_A] != NULL) {
 			speed = 2;
@@ -518,21 +519,40 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 	{
 		if (App->input->keyboard[SDL_SCANCODE_D] == NULL) {
 			speed = 0;
+			position.x += 2;
 		}
 		if (App->input->keyboard[SDL_SCANCODE_D] != NULL) {
 			speed = 2;
 		}
 	}
-	if(kickCollider == c1 && c2->type == COLLIDER_ENEMY)
+	if (kickCollider == c1 && c2->type == COLLIDER_ENEMY)
 	{
 		App->player2->Life--;
-		App->player2->position.x += 5;
+
+
+		if ((App->player2->position.x) <= (App->scene_Todoh->positionlimitright.x + 300)) {
+			App->player2->position.x += 5;
+		}
+
+		if ((App->player2->position.x) >= (App->scene_Todoh->positionlimitright.x + 300)) {
+			position.x -= 5;
+			App->player2->position.x -= 3;
+		}
+
 	}
 
 	if (punchCollider == c1 && c2->type == COLLIDER_ENEMY)
 	{
 		App->player2->Life--;
-		App->player2->position.x += 5;
+
+		if ((App->player2->position.x) <= (App->scene_Todoh->positionlimitright.x + 300)) {
+			App->player2->position.x += 5;
+		}
+
+		if ((App->player2->position.x) >= (App->scene_Todoh->positionlimitright.x + 300)) {
+			position.x -= 5;
+			App->player2->position.x -= 3;
+		}
 	}
 	
 }
