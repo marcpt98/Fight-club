@@ -4,11 +4,13 @@
 #include "Module.h"
 #include "Animation.h"
 #include "Globals.h"
-
+#include "p2Point.h"
 struct SDL_Texture;
 
 class ModuleScenelevel_1 : public Module
 {
+private://NEW
+	int speed = 3;//NEW
 public:
 	ModuleScenelevel_1();
 	~ModuleScenelevel_1();
@@ -30,6 +32,9 @@ public:
 	int Scene1_Fight = 0;
 	float foreground_pos;
 	bool forward;
+	int distance = 0;
+	iPoint positionlimitleft;//NEW
+	iPoint positionlimitright;//NEW
 };
 
 #endif // __MODULESCENELEVEL_1_H__

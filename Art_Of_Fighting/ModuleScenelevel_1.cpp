@@ -58,9 +58,13 @@ bool ModuleScenelevel_1::Start()
 
 	graphicsLive = App->textures->Load("media/live.png");
 
+	positionlimitleft.x = 133;//NEW
+	positionlimitleft.y = -150;//NEW
+	positionlimitright.x = 250;//NEW
+	positionlimitright.y = -150;//NEW
 	//Scene limits from left and right
-	colliderMap = App->collision->AddCollider({ 0, -150, 25, 500 }, COLLIDER_WALL);
-	colliderMap2 = App->collision->AddCollider({ 609, -150, 25, 500 }, COLLIDER_WALL);
+	colliderMap = App->collision->AddCollider({ positionlimitleft.x, positionlimitleft.y, 25, 500 }, COLLIDER_WALL, this);//NEW
+	colliderMap2 = App->collision->AddCollider({ positionlimitright.x, positionlimitright.y , 33, 500 }, COLLIDER_WALL, this);//NEW
 
 	
 
@@ -84,6 +88,11 @@ bool ModuleScenelevel_1::CleanUp()
 // Update: draw background
 update_status ModuleScenelevel_1::Update()
 {
+	distance = ((App->player->position.x + App->player2->position.x) / 2);
+	App->render->camera.x = (distance*-1);
+
+	colliderMap->SetPos((((App->render->camera.x*-1) - 10) / 2), positionlimitleft.y);//NEW
+	colliderMap2->SetPos((((App->render->camera.x*-1) + 575) / 2), positionlimitleft.y);//NEW
 
 	// Draw everything --------------------------------------
 	App->render->Blit(graphics, 0, 0, &background1, 0.75f);

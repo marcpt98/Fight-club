@@ -10,6 +10,7 @@
 #include "ModuleFadeToBlack.h"
 #include "ModulePlayer2.h"
 #include "ModuleFonts.h"
+#include "ModuleScenelevel_1.h"
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
@@ -318,11 +319,42 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 		if (App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_REPEAT && App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT) {
 			speed = 0;
 		}
-		else if (App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_REPEAT) {
-			App->player->position.x = position.x - 101;
+		else if (App->input->keyboard[SDL_SCANCODE_L] == KEY_STATE::KEY_REPEAT && App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT) { //NEWW 
+			speed = 0;
+		}
+		else if (App->input->keyboard[SDL_SCANCODE_J] != NULL && App->input->keyboard[SDL_SCANCODE_D] == NULL) { //when player 2 run and player 1 no(player 2 in the left side)
 			speed = 1;
 		}
-		
+		else if (App->input->keyboard[SDL_SCANCODE_D] != NULL && App->input->keyboard[SDL_SCANCODE_J] == NULL) { //when player 1 run and player 2 no(player 2 in the left side)
+			position.x += 2;
+		}
+		else if (App->input->keyboard[SDL_SCANCODE_L] != NULL && App->input->keyboard[SDL_SCANCODE_A] == NULL) { //when player 2 run and player 1 no (player 2 in the left side)
+			speed = 1;
+		}
+		else if (App->input->keyboard[SDL_SCANCODE_A] != NULL && App->input->keyboard[SDL_SCANCODE_L] == NULL) { //when player 2 run and player 1 no (player 2 in the left side)
+			position.x -= 2;
+		}
+
+
+	}
+
+	if (ryohitbox == c1 && App->scene_Todoh->colliderMap2 == c2)   //Colisions with second wall
+	{
+		if (App->input->keyboard[SDL_SCANCODE_J] == NULL) {
+			speed = 0;
+		}
+		if (App->input->keyboard[SDL_SCANCODE_J] != NULL) {
+			speed = 2;
+		}
+	}
+	if (ryohitbox == c1 && App->scene_Todoh->colliderMap == c2)   //Colisions with first wall
+	{
+		if (App->input->keyboard[SDL_SCANCODE_L] == NULL) {
+			speed = 0;
+		}
+		if (App->input->keyboard[SDL_SCANCODE_L] != NULL) {
+			speed = 2;
+		}
 	}
 	if (punchCollider == c1 && c2->type == COLLIDER_PLAYER)
 	{
