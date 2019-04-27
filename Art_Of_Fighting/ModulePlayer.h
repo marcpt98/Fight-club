@@ -12,6 +12,7 @@
 #define JUMP_TIME 650
 #define PUNCH_TIME 400
 #define KICK_TIME  500
+#define HADOUKEN_TIME  550
 
 struct SDL_Texture;
 
@@ -32,6 +33,7 @@ public:
 	bool CleanUp();
 	bool JumpMax = false;
 	bool JumpMin = false;
+	bool Activehadouken = false;
 
 public:
 
@@ -61,6 +63,7 @@ public:
 	Uint32 jump_timer = 0;
 	Uint32 punch_timer = 0;
 	Uint32 kick_timer = 0;
+	Uint32 hadouken_timer = 0;
 
 	void OnCollision(Collider* c1, Collider* c2);
 	int Life = 100;
@@ -95,7 +98,8 @@ public:
 		ST_KICK_FORWARD_JUMP,
 		ST_KICK_BACKWARD_JUMP,
 		ST_KICK_CROUCH,
-		ST_DAMAGE_RECEIVED
+		ST_DAMAGE_RECEIVED,
+		ST_HADOUKEN
 	};
 
 	enum ryo_inputs
@@ -112,11 +116,13 @@ public:
 		IN_Y,
 		IN_T,
 		IN_R,
+		IN_F,
 		IN_JUMP_FINISH,
 		IN_PUNCH_FINISH,
 		IN_KICK_FINISH,
 		IN_PUNCH_RECEIVED,
-		IN_PUNCH_RECEIVED_FINISH
+		IN_PUNCH_RECEIVED_FINISH,
+		IN_HADOUKEN_FINISH
 	};
 
 	bool external_input(p2Qeue<ryo_inputs>&);
@@ -142,6 +148,7 @@ public:
 				case IN_CROUCH_DOWN: state = ST_CROUCH; break;
 				case IN_T: state = ST_PUNCH_STANDING, punch_timer = SDL_GetTicks(); break;
 				case IN_R: state = ST_KICK_STANDING, kick_timer = SDL_GetTicks(); break;
+				case IN_F: state = ST_HADOUKEN, hadouken_timer = SDL_GetTicks(); break;
 				}
 			}
 			break;
@@ -156,6 +163,7 @@ public:
 				case IN_CROUCH_DOWN: state = ST_CROUCH; break;
 				case IN_T: state = ST_PUNCH_STANDING, punch_timer = SDL_GetTicks(); break;
 				case IN_R: state = ST_KICK_STANDING, kick_timer = SDL_GetTicks(); break;
+				case IN_F: state = ST_HADOUKEN, hadouken_timer = SDL_GetTicks(); break;
 				}
 			}
 			break;
@@ -170,6 +178,7 @@ public:
 				case IN_CROUCH_DOWN: state = ST_CROUCH; break;
 				case IN_T: state = ST_PUNCH_STANDING, punch_timer = SDL_GetTicks(); break;
 				case IN_R: state = ST_KICK_STANDING, kick_timer = SDL_GetTicks(); break;
+				case IN_F: state = ST_HADOUKEN, hadouken_timer = SDL_GetTicks(); break;
 				}
 			}
 			break;
@@ -299,8 +308,18 @@ public:
 				case IN_PUNCH_RECEIVED_FINISH: state = ST_IDLE; break;
 				}
 			} break;
-			
+			case ST_HADOUKEN:
+			{
+				switch (last_input)
+				{
+				case IN_HADOUKEN_FINISH: state = ST_IDLE; break;
+				}
+				break;
+
 			}
+			}
+			
+			
 			
 		}
 

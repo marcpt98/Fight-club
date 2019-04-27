@@ -186,6 +186,7 @@ update_status ModulePlayer::Update()
 				crouch2.Reset();
 				kick.Reset();
 				punch.Reset();
+				hadouken.Reset();
 				break;
 
 			case ST_WALK_FORWARD:
@@ -196,6 +197,7 @@ update_status ModulePlayer::Update()
 				crouch2.Reset();				
 				kick.Reset();
 				punch.Reset();
+				hadouken.Reset();
 				break;
 
 			case ST_WALK_BACKWARD:
@@ -206,6 +208,7 @@ update_status ModulePlayer::Update()
 				crouch2.Reset();
 				kick.Reset();
 				punch.Reset();
+				hadouken.Reset();
 				break;
 
 			case ST_JUMP_NEUTRAL:
@@ -286,6 +289,10 @@ update_status ModulePlayer::Update()
 			case ST_DAMAGE_RECEIVED:
 				current_animation = &beat;
 				break;
+			case ST_HADOUKEN:
+
+				current_animation = &hadouken;
+				Activehadouken = true;
 			}
 		}
 		current_state = state;
@@ -597,6 +604,9 @@ bool ModulePlayer::external_input(p2Qeue<ryo_inputs>& inputs)
 			case SDLK_t:
 				return false;
 				break;
+			case SDLK_f:
+				return false;
+				break;
 			}
 		}
 		if (event.type == SDL_KEYDOWN && event.key.repeat == 0)
@@ -610,6 +620,20 @@ bool ModulePlayer::external_input(p2Qeue<ryo_inputs>& inputs)
 			case SDLK_t:
 				inputs.Push(IN_T);
 				App->audio->PlayFX(ryopunch);
+				break;
+			case SDLK_f:
+
+				if (Activehadouken = true)
+				{
+					App->particles->AddParticle(App->particles->Hadouken1, position.x - 10, position.y - 110, COLLIDER_PLAYER_SHOT);
+					App->particles->AddParticle(App->particles->Hadouken2, position.x - 8, position.y - 85, COLLIDER_PLAYER_SHOT, 100);
+					App->particles->AddParticle(App->particles->Hadouken3, position.x - 10, position.y - 80, COLLIDER_PLAYER_SHOT, 300);
+					App->particles->AddParticle(App->particles->Hadouken4, position.x - 60, position.y - 80, COLLIDER_PLAYER_SHOT, 400);
+					Activehadouken = false;
+				}
+				App->audio->PlayFX(ryoKoOuKen);
+				App->audio->PlayFX(ryoKoOuKensound);
+				inputs.Push(IN_F);
 				break;
 			case SDLK_w:
 				up = true;
@@ -676,6 +700,15 @@ void ModulePlayer::internal_input(p2Qeue<ryo_inputs>& inputs)
 		{
 			inputs.Push(IN_KICK_FINISH);
 			kick_timer = 0;
+		}
+	}
+
+	if (hadouken_timer > 0)
+	{
+		if (SDL_GetTicks() - hadouken_timer > HADOUKEN_TIME)
+		{
+			inputs.Push(IN_HADOUKEN_FINISH);
+			hadouken_timer = 0;
 		}
 	}
 }
