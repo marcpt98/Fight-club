@@ -502,13 +502,13 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 			position.x -= 2;
 		}
 		else if (App->input->keyboard[SDL_SCANCODE_D] != NULL && App->input->keyboard[SDL_SCANCODE_J] == NULL) { //when player 1 run and player 2 no (player 1 in the left side)
-			speed = 1;
+			position.x -= 1;
 		}
 		else if (App->input->keyboard[SDL_SCANCODE_L] != NULL && App->input->keyboard[SDL_SCANCODE_A] == NULL) { //when player 2 run and player 1 no (player 2 in the left side)
 			position.x += 2;
 		}
 		else if (App->input->keyboard[SDL_SCANCODE_A] != NULL && App->input->keyboard[SDL_SCANCODE_L] == NULL) { //when player 2 run and player 1 no (player 2 in the left side)
-			speed = 1;
+			position.x += 1;
 		}
 
 	}
