@@ -87,10 +87,11 @@ ModulePlayer::ModulePlayer()
 	crouch2.speed = 0.1f;
 
 	//beat animation
+	beat.PushBack({ 866, 750,64,106 });
+	beat.PushBack({ 934, 747,78,108 });
+	beat.PushBack({ 866, 750,64,106 });
 
-	beat.PushBack({ 863, 748,66,106 });
-	beat.PushBack({ 937, 747,78,109 });
-	beat.PushBack({ 863, 748,66,106 });
+	beat.speed = 0.15f;
 
 	player1Win.x = 0;
 	player1Win.y = 40;
