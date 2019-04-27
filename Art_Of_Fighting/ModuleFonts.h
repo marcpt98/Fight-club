@@ -31,6 +31,7 @@ public:
 	void BlitText(int x, int y, int bmp_font_id, const char* text) const;
 
 private:
+	SDL_Texture * tex;
 
 	Font	 fonts[MAX_FONTS];
 };

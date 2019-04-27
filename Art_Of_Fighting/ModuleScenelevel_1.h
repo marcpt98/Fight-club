@@ -23,10 +23,13 @@ public:
 	
 	SDL_Texture* graphics = nullptr;
 	SDL_Texture* graphicsLive = nullptr;
+	SDL_Texture* graphicsTime = nullptr;
 
 	SDL_Rect lifeFull;
 	SDL_Rect liveEmpty;
 	SDL_Rect background1;
+	SDL_Rect countdown;
+
 	Collider* colliderMap;
 	Collider* colliderMap2;
 	int Scene1_Fight = 0;

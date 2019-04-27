@@ -32,6 +32,11 @@ ModuleScenelevel_1::ModuleScenelevel_1()
 	liveEmpty.w = 129;
 	liveEmpty.h = 8;
 
+	countdown.x = 0;
+	countdown.y = 0;
+	countdown.w = 32;
+	countdown.h = 24;
+
 }
 
 ModuleScenelevel_1::~ModuleScenelevel_1()
@@ -57,6 +62,7 @@ bool ModuleScenelevel_1::Start()
 	App->collision->Enable();
 
 	graphicsLive = App->textures->Load("media/live.png");
+	graphicsTime = App->textures->Load("media/countdown.png");
 
 	positionlimitleft.x = 133;//NEW
 	positionlimitleft.y = -150;//NEW
@@ -101,14 +107,15 @@ update_status ModuleScenelevel_1::Update()
 		App->fade->FadeToBlack(App->scene_Todoh, App->scene_win, 2);
 	}
 	
-	App->render->BlitWithScale(graphicsLive, 149, 15, &liveEmpty, -1, 0.0f, 1.0f, TOP_RIGHT);
+	App->render->BlitWithScale(graphicsLive, 138, 15, &liveEmpty, -1, 0.0f, 1.0f, TOP_RIGHT);
 
-	App->render->BlitWithScale(graphicsLive, 149, 15, &lifeFull, -1, 0.0f, App->player->Life / App->player->MaxLife,  TOP_RIGHT);
+	App->render->BlitWithScale(graphicsLive, 138, 15, &lifeFull, -1, 0.0f, App->player->Life / App->player->MaxLife,  TOP_RIGHT);
 
-	App->render->BlitWithScale(graphicsLive, 150, 15, &liveEmpty, -1, 0.0f, 1.0f, TOP_LEFT);
+	App->render->BlitWithScale(graphicsLive, 166, 15, &liveEmpty, -1, 0.0f, 1.0f, TOP_LEFT);
 
-	App->render->BlitWithScale(graphicsLive, 150, 15, &lifeFull, 1, 0.0f, App->player2->Life / App->player2->MaxLife, TOP_LEFT);
+	App->render->BlitWithScale(graphicsLive, 166, 15, &lifeFull, 1, 0.0f, App->player2->Life / App->player2->MaxLife, TOP_LEFT);
 
+	App->render->BlitWithScale(graphicsTime, 168, 7, &countdown, 1, 0.0f, 1.0f, TOP_RIGHT);
 
 	if (App->input->keyboard[SDL_SCANCODE_B] == 1)
 	{
