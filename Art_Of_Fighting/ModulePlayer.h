@@ -34,6 +34,9 @@ public:
 	bool JumpMax = false;
 	bool JumpMin = false;
 	bool Activehadouken = false;
+	bool beatanim = false;
+	bool damage = false;
+	bool collision = false;
 
 public:
 
@@ -98,7 +101,7 @@ public:
 		ST_KICK_FORWARD_JUMP,
 		ST_KICK_BACKWARD_JUMP,
 		ST_KICK_CROUCH,
-		ST_DAMAGE_RECEIVED,
+		ST_HIT,
 		ST_HADOUKEN
 	};
 
@@ -120,8 +123,8 @@ public:
 		IN_JUMP_FINISH,
 		IN_PUNCH_FINISH,
 		IN_KICK_FINISH,
-		IN_PUNCH_RECEIVED,
-		IN_PUNCH_RECEIVED_FINISH,
+		IN_DAMAGE_RECEIVED,
+		IN_DAMAGE_RECEIVED_FINISH,
 		IN_HADOUKEN_FINISH
 	};
 
@@ -300,12 +303,12 @@ public:
 				}
 				
 			}break;
-			case ST_DAMAGE_RECEIVED:
+			case ST_HIT:
 			{
 				switch (last_input)
 				{
-				case IN_PUNCH_RECEIVED: state = ST_DAMAGE_RECEIVED; break;
-				case IN_PUNCH_RECEIVED_FINISH: state = ST_IDLE; break;
+					beatanim = false;
+				case IN_DAMAGE_RECEIVED_FINISH: state = ST_IDLE; break;
 				}
 			} break;
 			case ST_HADOUKEN:

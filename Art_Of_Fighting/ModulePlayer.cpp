@@ -287,7 +287,8 @@ update_status ModulePlayer::Update()
 			case ST_KICK_BACKWARD_JUMP:
 				LOG("KICK JUMP BACKWARD ^<<-\n");
 				break;
-			case ST_DAMAGE_RECEIVED:
+			case ST_HIT:
+				damage = true;
 				current_animation = &beat;
 				break;
 			case ST_HADOUKEN:
@@ -668,6 +669,9 @@ bool ModulePlayer::external_input(p2Qeue<ryo_inputs>& inputs)
 			case SDLK_t:
 				inputs.Push(IN_T);
 				App->audio->PlayFX(ryopunch);
+				if (damage == true && collision == true) {
+					beatanim = true;
+				}
 				break;
 			case SDLK_f:
 
