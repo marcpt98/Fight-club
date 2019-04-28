@@ -289,7 +289,7 @@ update_status ModulePlayer::Update()
 				break;
 			case ST_HIT:
 				damage = true;
-				current_animation = &beat;
+				current_animation = &App->player2->beat;
 				break;
 			case ST_HADOUKEN:
 
@@ -596,6 +596,8 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 	if (punchCollider == c1 && c2->type == COLLIDER_ENEMY)
 	{
 		App->player2->Life--;
+		collision = true;
+
 		if ((position.x + 25) >= (App->player2->position.x - 25)) {
 			App->player2->position.x -= 5;
 		}
@@ -610,6 +612,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 			App->player2->position.x -= 3;
 		}
 	}
+
 	}
 	
 }
@@ -651,7 +654,12 @@ bool ModulePlayer::external_input(p2Qeue<ryo_inputs>& inputs)
 				return false;
 				break;
 			case SDLK_t:
-				return false;
+				if (collision == true) {
+					inputs.Push(IN_DAMAGE_RECEIVED);
+				}
+				else {
+					return false;
+				}
 				break;
 			case SDLK_f:
 				return false;
@@ -669,9 +677,6 @@ bool ModulePlayer::external_input(p2Qeue<ryo_inputs>& inputs)
 			case SDLK_t:
 				inputs.Push(IN_T);
 				App->audio->PlayFX(ryopunch);
-				if (damage == true && collision == true) {
-					beatanim = true;
-				}
 				break;
 			case SDLK_f:
 
@@ -761,6 +766,14 @@ void ModulePlayer::internal_input(p2Qeue<ryo_inputs>& inputs)
 		{
 			inputs.Push(IN_HADOUKEN_FINISH);
 			hadouken_timer = 0;
+		}
+	}
+	if (beat_timer > 0)
+	{
+		if (SDL_GetTicks() - beat_timer > BEAT_TIME)
+		{
+			inputs.Push(IN_DAMAGE_RECEIVED_FINISH);
+			beat_timer = 0;
 		}
 	}
 }

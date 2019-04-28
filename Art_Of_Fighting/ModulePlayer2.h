@@ -41,6 +41,7 @@ public:
 	//Animation ball;
 	Animation punch;
 	Animation kick;
+	Animation beat;
 	Collider *ryohitbox;
 	Collider *kickCollider;
 	Collider *punchCollider;
