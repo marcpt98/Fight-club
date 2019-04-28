@@ -6,7 +6,7 @@ The general plot happens in Southtown, a city in which Ryo and Robert, two karat
 
 # Installation
 
-To install the game, it's only necessary to download the latest release: https://github.com/marcpt98/Fight-club/releases.
+To install the game, it's only necessary to download the latest release: https://github.com/marcpt98/Fight-club/releases
 
 When the installation is finished, it's time to click on the .exe file and enjoy the game.
 
@@ -94,13 +94,13 @@ Github link: https://github.com/marcpt98/Fight-club.
 
 ## Students involved:
 
-Marc Palma: https://github.com/marcpt98.
+Marc Palma: https://github.com/marcpt98
 
-Pol De La Torre: https://github.com/polf780.
+Pol De La Torre: https://github.com/polf780
 
-Macià Dalmau: https://github.com/maciadalmau.
+Macià Dalmau: https://github.com/maciadalmau
 
-Pol Camacho: https://github.com/polcamacho.
+Pol Camacho: https://github.com/polcamacho
  
 # Licenses and libraries
 
