@@ -112,7 +112,6 @@ Library for SDL_Image: http://www.libsdl.org/projects/SDL_image/
 
 Library for SDL_Mixer: http://www.libsdl.org/projects/SDL_mixer/
 
-
 ## License
 
 This library is distributed under the terms of the zlib license:
@@ -142,3 +141,4 @@ zlib.h -- interface of the 'zlib' general purpose compression library
   Jean-loup Gailly        Mark Adler
   jloup@gzip.org          madler@alumni.caltech.edu
 
+Note: For technical problems, we were unable to implement machine states for player 2. Also, it's missing kick and punch when the player is jumping.
