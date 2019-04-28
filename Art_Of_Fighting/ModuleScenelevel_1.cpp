@@ -145,6 +145,16 @@ update_status ModuleScenelevel_1::Update()
 
 	App->fonts->BlitText(137, 8, font_score, timer_text);
 
+
+	if(timer <= 0) {
+		/* if (App->player->Life < App->player2->Life) {
+
+		}
+		else {
+
+		}*/
+			App->fade->FadeToBlack(App->scene_Todoh, App->scene_win, 2);
+	}
 	/////////////////////////////////////////////////////
 
 	if (App->input->keyboard[SDL_SCANCODE_B] == 1)

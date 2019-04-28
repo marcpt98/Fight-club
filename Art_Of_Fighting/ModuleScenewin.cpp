@@ -55,11 +55,11 @@ update_status ModuleScenewin::Update()
 	if (App->player->Life > 0 && App->player2->Life > 0) {
 		App->render->Blit(graphics, 0, 0, &winimage);
 	}
-		
-	if (App->player->Life <= 0) {
+
+	if (App->player->Life <= App->player2->Life) {
 		App->render->Blit(graphics2, 0, 0, &winimage2);
 	}
-	if (App->player2->Life <= 0) {
+	if (App->player2->Life <= App->player->Life) {
 		App->render->Blit(graphics, 0, 0, &winimage);
 	}
 
