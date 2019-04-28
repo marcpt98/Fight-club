@@ -169,7 +169,18 @@ update_status ModulePlayer::Update()
 			GodMode = false;
 		}
 	}
-
+	if (App->input->keyboard[SDL_SCANCODE_F4] == KEY_STATE::KEY_DOWN) {			//Oneshot to player 2												 
+		App->player2->Life = 0;
+	}
+	if (App->input->keyboard[SDL_SCANCODE_F3] == KEY_STATE::KEY_DOWN) {	
+		if (App->player->printMode == false) {
+			App->player->printMode = true;
+		}
+		else if (App->player->printMode == true)
+		{
+			App->player->printMode = false;
+		}
+	}
 	while (external_input(inputs))
 	{
 		internal_input(inputs);

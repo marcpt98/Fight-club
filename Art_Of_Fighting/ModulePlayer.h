@@ -82,6 +82,7 @@ public:
 	int ryoKoOuKen = 0;
 	int ryoKoOuKensound = 0;
 	int GodMode = false;
+	int printMode = false;
 
 	enum ryo_states
 	{
