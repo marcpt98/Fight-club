@@ -11,6 +11,8 @@
 #include "ModuleSceneWin.h"
 #include "ModulePlayer2.h"
 #include "ModuleCollision.h"
+#include "ModuleFonts.h"
+#include <stdio.h>
 
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
@@ -46,7 +48,7 @@ ModuleScenelevel_1::~ModuleScenelevel_1()
 bool ModuleScenelevel_1::Start()
 {
 	LOG("Loading ryo scene");
-	
+
 	graphics = App->textures->Load("media/level_1.png");
 
 	Scene1_Fight = App->audio->LoadMusic("media/Scene1_Fight.ogg");
@@ -72,7 +74,12 @@ bool ModuleScenelevel_1::Start()
 	colliderMap = App->collision->AddCollider({ positionlimitleft.x, positionlimitleft.y, 15, 500 }, COLLIDER_WALL, this);//NEW
 	colliderMap2 = App->collision->AddCollider({ positionlimitright.x, positionlimitright.y , 15, 500 }, COLLIDER_WALL, this);//NEW
 
-	
+	// TODO 0: Notice how a font is loaded and the meaning of all its arguments 
+	font_score = App->fonts->Load("media/numbers.png", "0123456789", 1);
+	timer = 60;
+	starttime = SDL_GetTicks();
+
+	// TODO 4: Try loading "rtype_font3.png" that has two rows to test if all calculations are correct
 
 	return true;
 }
@@ -106,16 +113,39 @@ update_status ModuleScenelevel_1::Update()
 	{
 		App->fade->FadeToBlack(App->scene_Todoh, App->scene_win, 2);
 	}
-	
+
 	App->render->BlitWithScale(graphicsLive, 138, 15, &liveEmpty, -1, 0.0f, 1.0f, TOP_RIGHT);
 
-	App->render->BlitWithScale(graphicsLive, 138, 15, &lifeFull, -1, 0.0f, App->player->Life / App->player->MaxLife,  TOP_RIGHT);
+	App->render->BlitWithScale(graphicsLive, 138, 15, &lifeFull, -1, 0.0f, App->player->Life / App->player->MaxLife, TOP_RIGHT);
 
 	App->render->BlitWithScale(graphicsLive, 166, 15, &liveEmpty, -1, 0.0f, 1.0f, TOP_LEFT);
 
 	App->render->BlitWithScale(graphicsLive, 166, 15, &lifeFull, 1, 0.0f, App->player2->Life / App->player2->MaxLife, TOP_LEFT);
 
 	App->render->BlitWithScale(graphicsTime, 168, 7, &countdown, 1, 0.0f, 1.0f, TOP_RIGHT);
+
+	/////////////////////////////////////////////////// Contdown
+
+	if (matchstart == false)
+	{
+		if (SDL_GetTicks() - starttime >= 4500)
+		{
+			timertime = SDL_GetTicks();
+			matchstart = true;
+		}
+	}
+
+	if (SDL_GetTicks() - timertime >= 1000)
+	{
+		timertime = SDL_GetTicks();
+		timer--;
+	}
+
+	sprintf_s(timer_text, 10, "%d", timer);
+
+	App->fonts->BlitText(137, 8, font_score, timer_text);
+
+	/////////////////////////////////////////////////////
 
 	if (App->input->keyboard[SDL_SCANCODE_B] == 1)
 	{
@@ -126,7 +156,7 @@ update_status ModuleScenelevel_1::Update()
 	{
 		App->player2->Life--;
 	}
-	if (App->player->Life <= 0 || App->player2->Life <= 0) 
+	if (App->player->Life <= 0 || App->player2->Life <= 0)
 	{
 		App->fade->FadeToBlack(App->scene_Todoh, App->scene_win, 2);
 	}

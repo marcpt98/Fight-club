@@ -5,6 +5,9 @@
 #include "Animation.h"
 #include "Globals.h"
 #include "p2Point.h"
+
+#define ROUND_TIME 60000
+
 struct SDL_Texture;
 
 class ModuleScenelevel_1 : public Module
@@ -20,7 +23,7 @@ public:
 	bool CleanUp();
 
 public:
-	
+
 	SDL_Texture* graphics = nullptr;
 	SDL_Texture* graphicsLive = nullptr;
 	SDL_Texture* graphicsTime = nullptr;
@@ -38,6 +41,19 @@ public:
 	int distance = 0;
 	iPoint positionlimitleft;//NEW
 	iPoint positionlimitright;//NEW
+
+	int font_score = -1;
+	Uint32 round_timer = 0;
+
+	//////
+
+	char timer_text[10];
+	int font_timer = -1;
+	uint timer;
+	uint endingtimer = 0;
+	int starttime;
+	int timertime;
+	bool matchstart = false;
 };
 
 #endif // __MODULESCENELEVEL_1_H__
