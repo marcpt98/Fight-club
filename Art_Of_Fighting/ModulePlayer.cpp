@@ -219,6 +219,12 @@ update_status ModulePlayer::Update()
 						position.y -= jumpSpeed;
 						current_animation = &jumping;
 
+						if (attack == true)
+						{
+							App->audio->PlayFX(ryojump);
+							attack = false;
+						}
+
 						if (position.y < 140) {
 							jumpSpeed -= 0.5;
 							if (jumpSpeed < 0) jumpSpeed = -6;
@@ -232,10 +238,56 @@ update_status ModulePlayer::Update()
 				}break;
 
 			case ST_JUMP_FORWARD:
-				position.x += speed;
+				if (animstart == 0)
+				{
+					current_animation = &jumping;
+					position.y -= jumpSpeed;
+					position.x += 3;
+
+					if (attack == true)
+					{
+						App->audio->PlayFX(ryojump);
+						attack = false;
+					}
+
+					if (position.y < 120) {
+						jumpSpeed -= 0.5;
+						if (jumpSpeed < 0) jumpSpeed = -6;
+					}
+					if (position.y >= initialPos && jumpSpeed < 0) {
+						animstart = 1;
+						position.y = initialPos;
+						jumpSpeed = 6;
+					}
+				}
 				LOG("JUMPING FORWARD ^^>>\n");
 				break;
 			case ST_JUMP_BACKWARD:
+				if (animstart == 0)
+				{
+					current_animation = &jumping;
+					position.y -= jumpSpeed;
+
+					if (attack == true)
+					{
+						App->audio->PlayFX(ryojump);
+						attack = false;
+					}
+
+					if (wall) {}
+					else {
+						if (position.x) position.x -= 3;
+					}
+					if (position.y < 120) {
+						jumpSpeed -= 0.5;
+						if (jumpSpeed < 0) jumpSpeed = -6;
+					}
+					if (position.y >= initialPos && jumpSpeed < 0) {
+						animstart = 1;
+						position.y = initialPos;
+						jumpSpeed = 6;
+					}
+				}
 				LOG("JUMPING BACKWARD ^^<<\n");
 				break;
 			case ST_CROUCH:
@@ -248,7 +300,15 @@ update_status ModulePlayer::Update()
 				LOG("PUNCH CROUCHING **++\n");
 				break;
 			case ST_PUNCH_STANDING:
-				current_animation = &punch;
+				if (attack == true)
+				{
+					App->audio->PlayFX(ryopunch);
+					attack = false;
+				}
+				if (animstart == 0)
+				{
+					current_animation = &punch;
+				}
 				LOG("PUNCH STANDING ++++\n");
 				break;
 			case ST_PUNCH_NEUTRAL_JUMP:
@@ -263,8 +323,17 @@ update_status ModulePlayer::Update()
 				LOG("KICK CROUCHING **--\n");
 				break;
 			case ST_KICK_STANDING:
-				current_animation = &kick;
+				if (attack == true) 
+				{
+					App->audio->PlayFX(ryokick);
+					attack = false;
+				}
+				if (animstart == 0)
+				{
+					current_animation = &kick;
+				}
 				break;
+
 			case ST_KICK_NEUTRAL_JUMP:
 				LOG("KICK JUMP NEUTRAL ^^--\n");
 				break;
@@ -659,11 +728,9 @@ bool ModulePlayer::external_input(p2Qeue<ryo_inputs>& inputs)
 			{
 			case SDLK_r:
 				inputs.Push(IN_R);
-				App->audio->PlayFX(ryokick);
 				break;
 			case SDLK_t:
 				inputs.Push(IN_T);
-				App->audio->PlayFX(ryopunch);
 				break;
 			case SDLK_f:
 
@@ -681,7 +748,6 @@ bool ModulePlayer::external_input(p2Qeue<ryo_inputs>& inputs)
 				break;
 			case SDLK_w:
 				up = true;
-				App->audio->PlayFX(ryojump);
 				break;
 			case SDLK_s:
 				down = true;

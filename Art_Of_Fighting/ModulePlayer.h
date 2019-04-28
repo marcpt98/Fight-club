@@ -9,7 +9,7 @@
 #include "SDL/include/SDL_timer.h"
 
 #define MAX_KEYS 300
-#define JUMP_TIME 800
+#define JUMP_TIME 820
 #define PUNCH_TIME 400
 #define KICK_TIME  500
 #define HADOUKEN_TIME  550
@@ -26,6 +26,7 @@ private:
 	int animstart = 0;
 	float jumpSpeed = 6;
 	int initialPos;
+	bool attack = true;
 public:
 	ModulePlayer();
 	~ModulePlayer();
@@ -198,7 +199,7 @@ public:
 			{
 				switch (last_input)
 				{
-				case IN_JUMP_FINISH: state = ST_IDLE; animstart = 0; break;
+				case IN_JUMP_FINISH: state = ST_IDLE; animstart = 0; attack = true; break;
 				case IN_T: state = ST_PUNCH_NEUTRAL_JUMP;  punch_timer = SDL_GetTicks(); break;
 				case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
 
@@ -211,7 +212,7 @@ public:
 				switch (last_input)
 				{
 					// TODO: Add links
-				case IN_JUMP_FINISH: state = ST_IDLE; break;
+				case IN_JUMP_FINISH: state = ST_IDLE; animstart = 0; attack = true; break;
 				case IN_T: state = ST_PUNCH_FORWARD_JUMP;  punch_timer = SDL_GetTicks(); break;
 				case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
 
@@ -224,7 +225,7 @@ public:
 				switch (last_input)
 				{
 					// TODO: Add Links
-				case IN_JUMP_FINISH: state = ST_IDLE; break;
+				case IN_JUMP_FINISH: state = ST_IDLE; animstart = 0; attack = true; break;
 				case IN_T: state = ST_PUNCH_BACKWARD_JUMP;  punch_timer = SDL_GetTicks(); break;
 				case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
 
@@ -276,7 +277,7 @@ public:
 				switch (last_input)
 				{
 					// TODO: Add Links
-				case IN_PUNCH_FINISH: state = ST_IDLE; break;
+				case IN_PUNCH_FINISH: state = ST_IDLE; animstart = 0; attack = true; break;
 				case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
 
 
@@ -319,7 +320,7 @@ public:
 				switch (last_input)
 				{
 					// TODO: Add Links
-				case IN_KICK_FINISH: state = ST_IDLE; break;
+				case IN_KICK_FINISH: state = ST_IDLE; animstart = 0; attack = true; break;
 
 				}
 				
