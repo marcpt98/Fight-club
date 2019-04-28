@@ -288,8 +288,12 @@ update_status ModulePlayer2::Update()
 
 	if (r == &kick.frames[kick.last_frame - 1])
 	{
-		kickCollider->SetPos(position.x - 100, position.y - r->h);
-
+		if (position.x > App->player->position.x) {
+			kickCollider->SetPos(position.x - 100, position.y - r->h);
+		}
+		else {
+			kickCollider->SetPos(position.x , position.y - r->h);
+		}
 		kickCollider->Enabled = true;
 	}
 	else
@@ -299,7 +303,12 @@ update_status ModulePlayer2::Update()
 
 	if (r == &punch.frames[punch.last_frame - 1])
 	{
-		punchCollider->SetPos(position.x - 90, position.y + 12 - r->h);
+		if (position.x>App->player->position.x) {
+			punchCollider->SetPos(position.x - 90, position.y + 12 - r->h);
+		}
+		else {
+			punchCollider->SetPos(position.x, position.y + 12 - r->h);
+		}
 
 		punchCollider->Enabled = true;
 	}
@@ -326,7 +335,12 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 	if (kickCollider == c1 && c2->type == COLLIDER_PLAYER)
 	{
 		App->player->Life--;
-		App->player->position.x -= 5;
+		if (position.x < App->player->position.x) {
+			App->player->position.x += 5;
+		}
+		else {
+			App->player->position.x -= 5;
+		}
 	}
 
 	if (ryohitbox == c1 && c2->type == COLLIDER_PLAYER)
@@ -376,7 +390,12 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 	if (punchCollider == c1 && c2->type == COLLIDER_PLAYER)
 	{
 		App->player->Life--;
-		App->player->position.x -= 5;
+		if (position.x < App->player->position.x) {
+			App->player->position.x += 5;
+		}
+		else {
+			App->player->position.x -= 5;
+		}
 	}
 	
 }
