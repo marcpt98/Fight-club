@@ -36,7 +36,7 @@ public:
 	bool CleanUp();
 	bool JumpMax = false;
 	bool JumpMin = false;
-	bool Activehadouken = false;
+	bool Activehadouken = true;
 	bool beatanim = false;
 	bool damage = false;
 	bool collision = false;
@@ -338,7 +338,7 @@ public:
 			{
 				switch (last_input)
 				{
-				case IN_HADOUKEN_FINISH: state = ST_IDLE; break;
+				case IN_HADOUKEN_FINISH: state = ST_IDLE; animstart = 0; Activehadouken = true; break;
 				}
 				break;
 
