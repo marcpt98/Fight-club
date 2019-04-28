@@ -35,7 +35,7 @@ ModulePlayer::ModulePlayer()
 	jumping.PushBack({ 60,456,65,129 });
 	jumping.PushBack({ 126,473,61,112 });
 	jumping.PushBack({ 245,495,54,91 });
-	jumping.speed = 0.15f;
+	jumping.speed = 0.10f;
 
 	jumpFalling.PushBack({ 299,471,58, 116 });
 	jumpFalling.PushBack({ 0,504,60,82 });
@@ -119,6 +119,7 @@ bool ModulePlayer::Start()
 
 	position.x = 168;
 	position.y = 210;
+	initialPos = position.y;
 
 	ryohitbox = App->collision->AddCollider({position.x,position.y, 50, 97 }, COLLIDER_PLAYER, this);
 	punchCollider = App->collision->AddCollider({ position.x,position.y, 40, 15 }, COLLIDER_PLAYER, this);
@@ -213,39 +214,25 @@ update_status ModulePlayer::Update()
 				break;
 
 			case ST_JUMP_NEUTRAL:
-
-				Jump = 1;
-				speed = 3;
-
-				if(Jump == 1)
-				{
-					if(position.y == 210)
+					if (animstart == 0)
 					{
-						JumpMax = false;
-						JumpMin = true;
-					}
-					if(position.y == 150)
-					{
-						JumpMin = false;
-						JumpMax = true;
-					}
-
-					if(JumpMin == true)
-					{
-						jumpFalling.Reset();
-						position.y -= speed;
+						position.y -= jumpSpeed;
 						current_animation = &jumping;
-					}
-					if (JumpMax == true)
-					{
-						jumping.Reset();
-						position.y += speed;
-						current_animation = &jumpFalling;
-					}
-					
+
+						if (position.y < 140) {
+							jumpSpeed -= 0.5;
+							if (jumpSpeed < 0) jumpSpeed = -6;
+						}
+						if (position.y >= initialPos && jumpSpeed < 0) {
+							current_animation = &jumpFalling;
+							animstart = 1;
+							position.y = initialPos;
+							jumpSpeed = 6;
+						}
 				}break;
 
 			case ST_JUMP_FORWARD:
+				position.x += speed;
 				LOG("JUMPING FORWARD ^^>>\n");
 				break;
 			case ST_JUMP_BACKWARD:
