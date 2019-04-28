@@ -774,6 +774,7 @@ void ModulePlayer::internal_input(p2Qeue<ryo_inputs>& inputs)
 		{
 			inputs.Push(IN_DAMAGE_RECEIVED_FINISH);
 			beat_timer = 0;
+			collision = false;
 		}
 	}
 }
