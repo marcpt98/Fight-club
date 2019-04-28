@@ -13,6 +13,7 @@
 
 ModuleScenewin::ModuleScenewin() {
 	winimage = { 0, 0,304,224 };
+	winimage2= { 0, 0,304,224 };
 }
 
 ModuleScenewin::~ModuleScenewin()
@@ -24,6 +25,7 @@ bool ModuleScenewin::Start()
 	LOG("Loading background assets");
 	bool ret = true;
  	graphics = App->textures->Load("media/WinCondition.png");
+	graphics2 = App->textures->Load("media/WinCondition_P2.png");
 
 	App->render->camera.x = 0;
 	App->render->camera.y = 0;
@@ -43,13 +45,23 @@ bool ModuleScenewin::CleanUp()
 	App->player->Disable();
 	App->player2->Disable();
 	App->textures->Unload(graphics);
+	App->textures->Unload(graphics2);
 	return true;
 }
 
 update_status ModuleScenewin::Update()
 {
 	// Draw everything --------------------------------------	
-	App->render->Blit(graphics, 0, 0, &winimage);
+	if (App->player->Life > 0 && App->player2->Life > 0) {
+		App->render->Blit(graphics, 0, 0, &winimage);
+	}
+		
+	if (App->player->Life <= 0) {
+		App->render->Blit(graphics2, 0, 0, &winimage2);
+	}
+	if (App->player2->Life <= 0) {
+		App->render->Blit(graphics, 0, 0, &winimage);
+	}
 
 	// TODO 2: make so pressing SPACE the KEN stage is loaded
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
