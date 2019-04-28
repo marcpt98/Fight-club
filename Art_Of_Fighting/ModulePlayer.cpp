@@ -62,16 +62,24 @@ ModulePlayer::ModulePlayer()
 	punch.PushBack({ 543, 350, 89, 106 });
 	punch.speed = 0.1f;
 
+	punchJump.PushBack({ 714,141,66,94 });
+	punchJump.PushBack({ 780,157,86,78 });
+	punchJump.PushBack({ 714,141,66,94 });
+	punchJump.speed = 0.15f;
+
 	//kick animation(arcade sprite sheet)
 	kick.PushBack({ 669, 238, 60, 110 });
 	kick.PushBack({ 729, 235, 61, 113 });
 	kick.PushBack({ 790, 235, 103, 113 });
 	kick.PushBack({ 893, 235, 61, 113 });
-
 	kick.speed = 0.15f;
 
-	//Hadouken ryo animation
+	kickJump.PushBack({ 561,146,57,89 });
+	kickJump.PushBack({ 618,149,96,86 });
+	kickJump.PushBack({ 561,146,57,89 });
+	kickJump.speed = 0.15f;
 
+	//Hadouken ryo animation
 	hadouken.PushBack({ 176, 882, 65, 103 });
 	hadouken.PushBack({ 242, 883, 88, 102 });
 	hadouken.PushBack({ 330, 889, 85, 96 });
@@ -195,6 +203,9 @@ update_status ModulePlayer::Update()
 				kick.Reset();
 				punch.Reset();
 				hadouken.Reset();
+				jumping.Reset();
+				punchJump.Reset();
+				kickJump.Reset();
 				break;
 
 			case ST_WALK_FORWARD:
@@ -206,6 +217,9 @@ update_status ModulePlayer::Update()
 				kick.Reset();
 				punch.Reset();
 				hadouken.Reset();
+				jumping.Reset();
+				punchJump.Reset();
+				kickJump.Reset();
 				break;
 
 			case ST_WALK_BACKWARD:
@@ -217,6 +231,9 @@ update_status ModulePlayer::Update()
 				kick.Reset();
 				punch.Reset();
 				hadouken.Reset();
+				jumping.Reset();
+				punchJump.Reset();
+				kickJump.Reset();
 				break;
 
 			case ST_JUMP_NEUTRAL:
@@ -241,6 +258,7 @@ update_status ModulePlayer::Update()
 							position.y = initialPos;
 							jumpSpeed = 6;
 						}
+						LOG("JUMPING ^^\n")
 				}break;
 
 			case ST_JUMP_FORWARD:
@@ -318,7 +336,17 @@ update_status ModulePlayer::Update()
 				LOG("PUNCH STANDING ++++\n");
 				break;
 			case ST_PUNCH_NEUTRAL_JUMP:
+				if (attack == true)
+				{
+					App->audio->PlayFX(ryopunch);
+					attack = false;
+				}
+				if (animstart == 0)
+				{
+					current_animation = &punchJump;
+				}
 				LOG("PUNCH NEUTRAL JUMP ++++\n");
+				break;
 			case ST_PUNCH_FORWARD_JUMP:
 				LOG("PUNCH JUMP FORWARD ^>>+\n");
 				break;
@@ -341,6 +369,15 @@ update_status ModulePlayer::Update()
 				break;
 
 			case ST_KICK_NEUTRAL_JUMP:
+				if (attack == true)
+				{
+					App->audio->PlayFX(ryokick);
+					attack = false;
+				}
+				if (animstart == 0)
+				{
+					current_animation = &kickJump;
+				}
 				LOG("KICK JUMP NEUTRAL ^^--\n");
 				break;
 			case ST_KICK_FORWARD_JUMP:

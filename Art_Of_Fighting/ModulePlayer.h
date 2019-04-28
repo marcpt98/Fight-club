@@ -60,7 +60,9 @@ public:
 	iPoint position;
 	Animation hadouken;
 	Animation punch;
+	Animation punchJump;
 	Animation kick;
+	Animation kickJump;
 	Collider *ryohitbox;
 	Collider *kickCollider;
 	Collider *punchCollider;
@@ -201,9 +203,9 @@ public:
 				switch (last_input)
 				{
 				case IN_JUMP_FINISH: state = ST_IDLE; animstart = 0; attack = true; break;
-				case IN_T: state = ST_PUNCH_NEUTRAL_JUMP;  punch_timer = SDL_GetTicks(); break;
+				case IN_T: state = ST_PUNCH_NEUTRAL_JUMP;  punch_timer = SDL_GetTicks(); animstart = 0; attack = true; break;
+				case IN_R: state = ST_KICK_NEUTRAL_JUMP; kick_timer = SDL_GetTicks(); animstart = 0; attack = true; break;
 				case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
-
 				}
 			}
 			break;
@@ -239,7 +241,7 @@ public:
 				switch (last_input)
 				{
 					// TODO: Add Links
-				case IN_PUNCH_FINISH: state = ST_JUMP_NEUTRAL; break;
+				case IN_PUNCH_FINISH: state = ST_JUMP_NEUTRAL; animstart = 0; attack = true; break;
 				case IN_JUMP_FINISH: state = ST_IDLE; break;
 				case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
 
@@ -326,6 +328,19 @@ public:
 				}
 				
 			}break;
+			
+			case ST_KICK_NEUTRAL_JUMP:
+			{
+				switch (last_input)
+				{
+					// TODO: Add Links
+				case IN_KICK_FINISH: state = ST_JUMP_NEUTRAL; animstart = 0; attack = true; break;
+				case IN_JUMP_FINISH: state = ST_IDLE; break;
+				case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
+
+				}
+			}
+
 			case ST_HIT:
 			{
 				switch (last_input)
