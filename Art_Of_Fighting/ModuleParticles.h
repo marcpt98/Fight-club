@@ -55,6 +55,7 @@ public:
 	Particle Hadouken2;
 	Particle Hadouken3;
 	Particle Hadouken4;
+	Particle Hadouken5;
 	
 	Particle Hadouken1Player2;
 	Particle Hadouken2Player2;
