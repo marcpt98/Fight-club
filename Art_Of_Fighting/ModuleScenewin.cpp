@@ -24,8 +24,8 @@ bool ModuleScenewin::Start()
 {
 	LOG("Loading background assets");
 	bool ret = true;
- 	graphics = App->textures->Load("media/WinCondition.png");
-	graphics2 = App->textures->Load("media/WinCondition_P2.png");
+ 	graphics = App->textures->Load("media/Win/WinCondition.png");
+	graphics2 = App->textures->Load("media/Win/WinCondition_P2.png");
 
 	App->render->camera.x = 0;
 	App->render->camera.y = 0;

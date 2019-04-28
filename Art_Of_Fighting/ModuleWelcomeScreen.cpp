@@ -38,9 +38,9 @@ bool ModuleWelcomeScreen::Start()
 	animationState = Enter;
 	step = 0;
 
-	graphics = App->textures->Load("media/welcomescreen.png");
-	introTexture = App->textures->Load("media/introtitle.png");
-	welcomeScreenMusic = App->audio->LoadMusic("media/welcomescreen.ogg");
+	graphics = App->textures->Load("media/WelcomeScreen/welcomescreen.png");
+	introTexture = App->textures->Load("media/WelcomeScreen/introtitle.png");
+	welcomeScreenMusic = App->audio->LoadMusic("media/Music/welcomescreen.ogg");
 
 	App->audio->PlayMusic(welcomeScreenMusic);
 

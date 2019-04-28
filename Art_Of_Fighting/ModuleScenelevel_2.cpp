@@ -32,8 +32,8 @@ bool ModuleScenelevel_2::Start()
 {
 	LOG("Loading background assets");
 	bool ret = true;
-	graphics = App->textures->Load("media/level_2.png");
-	Scene2_Fight = App->audio->LoadMusic("media/Scene2_Fight.ogg");
+	graphics = App->textures->Load("media/Stages/level_2.png");
+	Scene2_Fight = App->audio->LoadMusic("media/Music/Scene2_Fight.ogg");
 	App->audio->PlayMusic(Scene2_Fight);
 
 	App->render->camera.x = 0;

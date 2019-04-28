@@ -49,9 +49,9 @@ bool ModuleScenelevel_1::Start()
 {
 	LOG("Loading ryo scene");
 
-	graphics = App->textures->Load("media/level_1.png");
+	graphics = App->textures->Load("media/Stages/level_1.png");
 
-	Scene1_Fight = App->audio->LoadMusic("media/Scene1_Fight.ogg");
+	Scene1_Fight = App->audio->LoadMusic("media/Music/Scene1_Fight.ogg");
 	App->player->Life = 100;
 	App->player2->Life = 100;
 
@@ -63,8 +63,8 @@ bool ModuleScenelevel_1::Start()
 	App->player2->Enable();
 	App->collision->Enable();
 
-	graphicsLive = App->textures->Load("media/live.png");
-	graphicsTime = App->textures->Load("media/countdown.png");
+	graphicsLive = App->textures->Load("media/UI/live.png");
+	graphicsTime = App->textures->Load("media/UI/countdown.png");
 
 	positionlimitleft.x = 133;//NEW
 	positionlimitleft.y = -150;//NEW
@@ -75,7 +75,7 @@ bool ModuleScenelevel_1::Start()
 	colliderMap2 = App->collision->AddCollider({ positionlimitright.x, positionlimitright.y , 15, 500 }, COLLIDER_WALL, this);//NEW
 
 	// TODO 0: Notice how a font is loaded and the meaning of all its arguments 
-	font_score = App->fonts->Load("media/numbers.png", "0123456789", 1);
+	font_score = App->fonts->Load("media/UI/numbers.png", "0123456789", 1);
 	timer = 60;
 	starttime = SDL_GetTicks();
 

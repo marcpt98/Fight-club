@@ -109,14 +109,14 @@ bool ModulePlayer2::Start()
 {
 	LOG("Loading player textures");
 	bool ret = true;
-	graphics = App->textures->Load("media/Ryo_SpriteSheet_enemy.png"); // arcade version
-	graphicsWin = App->textures->Load("media/WinPlayer.png");
+	graphics = App->textures->Load("media/Spritesheets/Ryo_SpriteSheet_enemy.png"); // arcade version
+	graphicsWin = App->textures->Load("media/Win/WinPlayer.png");
 
-	ryokick = App->audio->LoadFX("media/ryo_kick.wav");
-	ryopunch = App->audio->LoadFX("media/Ryo_punch.wav");
-	ryojump = App->audio->LoadFX("media/Ryojump.wav");
-	ryoKoOuKen = App->audio->LoadFX("media/Ryo_KoOuKen.wav");
-	ryoKoOuKensound = App->audio->LoadFX("media/ryoKoOuKensound.wav");
+	ryokick = App->audio->LoadFX("media/FX/ryo_kick.wav");
+	ryopunch = App->audio->LoadFX("media/FX/Ryo_punch.wav");
+	ryojump = App->audio->LoadFX("media/FX/Ryojump.wav");
+	ryoKoOuKen = App->audio->LoadFX("media/FX/Ryo_KoOuKen.wav");
+	ryoKoOuKensound = App->audio->LoadFX("media/FX/ryoKoOuKensound.wav");
 
 	position.x = 445;
 	position.y = 210;

@@ -22,7 +22,7 @@ ModuleParticles::~ModuleParticles()
 
 bool ModuleParticles::Start() {
 	LOG("Loading particles");
-	graphics = App->textures->Load("media/Ryo_SpriteSheet.png");
+	graphics = App->textures->Load("media/Spritesheets/Ryo_SpriteSheet.png");
 
 	Hadouken1.anim.PushBack({ 682, 869, 25,36 });	//First hadouken frame (hand, orange particles) (Starts on the second frame of Ryo hadouken animation)
 	Hadouken2.anim.PushBack({ 706, 869, 22,36 });	//Second hadouken frame (hand, orange ball)
