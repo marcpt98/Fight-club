@@ -67,6 +67,12 @@ ModulePlayer::ModulePlayer()
 	punchJump.PushBack({ 714,141,66,94 });
 	punchJump.speed = 0.15f;
 
+	punchCrouch.PushBack({414,42,53,74});
+	punchCrouch.PushBack({467,41,109,75});
+	punchCrouch.PushBack({576,43,67,73});
+	punchCrouch.PushBack({ 414,42,53,74 });
+	punchCrouch.speed = 0.15f;
+
 	//kick animation(arcade sprite sheet)
 	kick.PushBack({ 669, 238, 60, 110 });
 	kick.PushBack({ 729, 235, 61, 113 });
@@ -134,6 +140,8 @@ bool ModulePlayer::Start()
 	punchCollider->Enabled = false;
 	kickCollider = App->collision->AddCollider({ position.x,position.y, 60, 30 }, COLLIDER_PLAYER, this);
 	kickCollider->Enabled = false;
+	playerAttack = App->collision->AddCollider({ position.x, position.y - 70 , 40, 15 }, COLLIDER_PLAYER, this);
+	playerAttack->Enabled = false;
 	
 	return ret;
 }
@@ -205,6 +213,7 @@ update_status ModulePlayer::Update()
 				hadouken.Reset();
 				jumping.Reset();
 				punchJump.Reset();
+				punchCrouch.Reset();
 				kickJump.Reset();
 				break;
 
@@ -219,6 +228,7 @@ update_status ModulePlayer::Update()
 				hadouken.Reset();
 				jumping.Reset();
 				punchJump.Reset();
+				punchCrouch.Reset();
 				kickJump.Reset();
 				break;
 
@@ -233,6 +243,7 @@ update_status ModulePlayer::Update()
 				hadouken.Reset();
 				jumping.Reset();
 				punchJump.Reset();
+				punchCrouch.Reset();
 				kickJump.Reset();
 				break;
 
@@ -321,6 +332,16 @@ update_status ModulePlayer::Update()
 				LOG("CROUCHING ****\n");
 				break;
 			case ST_PUNCH_CROUCH:
+				if (attack == true)
+				{
+					App->audio->PlayFX(ryopunch);
+					attack = false;
+				}
+				if (animstart == 0)
+				{
+					current_animation = &punchCrouch;
+				}
+
 				LOG("PUNCH CROUCHING **++\n");
 				break;
 			case ST_PUNCH_STANDING:
@@ -562,16 +583,17 @@ update_status ModulePlayer::Update()
 				kickCollider->Enabled = false;
 			}
 
-			if (r == &punch.frames[punch.last_frame - 1])
+			if (r == &punchCrouch.frames[punchCrouch.last_frame - 1])
 			{
-				punchCollider->SetPos(position.x - 50, position.y + 12 - r->h);
+				playerAttack->SetPos(position.x - 50, position.y + 30 - r->h);
 
-				punchCollider->Enabled = true;
+				playerAttack->Enabled = true;
 			}
 			else
 			{
-				punchCollider->Enabled = false;
+				playerAttack->Enabled = false;
 			}
+
 		}
 		else {
 			App->render->Blit(graphics, position.x, position.y - r->h, r);
@@ -596,6 +618,17 @@ update_status ModulePlayer::Update()
 			else
 			{
 				punchCollider->Enabled = false;
+			}
+
+			if (r == &punchCrouch.frames[punchCrouch.last_frame - 1])
+			{
+				playerAttack->SetPos(position.x + 50, position.y + 30 - r->h);
+
+				playerAttack->Enabled = true;
+			}
+			else
+			{
+				playerAttack->Enabled = false;
 			}
 		}
 
@@ -722,6 +755,28 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 			App->player2->position.x -= 3;
 		}
 	}
+
+	}
+	/////////////////////////////////////////////////////////////////////////////////////////////////// PUNCH CROUCH HITBOX
+	if (playerAttack == c1 && c2->type == COLLIDER_ENEMY)
+	{
+		App->player2->Life--;
+		collision = true;
+
+		if ((position.x + 25) >= (App->player2->position.x - 25)) {
+			App->player2->position.x -= 5;
+		}
+
+		else {
+			if ((App->player2->position.x) <= (App->scene_Todoh->positionlimitright.x + 300)) {
+				App->player2->position.x += 5;
+			}
+
+			if ((App->player2->position.x) >= (App->scene_Todoh->positionlimitright.x + 300)) {
+				position.x -= 5;
+				App->player2->position.x -= 3;
+			}
+		}
 
 	}
 	

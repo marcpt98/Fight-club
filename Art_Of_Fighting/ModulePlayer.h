@@ -61,9 +61,11 @@ public:
 	Animation hadouken;
 	Animation punch;
 	Animation punchJump;
+	Animation punchCrouch;
 	Animation kick;
 	Animation kickJump;
 	Collider *ryohitbox;
+	Collider *playerAttack;
 	Collider *kickCollider;
 	Collider *punchCollider;
 	SDL_Rect player1Win;
@@ -304,15 +306,16 @@ public:
 				switch (last_input)
 				{
 					// TODO: Add Links
+					
 				case IN_PUNCH_FINISH:
 					if (IN_CROUCH_DOWN == true)
 					{
-						state = ST_CROUCH;
+						state = ST_CROUCH; animstart = 0; attack = true;
 
 					}
 					else
 					{
-						state = ST_IDLE;
+						state = ST_IDLE; animstart = 0; attack = true;
 					}
 
 				}
