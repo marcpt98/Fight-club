@@ -85,6 +85,11 @@ ModulePlayer::ModulePlayer()
 	kickJump.PushBack({ 561,146,57,89 });
 	kickJump.speed = 0.15f;
 
+	kickCrouch.PushBack({ 866,169,55,65 });
+	kickCrouch.PushBack({ 0,280,127,68 });
+	kickCrouch.PushBack({ 866,169,55,65 });
+	kickCrouch.speed = 0.1f;
+
 	//Hadouken ryo animation
 	hadouken.PushBack({ 176, 882, 65, 103 });
 	hadouken.PushBack({ 242, 883, 88, 102 });
@@ -140,8 +145,9 @@ bool ModulePlayer::Start()
 	punchCollider->Enabled = false;
 	kickCollider = App->collision->AddCollider({ position.x,position.y, 60, 30 }, COLLIDER_PLAYER, this);
 	kickCollider->Enabled = false;
-	playerAttack = App->collision->AddCollider({ position.x, position.y - 70 , 40, 15 }, COLLIDER_PLAYER, this);
-	playerAttack->Enabled = false;
+	punchCrouchCollider = App->collision->AddCollider({ position.x, position.y - 70 , 40, 15 }, COLLIDER_PLAYER, this);
+	punchCrouchCollider->Enabled = false;
+	kickCrouchCollider = App->collision->AddCollider({ position.x, position.y - 70 , 65, 15 }, COLLIDER_PLAYER, this);
 	
 	return ret;
 }
@@ -215,6 +221,7 @@ update_status ModulePlayer::Update()
 				punchJump.Reset();
 				punchCrouch.Reset();
 				kickJump.Reset();
+				kickCrouch.Reset();
 				break;
 
 			case ST_WALK_FORWARD:
@@ -230,6 +237,7 @@ update_status ModulePlayer::Update()
 				punchJump.Reset();
 				punchCrouch.Reset();
 				kickJump.Reset();
+				kickCrouch.Reset();
 				break;
 
 			case ST_WALK_BACKWARD:
@@ -245,6 +253,7 @@ update_status ModulePlayer::Update()
 				punchJump.Reset();
 				punchCrouch.Reset();
 				kickJump.Reset();
+				kickCrouch.Reset();
 				break;
 
 			case ST_JUMP_NEUTRAL:
@@ -328,6 +337,8 @@ update_status ModulePlayer::Update()
 			case ST_CROUCH:
 				current_animation = &crouch1;	
 				current_animation = &crouch2;
+				punchCrouch.Reset();
+				kickCrouch.Reset();
 
 				LOG("CROUCHING ****\n");
 				break;
@@ -375,6 +386,15 @@ update_status ModulePlayer::Update()
 				LOG("PUNCH JUMP BACKWARD ^<<+\n");
 				break;
 			case ST_KICK_CROUCH:
+				if (attack == true)
+				{
+					App->audio->PlayFX(ryokick);
+					attack = false;
+				}
+				if (animstart == 0)
+				{
+					current_animation = &kickCrouch;
+				}
 				LOG("KICK CROUCHING **--\n");
 				break;
 			case ST_KICK_STANDING:
@@ -387,8 +407,8 @@ update_status ModulePlayer::Update()
 				{
 					current_animation = &kick;
 				}
+				LOG("KICK --\n")
 				break;
-
 			case ST_KICK_NEUTRAL_JUMP:
 				if (attack == true)
 				{
@@ -585,13 +605,24 @@ update_status ModulePlayer::Update()
 
 			if (r == &punchCrouch.frames[punchCrouch.last_frame - 1])
 			{
-				playerAttack->SetPos(position.x - 50, position.y + 30 - r->h);
+				punchCrouchCollider->SetPos(position.x - 50, position.y + 30 - r->h);
 
-				playerAttack->Enabled = true;
+				punchCrouchCollider->Enabled = true;
 			}
 			else
 			{
-				playerAttack->Enabled = false;
+				punchCrouchCollider->Enabled = false;
+			}
+
+			if (r == &kickCrouch.frames[kickCrouch.last_frame - 1])
+			{
+				kickCrouchCollider->SetPos(position.x - 50, position.y + 30 - r->h);
+
+				kickCrouchCollider->Enabled = true;
+			}
+			else
+			{
+				kickCrouchCollider->Enabled = false;
 			}
 
 		}
@@ -622,13 +653,24 @@ update_status ModulePlayer::Update()
 
 			if (r == &punchCrouch.frames[punchCrouch.last_frame - 1])
 			{
-				playerAttack->SetPos(position.x + 50, position.y + 30 - r->h);
+				punchCrouchCollider->SetPos(position.x + 50, position.y + 30 - r->h);
 
-				playerAttack->Enabled = true;
+				punchCrouchCollider->Enabled = true;
 			}
 			else
 			{
-				playerAttack->Enabled = false;
+				punchCrouchCollider->Enabled = false;
+			}
+
+			if (r == &kickCrouch.frames[kickCrouch.last_frame - 1])
+			{
+				kickCrouchCollider->SetPos(position.x + 50, position.y + 30 - r->h);
+
+				kickCrouchCollider->Enabled = true;
+			}
+			else
+			{
+				kickCrouchCollider->Enabled = false;
 			}
 		}
 
@@ -758,7 +800,29 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 
 	}
 	/////////////////////////////////////////////////////////////////////////////////////////////////// PUNCH CROUCH HITBOX
-	if (playerAttack == c1 && c2->type == COLLIDER_ENEMY)
+	if (punchCrouchCollider == c1 && c2->type == COLLIDER_ENEMY)
+	{
+		App->player2->Life--;
+		collision = true;
+
+		if ((position.x + 25) >= (App->player2->position.x - 25)) {
+			App->player2->position.x -= 5;
+		}
+
+		else {
+			if ((App->player2->position.x) <= (App->scene_Todoh->positionlimitright.x + 300)) {
+				App->player2->position.x += 5;
+			}
+
+			if ((App->player2->position.x) >= (App->scene_Todoh->positionlimitright.x + 300)) {
+				position.x -= 5;
+				App->player2->position.x -= 3;
+			}
+		}
+
+	}
+	/////////////////////////////////////////////////////////////////////////////////////////////////// KICK CROUCH HITBOX
+	if (kickCrouchCollider == c1 && c2->type == COLLIDER_ENEMY)
 	{
 		App->player2->Life--;
 		collision = true;

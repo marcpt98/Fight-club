@@ -64,10 +64,12 @@ public:
 	Animation punchCrouch;
 	Animation kick;
 	Animation kickJump;
+	Animation kickCrouch;
 	Collider *ryohitbox;
-	Collider *playerAttack;
 	Collider *kickCollider;
+	Collider *kickCrouchCollider;
 	Collider *punchCollider;
+	Collider *punchCrouchCollider;
 	SDL_Rect player1Win;
 
 	Uint32 jump_timer = 0;
@@ -298,6 +300,7 @@ public:
 				case IN_CROUCH_UP: state = ST_IDLE; break;
 				case IN_JUMP_AND_CROUCH: state = ST_IDLE; break;
 				case IN_T: state = ST_PUNCH_CROUCH; punch_timer = SDL_GetTicks(); break;
+				case IN_R: state = ST_KICK_CROUCH; kick_timer = SDL_GetTicks(); break;
 				}
 			}
 			break;
@@ -340,6 +343,26 @@ public:
 				case IN_KICK_FINISH: state = ST_JUMP_NEUTRAL; animstart = 0; attack = true; break;
 				case IN_JUMP_FINISH: state = ST_IDLE; break;
 				case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
+
+				}
+			}
+
+			case ST_KICK_CROUCH:
+			{
+				switch (last_input)
+				{
+					// TODO: Add Links
+
+				case IN_KICK_FINISH:
+					if (IN_CROUCH_DOWN == true)
+					{
+						state = ST_CROUCH; animstart = 0; attack = true;
+
+					}
+					else
+					{
+						state = ST_IDLE; animstart = 0; attack = true;
+					}
 
 				}
 			}
