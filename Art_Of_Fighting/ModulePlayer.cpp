@@ -106,11 +106,11 @@ ModulePlayer::ModulePlayer()
 	crouch2.speed = 0.1f;
 
 	//beat animation
-	beat.PushBack({ 866, 750,64,106 });
+	/*beat.PushBack({ 866, 750,64,106 });
 	beat.PushBack({ 934, 747,78,108 });
 	beat.PushBack({ 866, 750,64,106 });
 
-	beat.speed = 0.15f;
+	beat.speed = 0.15f;*/
 
 	player1Win.x = 0;
 	player1Win.y = 40;
@@ -148,7 +148,8 @@ bool ModulePlayer::Start()
 	punchCrouchCollider = App->collision->AddCollider({ position.x, position.y - 70 , 40, 15 }, COLLIDER_PLAYER, this);
 	punchCrouchCollider->Enabled = false;
 	kickCrouchCollider = App->collision->AddCollider({ position.x, position.y - 70 , 65, 15 }, COLLIDER_PLAYER, this);
-	
+	kickCrouchCollider->Enabled = false;
+
 	return ret;
 }
 
@@ -884,7 +885,7 @@ bool ModulePlayer::external_input(p2Qeue<ryo_inputs>& inputs)
 				break;
 			case SDLK_t:
 				if (collision == true) {
-					inputs.Push(IN_DAMAGE_RECEIVED);
+					//inputs.Push(IN_DAMAGE_RECEIVED);
 				}
 				else {
 					return false;
@@ -983,7 +984,7 @@ void ModulePlayer::internal_input(p2Qeue<ryo_inputs>& inputs)
 			hadouken_timer = 0;
 		}
 	}
-	if (beat_timer > 0)
+	/*if (beat_timer > 0)
 	{
 		if (SDL_GetTicks() - beat_timer > BEAT_TIME)
 		{
@@ -991,5 +992,5 @@ void ModulePlayer::internal_input(p2Qeue<ryo_inputs>& inputs)
 			beat_timer = 0;
 			collision = false;
 		}
-	}
+	}*/
 }
