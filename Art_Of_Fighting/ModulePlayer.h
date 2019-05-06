@@ -56,13 +56,14 @@ public:
 	Animation backward;
 	Animation crouch1;
 	Animation crouch2;
+	Animation crouch3;
 	//Animation beat;
 	iPoint position;
 	Animation hadouken;
 	Animation punch;
 	Animation punchJump;
 	Animation punchCrouch;
-	Animation kick;
+	Animation lowkick;
 	Animation kickJump;
 	Animation kickCrouch;
 	Collider *ryohitbox;
