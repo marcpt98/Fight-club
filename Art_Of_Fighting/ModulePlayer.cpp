@@ -13,21 +13,18 @@
 #include "SDL/include/SDL_timer.h"
 #include "p2Qeue.h"
 #include "SDL/include/SDL.h"
-#include "ModuleScenelevel_1.h"
+#include "ModuleSceneking.h"
 
 ModulePlayer::ModulePlayer()
 {
 	graphics = NULL;
-	graphicsbeat = NULL;
 	current_animation = NULL;
 
-
-
 	// idle animation (arcade sprite sheet)
-	idle.PushBack({ 0, 10, 66, 106 });
-	idle.PushBack({ 66, 10, 67, 106 });
-	idle.PushBack({ 133, 9, 69, 107 });
-	idle.speed = 0.13f;
+	idle.PushBack({ 7, 10, 54, 104 });
+	idle.PushBack({ 64, 9, 53, 104 });
+	idle.PushBack({ 117, 10, 55, 104 });
+	idle.speed = 0.14f;
 
 
 	//jump animation(arcade sprite sheet)
@@ -127,7 +124,7 @@ bool ModulePlayer::Start()
 {
 	LOG("Loading player textures");
 	bool ret = true;
-	graphics = App->textures->Load("media/Spritesheets/Ryo_SpriteSheet.png"); // arcade version
+	graphics = App->textures->Load("media/Spritesheets/king_SpriteSheet.png"); // arcade version
 	graphicsWin = App->textures->Load("media/Win/WinPlayer.png");
 
 	ryokick = App->audio->LoadFX("media/FX/ryo_kick.wav");
@@ -739,7 +736,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 
 	}
 
-	if (ryohitbox == c1 && App->scene_Todoh->colliderMap2 == c2)   //Colisions with second wall
+	if (ryohitbox == c1 && App->scene_King->colliderMap2 == c2)   //Colisions with second wall
 	{
 		if (App->input->keyboard[SDL_SCANCODE_A] == NULL) {
 			speed = 0;
@@ -749,7 +746,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 			speed = 2;
 		}
 	}
-	if (ryohitbox == c1 && App->scene_Todoh->colliderMap == c2)   //Colisions with first wall
+	if (ryohitbox == c1 && App->scene_King->colliderMap == c2)   //Colisions with first wall
 	{
 		if (App->input->keyboard[SDL_SCANCODE_D] == NULL) {
 			speed = 0;
@@ -769,18 +766,18 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 			App->player2->position.x -= 5;
 			
 
-			if ((App->player2->position.x) >= (App->scene_Todoh->positionlimitright.x + 300)) {
+			if ((App->player2->position.x) >= (App->scene_King->positionlimitright.x + 300)) {
 				position.x -= 5;
 				App->player2->position.x += 3;
 			}
 		}
 
 		else {
-			if ((App->player2->position.x) <= (App->scene_Todoh->positionlimitright.x + 300)) {
+			if ((App->player2->position.x) <= (App->scene_King->positionlimitright.x + 300)) {
 				App->player2->position.x += 5;
 			}
 
-			if ((App->player2->position.x) >= (App->scene_Todoh->positionlimitright.x + 300)) {
+			if ((App->player2->position.x) >= (App->scene_King->positionlimitright.x + 300)) {
 				position.x -= 5;
 				App->player2->position.x -= 3;
 			}
@@ -797,11 +794,11 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		}
 
 	else {
-		if ((App->player2->position.x) <= (App->scene_Todoh->positionlimitright.x + 300)) {
+		if ((App->player2->position.x) <= (App->scene_King->positionlimitright.x + 300)) {
 			App->player2->position.x += 5;
 		}
 
-		if ((App->player2->position.x) >= (App->scene_Todoh->positionlimitright.x + 300)) {
+		if ((App->player2->position.x) >= (App->scene_King->positionlimitright.x + 300)) {
 			position.x -= 5;
 			App->player2->position.x -= 3;
 		}
@@ -819,11 +816,11 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		}
 
 		else {
-			if ((App->player2->position.x) <= (App->scene_Todoh->positionlimitright.x + 300)) {
+			if ((App->player2->position.x) <= (App->scene_King->positionlimitright.x + 300)) {
 				App->player2->position.x += 5;
 			}
 
-			if ((App->player2->position.x) >= (App->scene_Todoh->positionlimitright.x + 300)) {
+			if ((App->player2->position.x) >= (App->scene_King->positionlimitright.x + 300)) {
 				position.x -= 5;
 				App->player2->position.x -= 3;
 			}
@@ -841,11 +838,11 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		}
 
 		else {
-			if ((App->player2->position.x) <= (App->scene_Todoh->positionlimitright.x + 300)) {
+			if ((App->player2->position.x) <= (App->scene_King->positionlimitright.x + 300)) {
 				App->player2->position.x += 5;
 			}
 
-			if ((App->player2->position.x) >= (App->scene_Todoh->positionlimitright.x + 300)) {
+			if ((App->player2->position.x) >= (App->scene_King->positionlimitright.x + 300)) {
 				position.x -= 5;
 				App->player2->position.x -= 3;
 			}

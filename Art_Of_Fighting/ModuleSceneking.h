@@ -10,13 +10,13 @@
 
 struct SDL_Texture;
 
-class ModuleScenelevel_1 : public Module
+class ModuleSceneking : public Module
 {
 private://NEW
 	int speed = 3;//NEW
 public:
-	ModuleScenelevel_1();
-	~ModuleScenelevel_1();
+	ModuleSceneking();
+	~ModuleSceneking();
 
 	bool Start();
 	update_status Update();

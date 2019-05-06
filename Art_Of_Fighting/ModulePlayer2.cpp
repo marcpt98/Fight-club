@@ -10,7 +10,7 @@
 #include "ModuleFadeToBlack.h"
 #include "ModulePlayer2.h"
 #include "ModuleFonts.h"
-#include "ModuleScenelevel_1.h"
+#include "ModuleSceneking.h"
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
@@ -369,7 +369,7 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 
 	}
 
-	if (ryohitbox == c1 && App->scene_Todoh->colliderMap2 == c2)   //Colisions with second wall
+	if (ryohitbox == c1 && App->scene_King->colliderMap2 == c2)   //Colisions with second wall
 	{
 		if (App->input->keyboard[SDL_SCANCODE_L] == NULL) {
 			position.x -= 2;
@@ -378,7 +378,7 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 			speed = 0;
 		}
 	}
-	if (ryohitbox == c1 && App->scene_Todoh->colliderMap == c2)   //Colisions with first wall
+	if (ryohitbox == c1 && App->scene_King->colliderMap == c2)   //Colisions with first wall
 	{
 		if (App->input->keyboard[SDL_SCANCODE_J] == NULL) {
 			position.x += 2;

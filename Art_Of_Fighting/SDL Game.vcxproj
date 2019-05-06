@@ -85,7 +85,7 @@
     <ClInclude Include="ModulePlayer2.h" />
     <ClInclude Include="ModuleRender.h" />
     <ClInclude Include="ModuleScenelevel_2.h" />
-    <ClInclude Include="ModuleScenelevel_1.h" />
+    <ClInclude Include="ModuleSceneking.h" />
     <ClInclude Include="ModuleScenewin.h" />
     <ClInclude Include="ModuleTextures.h" />
     <ClInclude Include="ModuleWelcomeScreen.h" />
@@ -109,7 +109,7 @@
     <ClCompile Include="ModulePlayer.cpp" />
     <ClCompile Include="ModuleRender.cpp" />
     <ClCompile Include="ModuleScenelevel_2.cpp" />
-    <ClCompile Include="ModuleScenelevel_1.cpp" />
+    <ClCompile Include="ModuleSceneking.cpp" />
     <ClCompile Include="ModuleTextures.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
   </ItemGroup>

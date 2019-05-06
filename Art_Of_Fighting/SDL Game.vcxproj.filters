@@ -62,9 +62,6 @@
     <ClInclude Include="ModuleScenelevel_2.h">
       <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleScenelevel_1.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleParticles.h">
       <Filter>Modules</Filter>
     </ClInclude>
@@ -79,6 +76,9 @@
     </ClInclude>
     <ClInclude Include="p2Qeue.h">
       <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleSceneking.h">
+      <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -121,9 +121,6 @@
     <ClCompile Include="ModuleScenelevel_2.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleScenelevel_1.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleParticles.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
@@ -134,6 +131,9 @@
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleFonts.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleSceneking.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>

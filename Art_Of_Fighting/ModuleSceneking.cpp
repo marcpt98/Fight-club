@@ -2,7 +2,7 @@
 #include "Application.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
-#include "ModuleScenelevel_1.h"
+#include "ModuleSceneking.h"
 #include "ModulePlayer.h"
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
@@ -17,7 +17,7 @@
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
-ModuleScenelevel_1::ModuleScenelevel_1()
+ModuleSceneking::ModuleSceneking()
 {
 	background1.x = 0;
 	background1.y = 0;
@@ -41,15 +41,15 @@ ModuleScenelevel_1::ModuleScenelevel_1()
 
 }
 
-ModuleScenelevel_1::~ModuleScenelevel_1()
+ModuleSceneking::~ModuleSceneking()
 {}
 
 // Load assets
-bool ModuleScenelevel_1::Start()
+bool ModuleSceneking::Start()
 {
 	LOG("Loading ryo scene");
 
-	graphics = App->textures->Load("media/Stages/level_1.png");
+	graphics = App->textures->Load("media/Stages/stage_king.png");
 
 	Scene1_Fight = App->audio->LoadMusic("media/Music/Scene1_Fight.ogg");
 	App->player->Life = 100;
@@ -85,7 +85,7 @@ bool ModuleScenelevel_1::Start()
 }
 
 // UnLoad assets
-bool ModuleScenelevel_1::CleanUp()
+bool ModuleSceneking::CleanUp()
 {
 	LOG("Unloading ryo scene");
 	App->player->Disable();
@@ -99,7 +99,7 @@ bool ModuleScenelevel_1::CleanUp()
 }
 
 // Update: draw background
-update_status ModuleScenelevel_1::Update()
+update_status ModuleSceneking::Update()
 {
 	distance = ((App->player->position.x + App->player2->position.x) / 2);
 	App->render->camera.x = (distance*-1);
@@ -111,7 +111,7 @@ update_status ModuleScenelevel_1::Update()
 	App->render->Blit(graphics, 0, 0, &background1, 0.75f);
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{
-		App->fade->FadeToBlack(App->scene_Todoh, App->scene_win, 2);
+		App->fade->FadeToBlack(App->scene_King, App->scene_win, 2);
 	}
 
 	App->render->BlitWithScale(graphicsLive, 138, 15, &liveEmpty, -1, 0.0f, 1.0f, TOP_RIGHT);
@@ -153,7 +153,7 @@ update_status ModuleScenelevel_1::Update()
 		else {
 
 		}*/
-			App->fade->FadeToBlack(App->scene_Todoh, App->scene_win, 2);
+			App->fade->FadeToBlack(App->scene_King, App->scene_win, 2);
 	}
 	/////////////////////////////////////////////////////
 
@@ -168,7 +168,7 @@ update_status ModuleScenelevel_1::Update()
 	}
 	if (App->player->Life <= 0 || App->player2->Life <= 0)
 	{
-		App->fade->FadeToBlack(App->scene_Todoh, App->scene_win, 2);
+		App->fade->FadeToBlack(App->scene_King, App->scene_win, 2);
 	}
 
 
