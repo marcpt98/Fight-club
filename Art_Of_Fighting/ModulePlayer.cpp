@@ -86,12 +86,12 @@ ModulePlayer::ModulePlayer()
 	kickCrouch.PushBack({ 866,169,55,65 });
 	kickCrouch.speed = 0.1f;
 
-	//Hadouken ryo animation
-	hadouken.PushBack({ 176, 882, 65, 103 });											//CHANGE
-	hadouken.PushBack({ 242, 883, 88, 102 });
-	hadouken.PushBack({ 330, 889, 85, 96 });
-	hadouken.PushBack({ 415, 888, 81, 97 });
-	hadouken.PushBack({ 496, 878, 102, 107 });
+	// Hadouken ryo animation
+		hadouken.PushBack({ 431, 245, 56, 108 });                                        //CHANGE
+	hadouken.PushBack({ 498, 245, 49, 100 });
+	hadouken.PushBack({ 552, 245, 81, 77 });
+	hadouken.PushBack({ 642, 241, 48, 86 });
+	hadouken.PushBack({ 724, 241, 53, 99 });
 
 	hadouken.speed = 0.15f;
 
