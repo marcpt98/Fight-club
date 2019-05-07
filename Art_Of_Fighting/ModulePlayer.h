@@ -54,9 +54,7 @@ public:
 	Animation jumpFalling;
 	Animation forward;
 	Animation backward;
-	Animation crouch1;
-	Animation crouch2;
-	Animation crouch3;
+	Animation crouch;
 	//Animation beat;
 	iPoint position;
 	Animation hadouken;

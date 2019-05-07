@@ -9,8 +9,7 @@ class ModuleWindow;
 class ModuleInput;
 class ModuleTextures;
 class ModuleRender;
-class ModuleSceneking;/*
-class ModuleScenelevel_2;*/
+class ModuleSceneking;
 class ModulePlayer;
 class ModulePlayer2;
 class ModuleFadeToBlack;
@@ -33,8 +32,7 @@ public:
 	ModuleRender* render;
 	ModuleInput* input;
 	ModuleTextures* textures;
-	ModuleSceneking* scene_King;/*
-	ModuleScenelevel_2* scene_Jack;*/
+	ModuleSceneking* scene_King;
 	ModuleWelcomeScreen* scene_Welcome;
 	ModuleScenewin* scene_win;
 	ModulePlayer* player;

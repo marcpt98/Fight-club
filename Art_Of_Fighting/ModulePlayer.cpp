@@ -22,8 +22,8 @@ ModulePlayer::ModulePlayer()
 
 	// idle animation (arcade sprite sheet)
 	idle.PushBack({ 7, 10, 54, 104 });
-	idle.PushBack({ 64, 9, 53, 104 });
-	idle.PushBack({ 117, 10, 55, 104 });
+	idle.PushBack({ 64, 10, 54, 104 });
+	idle.PushBack({ 118, 10, 54, 104 });
 	idle.speed = 0.14f;
 
 	//jump animation(arcade sprite sheet)
@@ -39,8 +39,9 @@ ModulePlayer::ModulePlayer()
 	
 	// walk forward animation (arcade sprite sheet)
 	forward.PushBack({ 419, 11, 49, 103 });
-	forward.PushBack({ 474, 10, 48, 104 });
 	forward.PushBack({ 528, 10, 47, 104 });
+	forward.PushBack({ 474, 10, 48, 104 });
+	forward.PushBack({ 7, 10, 54, 104 });
 	forward.speed = 0.1f;
 
 	//backawrd animation
@@ -95,12 +96,10 @@ ModulePlayer::ModulePlayer()
 	hadouken.speed = 0.15f;
 
 	// crouch animation
-	crouch1.PushBack({ 117, 133,60,83 });
-	crouch2.PushBack({ 15, 151,49,74 });
-	crouch3.PushBack({ 117, 133,60,83 });
-	crouch1.speed = 0.3f;
-	crouch2.speed = 0.1f;
-	crouch3.speed = 0.3f;
+	crouch.PushBack({117,133,51,92});
+	crouch.PushBack({15,151,49,74});
+	crouch.speed = 0.3f;
+	crouch.loop = false;
 
 	//beat animation
 	/*beat.PushBack({ 866, 750,64,106 });
@@ -210,8 +209,7 @@ update_status ModulePlayer::Update()
 				current_animation = &idle;
 				forward.Reset();
 				backward.Reset();
-				crouch1.Reset();
-				crouch2.Reset();
+				crouch.Reset();
 				lowkick.Reset();
 				punch.Reset();
 				hadouken.Reset();
@@ -226,8 +224,7 @@ update_status ModulePlayer::Update()
 				current_animation = &forward;
 				position.x += speed;
 				backward.Reset();
-				crouch1.Reset();
-				crouch2.Reset();				
+				crouch.Reset();
 				lowkick.Reset();
 				punch.Reset();
 				hadouken.Reset();
@@ -242,8 +239,7 @@ update_status ModulePlayer::Update()
 				current_animation = &backward;
 				position.x -= speed;
 				forward.Reset();
-				crouch1.Reset();
-				crouch2.Reset();
+				crouch.Reset();
 				lowkick.Reset();
 				punch.Reset();
 				hadouken.Reset();
@@ -333,8 +329,7 @@ update_status ModulePlayer::Update()
 				LOG("JUMPING BACKWARD ^^<<\n");
 				break;
 			case ST_CROUCH:
-				current_animation = &crouch1;	
-				current_animation = &crouch2;
+				current_animation = &crouch;
 				punchCrouch.Reset();
 				kickCrouch.Reset();
 
