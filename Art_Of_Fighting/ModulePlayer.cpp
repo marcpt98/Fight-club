@@ -27,16 +27,11 @@ ModulePlayer::ModulePlayer()
 	idle.speed = 0.14f;
 
 	//jump animation(arcade sprite sheet)
-	jumping.PushBack({67,140,49,85 });
-	jumping.PushBack({ 147,256,69,101 });	
-	jumping.PushBack({ 67,140,49,85 });
-
+	jumping.PushBack({ 68,140,48,85 });
+	jumping.PushBack({ 148,256,68,101 });
+	jumping.PushBack({ 68,140,49,85 });
 	jumping.speed = 0.05f;
 
-	jumpFalling.PushBack({ 299,471,58, 116 });											//CHANGE
-	jumpFalling.PushBack({ 0,504,60,82 });
-	jumpFalling.speed = 0.1f;
-	
 	// walk forward animation (arcade sprite sheet)
 	forward.PushBack({ 419, 11, 49, 103 });
 	forward.PushBack({ 528, 10, 47, 104 });
@@ -52,9 +47,9 @@ ModulePlayer::ModulePlayer()
 
 	//punch animation(arcade sprite sheet)
 
-	punch.PushBack({ 14, 476, 49, 102 });
-	punch.PushBack({ 303, 9, 108, 101 });
-	punch.PushBack({ 14, 476, 49, 102 });
+	punch.PushBack({ 15, 476, 48, 102 });
+	punch.PushBack({ 314, 10, 94, 100 });
+	punch.PushBack({ 15, 476, 48, 102 });
 	punch.speed = 0.16f;
 
 	punchJump.PushBack({ 714,141,66,94 });
@@ -62,18 +57,24 @@ ModulePlayer::ModulePlayer()
 	punchJump.PushBack({ 714,141,66,94 });
 	punchJump.speed = 0.15f;															//CHANGE
 
-	punchCrouch.PushBack({414,42,53,74});
-	punchCrouch.PushBack({467,41,109,75});												//CHANGE
-	punchCrouch.PushBack({576,43,67,73});
-	punchCrouch.PushBack({ 414,42,53,74 });
+	punchCrouch.PushBack({ 335,152,70,73 });
+	punchCrouch.PushBack({ 405,157,103,68 });
+	punchCrouch.PushBack({ 335,152,70,73 });
 	punchCrouch.speed = 0.15f;
 
 	//kick animation(arcade sprite sheet)
-	lowkick.PushBack({ 82, 478, 58, 101 });
-	lowkick.PushBack({ 151, 477, 49, 102 });
-	lowkick.PushBack({ 210, 478, 88, 101 });
-	lowkick.PushBack({ 151, 477, 49, 102 });
-	lowkick.PushBack({ 82, 478, 58, 101 });
+	kick.PushBack({ 4,593,72,113 });
+	kick.PushBack({ 96,593,51,112 });
+	kick.PushBack({ 172,593,82,112 });
+	kick.PushBack({ 264,599,49,102 });
+	kick.PushBack({ 338,607,63,92 });
+	kick.speed = 0.15f;
+
+	lowkick.PushBack({ 84, 478, 56, 101 });
+	lowkick.PushBack({ 151, 478, 49, 101 });
+	lowkick.PushBack({ 211, 478, 86, 101 });
+	lowkick.PushBack({ 151, 478, 49, 101 });
+	lowkick.PushBack({ 84, 478, 56, 101 });
 	lowkick.speed = 0.15f;
 
 	kickJump.PushBack({ 561,146,57,89 });												//CHANGE
@@ -81,9 +82,9 @@ ModulePlayer::ModulePlayer()
 	kickJump.PushBack({ 561,146,57,89 });
 	kickJump.speed = 0.15f;
 
-	kickCrouch.PushBack({ 866,169,55,65 });												//CHANGE
-	kickCrouch.PushBack({ 0,280,127,68 });
-	kickCrouch.PushBack({ 866,169,55,65 });
+	kickCrouch.PushBack({ 335,152,70,73 });
+	kickCrouch.PushBack({ 405,157,103,68 });
+	kickCrouch.PushBack({ 335,152,70,73 });
 	kickCrouch.speed = 0.1f;
 
 	// Hadouken ryo animation
@@ -91,13 +92,13 @@ ModulePlayer::ModulePlayer()
 	hadouken.PushBack({ 498, 245, 49, 100 });
 	hadouken.PushBack({ 552, 245, 81, 77 });
 	hadouken.PushBack({ 642, 241, 48, 86 });
-	hadouken.PushBack({ 727, 241, 53, 99 });
+	hadouken.PushBack({ 724, 241, 53, 99 });
 
 	hadouken.speed = 0.15f;
 
 	// crouch animation
-	crouch.PushBack({117,133,51,92});
-	crouch.PushBack({15,151,49,74});
+	crouch.PushBack({ 117,133,51,92 });
+	crouch.PushBack({ 15,151,49,74 });
 	crouch.speed = 0.3f;
 	crouch.loop = false;
 
@@ -129,14 +130,14 @@ bool ModulePlayer::Start()
 	ryokick = App->audio->LoadFX("media/FX/ryo_kick.wav");
 	ryopunch = App->audio->LoadFX("media/FX/Ryo_punch.wav");
 	ryojump = App->audio->LoadFX("media/FX/Ryojump.wav");
-	ryoKoOuKen= App->audio->LoadFX("media/FX/Ryo_KoOuKen.wav");
-	ryoKoOuKensound= App->audio->LoadFX("media/FX/ryoKoOuKensound.wav");
+	ryoKoOuKen = App->audio->LoadFX("media/FX/Ryo_KoOuKen.wav");
+	ryoKoOuKensound = App->audio->LoadFX("media/FX/ryoKoOuKensound.wav");
 
 	position.x = 168;
 	position.y = 210;
 	initialPos = position.y;
 
-	ryohitbox = App->collision->AddCollider({position.x,position.y, 50, 97 }, COLLIDER_PLAYER, this);
+	ryohitbox = App->collision->AddCollider({ position.x,position.y, 50, 97 }, COLLIDER_PLAYER, this);
 	punchCollider = App->collision->AddCollider({ position.x,position.y, 40, 15 }, COLLIDER_PLAYER, this);
 	punchCollider->Enabled = false;
 	kickCollider = App->collision->AddCollider({ position.x,position.y, 60, 30 }, COLLIDER_PLAYER, this);
@@ -171,13 +172,13 @@ update_status ModulePlayer::Update()
 	int speed = 2;
 
 	if (App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN) {															//God mode 
-		if (GodMode == false) 
+		if (GodMode == false)
 		{
 			ryohitbox->to_delete = true;
 
 			GodMode = true;
 		}
-		else if (GodMode == true) 
+		else if (GodMode == true)
 		{
 			ryohitbox = App->collision->AddCollider({ position.x,position.y,50, 97 }, COLLIDER_PLAYER, this);
 			GodMode = false;
@@ -186,7 +187,7 @@ update_status ModulePlayer::Update()
 	if (App->input->keyboard[SDL_SCANCODE_F4] == KEY_STATE::KEY_DOWN) {			//Oneshot to player 2												 
 		App->player2->Life = 0;
 	}
-	if (App->input->keyboard[SDL_SCANCODE_F3] == KEY_STATE::KEY_DOWN) {	
+	if (App->input->keyboard[SDL_SCANCODE_F3] == KEY_STATE::KEY_DOWN) {
 		if (App->player->printMode == false) {
 			App->player->printMode = true;
 		}
@@ -210,6 +211,7 @@ update_status ModulePlayer::Update()
 				forward.Reset();
 				backward.Reset();
 				crouch.Reset();
+				kick.Reset();
 				lowkick.Reset();
 				punch.Reset();
 				hadouken.Reset();
@@ -225,6 +227,7 @@ update_status ModulePlayer::Update()
 				position.x += speed;
 				backward.Reset();
 				crouch.Reset();
+				kick.Reset();
 				lowkick.Reset();
 				punch.Reset();
 				hadouken.Reset();
@@ -240,6 +243,7 @@ update_status ModulePlayer::Update()
 				position.x -= speed;
 				forward.Reset();
 				crouch.Reset();
+				kick.Reset();
 				lowkick.Reset();
 				punch.Reset();
 				hadouken.Reset();
@@ -251,28 +255,27 @@ update_status ModulePlayer::Update()
 				break;
 
 			case ST_JUMP_NEUTRAL:
-					if (animstart == 0)
+				if (animstart == 0)
+				{
+					position.y -= jumpSpeed;
+					current_animation = &jumping;
+
+					if (attack == true)
 					{
-						position.y -= jumpSpeed;
-						current_animation = &jumping;
+						App->audio->PlayFX(ryojump);
+						attack = false;
+					}
 
-						if (attack == true)
-						{
-							App->audio->PlayFX(ryojump);
-							attack = false;
-						}
-
-						if (position.y < 140) {
-							jumpSpeed -= 0.5;
-							if (jumpSpeed < 0) jumpSpeed = -6;
-						}
-						if (position.y >= initialPos && jumpSpeed < 0) {
-							current_animation = &jumpFalling;
-							animstart = 1;
-							position.y = initialPos;
-							jumpSpeed = 6;
-						}
-						LOG("JUMPING ^^\n")
+					if (position.y < 140) {
+						jumpSpeed -= 0.5;
+						if (jumpSpeed < 0) jumpSpeed = -6;
+					}
+					if (position.y >= initialPos && jumpSpeed < 0) {
+						animstart = 1;
+						position.y = initialPos;
+						jumpSpeed = 6;
+					}
+					LOG("JUMPING ^^\n")
 				}break;
 
 			case ST_JUMP_FORWARD:
@@ -379,6 +382,7 @@ update_status ModulePlayer::Update()
 				LOG("PUNCH JUMP BACKWARD ^<<+\n");
 				break;
 			case ST_KICK_CROUCH:
+				position.x += 0.5*speed;
 				if (attack == true)
 				{
 					App->audio->PlayFX(ryokick);
@@ -391,17 +395,17 @@ update_status ModulePlayer::Update()
 				LOG("KICK CROUCHING **--\n");
 				break;
 			case ST_KICK_STANDING:
-				if (attack == true) 
+				if (attack == true)
 				{
 					App->audio->PlayFX(ryokick);
 					attack = false;
 				}
 				if (animstart == 0)
 				{
-					current_animation = &lowkick;
+					current_animation = &kick;
 				}
 				LOG("KICK --\n")
-				break;
+					break;
 			case ST_KICK_NEUTRAL_JUMP:
 				if (attack == true)
 				{
@@ -430,16 +434,16 @@ update_status ModulePlayer::Update()
 					App->audio->PlayFX(ryoKoOuKen);
 					App->audio->PlayFX(ryoKoOuKensound);
 					if ((position.x + 25) >= (App->player2->position.x - 25)) {
-						App->particles->AddParticle(App->particles->Hadouken1, position.x + 300, position.y, COLLIDER_PLAYER_SHOT);
+						App->particles->AddParticle(App->particles->Hadouken1, position.x + 30, position.y - 110, COLLIDER_PLAYER_SHOT);
 						App->particles->AddParticle(App->particles->Hadouken2, position.x + 28, position.y - 85, COLLIDER_PLAYER_SHOT, 100);
 						App->particles->AddParticle(App->particles->Hadouken3, position.x + 30, position.y - 80, COLLIDER_PLAYER_SHOT, 300);
-						
+						App->particles->AddParticle(App->particles->Hadouken5, position.x + 60, position.y - 80, COLLIDER_PLAYER_SHOT, 400);
 					}
 					else {
-						App->particles->AddParticle(App->particles->Hadouken1, position.x + 6, position.y - 60, COLLIDER_PLAYER_SHOT);
-						App->particles->AddParticle(App->particles->Hadouken2, position.x + 19, position.y - 60, COLLIDER_PLAYER_SHOT, 100);
-						App->particles->AddParticle(App->particles->Hadouken3, position.x + 25, position.y - 60, COLLIDER_PLAYER_SHOT, 300);
-						
+						App->particles->AddParticle(App->particles->Hadouken1, position.x - 10, position.y - 110, COLLIDER_PLAYER_SHOT);
+						App->particles->AddParticle(App->particles->Hadouken2, position.x - 8, position.y - 85, COLLIDER_PLAYER_SHOT, 100);
+						App->particles->AddParticle(App->particles->Hadouken3, position.x - 10, position.y - 80, COLLIDER_PLAYER_SHOT, 300);
+						App->particles->AddParticle(App->particles->Hadouken4, position.x - 60, position.y - 80, COLLIDER_PLAYER_SHOT, 400);
 					}
 				}
 				Activehadouken = false;
@@ -451,14 +455,148 @@ update_status ModulePlayer::Update()
 		}
 		current_state = state;
 
+		/*
+		Animation *current_animation = &idle;
+
+		float hadspeed = 1;
+		int inicial = 120;
+
+		///////////////////////////////////////////////////////////////////////////////////
+
+		if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT)
+		{
+		current_animation = &crouch1;
+		current_animation = &crouch2;
+
+		}
+
+		if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT)
+		{
+		if (wall == true && position.x > 552) {}
+		else {
+		current_animation = &forward;
+		position.x += speed;
+		}
+
+		}
+
+		if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT)
+		{
+		if (wall == true && (position.x > 0 && position.x < 200)) {}
+		else {
+		current_animation = &backward;
+		position.x -= speed;
+		}
+		}
+
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN)                             //   JUMP
+		{
+		if (animStart == 0) {
+		App->audio->PlayFX(ryojump);
+		current_animation = &jump;
+		position.y -= jSpeed;
+
+
+		if (position.y < 120) {
+		jSpeed -= 0.5;
+		if (jSpeed < 0) jSpeed = -6;
+		}
+		if (position.y >= InitialPosition && jSpeed < 0) {
+		animStart = 1;
+		position.y = InitialPosition;
+		jSpeed = 6;
+		}
+		}
+		}
+
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		if (App->input->keyboard[SDL_SCANCODE_R] == KEY_STATE::KEY_DOWN)                                          // HADOUKEN
+		{
+		App->particles->AddParticle(App->particles->Hadouken1, position.x-10, position.y-110, COLLIDER_PLAYER_SHOT);
+		App->particles->AddParticle(App->particles->Hadouken2, position.x-8, position.y-85, COLLIDER_PLAYER_SHOT,100);
+		App->particles->AddParticle(App->particles->Hadouken3, position.x-10, position.y-80, COLLIDER_PLAYER_SHOT,300);
+		App->particles->AddParticle(App->particles->Hadouken4, position.x-60, position.y-80, COLLIDER_PLAYER_SHOT,400);
+		}
+
+		if (App->input->keyboard[SDL_SCANCODE_R] == KEY_STATE::KEY_DOWN && App->input->r == 0)
+		{
+		App->audio->PlayFX(ryoKoOuKen);
+		App->audio->PlayFX(ryoKoOuKensound);
+		App->input->r = 1;
+		current_animation = &hadouken;
+
+		}
+		if (App->input->r == 1) {
+
+		current_animation = &hadouken;
+		time++;
+		if (time == 25) {
+		hadouken.Reset();
+		App->input->r = 0;
+		time = 0;
+		}
+		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		//Punch
+
+		if (App->input->keyboard[SDL_SCANCODE_T] == KEY_STATE::KEY_DOWN && App->input->t == 0)
+		{
+		App->audio->PlayFX(ryopunch);
+		App->input->t = 1;
+		current_animation = &punch;
+		}
+		if (App->input->t == 1) {
+
+		current_animation = &punch;
+		time++;
+		if (time == 25) {
+		punch.Reset();
+		App->input->t = 0;
+		time = 0;
+		}
+		}
+
+		//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		if (App->input->keyboard[SDL_SCANCODE_Y] == KEY_STATE::KEY_DOWN && App->input->y == 0)                                     //Kick
+		{
+		App->input->y = 1;
+		current_animation = &kick;
+		App->audio->PlayFX(ryokick);
+
+		}
+		if (App->input->y == 1) {
+
+		current_animation = &kick;
+		time++;
+		if (time==25) {
+		kick.Reset();
+		App->input->y = 0;
+		time = 0;
+		}
+		}
+		speed = 2;*/
+		////////////////////////////////////////////////////////////////////////////
+		/*
+		if (App->input->keyboard[SDL_SCANCODE_ESCAPE] == KEY_STATE::KEY_DOWN) {															//Get out of game
+
+		return UPDATE_STOP;
+		}
+		*/
+
+
 
 		// Draw everything --------------------------------------
 		SDL_Rect* r = &current_animation->GetCurrentFrame();
 
-		
 
-		if ((position.x+25) >=( App->player2->position.x-25)) {
-			App->render->BlitWithScale(graphics, position.x+50, position.y - r->h, r, -1, 1.0f, 1, TOP_RIGHT);
+
+		if ((position.x + 25) >= (App->player2->position.x - 25)) {
+			App->render->BlitWithScale(graphics, position.x + 50, position.y - r->h, r, -1, 1.0f, 1, TOP_RIGHT);
 			if (r == &lowkick.frames[lowkick.last_frame - 1])
 			{
 				kickCollider->SetPos(position.x - 40, position.y - r->h);
@@ -565,13 +703,13 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 	{
 		wall = true;
 	}
-	
+
 	if (ryohitbox == c1 && c2->type == COLLIDER_ENEMY)
 	{
-		if (App->input->keyboard[SDL_SCANCODE_A] == NULL && App->input->keyboard[SDL_SCANCODE_D] == NULL && App->input->keyboard[SDL_SCANCODE_J] == NULL && App->input->keyboard[SDL_SCANCODE_L] == NULL && position.x < (App->player2->position.x-65)) {
+		if (App->input->keyboard[SDL_SCANCODE_A] == NULL && App->input->keyboard[SDL_SCANCODE_D] == NULL && App->input->keyboard[SDL_SCANCODE_J] == NULL && App->input->keyboard[SDL_SCANCODE_L] == NULL && position.x < (App->player2->position.x - 65)) {
 			position.x -= 3;
 		}
-		if (App->input->keyboard[SDL_SCANCODE_A] == NULL && App->input->keyboard[SDL_SCANCODE_D] == NULL && App->input->keyboard[SDL_SCANCODE_J] == NULL && App->input->keyboard[SDL_SCANCODE_L] == NULL && position.x > (App->player2->position.x-25)) {
+		if (App->input->keyboard[SDL_SCANCODE_A] == NULL && App->input->keyboard[SDL_SCANCODE_D] == NULL && App->input->keyboard[SDL_SCANCODE_J] == NULL && App->input->keyboard[SDL_SCANCODE_L] == NULL && position.x >(App->player2->position.x - 25)) {
 			position.x += 3;
 		}
 		if (App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_REPEAT && App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT) {
@@ -623,9 +761,9 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		App->player2->Life--;
 
 		if ((position.x + 25) >= (App->player2->position.x - 25)) {
-			
+
 			App->player2->position.x -= 5;
-			
+
 
 			if ((App->player2->position.x) >= (App->scene_King->positionlimitright.x + 300)) {
 				position.x -= 5;
@@ -654,16 +792,16 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 			App->player2->position.x -= 5;
 		}
 
-	else {
-		if ((App->player2->position.x) <= (App->scene_King->positionlimitright.x + 300)) {
-			App->player2->position.x += 5;
-		}
+		else {
+			if ((App->player2->position.x) <= (App->scene_King->positionlimitright.x + 300)) {
+				App->player2->position.x += 5;
+			}
 
-		if ((App->player2->position.x) >= (App->scene_King->positionlimitright.x + 300)) {
-			position.x -= 5;
-			App->player2->position.x -= 3;
+			if ((App->player2->position.x) >= (App->scene_King->positionlimitright.x + 300)) {
+				position.x -= 5;
+				App->player2->position.x -= 3;
+			}
 		}
-	}
 
 	}
 	/////////////////////////////////////////////////////////////////////////////////////////////////// PUNCH CROUCH HITBOX
@@ -710,7 +848,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		}
 
 	}
-	
+
 }
 
 bool ModulePlayer::external_input(p2Qeue<ryo_inputs>& inputs)
@@ -833,12 +971,30 @@ void ModulePlayer::internal_input(p2Qeue<ryo_inputs>& inputs)
 		}
 	}
 
+	if (punch_crouch_timer > 0)
+	{
+		if (SDL_GetTicks() - punch_crouch_timer > PUNCH_CROUCH_TIME)
+		{
+			inputs.Push(IN_PUNCH_CROUCH_FINISH);
+			punch_crouch_timer = 0;
+		}
+	}
+
 	if (kick_timer > 0)
 	{
 		if (SDL_GetTicks() - kick_timer > KICK_TIME)
 		{
 			inputs.Push(IN_KICK_FINISH);
 			kick_timer = 0;
+		}
+	}
+
+	if (kick_crouch_timer > 0)
+	{
+		if (SDL_GetTicks() - kick_crouch_timer > KICK_TIME)
+		{
+			inputs.Push(IN_KICK_CROUCH_FINISH);
+			kick_crouch_timer = 0;
 		}
 	}
 
@@ -850,13 +1006,14 @@ void ModulePlayer::internal_input(p2Qeue<ryo_inputs>& inputs)
 			hadouken_timer = 0;
 		}
 	}
+
 	/*if (beat_timer > 0)
 	{
-		if (SDL_GetTicks() - beat_timer > BEAT_TIME)
-		{
-			inputs.Push(IN_DAMAGE_RECEIVED_FINISH);
-			beat_timer = 0;
-			collision = false;
-		}
+	if (SDL_GetTicks() - beat_timer > BEAT_TIME)
+	{
+	inputs.Push(IN_DAMAGE_RECEIVED_FINISH);
+	beat_timer = 0;
+	collision = false;
+	}
 	}*/
 }

@@ -10,9 +10,11 @@
 
 #define MAX_KEYS 300
 #define JUMP_TIME 820
-#define PUNCH_TIME 400
-#define KICK_TIME  500
-#define HADOUKEN_TIME  600
+#define PUNCH_TIME 200
+#define KICK_TIME  530
+#define PUNCH_CROUCH_TIME 320
+#define KICK_CROUCH_TIME 600
+#define HADOUKEN_TIME  550
 //#define BEAT_TIME  500
 
 
@@ -51,7 +53,6 @@ public:
 	Animation* current_animation2 = nullptr;
 	Animation idle;
 	Animation jumping;
-	Animation jumpFalling;
 	Animation forward;
 	Animation backward;
 	Animation crouch;
@@ -61,6 +62,7 @@ public:
 	Animation punch;
 	Animation punchJump;
 	Animation punchCrouch;
+	Animation kick;
 	Animation lowkick;
 	Animation kickJump;
 	Animation kickCrouch;
@@ -73,14 +75,16 @@ public:
 
 	Uint32 jump_timer = 0;
 	Uint32 punch_timer = 0;
+	Uint32 punch_crouch_timer = 0;
 	Uint32 kick_timer = 0;
+	Uint32 kick_crouch_timer = 0;
 	Uint32 hadouken_timer = 0;
 	Uint32 beat_timer = 0;
 
 	void OnCollision(Collider* c1, Collider* c2);
 	int Life = 100;
 	float MaxLife = 100;
-	int time =0;
+	int time = 0;
 	int ryokick = 0;
 	int ryopunch = 0;
 	int ryojump = 0;
@@ -131,7 +135,9 @@ public:
 		IN_F,
 		IN_JUMP_FINISH,
 		IN_PUNCH_FINISH,
+		IN_PUNCH_CROUCH_FINISH,
 		IN_KICK_FINISH,
+		IN_KICK_CROUCH_FINISH,
 		//IN_DAMAGE_RECEIVED,
 		//IN_DAMAGE_RECEIVED_FINISH,
 		IN_HADOUKEN_FINISH
@@ -161,7 +167,7 @@ public:
 				case IN_T: state = ST_PUNCH_STANDING, punch_timer = SDL_GetTicks(); break;
 				case IN_R: state = ST_KICK_STANDING, kick_timer = SDL_GetTicks(); break;
 				case IN_F: state = ST_HADOUKEN, hadouken_timer = SDL_GetTicks(); break;
-				//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
+					//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
 
 				}
 			}
@@ -178,7 +184,7 @@ public:
 				case IN_T: state = ST_PUNCH_STANDING, punch_timer = SDL_GetTicks(); break;
 				case IN_R: state = ST_KICK_STANDING, kick_timer = SDL_GetTicks(); break;
 				case IN_F: state = ST_HADOUKEN, hadouken_timer = SDL_GetTicks(); break;
-				//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
+					//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
 
 				}
 			}
@@ -195,7 +201,7 @@ public:
 				case IN_T: state = ST_PUNCH_STANDING, punch_timer = SDL_GetTicks(); break;
 				case IN_R: state = ST_KICK_STANDING, kick_timer = SDL_GetTicks(); break;
 				case IN_F: state = ST_HADOUKEN, hadouken_timer = SDL_GetTicks(); break;
-				//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
+					//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
 
 				}
 			}
@@ -206,9 +212,9 @@ public:
 				switch (last_input)
 				{
 				case IN_JUMP_FINISH: state = ST_IDLE; animstart = 0; attack = true; break;
-				//case IN_T: state = ST_PUNCH_NEUTRAL_JUMP;  punch_timer = SDL_GetTicks(); animstart = 0; attack = true; break;
-				//case IN_R: state = ST_KICK_NEUTRAL_JUMP; kick_timer = SDL_GetTicks(); animstart = 0; attack = true; break;
-				//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
+					//case IN_T: state = ST_PUNCH_NEUTRAL_JUMP;  punch_timer = SDL_GetTicks(); animstart = 0; attack = true; break;
+					//case IN_R: state = ST_KICK_NEUTRAL_JUMP; kick_timer = SDL_GetTicks(); animstart = 0; attack = true; break;
+					//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
 				}
 			}
 			break;
@@ -217,10 +223,9 @@ public:
 			{
 				switch (last_input)
 				{
-					// TODO: Add links
 				case IN_JUMP_FINISH: state = ST_IDLE; animstart = 0; attack = true; break;
-				//case IN_T: state = ST_PUNCH_FORWARD_JUMP;  punch_timer = SDL_GetTicks(); break;
-				//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
+					//case IN_T: state = ST_PUNCH_FORWARD_JUMP;  punch_timer = SDL_GetTicks(); break;
+					//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
 
 				}
 			}
@@ -230,10 +235,9 @@ public:
 			{
 				switch (last_input)
 				{
-					// TODO: Add Links
 				case IN_JUMP_FINISH: state = ST_IDLE; animstart = 0; attack = true; break;
-				//case IN_T: state = ST_PUNCH_BACKWARD_JUMP;  punch_timer = SDL_GetTicks(); break;
-				//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
+					//case IN_T: state = ST_PUNCH_BACKWARD_JUMP;  punch_timer = SDL_GetTicks(); break;
+					//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
 
 				}
 			}
@@ -243,10 +247,9 @@ public:
 			{
 				switch (last_input)
 				{
-					// TODO: Add Links
-				//case IN_PUNCH_FINISH: state = ST_JUMP_NEUTRAL; animstart = 0; attack = true; break;
+					//case IN_PUNCH_FINISH: state = ST_JUMP_NEUTRAL; animstart = 0; attack = true; break;
 				case IN_JUMP_FINISH: state = ST_IDLE; break;
-				//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
+					//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
 
 				}
 			}
@@ -256,10 +259,9 @@ public:
 			{
 				switch (last_input)
 				{
-					// TODO: Add Links
 				case IN_PUNCH_FINISH: state = ST_JUMP_FORWARD; break;
 				case IN_JUMP_FINISH: state = ST_IDLE; break;
-				//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
+					//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
 
 				}
 			}
@@ -269,10 +271,9 @@ public:
 			{
 				switch (last_input)
 				{
-					// TODO: Add Links
 				case IN_PUNCH_FINISH: state = ST_JUMP_BACKWARD; break;
 				case IN_JUMP_FINISH: state = ST_IDLE; break;
-				//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
+					//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
 
 				}
 			}
@@ -282,9 +283,8 @@ public:
 			{
 				switch (last_input)
 				{
-					// TODO: Add Links
 				case IN_PUNCH_FINISH: state = ST_IDLE; animstart = 0; attack = true; break;
-				//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
+					//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
 
 
 				}
@@ -295,11 +295,10 @@ public:
 			{
 				switch (last_input)
 				{
-					// TODO: Add Links
 				case IN_CROUCH_UP: state = ST_IDLE; break;
 				case IN_JUMP_AND_CROUCH: state = ST_IDLE; break;
-				case IN_T: state = ST_PUNCH_CROUCH; punch_timer = SDL_GetTicks(); break;
-				case IN_R: state = ST_KICK_CROUCH; kick_timer = SDL_GetTicks(); break;
+				case IN_T: state = ST_PUNCH_CROUCH; punch_crouch_timer = SDL_GetTicks(); break;
+				case IN_R: state = ST_KICK_CROUCH; kick_crouch_timer = SDL_GetTicks(); break;
 				}
 			}
 			break;
@@ -307,9 +306,7 @@ public:
 			{
 				switch (last_input)
 				{
-					// TODO: Add Links
-					
-				case IN_PUNCH_FINISH:
+				case IN_PUNCH_CROUCH_FINISH:
 					if (IN_CROUCH_DOWN == true)
 					{
 						state = ST_CROUCH; animstart = 0; attack = true;
@@ -327,21 +324,19 @@ public:
 			{
 				switch (last_input)
 				{
-					// TODO: Add Links
 				case IN_KICK_FINISH: state = ST_IDLE; animstart = 0; attack = true; break;
 
 				}
-				
+
 			}break;
-			
+
 			case ST_KICK_NEUTRAL_JUMP:
 			{
 				switch (last_input)
 				{
-					// TODO: Add Links
 				case IN_KICK_FINISH: state = ST_JUMP_NEUTRAL; animstart = 0; attack = true; break;
 				case IN_JUMP_FINISH: state = ST_IDLE; break;
-				//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
+					//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
 
 				}
 			}
@@ -350,9 +345,7 @@ public:
 			{
 				switch (last_input)
 				{
-					// TODO: Add Links
-
-				case IN_KICK_FINISH:
+				case IN_KICK_CROUCH_FINISH:
 					if (IN_CROUCH_DOWN == true)
 					{
 						state = ST_CROUCH; animstart = 0; attack = true;
@@ -368,12 +361,13 @@ public:
 
 			/*case ST_HIT:
 			{
-				switch (last_input)
-				{
-					beatanim = false;
-				case IN_DAMAGE_RECEIVED_FINISH: state = ST_IDLE; break;
-				}
+			switch (last_input)
+			{
+			beatanim = false;
+			case IN_DAMAGE_RECEIVED_FINISH: state = ST_IDLE; break;
+			}
 			} break;*/
+
 			case ST_HADOUKEN:
 			{
 				switch (last_input)
@@ -384,9 +378,9 @@ public:
 
 			}
 			}
-			
-			
-			
+
+
+
 		}
 
 		return state;
