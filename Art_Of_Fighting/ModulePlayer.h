@@ -12,7 +12,7 @@
 #define JUMP_TIME 820
 #define PUNCH_TIME 400
 #define KICK_TIME  500
-#define HADOUKEN_TIME  550
+#define HADOUKEN_TIME  600
 //#define BEAT_TIME  500
 
 

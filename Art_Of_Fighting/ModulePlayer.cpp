@@ -87,11 +87,11 @@ ModulePlayer::ModulePlayer()
 	kickCrouch.speed = 0.1f;
 
 	// Hadouken ryo animation
-		hadouken.PushBack({ 431, 245, 56, 108 });                                        //CHANGE
+	hadouken.PushBack({ 431, 245, 56, 108 });                                        //CHANGE
 	hadouken.PushBack({ 498, 245, 49, 100 });
 	hadouken.PushBack({ 552, 245, 81, 77 });
 	hadouken.PushBack({ 642, 241, 48, 86 });
-	hadouken.PushBack({ 724, 241, 53, 99 });
+	hadouken.PushBack({ 727, 241, 53, 99 });
 
 	hadouken.speed = 0.15f;
 
@@ -430,16 +430,16 @@ update_status ModulePlayer::Update()
 					App->audio->PlayFX(ryoKoOuKen);
 					App->audio->PlayFX(ryoKoOuKensound);
 					if ((position.x + 25) >= (App->player2->position.x - 25)) {
-						App->particles->AddParticle(App->particles->Hadouken1, position.x + 30, position.y - 110, COLLIDER_PLAYER_SHOT);
+						App->particles->AddParticle(App->particles->Hadouken1, position.x + 300, position.y, COLLIDER_PLAYER_SHOT);
 						App->particles->AddParticle(App->particles->Hadouken2, position.x + 28, position.y - 85, COLLIDER_PLAYER_SHOT, 100);
 						App->particles->AddParticle(App->particles->Hadouken3, position.x + 30, position.y - 80, COLLIDER_PLAYER_SHOT, 300);
-						App->particles->AddParticle(App->particles->Hadouken5, position.x + 60, position.y - 80, COLLIDER_PLAYER_SHOT, 400);
+						
 					}
 					else {
-						App->particles->AddParticle(App->particles->Hadouken1, position.x - 10, position.y - 110, COLLIDER_PLAYER_SHOT);
-						App->particles->AddParticle(App->particles->Hadouken2, position.x - 8, position.y - 85, COLLIDER_PLAYER_SHOT, 100);
-						App->particles->AddParticle(App->particles->Hadouken3, position.x - 10, position.y - 80, COLLIDER_PLAYER_SHOT, 300);
-						App->particles->AddParticle(App->particles->Hadouken4, position.x - 60, position.y - 80, COLLIDER_PLAYER_SHOT, 400);
+						App->particles->AddParticle(App->particles->Hadouken1, position.x + 6, position.y - 60, COLLIDER_PLAYER_SHOT);
+						App->particles->AddParticle(App->particles->Hadouken2, position.x + 19, position.y - 60, COLLIDER_PLAYER_SHOT, 100);
+						App->particles->AddParticle(App->particles->Hadouken3, position.x + 25, position.y - 60, COLLIDER_PLAYER_SHOT, 300);
+						
 					}
 				}
 				Activehadouken = false;
@@ -450,140 +450,6 @@ update_status ModulePlayer::Update()
 			}
 		}
 		current_state = state;
-
-		/*
-		Animation *current_animation = &idle;
-
-		float hadspeed = 1;
-		int inicial = 120;
-
-		///////////////////////////////////////////////////////////////////////////////////
-
-		if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT)
-		{
-			current_animation = &crouch1;
-			current_animation = &crouch2;
-
-		}
-
-		if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT)
-		{
-			if (wall == true && position.x > 552) {}
-			else {
-			current_animation = &forward;
-			position.x += speed;
-		}
-
-		}
-
-		if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT)
-		{
-			if (wall == true && (position.x > 0 && position.x < 200)) {}
-			else {
-				current_animation = &backward;
-				position.x -= speed;
-			}
-		}
-
-		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-		if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN)                             //   JUMP
-		{
-			if (animStart == 0) {
-				App->audio->PlayFX(ryojump);
-				current_animation = &jump;
-				position.y -= jSpeed;
-
-
-				if (position.y < 120) {
-					jSpeed -= 0.5;
-					if (jSpeed < 0) jSpeed = -6;
-				}
-				if (position.y >= InitialPosition && jSpeed < 0) {
-					animStart = 1;
-					position.y = InitialPosition;
-					jSpeed = 6;
-				}
-			}
-		}
-
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-		if (App->input->keyboard[SDL_SCANCODE_R] == KEY_STATE::KEY_DOWN)                                          // HADOUKEN
-		{
-			App->particles->AddParticle(App->particles->Hadouken1, position.x-10, position.y-110, COLLIDER_PLAYER_SHOT);
-			App->particles->AddParticle(App->particles->Hadouken2, position.x-8, position.y-85, COLLIDER_PLAYER_SHOT,100);
-			App->particles->AddParticle(App->particles->Hadouken3, position.x-10, position.y-80, COLLIDER_PLAYER_SHOT,300);
-			App->particles->AddParticle(App->particles->Hadouken4, position.x-60, position.y-80, COLLIDER_PLAYER_SHOT,400);
-		}
-
-		if (App->input->keyboard[SDL_SCANCODE_R] == KEY_STATE::KEY_DOWN && App->input->r == 0)
-		{
-			App->audio->PlayFX(ryoKoOuKen);
-			App->audio->PlayFX(ryoKoOuKensound);
-			App->input->r = 1;
-			current_animation = &hadouken;
-
-		}
-		if (App->input->r == 1) {
-
-			current_animation = &hadouken;
-			time++;
-			if (time == 25) {
-				hadouken.Reset();
-				App->input->r = 0;
-				time = 0;
-			}
-		}
-
-		/////////////////////////////////////////////////////////////////////////////////////////////////////
-																																//Punch
-
-		if (App->input->keyboard[SDL_SCANCODE_T] == KEY_STATE::KEY_DOWN && App->input->t == 0)
-		{
-			App->audio->PlayFX(ryopunch);
-			App->input->t = 1;
-			current_animation = &punch;
-		}
-		if (App->input->t == 1) {
-
-			current_animation = &punch;
-			time++;
-			if (time == 25) {
-				punch.Reset();
-				App->input->t = 0;
-				time = 0;
-			}
-		}
-
-		//////////////////////////////////////////////////////////////////////////////////////////////////////
-
-		if (App->input->keyboard[SDL_SCANCODE_Y] == KEY_STATE::KEY_DOWN && App->input->y == 0)                                     //Kick
-		{
-			App->input->y = 1;
-			current_animation = &kick;
-			App->audio->PlayFX(ryokick);
-
-		}
-		if (App->input->y == 1) {
-
-			current_animation = &kick;
-			time++;
-			if (time==25) {
-				kick.Reset();
-				App->input->y = 0;
-				time = 0;
-			}
-		}
-		speed = 2;*/
-		////////////////////////////////////////////////////////////////////////////
-		/*
-		if (App->input->keyboard[SDL_SCANCODE_ESCAPE] == KEY_STATE::KEY_DOWN) {															//Get out of game
-
-			return UPDATE_STOP;
-		}
-		*/
-
 
 
 		// Draw everything --------------------------------------
