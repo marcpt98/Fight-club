@@ -21,72 +21,86 @@ ModulePlayer2::ModulePlayer2()
 
 
 	// idle animation (arcade sprite sheet)
-	idle.PushBack({ 0, 10, 66, 106 });
-	idle.PushBack({ 66, 10, 67, 106 });
-	idle.PushBack({ 133, 9, 69, 107 });
-	idle.speed = 0.13f;
-
+	idle.PushBack({ 7, 10, 54, 104 });
+	idle.PushBack({ 64, 10, 54, 104 });
+	idle.PushBack({ 118, 10, 54, 104 });
+	idle.speed = 0.14f;
 
 	//jump animation(arcade sprite sheet)
-	jump.PushBack({ 0,504,60,82 });
-	jump.PushBack({ 60,456,65,129 });
-	jump.PushBack({ 126,473,61,112 });
-	jump.PushBack({ 188,476,57,109 });
-	jump.PushBack({ 245,495,53,90 });
-	jump.PushBack({ 299,471,56,114 });
-	jump.PushBack({ 0,504,60,82 });
-
-	jump.speed = 0.1f;
+	jumping.PushBack({ 68,140,48,85 });
+	jumping.PushBack({ 148,256,68,101 });
+	jumping.PushBack({ 68,140,49,85 });
+	jumping.speed = 0.05f;
 
 	// walk forward animation (arcade sprite sheet)
-	forward.PushBack({ 691, 348, 58, 108 });
-	forward.PushBack({ 756, 350, 69, 106 });
-	forward.PushBack({ 831, 348, 58, 108 });
-	forward.PushBack({ 897, 350, 67, 106 });
+	forward.PushBack({ 419, 11, 49, 103 });
+	forward.PushBack({ 528, 10, 47, 104 });
+	forward.PushBack({ 474, 10, 48, 104 });
+	forward.PushBack({ 7, 10, 54, 104 });
 	forward.speed = 0.1f;
 
 	//backawrd animation
-	backward.PushBack({ 577, 479, 60, 108 });
-	backward.PushBack({ 636, 477, 54, 108 });
-	backward.PushBack({ 690, 479, 61, 108 });
-	backward.PushBack({ 636, 477, 54, 108 });
-	backward.speed = 0.07f;
-
-	//crouch animation
-
-	crouch1.PushBack({ 0, 503,60,83 });
-	crouch2.PushBack({ 576, 42,67,74 });
+	backward.PushBack({ 419, 11, 49, 103 });
+	backward.PushBack({ 474, 10, 48, 104 });
+	backward.PushBack({ 528, 10, 47, 104 });
+	backward.speed = 0.1f;
 
 	//punch animation(arcade sprite sheet)
 
-	punch.PushBack({ 485, 350, 58, 106 });
-	punch.PushBack({ 543, 350, 89, 106 });
-	punch.speed = 0.1f;
+	punch.PushBack({ 15, 476, 48, 102 });
+	punch.PushBack({ 314, 10, 94, 100 });
+	punch.PushBack({ 15, 476, 48, 102 });
+	punch.speed = 0.16f;
+
+	punchJump.PushBack({ 714,141,66,94 });
+	punchJump.PushBack({ 780,157,86,78 });
+	punchJump.PushBack({ 714,141,66,94 });
+	punchJump.speed = 0.15f;															//CHANGE
+
+	punchCrouch.PushBack({ 335,152,70,73 });
+	punchCrouch.PushBack({ 405,157,103,68 });
+	punchCrouch.PushBack({ 335,152,70,73 });
+	punchCrouch.speed = 0.15f;
 
 	//kick animation(arcade sprite sheet)
-	kick.PushBack({ 669, 238, 60, 110 });
-	kick.PushBack({ 729, 235, 61, 113 });
-	kick.PushBack({ 790, 235, 103, 113 });
-	kick.PushBack({ 893, 235, 61, 113 });
-
+	kick.PushBack({ 4,593,72,113 });
+	kick.PushBack({ 96,593,51,112 });
+	kick.PushBack({ 172,593,82,112 });
+	kick.PushBack({ 264,599,49,102 });
+	kick.PushBack({ 338,607,63,92 });
 	kick.speed = 0.15f;
 
-	//Hadouken ryo animation
+	lowkick.PushBack({ 84, 478, 56, 101 });
+	lowkick.PushBack({ 151, 478, 49, 101 });
+	lowkick.PushBack({ 211, 478, 86, 101 });
+	lowkick.PushBack({ 151, 478, 49, 101 });
+	lowkick.PushBack({ 84, 478, 56, 101 });
+	lowkick.speed = 0.15f;
 
-	hadouken.PushBack({ 176, 882, 65, 103 });
-	hadouken.PushBack({ 242, 883, 88, 102 });
-	hadouken.PushBack({ 330, 889, 85, 96 });
-	hadouken.PushBack({ 415, 888, 81, 97 });
-	hadouken.PushBack({ 496, 878, 102, 107 });
+	kickJump.PushBack({ 561,146,57,89 });												//CHANGE
+	kickJump.PushBack({ 618,149,96,86 });
+	kickJump.PushBack({ 561,146,57,89 });
+	kickJump.speed = 0.15f;
+
+	kickCrouch.PushBack({ 335,152,70,73 });
+	kickCrouch.PushBack({ 405,157,103,68 });
+	kickCrouch.PushBack({ 335,152,70,73 });
+	kickCrouch.speed = 0.1f;
+
+	// Hadouken ryo animation
+	hadouken.PushBack({ 431, 245, 56, 108 });                                        //CHANGE
+	hadouken.PushBack({ 498, 245, 49, 100 });
+	hadouken.PushBack({ 552, 245, 81, 77 });
+	hadouken.PushBack({ 642, 241, 48, 86 });
+	hadouken.PushBack({ 724, 241, 53, 99 });
 
 	hadouken.speed = 0.15f;
 
 	// crouch animation
-	crouch1.PushBack({ 0, 503,60,83 });
-	crouch2.PushBack({ 576, 42,67,74 });
-	crouch1.speed = 0.1f;
-	crouch2.speed = 0.1f;
-
+	crouch.PushBack({ 117,133,51,92 });
+	crouch.PushBack({ 15,151,49,74 });
+	crouch.speed = 0.3f;
+	crouch.loop = false;
 	//beat animation
 	beat.PushBack({ 866, 750,64,106 });
 	beat.PushBack({ 934, 747,78,108 });
@@ -109,7 +123,7 @@ bool ModulePlayer2::Start()
 {
 	LOG("Loading player textures");
 	bool ret = true;
-	graphics = App->textures->Load("media/Spritesheets/Ryo_SpriteSheet_enemy.png"); // arcade version
+	graphics = App->textures->Load("media/Spritesheets/king_SpriteSheet.png"); // arcade version
 	graphicsWin = App->textures->Load("media/Win/WinPlayer.png");
 
 	ryokick = App->audio->LoadFX("media/FX/ryo_kick.wav");
@@ -154,8 +168,7 @@ update_status ModulePlayer2::Update()
 
 	if (App->input->keyboard[SDL_SCANCODE_K] == KEY_STATE::KEY_REPEAT)
 	{
-		current_animation = &crouch1;
-		current_animation = &crouch2;
+		current_animation = &crouch;
 	}
 
 	if (App->input->keyboard[SDL_SCANCODE_L] == KEY_STATE::KEY_REPEAT)
@@ -252,12 +265,12 @@ update_status ModulePlayer2::Update()
 	{
 		App->audio->PlayFX(ryojump);
 		App->input->i = 1;
-		current_animation = &jump;
+		current_animation = &jumping;
 	}
 
 	if (App->input->i == 1) 
 	{
-		position.y--; position.y = position.y - 2; current_animation = &jump;
+		position.y--; position.y = position.y - 2; current_animation = &jumping;
 	}
 	if (position.y == 120) 
 	{ 
@@ -265,7 +278,7 @@ update_status ModulePlayer2::Update()
 	}
 	if (App->input->i == 0 && position.y != 210) 
 	{
-		position.y = position.y + 3; /*position.y++*/; current_animation = &jump;
+		position.y = position.y + 3; /*position.y++*/; current_animation = &jumping;
 	}
 	speed = 2;
 	// Draw everything --------------------------------------

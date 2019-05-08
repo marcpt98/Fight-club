@@ -42,7 +42,7 @@ public:
 	//bool beatanim = false;
 	bool damage = false;
 	bool collision = false;
-
+	bool shoot = false;
 public:
 
 	int font_score = -1;

@@ -31,21 +31,36 @@ public:
 	Animation* current_animation2 = nullptr;
 
 	Animation idle;
-	Animation jump;
+	Animation jumping;
 	Animation forward;
 	Animation backward;
-	Animation crouch1;
-	Animation crouch2;
+	Animation crouch;
+	Animation beat;
 	iPoint position;
 	Animation hadouken;
-	//Animation ball;
 	Animation punch;
+	Animation punchJump;
+	Animation punchCrouch;
 	Animation kick;
-	Animation beat;
+	Animation lowkick;
+	Animation kickJump;
+	Animation kickCrouch;
 	Collider *ryohitbox;
 	Collider *kickCollider;
+	Collider *kickCrouchCollider;
 	Collider *punchCollider;
+	Collider *punchCrouchCollider;
+	SDL_Rect player1Win;
+
+	Uint32 jump_timer = 0;
+	Uint32 punch_timer = 0;
+	Uint32 punch_crouch_timer = 0;
+	Uint32 kick_timer = 0;
+	Uint32 kick_crouch_timer = 0;
+	Uint32 hadouken_timer = 0;
+	Uint32 beat_timer = 0;
 	SDL_Rect player2Win;
+
 	void OnCollision(Collider* c1, Collider* c2);
 	int Life = 100;
 	float MaxLife = 100;
@@ -57,10 +72,6 @@ public:
 	int ryojump = 0;
 	int ryoKoOuKen = 0;
 	int ryoKoOuKensound = 0;
-
-	Uint32 jump_timer = 0;
-	Uint32 punch_timer = 0;
-	Uint32 kick_timer = 0;
 };
 
 #endif

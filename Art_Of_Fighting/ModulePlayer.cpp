@@ -433,10 +433,15 @@ update_status ModulePlayer::Update()
 				if (Activehadouken == true)
 				{
 					if (App->player->Stamina > 0) {
+						if (App->player->Stamina >= 20) { shoot = true; }
 						App->player->Stamina = (App->player->Stamina - 20);
+						if (App->player->Stamina < 0) {
+							App->player->Stamina = 0;
+						}
+						
 					}
 				
-					if(App->player->Stamina >= 20)
+					if(shoot==true)
 					{
 						App->audio->PlayFX(ryoKoOuKen);
 						App->audio->PlayFX(ryoKoOuKensound);
@@ -451,6 +456,7 @@ update_status ModulePlayer::Update()
 							App->particles->AddParticle(App->particles->Hadouken2, position.x - 8, position.y - 85, COLLIDER_PLAYER_SHOT, 100);
 							App->particles->AddParticle(App->particles->Hadouken3, position.x - 10, position.y - 80, COLLIDER_PLAYER_SHOT, 300);
 						}
+						shoot = false;
 					}
 					
 				}
