@@ -37,6 +37,7 @@ public:
 	SDL_Rect kingName;
 	SDL_Rect picturePlayer;
 	SDL_Rect pictureEnemy;
+	SDL_Rect beatBy;
 
 	Collider* colliderMap;
 	Collider* colliderMap2;

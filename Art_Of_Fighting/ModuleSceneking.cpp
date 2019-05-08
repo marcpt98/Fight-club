@@ -58,6 +58,11 @@ ModuleSceneking::ModuleSceneking()
 	pictureEnemy.w = 24;
 	pictureEnemy.h = 25;
 
+	beatBy.x = 0;
+	beatBy.y = 66;
+	beatBy.w = 72;
+	beatBy.h = 13;
+
 }
 
 ModuleSceneking::~ModuleSceneking()
@@ -161,6 +166,9 @@ update_status ModuleSceneking::Update()
 	App->render->BlitWithScale(graphicsUI, 42, 32, &picturePlayer, 1, 0.0f, 1.0f, TOP_RIGHT);
 	App->render->BlitWithScale(graphicsUI, 286, 32, &pictureEnemy, 1, 0.0f, 1.0f, TOP_RIGHT);
 
+	//Draw beat by 0
+	App->render->BlitWithScale(graphicsUI, 97, 2, &beatBy, 1, 0.0f, 1.0f, TOP_RIGHT);
+	App->render->BlitWithScale(graphicsUI, 278, 2, &beatBy, 1, 0.0f, 1.0f, TOP_RIGHT);
 
 
 
