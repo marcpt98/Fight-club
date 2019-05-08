@@ -38,6 +38,26 @@ ModuleSceneking::ModuleSceneking()
 	countdown.w = 32;
 	countdown.h = 24;
 
+	stamina.x = 0;
+	stamina.y = 0;
+	stamina.w = 127;
+	stamina.h = 8;
+
+	kingName.x = 0;
+	kingName.y = 8;
+	kingName.w = 32;
+	kingName.h = 8;
+
+	picturePlayer.x = 0;
+	picturePlayer.y = 16;
+	picturePlayer.w = 24;
+	picturePlayer.h = 25;
+
+	pictureEnemy.x = 0;
+	pictureEnemy.y = 41;
+	pictureEnemy.w = 24;
+	pictureEnemy.h = 25;
+
 }
 
 ModuleSceneking::~ModuleSceneking()
@@ -64,6 +84,7 @@ bool ModuleSceneking::Start()
 
 	graphicsLive = App->textures->Load("media/UI/live.png");
 	graphicsTime = App->textures->Load("media/UI/countdown.png");
+	graphicsUI = App->textures->Load("media/UI/ui.png");
 
 	positionlimitleft.x = 133;//NEW
 	positionlimitleft.y = -150;//NEW
@@ -91,6 +112,7 @@ bool ModuleSceneking::CleanUp()
 	App->player2->Disable();
 	App->textures->Unload(graphics);
 	App->textures->Unload(graphicsLive);
+	App->textures->Unload(graphicsUI);
 	App->collision->Disable();
 
 	App->audio->UnLoadMusic(Scene1_Fight);
@@ -113,6 +135,7 @@ update_status ModuleSceneking::Update()
 		App->fade->FadeToBlack(App->scene_King, App->scene_win, 2);
 	}
 
+	//Draw life
 	App->render->BlitWithScale(graphicsLive, 138, 15, &liveEmpty, -1, 0.0f, 1.0f, TOP_RIGHT);
 
 	App->render->BlitWithScale(graphicsLive, 138, 15, &lifeFull, -1, 0.0f, App->player->Life / App->player->MaxLife, TOP_RIGHT);
@@ -121,7 +144,25 @@ update_status ModuleSceneking::Update()
 
 	App->render->BlitWithScale(graphicsLive, 166, 15, &lifeFull, 1, 0.0f, App->player2->Life / App->player2->MaxLife, TOP_LEFT);
 
+	//Draw Stamina
+
+	App->render->BlitWithScale(graphicsUI, 138, 23, &stamina, -1, 0.0f, App->player->Stamina / App->player->MaxStamina, TOP_RIGHT);
+
+	App->render->BlitWithScale(graphicsUI, 166, 23, &stamina, 1, 0.0f, App->player2->Stamina / App->player2->MaxStamina, TOP_LEFT);
+
+	//Draw Time
 	App->render->BlitWithScale(graphicsTime, 168, 7, &countdown, 1, 0.0f, 1.0f, TOP_RIGHT);
+
+	//Draw KingName
+	App->render->BlitWithScale(graphicsUI, 74, 31, &kingName, 1, 0.0f, 1.0f, TOP_RIGHT);
+	App->render->BlitWithScale(graphicsUI, 263, 31, &kingName, 1, 0.0f, 1.0f, TOP_RIGHT);
+
+	//Draw Picture of King
+	App->render->BlitWithScale(graphicsUI, 42, 32, &picturePlayer, 1, 0.0f, 1.0f, TOP_RIGHT);
+	App->render->BlitWithScale(graphicsUI, 286, 32, &pictureEnemy, 1, 0.0f, 1.0f, TOP_RIGHT);
+
+
+
 
 	/////////////////////////////////////////////////// Contdown
 

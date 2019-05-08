@@ -84,6 +84,8 @@ public:
 	void OnCollision(Collider* c1, Collider* c2);
 	int Life = 100;
 	float MaxLife = 100;
+	int Stamina = 100;
+	float MaxStamina = 100;
 	int time = 0;
 	int ryokick = 0;
 	int ryopunch = 0;

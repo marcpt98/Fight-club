@@ -27,11 +27,16 @@ public:
 	SDL_Texture* graphics = nullptr;
 	SDL_Texture* graphicsLive = nullptr;
 	SDL_Texture* graphicsTime = nullptr;
+	SDL_Texture* graphicsUI = nullptr;
 
 	SDL_Rect lifeFull;
 	SDL_Rect liveEmpty;
 	SDL_Rect background1;
 	SDL_Rect countdown;
+	SDL_Rect stamina;
+	SDL_Rect kingName;
+	SDL_Rect picturePlayer;
+	SDL_Rect pictureEnemy;
 
 	Collider* colliderMap;
 	Collider* colliderMap2;
