@@ -170,6 +170,7 @@ update_status ModulePlayer::Update()
 	ryo_states current_state = ST_UNKNOWN;
 
 	int speed = 2;
+	
 
 	if (App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN) {															//God mode 
 		if (GodMode == false)
@@ -431,18 +432,27 @@ update_status ModulePlayer::Update()
 			case ST_HADOUKEN:
 				if (Activehadouken == true)
 				{
-					App->audio->PlayFX(ryoKoOuKen);
-					App->audio->PlayFX(ryoKoOuKensound);
-					if ((position.x + 25) >= (App->player2->position.x - 25)) {
-						App->particles->AddParticle(App->particles->Hadouken1, position.x + 30, position.y - 110, COLLIDER_PLAYER_SHOT);
-						App->particles->AddParticle(App->particles->Hadouken2, position.x + 28, position.y - 85, COLLIDER_PLAYER_SHOT, 100);
-						App->particles->AddParticle(App->particles->Hadouken3, position.x + 30, position.y - 80, COLLIDER_PLAYER_SHOT, 300);
+					if (App->player->Stamina > 0) {
+						App->player->Stamina = (App->player->Stamina - 20);
 					}
-					else {
-						App->particles->AddParticle(App->particles->Hadouken1, position.x - 10, position.y - 110, COLLIDER_PLAYER_SHOT);
-						App->particles->AddParticle(App->particles->Hadouken2, position.x - 8, position.y - 85, COLLIDER_PLAYER_SHOT, 100);
-						App->particles->AddParticle(App->particles->Hadouken3, position.x - 10, position.y - 80, COLLIDER_PLAYER_SHOT, 300);
+				
+					if(App->player->Stamina >= 20)
+					{
+						App->audio->PlayFX(ryoKoOuKen);
+						App->audio->PlayFX(ryoKoOuKensound);
+						if ((position.x + 25) >= (App->player2->position.x - 25)) 
+						{
+							App->particles->AddParticle(App->particles->Hadouken1, position.x + 30, position.y - 110, COLLIDER_PLAYER_SHOT);
+							App->particles->AddParticle(App->particles->Hadouken2, position.x + 28, position.y - 85, COLLIDER_PLAYER_SHOT, 100);
+							App->particles->AddParticle(App->particles->Hadouken3, position.x + 30, position.y - 80, COLLIDER_PLAYER_SHOT, 300);
+						}
+						else {
+							App->particles->AddParticle(App->particles->Hadouken1, position.x - 10, position.y - 110, COLLIDER_PLAYER_SHOT);
+							App->particles->AddParticle(App->particles->Hadouken2, position.x - 8, position.y - 85, COLLIDER_PLAYER_SHOT, 100);
+							App->particles->AddParticle(App->particles->Hadouken3, position.x - 10, position.y - 80, COLLIDER_PLAYER_SHOT, 300);
+						}
 					}
+					
 				}
 				Activehadouken = false;
 				if (animstart == 0)
@@ -684,10 +694,16 @@ update_status ModulePlayer::Update()
 
 
 
-
+		//Graphis PLAYER 1 WIN!
 		if (App->player2->Life <= 0)
 		{
 			App->render->BlitWithScale(graphicsWin, 210, 70, &player1Win, 1, 0.0f, 1.0f, TOP_RIGHT);
+		}
+
+		//Stamina increase
+		if (App->player->Stamina < 100)
+		{
+			App->player->Stamina = (App->player->Stamina + 0.05);
 		}
 
 		return UPDATE_CONTINUE;
