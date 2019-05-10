@@ -9,8 +9,8 @@ ModuleRender::ModuleRender() : Module()
 {
 	camera.x = 0;
 	camera.y = 0;
-	camera.w = SCREEN_WIDTH;
-	camera.h = SCREEN_HEIGHT;
+	camera.w = SCREEN_WIDTH;   
+	camera.h = SCREEN_HEIGHT;  
 }
 
 // Destructor
@@ -66,6 +66,7 @@ update_status ModuleRender::PostUpdate()
 {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
 	SDL_RenderPresent(renderer);
+	SDL_RenderSetLogicalSize(renderer, SCREEN_WIDTH, SCREEN_HEIGHT);// THIS IS FOR making bigger the screen
 	return update_status::UPDATE_CONTINUE;
 }
 

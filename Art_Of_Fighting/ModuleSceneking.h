@@ -44,10 +44,9 @@ public:
 	int Scene1_Fight = 0;
 	float foreground_pos;
 	bool forward;
-	int distance = 0;
+	float distance = 0;
 	iPoint positionlimitleft;//NEW
 	iPoint positionlimitright;//NEW
-
 	int font_score = -1;
 	Uint32 round_timer = 0;
 

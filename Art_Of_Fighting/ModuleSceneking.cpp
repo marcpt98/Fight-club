@@ -127,11 +127,17 @@ bool ModuleSceneking::CleanUp()
 // Update: draw background
 update_status ModuleSceneking::Update()
 {
+	
 	distance = ((App->player->position.x + App->player2->position.x) / 2);
-	App->render->camera.x = (distance*-1);
-
-	colliderMap->SetPos((((App->render->camera.x*-1) - 10) / 2), positionlimitleft.y);//NEW
-	colliderMap2->SetPos((((App->render->camera.x*-1) + 595) / 2), positionlimitleft.y);//NEW
+	App->render->camera.x = (distance*-1 +150);
+	if (App->render->camera.x <= -330) {
+		App->render->camera.x = -330;
+	}
+	if (App->render->camera.x >= 0) {
+		App->render->camera.x = 0;
+	}
+	colliderMap->SetPos((((App->render->camera.x*-1)-10) ), positionlimitleft.y);//NEW
+	colliderMap2->SetPos((((App->render->camera.x*-1) +300) ), positionlimitleft.y);//NEW
 
 	// Draw everything --------------------------------------
 	App->render->Blit(graphics, 0, 0, &background1, 0.75f);

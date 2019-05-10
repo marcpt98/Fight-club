@@ -607,7 +607,12 @@ update_status ModulePlayer::Update()
 		// Draw everything --------------------------------------
 		SDL_Rect* r = &current_animation->GetCurrentFrame();
 
-
+		if (position.x>=570) {
+			position.x = 570;   //limit right
+		}
+		if (position.x <= 0) {
+			position.x = 0;   //limit right
+		}
 
 		if ((position.x + 25) >= (App->player2->position.x - 25)) {
 			App->render->BlitWithScale(graphics, position.x + 50, position.y - r->h, r, -1, 1.0f, 1, TOP_RIGHT);
