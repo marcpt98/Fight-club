@@ -74,9 +74,9 @@ public:
 	float Stamina = 100;
 	float MaxStamina = 100;
 	int time = 0;
-	int ryokick = 0;
-	int ryopunch = 0;
-	int ryojump = 0;
+	int kingkick = 0;
+	int kingpunch = 0;
+	int kingjump = 0;
 	int ryoKoOuKen = 0;
 	int ryoKoOuKensound = 0;
 	int GodMode = false;

@@ -41,7 +41,7 @@ public:
 
 	Collider* colliderMap;
 	Collider* colliderMap2;
-	int Scene1_Fight = 0;
+	int Scene_king = 0;
 	float foreground_pos;
 	bool forward;
 	float distance = 0;

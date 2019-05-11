@@ -126,9 +126,9 @@ bool ModulePlayer2::Start()
 	graphics = App->textures->Load("media/Spritesheets/king_SpriteSheet.png"); // arcade version
 	graphicsWin = App->textures->Load("media/Win/WinPlayer.png");
 
-	ryokick = App->audio->LoadFX("media/FX/ryo_kick.wav");
-	ryopunch = App->audio->LoadFX("media/FX/Ryo_punch.wav");
-	ryojump = App->audio->LoadFX("media/FX/Ryojump.wav");
+	kingkick = App->audio->LoadFX("media/FX/king_high_kick.wav");
+	kingpunch = App->audio->LoadFX("media/FX/king_punch.wav");
+	kingjump = App->audio->LoadFX("media/FX/Ryojump.wav");
 	ryoKoOuKen = App->audio->LoadFX("media/FX/Ryo_KoOuKen.wav");
 	ryoKoOuKensound = App->audio->LoadFX("media/FX/ryoKoOuKensound.wav");
 
@@ -232,7 +232,7 @@ update_status ModulePlayer2::Update()
 
 				if (attack == true)
 				{
-					App->audio->PlayFX(ryojump);
+					App->audio->PlayFX(kingjump);
 					attack = false;
 				}
 
@@ -257,7 +257,7 @@ update_status ModulePlayer2::Update()
 
 				if (attack == true)
 				{
-					App->audio->PlayFX(ryojump);
+					App->audio->PlayFX(kingjump);
 					attack = false;
 				}
 
@@ -281,7 +281,7 @@ update_status ModulePlayer2::Update()
 
 				if (attack == true)
 				{
-					App->audio->PlayFX(ryojump);
+					App->audio->PlayFX(kingjump);
 					attack = false;
 				}
 
@@ -311,7 +311,7 @@ update_status ModulePlayer2::Update()
 		case ST_PUNCH_CROUCH:
 			if (attack == true)
 			{
-				App->audio->PlayFX(ryopunch);
+				//App->audio->PlayFX(ryopunch);
 				attack = false;
 			}
 			if (animstart == 0)
@@ -324,7 +324,7 @@ update_status ModulePlayer2::Update()
 		case ST_PUNCH_STANDING:
 			if (attack == true)
 			{
-				App->audio->PlayFX(ryopunch);
+				App->audio->PlayFX(kingpunch);
 				attack = false;
 			}
 			if (animstart == 0)
@@ -336,7 +336,7 @@ update_status ModulePlayer2::Update()
 		case ST_PUNCH_NEUTRAL_JUMP:
 			if (attack == true)
 			{
-				App->audio->PlayFX(ryopunch);
+				//App->audio->PlayFX(ryopunch);
 				attack = false;
 			}
 			if (animstart == 0)
@@ -355,7 +355,7 @@ update_status ModulePlayer2::Update()
 			position.x -= 0.5*speed;
 			if (attack == true)
 			{
-				App->audio->PlayFX(ryokick);
+				//App->audio->PlayFX(kingkick);
 				attack = false;
 			}
 			if (animstart == 0)
@@ -367,7 +367,7 @@ update_status ModulePlayer2::Update()
 		case ST_KICK_STANDING:
 			if (attack == true)
 			{
-				App->audio->PlayFX(ryokick);
+				App->audio->PlayFX(kingkick);
 				attack = false;
 			}
 			if (animstart == 0)
@@ -379,7 +379,7 @@ update_status ModulePlayer2::Update()
 		case ST_KICK_NEUTRAL_JUMP:
 			if (attack == true)
 			{
-				App->audio->PlayFX(ryokick);
+				//App->audio->PlayFX(ryokick);
 				attack = false;
 			}
 			if (animstart == 0)

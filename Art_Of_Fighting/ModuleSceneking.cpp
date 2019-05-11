@@ -75,11 +75,11 @@ bool ModuleSceneking::Start()
 
 	graphics = App->textures->Load("media/Stages/stage_king.png");
 
-	Scene1_Fight = App->audio->LoadMusic("media/Music/Scene1_Fight.ogg");
+	Scene_king = App->audio->LoadMusic("media/Music/Scene1_fight.ogg");
 	App->player->Life = 100;
 	App->player2->Life = 100;
 
-	App->audio->PlayMusic(Scene1_Fight);
+	App->audio->PlayMusic(Scene_king);
 
 	App->render->camera.x = -315;
 	App->render->camera.y = 0;
@@ -120,7 +120,7 @@ bool ModuleSceneking::CleanUp()
 	App->textures->Unload(graphicsUI);
 	App->collision->Disable();
 
-	App->audio->UnLoadMusic(Scene1_Fight);
+	App->audio->UnLoadMusic(Scene_king);
 	return true;
 }
 
