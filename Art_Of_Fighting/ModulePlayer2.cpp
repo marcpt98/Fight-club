@@ -132,7 +132,7 @@ bool ModulePlayer2::Start()
 	ryoKoOuKen = App->audio->LoadFX("media/FX/Ryo_KoOuKen.wav");
 	ryoKoOuKensound = App->audio->LoadFX("media/FX/ryoKoOuKensound.wav");
 
-	position.x = 445;
+	position.x = 520;
 	position.y = 210;
 	initialPos = position.y;
 
@@ -193,7 +193,7 @@ update_status ModulePlayer2::Update()
 
 		case ST_WALK_FORWARD:
 			current_animation = &forward;
-			position.x -= speed;
+			position.x += speed;
 			backward.Reset();
 			crouch.Reset();
 			kick.Reset();
@@ -210,7 +210,7 @@ update_status ModulePlayer2::Update()
 
 		case ST_WALK_BACKWARD:
 			current_animation = &backward;
-			position.x += speed;
+			position.x -= speed;
 			forward.Reset();
 			crouch.Reset();
 			kick.Reset();
@@ -527,7 +527,7 @@ update_status ModulePlayer2::Update()
 		}
 	}
 
-	ryohitbox->SetPos(position.x, position.y - r->h);
+	ryohitbox->SetPos(position.x-100, position.y - r->h);
 	wall = false;
 
 

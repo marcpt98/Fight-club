@@ -132,7 +132,7 @@ bool ModulePlayer::Start()
 	ryoKoOuKen = App->audio->LoadFX("media/FX/Ryo_KoOuKen.wav");
 	ryoKoOuKensound = App->audio->LoadFX("media/FX/ryoKoOuKensound.wav");
 
-	position.x = 168;
+	position.x = 200;
 	position.y = 210;
 	initialPos = position.y;
 
