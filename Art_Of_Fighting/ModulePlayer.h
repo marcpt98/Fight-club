@@ -77,7 +77,9 @@ public:
 	int kingkick = 0;
 	int kingpunch = 0;
 	int kingjump = 0;
-	int ryoKoOuKen = 0;
+	int king_punch_crouch = 0;
+	int slize_sound = 0;
+	int kingKoOuKen = 0;
 	int ryoKoOuKensound = 0;
 	int GodMode = false;
 	int printMode = false;

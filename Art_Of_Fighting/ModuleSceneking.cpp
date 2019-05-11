@@ -75,7 +75,7 @@ bool ModuleSceneking::Start()
 
 	graphics = App->textures->Load("media/Stages/stage_king.png");
 
-	Scene_king = App->audio->LoadMusic("media/Music/Scene1_fight.ogg");
+	Scene_king = App->audio->LoadMusic("media/Music/king_stage.ogg");
 	App->player->Life = 100;
 	App->player2->Life = 100;
 

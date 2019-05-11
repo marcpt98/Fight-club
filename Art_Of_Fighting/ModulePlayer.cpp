@@ -129,7 +129,9 @@ bool ModulePlayer::Start()
 	kingkick = App->audio->LoadFX("media/FX/king_high_kick.wav");
 	kingpunch = App->audio->LoadFX("media/FX/king_punch.wav");
 	kingjump = App->audio->LoadFX("media/FX/Ryojump.wav");
-	ryoKoOuKen = App->audio->LoadFX("media/FX/Ryo_KoOuKen.wav");
+	king_punch_crouch = App->audio->LoadFX("media/FX/king_punch_crouch.wav");
+	slize_sound = App->audio->LoadFX("media/FX/slize_sound.wav");
+	kingKoOuKen = App->audio->LoadFX("media/FX/king_haduken.wav");
 	ryoKoOuKensound = App->audio->LoadFX("media/FX/ryoKoOuKensound.wav");
 
 	position.x = 200;
@@ -337,7 +339,7 @@ update_status ModulePlayer::Update()
 		case ST_PUNCH_CROUCH:
 			if (attack == true)
 			{
-				//App->audio->PlayFX(ryopunch);
+				App->audio->PlayFX(king_punch_crouch);
 				attack = false;
 			}
 			if (animstart == 0)
@@ -362,7 +364,7 @@ update_status ModulePlayer::Update()
 		case ST_PUNCH_NEUTRAL_JUMP:
 			if (attack == true)
 			{
-				App->audio->PlayFX(kingkick);
+				App->audio->PlayFX(kingpunch);
 				attack = false;
 			}
 			if (animstart == 0)
@@ -381,7 +383,9 @@ update_status ModulePlayer::Update()
 			position.x += 0.5*speed;
 			if (attack == true)
 			{
-				//App->audio->PlayFX(ryokick);
+				App->audio->PlayFX(king_punch_crouch);
+				App->audio->PlayFX(slize_sound);
+
 				attack = false;
 			}
 			if (animstart == 0)
@@ -438,7 +442,7 @@ update_status ModulePlayer::Update()
 
 				if (shoot == true)
 				{
-					App->audio->PlayFX(ryoKoOuKen);
+					App->audio->PlayFX(kingKoOuKen);
 					App->audio->PlayFX(ryoKoOuKensound);
 					if ((position.x + 25) >= (App->player2->position.x - 25))
 					{

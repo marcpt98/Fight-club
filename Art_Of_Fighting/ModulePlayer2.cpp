@@ -129,21 +129,23 @@ bool ModulePlayer2::Start()
 	kingkick = App->audio->LoadFX("media/FX/king_high_kick.wav");
 	kingpunch = App->audio->LoadFX("media/FX/king_punch.wav");
 	kingjump = App->audio->LoadFX("media/FX/Ryojump.wav");
-	ryoKoOuKen = App->audio->LoadFX("media/FX/Ryo_KoOuKen.wav");
+	king_punch_crouch = App->audio->LoadFX("media/FX/king_punch_crouch.wav");
+	slize_sound = App->audio->LoadFX("media/FX/slize_sound.wav");
+	kingKoOuKen = App->audio->LoadFX("media/FX/king_haduken.wav");
 	ryoKoOuKensound = App->audio->LoadFX("media/FX/ryoKoOuKensound.wav");
 
 	position.x = 520;
 	position.y = 210;
 	initialPos = position.y;
 
-	ryohitbox = App->collision->AddCollider({ position.x,position.y, 50, 97 }, COLLIDER_PLAYER, this);
-	punchCollider = App->collision->AddCollider({ position.x,position.y, 40, 15 }, COLLIDER_PLAYER, this);
+	ryohitbox = App->collision->AddCollider({ position.x,position.y, 50, 97 }, COLLIDER_ENEMY, this);
+	punchCollider = App->collision->AddCollider({ position.x,position.y, 40, 15 }, COLLIDER_ENEMY, this);
 	punchCollider->Enabled = false;
-	kickCollider = App->collision->AddCollider({ position.x,position.y, 60, 30 }, COLLIDER_PLAYER, this);
+	kickCollider = App->collision->AddCollider({ position.x,position.y, 60, 30 }, COLLIDER_ENEMY, this);
 	kickCollider->Enabled = false;
-	punchCrouchCollider = App->collision->AddCollider({ position.x, position.y - 70 , 40, 15 }, COLLIDER_PLAYER, this);
+	punchCrouchCollider = App->collision->AddCollider({ position.x, position.y - 70 , 40, 15 }, COLLIDER_ENEMY, this);
 	punchCrouchCollider->Enabled = false;
-	kickCrouchCollider = App->collision->AddCollider({ position.x, position.y - 70 , 65, 15 }, COLLIDER_PLAYER, this);
+	kickCrouchCollider = App->collision->AddCollider({ position.x, position.y - 70 , 65, 15 }, COLLIDER_ENEMY, this);
 	kickCrouchCollider->Enabled = false;
 
 	return ret;
@@ -311,7 +313,7 @@ update_status ModulePlayer2::Update()
 		case ST_PUNCH_CROUCH:
 			if (attack == true)
 			{
-				//App->audio->PlayFX(ryopunch);
+				App->audio->PlayFX(king_punch_crouch);
 				attack = false;
 			}
 			if (animstart == 0)
@@ -355,7 +357,9 @@ update_status ModulePlayer2::Update()
 			position.x -= 0.5*speed;
 			if (attack == true)
 			{
-				//App->audio->PlayFX(kingkick);
+				App->audio->PlayFX(king_punch_crouch);
+				App->audio->PlayFX(slize_sound);
+
 				attack = false;
 			}
 			if (animstart == 0)
@@ -412,7 +416,7 @@ update_status ModulePlayer2::Update()
 
 				if (shoot == true)
 				{
-					App->audio->PlayFX(ryoKoOuKen);
+					App->audio->PlayFX(kingKoOuKen);
 					App->audio->PlayFX(ryoKoOuKensound);
 					if ((position.x + 25) >= (App->player2->position.x - 25))
 					{
