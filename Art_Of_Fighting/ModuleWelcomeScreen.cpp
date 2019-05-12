@@ -62,8 +62,10 @@ bool ModuleWelcomeScreen::CleanUp()
 	App->player2->Disable();
 	App->textures->Unload(graphics);
 	App->textures->Unload(introTexture);
-
 	App->audio->UnLoadMusic(welcomeScreenMusic);
+
+
+
 	return true;
 }
 

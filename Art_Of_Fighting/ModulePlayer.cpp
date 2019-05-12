@@ -157,7 +157,13 @@ bool ModulePlayer::CleanUp()
 
 	App->textures->Unload(graphics);
 	App->textures->Unload(graphicsWin);
-
+	App->audio->UnLoadFX(kingkick);
+	App->audio->UnLoadFX(kingpunch);
+	App->audio->UnLoadFX(kingjump);
+	App->audio->UnLoadFX(king_punch_crouch);
+	App->audio->UnLoadFX(slize_sound);
+	App->audio->UnLoadFX(kingKoOuKen);
+	App->audio->UnLoadFX(ryoKoOuKensound);
 
 	return true;
 }
@@ -431,11 +437,11 @@ update_status ModulePlayer::Update()
 		case ST_HADOUKEN:
 			if (Activehadouken == true)
 			{
-				if (App->player->Stamina > 0) {
-					if (App->player->Stamina >= 20) { shoot = true; }
-					App->player->Stamina = (App->player->Stamina - 20);
-					if (App->player->Stamina < 0) {
-						App->player->Stamina = 0;
+				if (Stamina > 0) {
+					if (Stamina >= 20) { shoot = true; }
+					Stamina = (Stamina - 20);
+					if (Stamina < 0) {
+						Stamina = 0;
 					}
 
 				}

@@ -6,6 +6,7 @@
 #include "../Art_Of_Fighting/SDL_mixer/include/SDL_mixer.h"
 
 #define MAX_AUDIO 50
+#define MAX_FX 50
 
 class ModuleAudio : public Module
 {
@@ -22,6 +23,7 @@ public:
 	bool const PlayMusic(int music);
 	bool const UnLoadMusic(int music);
 	bool const PlayFX(int fx);
+	bool const UnLoadFX(int fx);
 
 private:
 	Mix_Music * Musics[MAX_AUDIO];

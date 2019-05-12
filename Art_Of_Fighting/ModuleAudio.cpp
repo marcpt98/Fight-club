@@ -43,6 +43,11 @@ bool ModuleAudio::CleanUp()
 		Mix_FreeMusic(Musics[i]);
 	}
 
+	for (int i = 0; i < MAX_FX; i++)
+	{
+		Mix_FreeChunk(FX[i]); 
+	}
+
 	Mix_CloseAudio();
 	Mix_Quit();
 	return true;
@@ -88,7 +93,7 @@ bool const ModuleAudio::UnLoadMusic(int music)
 		return false;
 	}
 
-	Mix_FreeMusic(Musics[music]);
+	Mix_FadeOutMusic(1000);
 	return true;
 }
 
@@ -96,4 +101,15 @@ bool const ModuleAudio::PlayFX(int fx)
 {
 	Mix_PlayChannel(-1, FX[fx], 0);
 	return nullptr;
+}
+
+bool const ModuleAudio::UnLoadFX(int fx)
+{
+	if (FX[fx] == NULL)
+	{
+		return false;
+	}
+
+	Mix_FadeOutChannel(-1, 1000);
+	return true;
 }

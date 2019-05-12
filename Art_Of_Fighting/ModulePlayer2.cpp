@@ -157,7 +157,12 @@ bool ModulePlayer2::CleanUp()
 
 	App->textures->Unload(graphics);
 	App->textures->Unload(graphicsWin);
-
+	App->audio->UnLoadFX(kingkick);
+	App->audio->UnLoadFX(kingpunch);
+	App->audio->UnLoadFX(kingjump);
+	App->audio->UnLoadFX(king_punch_crouch);
+	App->audio->UnLoadFX(slize_sound);
+	App->audio->UnLoadFX(kingKoOuKen);
 
 	return true;
 }
@@ -405,11 +410,11 @@ update_status ModulePlayer2::Update()
 		case ST_HADOUKEN:
 			if (Activehadouken == true)
 			{
-				if (App->player->Stamina > 0) {
-					if (App->player->Stamina >= 20) { shoot = true; }
-					App->player->Stamina = (App->player->Stamina - 20);
-					if (App->player->Stamina < 0) {
-						App->player->Stamina = 0;
+				if (Stamina > 0) {
+					if (Stamina >= 20) { shoot = true; }
+					Stamina = (Stamina - 20);
+					if (Stamina < 0) {
+						Stamina = 0;
 					}
 
 				}
@@ -418,16 +423,16 @@ update_status ModulePlayer2::Update()
 				{
 					App->audio->PlayFX(kingKoOuKen);
 					App->audio->PlayFX(ryoKoOuKensound);
-					if ((position.x + 25) >= (App->player2->position.x - 25))
+					if ((position.x - 25) >= (App->player->position.x + 25))
 					{
-						App->particles->AddParticle(App->particles->Hadouken1, position.x + 30, position.y - 110, COLLIDER_PLAYER_SHOT);
-						App->particles->AddParticle(App->particles->Hadouken2, position.x + 28, position.y - 85, COLLIDER_PLAYER_SHOT, 100);
-						App->particles->AddParticle(App->particles->Hadouken3, position.x + 30, position.y - 80, COLLIDER_PLAYER_SHOT, 300);
+						App->particles->AddParticle(App->particles->Hadouken1, position.x + 30, position.y - 110, COLLIDER_ENEMY_SHOT);
+						App->particles->AddParticle(App->particles->Hadouken2, position.x + 28, position.y - 85, COLLIDER_ENEMY_SHOT, 100);
+						App->particles->AddParticle(App->particles->Hadouken3, position.x + 30, position.y - 80, COLLIDER_ENEMY_SHOT, 300);
 					}
 					else {
-						App->particles->AddParticle(App->particles->Hadouken1, position.x - 10, position.y - 110, COLLIDER_PLAYER_SHOT);
-						App->particles->AddParticle(App->particles->Hadouken2, position.x - 8, position.y - 85, COLLIDER_PLAYER_SHOT, 100);
-						App->particles->AddParticle(App->particles->Hadouken3, position.x - 10, position.y - 80, COLLIDER_PLAYER_SHOT, 300);
+						App->particles->AddParticle(App->particles->Hadouken1, position.x - 10, position.y - 110, COLLIDER_ENEMY_SHOT);
+						App->particles->AddParticle(App->particles->Hadouken2, position.x - 8, position.y - 85, COLLIDER_ENEMY_SHOT, 100);
+						App->particles->AddParticle(App->particles->Hadouken3, position.x - 10, position.y - 80, COLLIDER_ENEMY_SHOT, 300);
 					}
 					shoot = false;
 				}
