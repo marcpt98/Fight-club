@@ -12,7 +12,12 @@ ModuleAudio::ModuleAudio() : Module()
 {
 	for (int i = 0; i < MAX_AUDIO; i++)
 	{
-		Musics[i] = nullptr;
+		Musics[i] = NULL;
+	}
+
+	for (int i = 0; i < MAX_FX; i++)
+	{
+		FX[i] = NULL;
 	}
 }
 
@@ -40,12 +45,12 @@ bool ModuleAudio::CleanUp()
 {
 	for (int i = 0; i < MAX_AUDIO; i++)
 	{
-		Mix_FreeMusic(Musics[i]);
+		UnLoadMusic(i);
 	}
 
 	for (int i = 0; i < MAX_FX; i++)
 	{
-		Mix_FreeChunk(FX[i]); 
+		UnLoadFX(i);
 	}
 
 	Mix_CloseAudio();
@@ -76,7 +81,7 @@ int const ModuleAudio::LoadFX(const char * path)
 	lastFX++;
 
 	FX[lastFX] = Mix_LoadWAV(path);
-	
+
 	return lastFX;
 }
 
@@ -93,7 +98,8 @@ bool const ModuleAudio::UnLoadMusic(int music)
 		return false;
 	}
 
-	Mix_FadeOutMusic(1000);
+	Mix_FreeMusic(Musics[music]);
+	Musics[music] = NULL;
 	return true;
 }
 
@@ -110,6 +116,7 @@ bool const ModuleAudio::UnLoadFX(int fx)
 		return false;
 	}
 
-	Mix_FadeOutChannel(-1, 1000);
+	Mix_FreeChunk(FX[fx]);
+	FX[fx] = NULL;
 	return true;
 }
