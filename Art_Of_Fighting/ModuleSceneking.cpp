@@ -71,6 +71,7 @@ ModuleSceneking::~ModuleSceneking()
 // Load assets
 bool ModuleSceneking::Start()
 {
+	
 	LOG("Loading ryo scene");
 
 	graphics = App->textures->Load("media/Stages/stage_king.png");

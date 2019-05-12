@@ -3,6 +3,7 @@
 #include "ModuleInput.h"
 #include "SDL/include/SDL.h"
 #include "p2Qeue.h"
+#include "SDL/include/SDL_gamecontroller.h"
 
 ModuleInput::ModuleInput() : Module()
 {
@@ -18,16 +19,30 @@ ModuleInput::~ModuleInput()
 // Called before render is available
 bool ModuleInput::Init()
 {
-	LOG("Init SDL input event system");
+	
+	
 	bool ret = true;
 	SDL_Init(0);
+	SDL_InitSubSystem(SDL_INIT_JOYSTICK);
 
 	if (SDL_InitSubSystem(SDL_INIT_EVENTS) < 0)
 	{
 		LOG("SDL_EVENTS could not initialize! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
-
+	if (SDL_NumJoysticks() < 1)
+	{
+		LOG("Warning: No joysticks connected!\n");
+	}
+	else
+	{
+		//Load joystick
+		gGameController = SDL_JoystickOpen(0);
+		if (gGameController == NULL)
+		{
+			LOG("Warning: Unable to open game controller! SDL Error: %s\n", SDL_GetError());
+		}
+	}
 	return ret;
 }
 
@@ -129,48 +144,101 @@ bool ModuleInput::external_input()
 				break;
 			}
 		}
-	}
+		if (event.type == SDL_JOYAXISMOTION) {
+			if (event.jaxis.which == 0) { //En el gamepad 0
+				if (event.jaxis.axis == 0)
+				{
+					//Left of dead zone
+					if (event.jaxis.value < -JOYSTICK_DEAD_ZONE)
+					{
+						left = true;
+						right = false;
+					}
+					//Right of dead zone
+					else if (event.jaxis.value > JOYSTICK_DEAD_ZONE)
+					{
+						right = true;
+						left = false;
+					}
+					else
+					{
+						left = false;
+						right = false;
+					}
+				}
+				else if (event.jaxis.axis == 1)
+				{
+					//Below of dead zone
+					if (event.jaxis.value < -JOYSTICK_DEAD_ZONE)
+					{
+						down = false;
+						up = true;
+					}
+					//Above of dead zone
+					else if (event.jaxis.value > JOYSTICK_DEAD_ZONE)
+					{
+						up = false;
+						down = true;
+					}
+					else
+					{
+						down = false;
+						up = false;
+					}
+				}
+			}
 
-	//PLAYER 1
-	if (left && right)
-		inputs.Push(IN_LEFT_AND_RIGHT);
-	{
-		if (left)
-			inputs.Push(IN_LEFT_DOWN);
-		if (right)
-			inputs.Push(IN_RIGHT_DOWN);
-	}
 
-	if (up && down)
-		inputs.Push(IN_JUMP_AND_CROUCH);
-	else
-	{
-		if (down)
-			inputs.Push(IN_CROUCH_DOWN);
-		if (up)
-			inputs.Push(IN_JUMP);
-	}
+		}
 
-	//PLAYER 2
-	if (left2 && right2)
-		inputs2.Push(IN_LEFT_AND_RIGHT2);
-	{
-		if (left2)
-			inputs2.Push(IN_LEFT_DOWN2);
-		if (right2)
-			inputs2.Push(IN_RIGHT_DOWN2);
-	}
 
-	if (up2 && down2)
-		inputs2.Push(IN_JUMP_AND_CROUCH2);
-	else
-	{
-		if (down2)
-			inputs2.Push(IN_CROUCH_DOWN2);
-		if (up2)
-			inputs2.Push(IN_JUMP2);
-	}
+		//PLAYER 1
+		if (left && right)
+			inputs.Push(IN_LEFT_AND_RIGHT);
+		{
+			if (left)
+				inputs.Push(IN_LEFT_DOWN);
+			if (right)
+				inputs.Push(IN_RIGHT_DOWN);
+		}
 
+		if (!left)
+			inputs.Push(IN_LEFT_UP);
+		if (!right)
+			inputs.Push(IN_RIGHT_UP);
+		if (!down)
+			inputs.Push(IN_CROUCH_UP);
+
+		if (up && down)
+			inputs.Push(IN_JUMP_AND_CROUCH);
+		else
+		{
+			if (down)
+				inputs.Push(IN_CROUCH_DOWN);
+			if (up)
+				inputs.Push(IN_JUMP);
+		}
+
+		//PLAYER 2
+		if (left2 && right2)
+			inputs2.Push(IN_LEFT_AND_RIGHT2);
+		{
+			if (left2)
+				inputs2.Push(IN_LEFT_DOWN2);
+			if (right2)
+				inputs2.Push(IN_RIGHT_DOWN2);
+		}
+
+		if (up2 && down2)
+			inputs2.Push(IN_JUMP_AND_CROUCH2);
+		else
+		{
+			if (down2)
+				inputs2.Push(IN_CROUCH_DOWN2);
+			if (up2)
+				inputs2.Push(IN_JUMP2);
+		}
+	}
 	return true;
 }
 
@@ -354,6 +422,8 @@ update_status ModuleInput::PostUpdate() {
 // Called before quitting
 bool ModuleInput::CleanUp()
 {
+	SDL_JoystickClose(gGameController);
+	gGameController = NULL;
 	LOG("Quitting SDL input event subsystem");
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 	return true;

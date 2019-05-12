@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include "SDL\include\SDL_scancode.h"
+#include "SDL/include/SDL_gamecontroller.h"
 #include "p2Qeue.h"
 
 #define MAX_KEYS 300
@@ -152,6 +153,8 @@ public:
 	Uint32 hadouken_timer2 = 0;
 	Uint32 beat_timer2 = 0;
 
+	const int JOYSTICK_DEAD_ZONE = 8000;
+	SDL_Joystick* gGameController = NULL;
 };
 
 #endif // ModuleInput_H
