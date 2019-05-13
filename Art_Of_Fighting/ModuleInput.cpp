@@ -38,6 +38,9 @@ bool ModuleInput::Init()
 	{
 		//Load joystick
 		gGameController = SDL_JoystickOpen(0);
+		////////////////////////////////////////////
+		gGameController2 = SDL_JoystickOpen(1);
+		//////////////////////////////////////////////
 		if (gGameController == NULL)
 		{
 			LOG("Warning: Unable to open game controller! SDL Error: %s\n", SDL_GetError());
@@ -187,7 +190,50 @@ bool ModuleInput::external_input()
 					}
 				}
 			}
-
+			////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			if (event.jaxis.which == 1) { //En el gamepad 2
+				if (event.jaxis.axis == 0)
+				{
+					//Left of dead zone
+					if (event.jaxis.value < -JOYSTICK_DEAD_ZONE)
+					{
+						left2 = true;
+						right2 = false;
+					}
+					//Right of dead zone
+					else if (event.jaxis.value > JOYSTICK_DEAD_ZONE)
+					{
+						right2 = true;
+						left2 = false;
+					}
+					else
+					{
+						left2 = false;
+						right2 = false;
+					}
+				}
+				else if (event.jaxis.axis == 1)
+				{
+					//Below of dead zone
+					if (event.jaxis.value < -JOYSTICK_DEAD_ZONE)
+					{
+						down2 = false;
+						up2 = true;
+					}
+					//Above of dead zone
+					else if (event.jaxis.value > JOYSTICK_DEAD_ZONE)
+					{
+						up2 = false;
+						down2 = true;
+					}
+					else
+					{
+						down2 = false;
+						up2 = false;
+					}
+				}
+			}
+			///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		}
 
@@ -228,7 +274,14 @@ bool ModuleInput::external_input()
 			if (right2)
 				inputs2.Push(IN_RIGHT_DOWN2);
 		}
-
+		///////////////////////////////////////
+		if (!left2)
+			inputs.Push(IN_LEFT_UP2);
+		if (!right2)
+			inputs.Push(IN_RIGHT_UP2);
+		if (!down2)
+			inputs.Push(IN_CROUCH_UP2);
+		////////////////////////////////////////
 		if (up2 && down2)
 			inputs2.Push(IN_JUMP_AND_CROUCH2);
 		else

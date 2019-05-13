@@ -155,6 +155,7 @@ public:
 
 	const int JOYSTICK_DEAD_ZONE = 8000;
 	SDL_Joystick* gGameController = NULL;
+	SDL_Joystick* gGameController2 = NULL;
 };
 
 #endif // ModuleInput_H
