@@ -479,7 +479,7 @@ update_status ModulePlayer::Update()
 
 
 
-	if ((position.x + 25) >= (App->player2->position.x - 25)) {
+	if ((position.x + 25) >= (App->player2->position.x +25)) {
 		App->render->BlitWithScale(graphics, position.x + 50, position.y - r->h, r, -1, 1.0f, 1, TOP_RIGHT);
 		if (r == &lowkick.frames[lowkick.last_frame - 1])
 		{
@@ -835,7 +835,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 
 	if (ryohitbox == c1 && c2->type == COLLIDER_ENEMY)
 	{
-		if (App->input->keyboard[SDL_SCANCODE_A] == NULL && App->input->keyboard[SDL_SCANCODE_D] == NULL && App->input->keyboard[SDL_SCANCODE_J] == NULL && App->input->keyboard[SDL_SCANCODE_L] == NULL && position.x < (App->player2->position.x - 65)) {
+		/*if (App->input->keyboard[SDL_SCANCODE_A] == NULL && App->input->keyboard[SDL_SCANCODE_D] == NULL && App->input->keyboard[SDL_SCANCODE_J] == NULL && App->input->keyboard[SDL_SCANCODE_L] == NULL && position.x < (App->player2->position.x - 65)) {
 			position.x -= 3;
 		}
 		if (App->input->keyboard[SDL_SCANCODE_A] == NULL && App->input->keyboard[SDL_SCANCODE_D] == NULL && App->input->keyboard[SDL_SCANCODE_J] == NULL && App->input->keyboard[SDL_SCANCODE_L] == NULL && position.x >(App->player2->position.x - 25)) {
@@ -861,7 +861,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		else if (App->input->keyboard[SDL_SCANCODE_A] != NULL && App->input->keyboard[SDL_SCANCODE_L] == NULL) { //when player 2 run and player 1 no (player 2 in the left side)
 			position.x += 1;
 		}
-
+*/
 	}
 
 	if (ryohitbox == c1 && App->scene_King->colliderMap2 == c2)   //Colisions with second wall

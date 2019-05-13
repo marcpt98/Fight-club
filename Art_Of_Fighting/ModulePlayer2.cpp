@@ -134,7 +134,7 @@ bool ModulePlayer2::Start()
 	kingKoOuKen = App->audio->LoadFX("media/FX/king_haduken.wav");
 	ryoKoOuKensound = App->audio->LoadFX("media/FX/ryoKoOuKensound.wav");
 
-	position.x = 520;
+	position.x = 420;
 	position.y = 210;
 	initialPos = position.y;
 
@@ -260,7 +260,7 @@ update_status ModulePlayer2::Update()
 			{
 				current_animation = &jumping;
 				position.y -= jumpSpeed;
-				position.x -= 3;
+				position.x += 3;
 
 				if (attack == true)
 				{
@@ -284,7 +284,7 @@ update_status ModulePlayer2::Update()
 			if (animstart == 0)
 			{
 				current_animation = &jumping;
-				position.y += jumpSpeed;
+				position.y -= jumpSpeed;
 
 				if (attack == true)
 				{
@@ -450,10 +450,9 @@ update_status ModulePlayer2::Update()
 	// Draw everything --------------------------------------
 	SDL_Rect* r = &current_animation->GetCurrentFrame();
 
-
-
-	if ((position.x + 25) >= (App->player->position.x + 25)) {
-		App->render->BlitWithScale(graphics, position.x - 50, position.y - r->h, r, -1, 1.0f, 1, TOP_RIGHT);
+	if ((position.x + 25) >= (App->player->position.x + 25))
+	{
+		App->render->BlitWithScale(graphics, position.x + 50, position.y - r->h, r, -1, 1.0f, 1, TOP_RIGHT);
 		if (r == &lowkick.frames[lowkick.last_frame - 1])
 		{
 			kickCollider->SetPos(position.x - 40, position.y - r->h);
@@ -535,8 +534,11 @@ update_status ModulePlayer2::Update()
 			kickCrouchCollider->Enabled = false;
 		}
 	}
-
-	ryohitbox->SetPos(position.x-100, position.y - r->h);
+	
+	
+		ryohitbox->SetPos(position.x, position.y - r->h);
+	
+	
 	wall = false;
 
 
@@ -814,7 +816,7 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 	}
 
 	if (ryohitbox == c1 && c2->type == COLLIDER_PLAYER)
-	{
+	{/*
 		if (App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_REPEAT && App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT) {
 			speed = 0;
 
@@ -836,7 +838,7 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 			position.x -= 2;
 		}
 
-
+		*/
 	}
 	if (ryohitbox == c1 && App->scene_King->colliderMap2 == c2)   //Colisions with second wall
 	{

@@ -38,9 +38,7 @@ bool ModuleInput::Init()
 	{
 		//Load joystick
 		gGameController = SDL_JoystickOpen(0);
-		////////////////////////////////////////////
 		gGameController2 = SDL_JoystickOpen(1);
-		//////////////////////////////////////////////
 		if (gGameController == NULL)
 		{
 			LOG("Warning: Unable to open game controller! SDL Error: %s\n", SDL_GetError());
@@ -190,7 +188,7 @@ bool ModuleInput::external_input()
 					}
 				}
 			}
-			////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			//Player 2 GAMEPAD
 			if (event.jaxis.which == 1) { //En el gamepad 2
 				if (event.jaxis.axis == 0)
 				{
@@ -233,7 +231,7 @@ bool ModuleInput::external_input()
 					}
 				}
 			}
-			///////////////////////////////////////////////////////////////////////////////////////////////////////////
+			
 
 		}
 
@@ -274,14 +272,14 @@ bool ModuleInput::external_input()
 			if (right2)
 				inputs2.Push(IN_RIGHT_DOWN2);
 		}
-		///////////////////////////////////////
+		
 		if (!left2)
 			inputs2.Push(IN_LEFT_UP2);
 		if (!right2)
 			inputs2.Push(IN_RIGHT_UP2);
 		if (!down2)
 			inputs2.Push(IN_CROUCH_UP2);
-		////////////////////////////////////////
+		
 		if (up2 && down2)
 			inputs2.Push(IN_JUMP_AND_CROUCH2);
 		else

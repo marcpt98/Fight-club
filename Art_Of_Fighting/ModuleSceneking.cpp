@@ -130,7 +130,8 @@ update_status ModuleSceneking::Update()
 {
 	
 	distance = ((App->player->position.x + App->player2->position.x) / 2);
-	App->render->camera.x = (distance*-1 +175);
+	App->render->camera.x = (distance*-1 +125);
+	
 	if (App->render->camera.x <= -330) {
 		App->render->camera.x = -330;
 	}
