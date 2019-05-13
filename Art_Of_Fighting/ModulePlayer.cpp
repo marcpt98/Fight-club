@@ -452,11 +452,13 @@ update_status ModulePlayer::Update()
 					App->audio->PlayFX(ryoKoOuKensound);
 					if ((position.x + 25) >= (App->player2->position.x - 25))
 					{
+						App->particles->Hadouken3.speed.x = -3;
 						App->particles->AddParticle(App->particles->Hadouken1, position.x + 30, position.y - 110, COLLIDER_PLAYER_SHOT);
 						App->particles->AddParticle(App->particles->Hadouken2, position.x + 28, position.y - 85, COLLIDER_PLAYER_SHOT, 100);
 						App->particles->AddParticle(App->particles->Hadouken3, position.x + 30, position.y - 80, COLLIDER_PLAYER_SHOT, 300);
 					}
 					else {
+						App->particles->Hadouken3.speed.x = +3;
 						App->particles->AddParticle(App->particles->Hadouken1, position.x - 10, position.y - 110, COLLIDER_PLAYER_SHOT);
 						App->particles->AddParticle(App->particles->Hadouken2, position.x - 8, position.y - 85, COLLIDER_PLAYER_SHOT, 100);
 						App->particles->AddParticle(App->particles->Hadouken3, position.x - 10, position.y - 80, COLLIDER_PLAYER_SHOT, 300);
