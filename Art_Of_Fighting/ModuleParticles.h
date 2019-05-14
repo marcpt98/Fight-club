@@ -50,14 +50,16 @@ private:
 
 public:
 
+
 	//HADOUKEN
 	Particle Hadouken1;
 	Particle Hadouken2;
 	Particle Hadouken3;
 
-	Particle Hadouken1Player2;
-	Particle Hadouken2Player2;
-	Particle Hadouken3Player2;
+	//HADOUKEN FLIP
+	Particle HadoukenFlip1;
+	Particle HadoukenFlip2;
+	Particle HadoukenFlip3;
 };
 
 #endif

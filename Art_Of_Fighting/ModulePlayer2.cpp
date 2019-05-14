@@ -423,18 +423,20 @@ update_status ModulePlayer2::Update()
 				{
 					App->audio->PlayFX(kingKoOuKen);
 					App->audio->PlayFX(ryoKoOuKensound);
+
 					if ((position.x + 25) >= (App->player->position.x - 25))
 					{
-						App->particles->Hadouken3Player2.speed.x = -3;
-						App->particles->AddParticle(App->particles->Hadouken1Player2, position.x + 10, position.y - 110, COLLIDER_ENEMY_SHOT);
-						App->particles->AddParticle(App->particles->Hadouken2Player2, position.x + 10, position.y - 85, COLLIDER_ENEMY_SHOT, 100);
-						App->particles->AddParticle(App->particles->Hadouken3Player2, position.x, position.y - 80, COLLIDER_ENEMY_SHOT, 300);
+						App->particles->HadoukenFlip3.speed.x = -3;
+						App->particles->AddParticle(App->particles->HadoukenFlip1, position.x - 10, position.y - 60, COLLIDER_ENEMY_SHOT);
+						App->particles->AddParticle(App->particles->HadoukenFlip2, position.x - 30, position.y - 60, COLLIDER_ENEMY_SHOT, 100);
+						App->particles->AddParticle(App->particles->HadoukenFlip3, position.x - 10, position.y - 60, COLLIDER_ENEMY_SHOT, 300);
 					}
-					else {
-						App->particles->Hadouken3Player2.speed.x = +3;
-						App->particles->AddParticle(App->particles->Hadouken1Player2, position.x - 20, position.y - 110, COLLIDER_ENEMY_SHOT);
-						App->particles->AddParticle(App->particles->Hadouken2Player2, position.x - 20, position.y - 85, COLLIDER_ENEMY_SHOT, 100);
-						App->particles->AddParticle(App->particles->Hadouken3Player2, position.x - 20, position.y - 80, COLLIDER_ENEMY_SHOT, 300);
+					else 
+					{
+						App->particles->Hadouken3.speed.x = +3;
+						App->particles->AddParticle(App->particles->Hadouken1, position.x + 10, position.y - 60, COLLIDER_ENEMY_SHOT);
+						App->particles->AddParticle(App->particles->Hadouken2, position.x + 30, position.y - 60, COLLIDER_ENEMY_SHOT, 100);
+						App->particles->AddParticle(App->particles->Hadouken3, position.x + 10, position.y - 60, COLLIDER_ENEMY_SHOT, 300);
 					}
 					shoot = false;
 				}

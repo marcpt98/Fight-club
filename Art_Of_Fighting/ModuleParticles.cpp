@@ -20,39 +20,40 @@ ModuleParticles::ModuleParticles()
 ModuleParticles::~ModuleParticles()
 {}
 
-bool ModuleParticles::Start() {
+bool ModuleParticles::Start() 
+{
 	LOG("Loading particles");
 	graphics = App->textures->Load("media/Spritesheets/king_SpriteSheet.png");
 
-	//PLAYER 1
+	//HADOUKEN
 	Hadouken1.anim.PushBack({ 711, 69, 36, 44 });
 	Hadouken2.anim.PushBack({ 763, 74, 30, 39 });
 	Hadouken3.anim.PushBack({ 783, 27, 78, 24 });
 	Hadouken3.anim.PushBack({ 711, 26, 61, 30 });   //Loop animation
-
 
 	Hadouken1.anim.speed = 0.1f;
 	Hadouken2.anim.speed = 0.1f;
 	Hadouken3.anim.loop = true;
 	Hadouken3.anim.speed = 0.1f;
 
+	Hadouken3.speed.y = 0;
+
+	//HADOUKEN FLIP
+
+	HadoukenFlip1.anim.PushBack({ 942, 175, 36, 44 });
+	HadoukenFlip2.anim.PushBack({ 896, 180, 30, 39 });
+	HadoukenFlip3.anim.PushBack({ 828, 133, 78, 24 });
+	HadoukenFlip3.anim.PushBack({ 917, 132, 61, 30 });   //Loop animation
+
+	HadoukenFlip1.anim.speed = 0.1f;
+	HadoukenFlip2.anim.speed = 0.1f;
+	HadoukenFlip3.anim.loop = true;
+	HadoukenFlip3.anim.speed = 0.1f;
 
 	Hadouken3.speed.y = 0;
 
 
-	//PLAYER 2
-	Hadouken1Player2.anim.PushBack({ 711, 69, 36, 44 });
-	Hadouken2Player2.anim.PushBack({ 763, 74, 30, 39 });
-	Hadouken3Player2.anim.PushBack({ 783, 27, 78, 24 });
-	Hadouken3Player2.anim.PushBack({ 711, 26, 61, 30 });   //Loop animation
-
-
-	Hadouken1Player2.anim.speed = 0.1f;
-	Hadouken2Player2.anim.speed = 0.1f;
-	Hadouken3Player2.anim.loop = true;
-	Hadouken3Player2.anim.speed = 0.1f;
-
-	Hadouken3Player2.speed.y = 0;
+	
 
 	return true;
 }
