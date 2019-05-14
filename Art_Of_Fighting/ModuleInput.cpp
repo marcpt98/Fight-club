@@ -241,29 +241,29 @@ bool ModuleInput::external_input()
 		}
 
 		//PLAYER 1 GAMEPAD BUTTONS
-		if (SDL_GameControllerGetButton(gGameController, SDL_CONTROLLER_BUTTON_X) == 1)
+		if (SDL_GameControllerGetButton(gGameController2, SDL_CONTROLLER_BUTTON_X) == 1)
 		{
 			inputs.Push(IN_T);
 		}
-		if (SDL_GameControllerGetButton(gGameController, SDL_CONTROLLER_BUTTON_Y) == 1)
+		if (SDL_GameControllerGetButton(gGameController2, SDL_CONTROLLER_BUTTON_Y) == 1)
 		{
 			inputs.Push(IN_R);
 		}
-		if (SDL_GameControllerGetButton(gGameController, SDL_CONTROLLER_BUTTON_A) == 1)
+		if (SDL_GameControllerGetButton(gGameController2, SDL_CONTROLLER_BUTTON_A) == 1)
 		{
 			inputs.Push(IN_F);
 		}
 
 		//PLAYER 2 GAMEPAD BUTTONS
-		if (SDL_GameControllerGetButton(gGameController2, SDL_CONTROLLER_BUTTON_X) == 1)
+		if (SDL_GameControllerGetButton(gGameController, SDL_CONTROLLER_BUTTON_X) == 1)
 		{
 			inputs2.Push(IN_Y);
 		}
-		if (SDL_GameControllerGetButton(gGameController2, SDL_CONTROLLER_BUTTON_Y) == 1)
+		if (SDL_GameControllerGetButton(gGameController, SDL_CONTROLLER_BUTTON_Y) == 1)
 		{
 			inputs2.Push(IN_U);
 		}
-		if (SDL_GameControllerGetButton(gGameController2, SDL_CONTROLLER_BUTTON_A) == 1)
+		if (SDL_GameControllerGetButton(gGameController, SDL_CONTROLLER_BUTTON_A) == 1)
 		{
 			inputs2.Push(IN_H);
 		}
