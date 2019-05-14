@@ -23,7 +23,7 @@ bool ModuleInput::Init()
 	
 	bool ret = true;
 	SDL_Init(0);
-	SDL_InitSubSystem(SDL_INIT_JOYSTICK);
+	SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER);
 
 	if (SDL_InitSubSystem(SDL_INIT_EVENTS) < 0)
 	{
@@ -37,8 +37,9 @@ bool ModuleInput::Init()
 	else
 	{
 		//Load joystick
-		gGameController = SDL_JoystickOpen(0);
-		gGameController2 = SDL_JoystickOpen(1);
+		gGameController = SDL_GameControllerOpen(0);
+		gGameController2 = SDL_GameControllerOpen(1);
+
 		if (gGameController == NULL)
 		{
 			LOG("Warning: Unable to open game controller! SDL Error: %s\n", SDL_GetError());
@@ -145,8 +146,11 @@ bool ModuleInput::external_input()
 				break;
 			}
 		}
-		if (event.type == SDL_JOYAXISMOTION) {
-			if (event.jaxis.which == 0) { //En el gamepad 0
+		if (event.type == SDL_CONTROLLERAXISMOTION) 
+		{
+			if (event.jaxis.which == 0) 
+			{ 
+				//PLAYER 1 GAMEPAD
 				if (event.jaxis.axis == 0)
 				{
 					//Left of dead zone
@@ -188,6 +192,7 @@ bool ModuleInput::external_input()
 					}
 				}
 			}
+
 			//Player 2 GAMEPAD
 			if (event.jaxis.which == 1) { //En el gamepad 2
 				if (event.jaxis.axis == 0)
@@ -233,6 +238,34 @@ bool ModuleInput::external_input()
 			}
 			
 
+		}
+
+		//PLAYER 1 GAMEPAD BUTTONS
+		if (SDL_GameControllerGetButton(gGameController, SDL_CONTROLLER_BUTTON_X) == 1)
+		{
+			inputs.Push(IN_T);
+		}
+		if (SDL_GameControllerGetButton(gGameController, SDL_CONTROLLER_BUTTON_Y) == 1)
+		{
+			inputs.Push(IN_R);
+		}
+		if (SDL_GameControllerGetButton(gGameController, SDL_CONTROLLER_BUTTON_A) == 1)
+		{
+			inputs.Push(IN_F);
+		}
+
+		//PLAYER 2 GAMEPAD BUTTONS
+		if (SDL_GameControllerGetButton(gGameController2, SDL_CONTROLLER_BUTTON_X) == 1)
+		{
+			inputs2.Push(IN_Y);
+		}
+		if (SDL_GameControllerGetButton(gGameController2, SDL_CONTROLLER_BUTTON_Y) == 1)
+		{
+			inputs2.Push(IN_U);
+		}
+		if (SDL_GameControllerGetButton(gGameController2, SDL_CONTROLLER_BUTTON_A) == 1)
+		{
+			inputs2.Push(IN_H);
 		}
 
 
@@ -473,8 +506,10 @@ update_status ModuleInput::PostUpdate() {
 // Called before quitting
 bool ModuleInput::CleanUp()
 {
-	SDL_JoystickClose(gGameController);
+	SDL_GameControllerClose(gGameController);
+	SDL_GameControllerClose(gGameController2);
 	gGameController = NULL;
+	gGameController2 = NULL;
 	LOG("Quitting SDL input event subsystem");
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 	return true;

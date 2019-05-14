@@ -154,8 +154,8 @@ public:
 	Uint32 beat_timer2 = 0;
 
 	const int JOYSTICK_DEAD_ZONE = 8000;
-	SDL_Joystick* gGameController = NULL;
-	SDL_Joystick* gGameController2 = NULL;
+	SDL_GameController* gGameController = NULL;
+	SDL_GameController* gGameController2 = NULL;
 };
 
 #endif // ModuleInput_H
