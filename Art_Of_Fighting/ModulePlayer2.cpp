@@ -138,13 +138,17 @@ bool ModulePlayer2::Start()
 	position.y = 210;
 	initialPos = position.y;
 
-	ryohitbox = App->collision->AddCollider({ position.x,position.y, 50, 97 }, COLLIDER_ENEMY, this);
+	ryohitbox = App->collision->AddCollider({ position.x,position.y, 35, 80 }, COLLIDER_ENEMY, this);
+
 	punchCollider = App->collision->AddCollider({ position.x,position.y, 40, 15 }, COLLIDER_ENEMY, this);
 	punchCollider->Enabled = false;
+
 	kickCollider = App->collision->AddCollider({ position.x,position.y, 60, 30 }, COLLIDER_ENEMY, this);
 	kickCollider->Enabled = false;
+
 	punchCrouchCollider = App->collision->AddCollider({ position.x, position.y - 70 , 40, 15 }, COLLIDER_ENEMY, this);
 	punchCrouchCollider->Enabled = false;
+
 	kickCrouchCollider = App->collision->AddCollider({ position.x, position.y - 70 , 65, 15 }, COLLIDER_ENEMY, this);
 	kickCrouchCollider->Enabled = false;
 
@@ -456,7 +460,9 @@ update_status ModulePlayer2::Update()
 
 	if ((position.x + 25) >= (App->player->position.x + 25))
 	{
-		App->render->BlitWithScale(graphics, position.x + 50, position.y - r->h, r, -1, 1.0f, 1, TOP_RIGHT);
+		App->render->BlitWithScale(graphics, position.x+50, position.y - r->h, r, -1, 1.0f, 1, TOP_RIGHT);
+		ryohitbox->SetPos(position.x+15, position.y - r->h);
+
 		if (r == &lowkick.frames[lowkick.last_frame - 1])
 		{
 			kickCollider->SetPos(position.x - 40, position.y - r->h);
@@ -491,8 +497,10 @@ update_status ModulePlayer2::Update()
 		}
 
 	}
-	else {
+	else 
+	{
 		App->render->Blit(graphics, position.x, position.y - r->h, r);
+		ryohitbox->SetPos(position.x, position.y - r->h);
 
 		if (r == &lowkick.frames[lowkick.last_frame - 1])
 		{
@@ -539,8 +547,6 @@ update_status ModulePlayer2::Update()
 		}
 	}
 	
-	
-		ryohitbox->SetPos(position.x, position.y - r->h);
 	
 	
 	wall = false;

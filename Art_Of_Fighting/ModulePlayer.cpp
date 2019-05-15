@@ -138,13 +138,17 @@ bool ModulePlayer::Start()
 	position.y = 210;
 	initialPos = position.y;
 
-	ryohitbox = App->collision->AddCollider({ position.x,position.y, 50, 97 }, COLLIDER_PLAYER, this);
-	punchCollider = App->collision->AddCollider({ position.x,position.y, 40, 15 }, COLLIDER_PLAYER, this);
+	ryohitbox = App->collision->AddCollider({ position.x,position.y, 35, 80 }, COLLIDER_PLAYER, this);
+
+	punchCollider = App->collision->AddCollider({ position.x,position.y, 60, 15 }, COLLIDER_PLAYER, this);
 	punchCollider->Enabled = false;
-	kickCollider = App->collision->AddCollider({ position.x,position.y, 60, 30 }, COLLIDER_PLAYER, this);
+
+	kickCollider = App->collision->AddCollider({ position.x,position.y, 45, 30 }, COLLIDER_PLAYER, this);
 	kickCollider->Enabled = false;
+
 	punchCrouchCollider = App->collision->AddCollider({ position.x, position.y - 70 , 40, 15 }, COLLIDER_PLAYER, this);
 	punchCrouchCollider->Enabled = false;
+
 	kickCrouchCollider = App->collision->AddCollider({ position.x, position.y - 70 , 65, 15 }, COLLIDER_PLAYER, this);
 	kickCrouchCollider->Enabled = false;
 
@@ -180,7 +184,8 @@ update_status ModulePlayer::Update()
 	int speed = 2;
 
 
-	if (App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN) {															//God mode 
+	if (App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN) 
+	{														                 	//God mode 
 		if (GodMode == false)
 		{
 			ryohitbox->to_delete = true;
@@ -189,15 +194,18 @@ update_status ModulePlayer::Update()
 		}
 		else if (GodMode == true)
 		{
-			ryohitbox = App->collision->AddCollider({ position.x,position.y,50, 97 }, COLLIDER_PLAYER, this);
+			ryohitbox = App->collision->AddCollider({ position.x,position.y, 35, 80 }, COLLIDER_PLAYER, this);
 			GodMode = false;
 		}
 	}
-	if (App->input->keyboard[SDL_SCANCODE_F4] == KEY_STATE::KEY_DOWN) {			//Oneshot to player 2												 
+	if (App->input->keyboard[SDL_SCANCODE_F4] == KEY_STATE::KEY_DOWN)
+	{			                                                                  //Oneshot to player 2												 
 		App->player2->Life = 0;
 	}
-	if (App->input->keyboard[SDL_SCANCODE_F3] == KEY_STATE::KEY_DOWN) {
-		if (App->player->printMode == false) {
+	if (App->input->keyboard[SDL_SCANCODE_F3] == KEY_STATE::KEY_DOWN)
+	{
+		if (App->player->printMode == false) 
+		{
 			App->player->printMode = true;
 		}
 		else if (App->player->printMode == true)
@@ -483,8 +491,12 @@ update_status ModulePlayer::Update()
 
 
 
-	if ((position.x + 25) >= (App->player2->position.x +25)) {
+	if ((position.x + 25) >= (App->player2->position.x +25)) 
+	{
+		
 		App->render->BlitWithScale(graphics, position.x + 50, position.y - r->h, r, -1, 1.0f, 1, TOP_RIGHT);
+		ryohitbox->SetPos(position.x + 15, position.y - r->h);
+
 		if (r == &lowkick.frames[lowkick.last_frame - 1])
 		{
 			kickCollider->SetPos(position.x - 40, position.y - r->h);
@@ -519,12 +531,15 @@ update_status ModulePlayer::Update()
 		}
 
 	}
-	else {
+	else
+	{
+		
 		App->render->Blit(graphics, position.x, position.y - r->h, r);
+		ryohitbox->SetPos(position.x, position.y - r->h);
 
-		if (r == &lowkick.frames[lowkick.last_frame - 1])
+		if (r == &kick.frames[kick.last_frame - 1])
 		{
-			kickCollider->SetPos(position.x + 40, position.y - r->h);
+			kickCollider->SetPos(position.x + 35, position.y - 106);
 
 			kickCollider->Enabled = true;
 		}
@@ -535,7 +550,7 @@ update_status ModulePlayer::Update()
 
 		if (r == &punch.frames[punch.last_frame - 1])
 		{
-			punchCollider->SetPos(position.x + 50, position.y + 12 - r->h);
+			punchCollider->SetPos(position.x + 32, position.y + 12 - r->h);
 
 			punchCollider->Enabled = true;
 		}
@@ -568,7 +583,7 @@ update_status ModulePlayer::Update()
 	}
 
 
-	ryohitbox->SetPos(position.x, position.y - r->h);
+	//ryohitbox->SetPos(position.x, position.y - r->h);
 
 	wall = false;
 
@@ -583,7 +598,7 @@ update_status ModulePlayer::Update()
 	//Stamina increase
 	if (App->player->Stamina < 100)
 	{
-		App->player->Stamina = (App->player->Stamina + 0.05);
+		App->player->Stamina = (App->player->Stamina + 0.015);
 	}
 
 	return UPDATE_CONTINUE;
@@ -895,7 +910,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 
 		if ((position.x + 25) >= (App->player2->position.x - 25)) {
 
-			App->player2->position.x -= 5;
+			App->player2->position.x += 5;
 
 
 			if ((App->player2->position.x) >= (App->scene_King->positionlimitright.x + 300)) {
@@ -904,7 +919,8 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 			}
 		}
 
-		else {
+		else 
+		{
 			if ((App->player2->position.x) <= (App->scene_King->positionlimitright.x + 300)) {
 				App->player2->position.x += 5;
 			}
@@ -921,11 +937,13 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		App->player2->Life--;
 		collision = true;
 
-		if ((position.x + 25) >= (App->player2->position.x - 25)) {
-			App->player2->position.x -= 5;
+		if ((position.x + 25) >= (App->player2->position.x - 25)) 
+		{
+			App->player2->position.x += 5;
 		}
 
-		else {
+		else
+		{
 			if ((App->player2->position.x) <= (App->scene_King->positionlimitright.x + 300)) {
 				App->player2->position.x += 5;
 			}

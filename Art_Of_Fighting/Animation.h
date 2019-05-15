@@ -21,6 +21,7 @@ public:
 	void PushBack(const SDL_Rect& rect)
 	{
 		frames[last_frame++] = rect;
+
 	}
 
 	SDL_Rect& GetCurrentFrame()
