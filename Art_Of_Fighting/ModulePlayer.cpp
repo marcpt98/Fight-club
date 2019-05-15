@@ -23,43 +23,35 @@ ModulePlayer::ModulePlayer()
 	idle.PushBack({ 7, 10, 54, 104 }, 0.1, 0, 0, 0, 0);
 	idle.PushBack({ 64, 10, 54, 104 }, 0.1, 0, 0, 0, 0);
 	idle.PushBack({ 118, 10, 54, 104 }, 0.1, 0, 0, 0, 0);
-	//idle.speed = 0.14f;
 	
 	//jump animation(arcade sprite sheet)
 	jumping.PushBack({ 68,140,48,85 }, 0.1, 0, 0, 0, 0);
 	jumping.PushBack({ 148,256,68,101 }, 0.03, 0, 0, 0, 0);
 	jumping.PushBack({ 68,140,49,85 }, 0.1, 0, 0, 0, 0);
-	//jumping.speed = 0.05f;
 
 	// walk forward animation (arcade sprite sheet)
 	forward.PushBack({ 419, 11, 49, 103 }, 0.1, 0, 0, 0, 0);
 	forward.PushBack({ 528, 10, 47, 104 }, 0.1, 0, -2, 0, 0);
 	forward.PushBack({ 474, 10, 48, 104 }, 0.1, 0, +2, 0, 0);
 	forward.PushBack({ 7, 10, 54, 104 }, 0.1, 0, 0, 0, 0);
-	//forward.speed = 0.1f;
 
 	//backawrd animation
 	backward.PushBack({ 419, 11, 49, 103 }, 0.1, 0, 0, 0, 0);
 	backward.PushBack({ 474, 10, 48, 104 }, 0.1, 0, 0, 0, 0);
 	backward.PushBack({ 528, 10, 47, 104 }, 0.1, 0, 0, 0, 0);
-	//backward.speed = 0.1f;
 
 	//punch animation(arcade sprite sheet)
-
 	punch.PushBack({ 15, 476, 48, 102 }, 0.1, 0, 0, 0, 0);
-	punch.PushBack({ 314, 10, 94, 100 }, 0.1, 0, 0, 0, 0);
+	punch.PushBack({ 527, 483, 94, 100 }, 0.1, 0, 0, 0, 0);
 	punch.PushBack({ 15, 476, 48, 102 }, 0.1, 0, 0, 0, 0);
-	//punch.speed = 0.16f;
 
 	punchJump.PushBack({ 714,141,66,94 }, 0.1, 0, 0, 0, 0);
 	punchJump.PushBack({ 780,157,86,78 }, 0.1, 0, 0, 0, 0);
-	punchJump.PushBack({ 714,141,66,94 }, 0.1, 0, 0, 0, 0);
-	//punchJump.speed = 0.15f;															//CHANGE
+	punchJump.PushBack({ 714,141,66,94 }, 0.1, 0, 0, 0, 0);														
 
 	punchCrouch.PushBack({ 335,152,70,73 }, 0.1, 0, 0, 0, 0);
 	punchCrouch.PushBack({ 405,157,103,68 }, 0.1, 0, 0, 0, 0);
 	punchCrouch.PushBack({ 335,152,70,73 }, 0.1, 0, 0, 0, 0);
-	//punchCrouch.speed = 0.15f;
 
 	//kick animation(arcade sprite sheet)
 	kick.PushBack({ 4,593,72,113 }, 0.1, 0, 0, 0, 0);
@@ -67,38 +59,73 @@ ModulePlayer::ModulePlayer()
 	kick.PushBack({ 172,593,82,112 }, 0.1, 0, 0, 0, 0);
 	kick.PushBack({ 264,599,49,102 }, 0.1, 0, 0, 0, 0);
 	kick.PushBack({ 338,607,63,92 }, 0.1, 0, 0, 0, 0);
-	//kick.speed = 0.15f;
 
 	lowkick.PushBack({ 84, 478, 56, 101 }, 0.1, 0, 0, 0, 0);
 	lowkick.PushBack({ 151, 478, 49, 101 }, 0.1, 0, 0, 0, 0);
 	lowkick.PushBack({ 211, 478, 86, 101 }, 0.1, 0, 0, 0, 0);
 	lowkick.PushBack({ 151, 478, 49, 101 }, 0.1, 0, 0, 0, 0);
 	lowkick.PushBack({ 84, 478, 56, 101 }, 0.1, 0, 0, 0, 0);
-	//lowkick.speed = 0.15f;
 
-	kickJump.PushBack({ 561,146,57,89 }, 0.1, 0, 0, 0, 0);												//CHANGE
+	kickJump.PushBack({ 561,146,57,89 }, 0.1, 0, 0, 0, 0);											
 	kickJump.PushBack({ 618,149,96,86 }, 0.1, 0, 0, 0, 0);
 	kickJump.PushBack({ 561,146,57,89 }, 0.1, 0, 0, 0, 0);
-	//kickJump.speed = 0.15f;
 
 	kickCrouch.PushBack({ 335,152,70,73 }, 0.1, 0, 0, 0, 0);
 	kickCrouch.PushBack({ 405,157,103,68 }, 0.1, 0, 0, 0, 0);
 	kickCrouch.PushBack({ 335,152,70,73 }, 0.1, 0, 0, 0, 0);
-	//kickCrouch.speed = 0.1f;
 
-	// Hadouken ryo animation
-	hadouken.PushBack({ 431, 245, 56, 108 }, 0.1, 0, 0, 0, 0);                                       //CHANGE
+	// Hadouken king animation
+	hadouken.PushBack({ 431, 245, 56, 108 }, 0.1, 0, 0, 0, 0);                                   
 	hadouken.PushBack({ 498, 245, 49, 100 }, 0.1, 0, 0, 0, 0);
 	hadouken.PushBack({ 552, 245, 81, 77 }, 0.1, 0, 0, 0, 0);
 	hadouken.PushBack({ 642, 241, 48, 86 }, 0.1, 0, 0, 0, 0);
 	hadouken.PushBack({ 724, 241, 53, 99 }, 0.1, 0, 0, 0, 0);
 
-	//hadouken.speed = 0.15f;
+	// Moushuu Kyaku animation
+	Moushuu_Kyaku.PushBack({ 15, 366, 58, 102 }, 0.1, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 83, 366, 103, 101 }, 0.1, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 195, 367, 69, 101 }, 0.1, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 273, 351, 95, 117 }, 0.1, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 195, 367, 69, 101 }, 0.1, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 83, 366, 103, 101 }, 0.1, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 195, 367, 69, 101 }, 0.1, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 273, 351, 95, 117 }, 0.1, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 195, 367, 69, 101 }, 0.1, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 83, 366, 103, 101 }, 0.1, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 195, 367, 69, 101 }, 0.1, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 273, 351, 95, 117 }, 0.1, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 195, 367, 69, 101 }, 0.1, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 83, 366, 103, 101 }, 0.1, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 195, 367, 69, 101 }, 0.1, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 273, 351, 95, 117 }, 0.1, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 195, 367, 69, 101 }, 0.1, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 15, 366, 58, 102 }, 0.1, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 7, 10, 54, 104 }, 0.1, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 4,593,72,113 }, 0.1, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 96,593,51,112 }, 0.1, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 172,593,82,112 }, 0.1, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 264,599,49,102 }, 0.1, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 338,607,63,92 }, 0.1, 0, 0, 0, 0);
+
+	// Tornado Kick animation
+	Tornado_Kick.PushBack({ 456, 350, 72, 130 }, 0.1, 0, 0, 0, 0);
+	Tornado_Kick.PushBack({ 96,593,51,112 }, 0.1, 0, 0, 0, 0); //KICK 2ND FRAME
+	Tornado_Kick.PushBack({ 544, 388, 52, 78 }, 0.1, 0, 0, 0, 0);
+	Tornado_Kick.PushBack({ 599, 356, 62, 110 }, 0.1, 0, 0, 0, 0);
+	Tornado_Kick.PushBack({ 78, 254, 59, 101 }, 0.1, 0, 0, 0, 0); //JUMP 2ND FRAME (PAINT)
+	Tornado_Kick.PushBack({ 677, 364, 63, 101 }, 0.1, 0, 0, 0, 0); //JUMP 2ND FRAME WITH HADOUKEN
+												  //LOOP OF THE TWO PREVIOUS FRAMES
+	Tornado_Kick.PushBack({ 752, 366, 55, 95 }, 0.1, 0, 0, 0, 0);
+	//IF KING HIT THE ENEMY///////////////////////////////////
+	Tornado_Kick.PushBack({ 824, 376, 95, 81 }, 0.1, 0, 0, 0, 0);
+	Tornado_Kick.PushBack({ 929, 374, 78, 89 }, 0.1, 0, 0, 0, 0);
+	//////////////////////////////////////////////////////////
+	Tornado_Kick.PushBack({ 148,256,68,101 }, 0.1, 0, 0, 0, 0); //JUMP 3RD FRAME
+	Tornado_Kick.PushBack({ 68,140,49,85 }, 0.1, 0, 0, 0, 0); //JUMP 1ST FRAME
 
 	// crouch animation
 	crouch.PushBack({ 117,133,51,92 }, 0.1, 0, 0, 0, 0);
 	crouch.PushBack({ 15,151,49,74 }, 0.1, 0, 0, 0, 0);
-	//crouch.speed = 0.3f;
 	crouch.loop = false;
 
 	//beat animation

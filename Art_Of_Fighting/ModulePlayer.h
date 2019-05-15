@@ -51,6 +51,8 @@ public:
 	//Animation beat;
 	iPoint position;
 	Animation hadouken;
+	Animation Moushuu_Kyaku;
+	Animation Tornado_Kick;
 	Animation punch;
 	Animation punchJump;
 	Animation punchCrouch;
