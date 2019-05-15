@@ -12,9 +12,9 @@
 
 ModuleWelcomeScreen::ModuleWelcomeScreen()
 {
-	Welcomeimage.PushBack({ 35, 22, 304, 224 });
-	Welcomeimage.PushBack({ 344, 22, 304, 224 });
-	Welcomeimage.speed = 0.05f;
+	Welcomeimage.PushBack({ 35, 22, 304, 224 }, 0.1, 0, 0, 0, 0);
+	Welcomeimage.PushBack({ 344, 22, 304, 224 }, 0.1, 0, 0, 0, 0);
+	//Welcomeimage.speed = 0.05f;
 
 	art.rect = { 0, 0, 100, 78 };
 	of.rect = { 101, 0, 94, 63 };
