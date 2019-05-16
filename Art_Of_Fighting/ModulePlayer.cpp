@@ -113,8 +113,30 @@ ModulePlayer::ModulePlayer()
 	Tornado_Kick.PushBack({ 544, 388, 52, 78 }, 0.1, 0, 0, 0, 0);
 	Tornado_Kick.PushBack({ 599, 356, 62, 110 }, 0.1, 0, 0, 0, 0);
 	Tornado_Kick.PushBack({ 78, 254, 59, 101 }, 0.1, 0, 0, 0, 0); //JUMP 2ND FRAME (PAINT)
-	Tornado_Kick.PushBack({ 677, 364, 63, 101 }, 0.1, 0, 0, 0, 0); //JUMP 2ND FRAME WITH HADOUKEN
-												  //LOOP OF THE TWO PREVIOUS FRAMES
+	Tornado_Kick.PushBack({ 677, 364, 63, 101 }, 0.1, 0, 0, 0, 0); //JUMP 2ND FRAME WITH  
+	// ANIMATION LOOP 21 FRAMES
+	/*Tornado_Kick.PushBack({ 78, 254, 59, 101 }, 0.1, 0, 0, 0, 0);
+	Tornado_Kick.PushBack({ 677, 364, 63, 101 }, 0.1, 0, 0, 0, 0);
+	Tornado_Kick.PushBack({ 78, 254, 59, 101 }, 0.1, 0, 0, 0, 0);
+	Tornado_Kick.PushBack({ 677, 364, 63, 101 }, 0.1, 0, 0, 0, 0);
+	Tornado_Kick.PushBack({ 78, 254, 59, 101 }, 0.1, 0, 0, 0, 0);
+	Tornado_Kick.PushBack({ 677, 364, 63, 101 }, 0.1, 0, 0, 0, 0);
+	Tornado_Kick.PushBack({ 78, 254, 59, 101 }, 0.1, 0, 0, 0, 0);
+	Tornado_Kick.PushBack({ 677, 364, 63, 101 }, 0.1, 0, 0, 0, 0);
+	Tornado_Kick.PushBack({ 78, 254, 59, 101 }, 0.1, 0, 0, 0, 0);
+	Tornado_Kick.PushBack({ 677, 364, 63, 101 }, 0.1, 0, 0, 0, 0);
+	Tornado_Kick.PushBack({ 78, 254, 59, 101 }, 0.1, 0, 0, 0, 0);
+	Tornado_Kick.PushBack({ 677, 364, 63, 101 }, 0.1, 0, 0, 0, 0);
+	Tornado_Kick.PushBack({ 78, 254, 59, 101 }, 0.1, 0, 0, 0, 0);
+	Tornado_Kick.PushBack({ 677, 364, 63, 101 }, 0.1, 0, 0, 0, 0);
+	Tornado_Kick.PushBack({ 78, 254, 59, 101 }, 0.1, 0, 0, 0, 0);
+	Tornado_Kick.PushBack({ 677, 364, 63, 101 }, 0.1, 0, 0, 0, 0);
+	Tornado_Kick.PushBack({ 78, 254, 59, 101 }, 0.1, 0, 0, 0, 0);
+	Tornado_Kick.PushBack({ 677, 364, 63, 101 }, 0.1, 0, 0, 0, 0);
+	Tornado_Kick.PushBack({ 78, 254, 59, 101 }, 0.1, 0, 0, 0, 0);
+	Tornado_Kick.PushBack({ 677, 364, 63, 101 }, 0.1, 0, 0, 0, 0);
+	Tornado_Kick.PushBack({ 78, 254, 59, 101 }, 0.1, 0, 0, 0, 0);*/
+	////////////////////////////////////////////////////////////////
 	Tornado_Kick.PushBack({ 752, 366, 55, 95 }, 0.1, 0, 0, 0, 0);
 	//IF KING HIT THE ENEMY///////////////////////////////////
 	Tornado_Kick.PushBack({ 824, 376, 95, 81 }, 0.1, 0, 0, 0, 0);
@@ -254,6 +276,8 @@ update_status ModulePlayer::Update()
 			lowkick.Reset();
 			punch.Reset();
 			hadouken.Reset();
+			Tornado_Kick.Reset();
+			Moushuu_Kyaku.Reset();
 			jumping.Reset();
 			punchJump.Reset();
 			punchCrouch.Reset();
@@ -270,6 +294,8 @@ update_status ModulePlayer::Update()
 			lowkick.Reset();
 			punch.Reset();
 			hadouken.Reset();
+			Tornado_Kick.Reset();
+			Moushuu_Kyaku.Reset();
 			jumping.Reset();
 			punchJump.Reset();
 			punchCrouch.Reset();
@@ -286,6 +312,8 @@ update_status ModulePlayer::Update()
 			lowkick.Reset();
 			punch.Reset();
 			hadouken.Reset();
+			Tornado_Kick.Reset();
+			Moushuu_Kyaku.Reset();
 			jumping.Reset();
 			punchJump.Reset();
 			punchCrouch.Reset();
@@ -509,6 +537,31 @@ update_status ModulePlayer::Update()
 			{
 				current_animation = &hadouken;
 			}
+		case ST_TORNADOKICK:
+			if (attack == true)
+			{
+				//App->audio->PlayFX(kingpunch);
+				attack = false;
+			}
+			if (animstart == 0)
+			{
+				current_animation = &Tornado_Kick;
+			}
+			LOG("TORNADOKICK ++++\n");
+			break;
+		case ST_MOUSHUUKYAKU:
+			if (attack == true)
+			{
+				//App->audio->PlayFX(kingpunch);
+				attack = false;
+			}
+			if (animstart == 0)
+			{
+				current_animation = &Moushuu_Kyaku;
+			}
+			LOG("MOUSHUUKYAKU ++++\n");
+			break;
+
 		}
 	}
 	current_state = state;
@@ -652,6 +705,8 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 			case IN_T: state = ST_PUNCH_STANDING, App->input->punch_timer = SDL_GetTicks(); break;
 			case IN_R: state = ST_KICK_STANDING, App->input->kick_timer = SDL_GetTicks(); break;
 			case IN_F: state = ST_HADOUKEN, App->input->hadouken_timer = SDL_GetTicks(); break;
+			case IN_C: state = ST_MOUSHUUKYAKU, App->input->moshuukyaku_timer = SDL_GetTicks(); break;
+			case IN_X: state = ST_TORNADOKICK, App->input->tornadokick_timer = SDL_GetTicks(); break;
 				//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
 
 			}
@@ -669,6 +724,8 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 			case IN_T: state = ST_PUNCH_STANDING, App->input->punch_timer = SDL_GetTicks(); break;
 			case IN_R: state = ST_KICK_STANDING, App->input->kick_timer = SDL_GetTicks(); break;
 			case IN_F: state = ST_HADOUKEN, App->input->hadouken_timer = SDL_GetTicks(); break;
+			case IN_C: state = ST_MOUSHUUKYAKU, App->input->moshuukyaku_timer = SDL_GetTicks(); break;
+			case IN_X: state = ST_TORNADOKICK, App->input->tornadokick_timer = SDL_GetTicks(); break;
 				//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
 
 			}
@@ -686,6 +743,8 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 			case IN_T: state = ST_PUNCH_STANDING, App->input->punch_timer = SDL_GetTicks(); break;
 			case IN_R: state = ST_KICK_STANDING, App->input->kick_timer = SDL_GetTicks(); break;
 			case IN_F: state = ST_HADOUKEN, App->input->hadouken_timer = SDL_GetTicks(); break;
+			case IN_C: state = ST_MOUSHUUKYAKU, App->input->moshuukyaku_timer = SDL_GetTicks(); break;
+			case IN_X: state = ST_TORNADOKICK, App->input->tornadokick_timer = SDL_GetTicks(); break;
 				//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
 
 			}
@@ -862,6 +921,27 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 			break;
 
 		}
+
+		case ST_MOUSHUUKYAKU:
+		{
+			switch (last_input)
+			{
+			case IN_MOUSHUUKYAKU_FINISH: state = ST_IDLE; animstart = 0; attack = true; break;
+			}
+			break;
+
+		}
+
+		case ST_TORNADOKICK:
+		{
+			switch (last_input)
+			{
+			case IN_TORNADOKICK_FINISH: state = ST_IDLE; animstart = 0; attack = true; break;
+			}
+			break;
+
+		}
+		
 		}
 
 

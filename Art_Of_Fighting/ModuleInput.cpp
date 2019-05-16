@@ -110,6 +110,12 @@ bool ModuleInput::external_input()
 			case SDLK_f:
 				inputs.Push(IN_F);
 				break;
+			case SDLK_c:
+				inputs.Push(IN_C);
+				break;
+			case SDLK_x:
+				inputs.Push(IN_X);
+				break;
 			case SDLK_w:
 				up = true;
 				break;
@@ -131,6 +137,12 @@ bool ModuleInput::external_input()
 				break;
 			case SDLK_h:
 				inputs2.Push(IN_H);
+				break;
+			case SDLK_n:
+				inputs2.Push(IN_N);
+				break;
+			case SDLK_m:
+				inputs2.Push(IN_M);
 				break;
 			case SDLK_i:
 				up2 = true;
@@ -249,9 +261,18 @@ bool ModuleInput::external_input()
 		{
 			inputs.Push(IN_R);
 		}
+		//COMBOS PLAYER 1
 		if (SDL_GameControllerGetButton(gGameController2, SDL_CONTROLLER_BUTTON_A) == 1)
 		{
 			inputs.Push(IN_F);
+		}
+		if (SDL_GameControllerGetButton(gGameController2, SDL_CONTROLLER_BUTTON_LEFTSHOULDER) == 1)
+		{
+			inputs.Push(IN_C);
+		}
+		if (SDL_GameControllerGetButton(gGameController2, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == 1)
+		{
+		inputs.Push(IN_X);
 		}
 
 		//PLAYER 2 GAMEPAD BUTTONS
@@ -263,11 +284,19 @@ bool ModuleInput::external_input()
 		{
 			inputs2.Push(IN_U);
 		}
+		//COMBOS PLAYER 2
 		if (SDL_GameControllerGetButton(gGameController, SDL_CONTROLLER_BUTTON_A) == 1)
 		{
 			inputs2.Push(IN_H);
 		}
-
+		if (SDL_GameControllerGetButton(gGameController, SDL_CONTROLLER_BUTTON_LEFTSHOULDER) == 1)
+		{
+			inputs2.Push(IN_N);
+		}
+		if (SDL_GameControllerGetButton(gGameController, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == 1)
+		{
+		inputs2.Push(IN_M);
+		}
 
 		//PLAYER 1
 		if (left && right)
@@ -383,6 +412,24 @@ void ModuleInput::internal_input(p2Qeue<king_inputs>& inputs, p2Qeue<king_inputs
 		}
 	}
 
+	if (moshuukyaku_timer > 0)
+	{
+		if (SDL_GetTicks() - moshuukyaku_timer > MOUSHUUKYAKU_TIME)
+		{
+			inputs.Push(IN_MOUSHUUKYAKU_FINISH);
+			moshuukyaku_timer = 0;
+		}
+	}
+
+	if (tornadokick_timer > 0)
+	{
+		if (SDL_GetTicks() - tornadokick_timer > TORNADOKICK_TIME)
+		{
+			inputs.Push(IN_TORNADOKICK_FINISH);
+			tornadokick_timer = 0;
+		}
+	}
+
 	/*if (beat_timer > 0)
 	{
 	if (SDL_GetTicks() - beat_timer > BEAT_TIME)
@@ -445,6 +492,24 @@ void ModuleInput::internal_input(p2Qeue<king_inputs>& inputs, p2Qeue<king_inputs
 		{
 			inputs2.Push(IN_HADOUKEN_FINISH2);
 			hadouken_timer2 = 0;
+		}
+	}
+
+	if (moshuukyaku_timer2 > 0)
+	{
+		if (SDL_GetTicks() - moshuukyaku_timer2 > MOUSHUUKYAKU_TIME)
+		{
+			inputs2.Push(IN_MOUSHUUKYAKU_FINISH2);
+			moshuukyaku_timer2 = 0;
+		}
+	}
+
+	if (tornadokick_timer2 > 0)
+	{
+		if (SDL_GetTicks() - tornadokick_timer2 > TORNADOKICK_TIME)
+		{
+			inputs2.Push(IN_TORNADOKICK_FINISH2);
+			tornadokick_timer2 = 0;
 		}
 	}
 

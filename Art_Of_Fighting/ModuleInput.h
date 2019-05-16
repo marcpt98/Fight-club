@@ -14,6 +14,8 @@
 #define PUNCH_CROUCH_TIME 320
 #define KICK_CROUCH_TIME 600
 #define HADOUKEN_TIME  550
+#define TORNADOKICK_TIME 600
+#define MOUSHUUKYAKU_TIME 600
 //#define BEAT_TIME  500
 
 enum king_states
@@ -38,7 +40,9 @@ enum king_states
 	ST_KICK_BACKWARD_JUMP,
 	ST_KICK_CROUCH,
 	ST_HIT,
-	ST_HADOUKEN
+	ST_HADOUKEN,
+	ST_MOUSHUUKYAKU,
+	ST_TORNADOKICK
 };
 
 enum king_inputs
@@ -57,6 +61,8 @@ enum king_inputs
 	IN_T,
 	IN_R,
 	IN_F,
+	IN_C,
+	IN_X,
 	IN_JUMP_FINISH,
 	IN_PUNCH_FINISH,
 	IN_PUNCH_CROUCH_FINISH,
@@ -65,6 +71,8 @@ enum king_inputs
 	//IN_DAMAGE_RECEIVED,
 	//IN_DAMAGE_RECEIVED_FINISH,
 	IN_HADOUKEN_FINISH,
+	IN_MOUSHUUKYAKU_FINISH,
+	IN_TORNADOKICK_FINISH,
 
 	// PLAYER 2
 	IN_LEFT_DOWN2,
@@ -80,6 +88,8 @@ enum king_inputs
 	IN_Y,
 	IN_U,
 	IN_H,
+	IN_N,
+	IN_M,
 	IN_JUMP_FINISH2,
 	IN_PUNCH_FINISH2,
 	IN_PUNCH_CROUCH_FINISH2,
@@ -87,7 +97,9 @@ enum king_inputs
 	IN_KICK_CROUCH_FINISH2,
 	//IN_DAMAGE_RECEIVED2,
 	//IN_DAMAGE_RECEIVED_FINISH2,
-	IN_HADOUKEN_FINISH2
+	IN_HADOUKEN_FINISH2,
+	IN_MOUSHUUKYAKU_FINISH2,
+	IN_TORNADOKICK_FINISH2
 };
 
 enum KEY_STATE
@@ -125,11 +137,13 @@ public:
 	p2Qeue<king_inputs> inputs;
 	p2Qeue<king_inputs> inputs2;
 
+	// PLAYER 1
 	bool left = false;
 	bool right = false;
 	bool down = false;
 	bool up = false;
 
+	// PLAYER 2
 	bool left2 = false;
 	bool right2 = false;
 	bool down2 = false;
@@ -137,22 +151,29 @@ public:
 
 	int key = -1;
 
+	// PLAYER 1
 	Uint32 jump_timer = 0;
 	Uint32 punch_timer = 0;
 	Uint32 punch_crouch_timer = 0;
 	Uint32 kick_timer = 0;
 	Uint32 kick_crouch_timer = 0;
 	Uint32 hadouken_timer = 0;
-	Uint32 beat_timer = 0;
+	Uint32 moshuukyaku_timer = 0;
+	Uint32 tornadokick_timer = 0;
+	//Uint32 beat_timer = 0;
 
+	// PLAYER 2
 	Uint32 jump_timer2 = 0;
 	Uint32 punch_timer2 = 0;
 	Uint32 punch_crouch_timer2 = 0;
 	Uint32 kick_timer2 = 0;
 	Uint32 kick_crouch_timer2 = 0;
 	Uint32 hadouken_timer2 = 0;
-	Uint32 beat_timer2 = 0;
+	Uint32 moshuukyaku_timer2 = 0;
+	Uint32 tornadokick_timer2 = 0;
+	//Uint32 beat_timer2 = 0;
 
+	// GAMEPAD
 	const int JOYSTICK_DEAD_ZONE = 8000;
 	SDL_GameController* gGameController = NULL;
 	SDL_GameController* gGameController2 = NULL;
