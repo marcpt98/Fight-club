@@ -63,6 +63,16 @@ ModuleSceneking::ModuleSceneking()
 	beatBy.w = 72;
 	beatBy.h = 13;
 
+	Round1.x = 0;
+	Round1.y = 94;
+	Round1.w = 100;
+	Round1.h = 16;
+
+	Fight.x = 47;
+	Fight.y = 8;
+	Fight.w = 80;
+	Fight.h = 16;
+
 }
 
 ModuleSceneking::~ModuleSceneking()
@@ -87,6 +97,9 @@ bool ModuleSceneking::Start()
 	App->player->Enable();
 	App->player2->Enable();
 	App->collision->Enable();
+	
+	//Start Round 1
+	RoundStart == true;
 
 	graphicsLive = App->textures->Load("media/UI/live.png");
 	graphicsTime = App->textures->Load("media/UI/countdown.png");
@@ -104,8 +117,6 @@ bool ModuleSceneking::Start()
 	font_score = App->fonts->Load("media/UI/numbers.png", "0123456789", 1);
 	timer = 60;
 	starttime = SDL_GetTicks();
-
-	// TODO 4: Try loading "rtype_font3.png" that has two rows to test if all calculations are correct
 
 	return true;
 }
@@ -178,19 +189,32 @@ update_status ModuleSceneking::Update()
 	App->render->BlitWithScale(graphicsUI, 97, 2, &beatBy, 1, 0.0f, 1.0f, TOP_RIGHT);
 	App->render->BlitWithScale(graphicsUI, 278, 2, &beatBy, 1, 0.0f, 1.0f, TOP_RIGHT);
 
+	//Draw Round 1
+	if (RoundStart == true)
+	{
+		App->render->BlitWithScale(graphicsUI, 210, 90, &Round1, 1, 0.0f, 1.0f, TOP_RIGHT);
+	}
 
+	//Draw Fight!
+	
+	//App->render->BlitWithScale(graphicsUI, 210, 90, &Fight, 1, 0.0f, 1.0f, TOP_RIGHT);
+	
 
 	/////////////////////////////////////////////////// Contdown
 
+	//Makes disappear Round1 Rectangle
 	if (matchstart == false)
 	{
-		if (SDL_GetTicks() - starttime >= 4500)
+		if (SDL_GetTicks() - starttime >= 1500)
 		{
 			timertime = SDL_GetTicks();
 			matchstart = true;
+			RoundStart = false;
+			
 		}
 	}
 
+	//Countdown 
 	if (SDL_GetTicks() - timertime >= 1000)
 	{
 		timertime = SDL_GetTicks();

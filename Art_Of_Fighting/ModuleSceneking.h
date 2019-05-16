@@ -38,6 +38,8 @@ public:
 	SDL_Rect picturePlayer;
 	SDL_Rect pictureEnemy;
 	SDL_Rect beatBy;
+	SDL_Rect Round1;
+	SDL_Rect Fight;
 
 	Collider* colliderMap;
 	Collider* colliderMap2;
@@ -59,6 +61,7 @@ public:
 	int starttime;
 	int timertime;
 	bool matchstart = false;
+	bool RoundStart = true;
 };
 
 #endif // __MODULESCENELEVEL_1_H__
