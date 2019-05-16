@@ -158,6 +158,14 @@ update_status ModuleSceneking::Update()
 	{
 		App->fade->FadeToBlack(App->scene_King, App->scene_win, 2);
 	}
+	if (SDL_GameControllerGetButton(App->input->gGameController2, SDL_CONTROLLER_BUTTON_START) == 1)
+	{
+		App->fade->FadeToBlack(App->scene_King, App->scene_win, 2);
+	}
+	if (SDL_GameControllerGetButton(App->input->gGameController, SDL_CONTROLLER_BUTTON_START) == 1)
+	{
+		App->fade->FadeToBlack(App->scene_King, App->scene_win, 2);
+	}
 
 	//Draw life
 	App->render->BlitWithScale(graphicsLive, 138, 15, &liveEmpty, -1, 0.0f, 1.0f, TOP_RIGHT);

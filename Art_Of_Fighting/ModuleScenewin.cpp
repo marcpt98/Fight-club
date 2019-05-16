@@ -67,6 +67,14 @@ update_status ModuleScenewin::Update()
 	{
 		App->fade->FadeToBlack(App->scene_win, App->scene_Welcome, 2);
 	}
+	if (SDL_GameControllerGetButton(App->input->gGameController2, SDL_CONTROLLER_BUTTON_START) == 1)
+	{
+		App->fade->FadeToBlack(App->scene_win, App->scene_Welcome, 2);
+	}
+	if (SDL_GameControllerGetButton(App->input->gGameController, SDL_CONTROLLER_BUTTON_START) == 1)
+	{
+		App->fade->FadeToBlack(App->scene_win, App->scene_Welcome, 2);
+	}
 
 	return UPDATE_CONTINUE;
 }
