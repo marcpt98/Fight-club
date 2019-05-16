@@ -115,7 +115,7 @@ bool ModuleSceneking::Start()
 
 	// TODO 0: Notice how a font is loaded and the meaning of all its arguments 
 	font_score = App->fonts->Load("media/UI/numbers.png", "0123456789", 1);
-	timer = 60;
+	timer = 15;
 	starttime = SDL_GetTicks();
 
 	return true;
@@ -219,9 +219,16 @@ update_status ModuleSceneking::Update()
 	{
 		timertime = SDL_GetTicks();
 		timer--;
-	}
+	} 
 
 	sprintf_s(timer_text, 10, "%d", timer);
+
+	if(timer < 10)
+	{
+		timer_text[2] = timer_text[1];
+		timer_text[1] = timer_text[0];
+		timer_text[0] = '0';
+	}
 
 	App->fonts->BlitText(137, 8, font_score, timer_text);
 
