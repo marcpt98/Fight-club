@@ -537,6 +537,7 @@ update_status ModulePlayer::Update()
 			{
 				current_animation = &hadouken;
 			}
+			break;
 		case ST_TORNADOKICK:
 			if (attack == true)
 			{
