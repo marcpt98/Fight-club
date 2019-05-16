@@ -115,7 +115,7 @@ bool ModuleSceneking::Start()
 
 	// TODO 0: Notice how a font is loaded and the meaning of all its arguments 
 	font_score = App->fonts->Load("media/UI/numbers.png", "0123456789", 1);
-	timer = 15;
+	timer = 60;
 	starttime = SDL_GetTicks();
 
 	return true;
