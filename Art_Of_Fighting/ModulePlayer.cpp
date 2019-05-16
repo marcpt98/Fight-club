@@ -20,9 +20,9 @@ ModulePlayer::ModulePlayer()
 	current_animation = NULL;
 
 	// idle animation (arcade sprite sheet)
-	idle.PushBack({ 7, 10, 54, 104 }, 0.1, 0, 0, 0, 0);
-	idle.PushBack({ 64, 10, 54, 104 }, 0.1, 0, 0, 0, 0);
-	idle.PushBack({ 118, 10, 54, 104 }, 0.1, 0, 0, 0, 0);
+	idle.PushBack({ 118, 10, 54, 104 }, 0.13, 0, 0, 0, 0);
+	idle.PushBack({ 64, 10, 54, 104 }, 0.13, 0, 0, 0, 0);
+	idle.PushBack({ 7, 10, 54, 104 }, 0.13, 0, 0, 0, 0);
 	
 	//jump animation(arcade sprite sheet)
 	jumping.PushBack({ 68,140,48,85 }, 0.1, 0, 0, 0, 0);
@@ -30,15 +30,18 @@ ModulePlayer::ModulePlayer()
 	jumping.PushBack({ 68,140,49,85 }, 0.1, 0, 0, 0, 0);
 
 	// walk forward animation (arcade sprite sheet)
-	forward.PushBack({ 419, 11, 49, 103 }, 0.1, 0, 0, 0, 0);
-	forward.PushBack({ 528, 10, 47, 104 }, 0.1, 0, -2, 0, 0);
-	forward.PushBack({ 474, 10, 48, 104 }, 0.1, 0, +2, 0, 0);
-	forward.PushBack({ 7, 10, 54, 104 }, 0.1, 0, 0, 0, 0);
+	//forward.PushBack({ 7, 10, 54, 104 }, 0.2, 0, 0, 0, 0);   //we do a negative in the y because it goues upside down
+	forward.PushBack({ 420, 11, 49, 103 }, 0.2, 0, -1, 0, 0);
+	forward.PushBack({ 528, 10, 47, 104 }, 0.2, 0, -4, 0, 0);
+	forward.PushBack({ 474, 10, 48, 104 }, 0.2, 0, -2, 0, 0);
+	
+	
 
 	//backawrd animation
-	backward.PushBack({ 419, 11, 49, 103 }, 0.1, 0, 0, 0, 0);
-	backward.PushBack({ 474, 10, 48, 104 }, 0.1, 0, 0, 0, 0);
-	backward.PushBack({ 528, 10, 47, 104 }, 0.1, 0, 0, 0, 0);
+	forward.PushBack({ 7, 10, 54, 104 }, 0.12, 0, 0, 0, 0);
+	backward.PushBack({ 419, 11, 49, 103 }, 0.12, 0, -1, 0, 0);
+	backward.PushBack({ 474, 10, 48, 104 }, 0.12, 0, -3, 0, 0);
+	backward.PushBack({ 528, 10, 47, 104 }, 0.12, 0, 0, 0, 0);
 
 	//punch animation(arcade sprite sheet)
 	punch.PushBack({ 15, 476, 48, 102 }, 0.1, 0, 0, 0, 0);
@@ -54,9 +57,9 @@ ModulePlayer::ModulePlayer()
 	punchCrouch.PushBack({ 335,152,70,73 }, 0.1, 0, 0, 0, 0);
 
 	//kick animation(arcade sprite sheet)
-	kick.PushBack({ 4,593,72,113 }, 0.1, 0, 0, 0, 0);
+	kick.PushBack({ 4,593,72,113 }, 0.1, -5, 0, 0, 0);
 	kick.PushBack({ 96,593,51,112 }, 0.1, 0, 0, 0, 0);
-	kick.PushBack({ 172,593,82,112 }, 0.1, 0, 0, 0, 0);
+	kick.PushBack({ 172,593,82,112 }, 0.05, 30, 0, 0, 0);
 	kick.PushBack({ 264,599,49,102 }, 0.1, 0, 0, 0, 0);
 	kick.PushBack({ 338,607,63,92 }, 0.1, 0, 0, 0, 0);
 
