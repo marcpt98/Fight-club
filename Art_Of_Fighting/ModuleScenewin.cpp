@@ -9,10 +9,13 @@
 #include "ModuleFadeToBlack.h"
 #include "ModuleScenewin.h"
 #include "ModuleWelcomeScreen.h"
+#include "ModuleFonts.h"
+#include <stdio.h>
 
-ModuleScenewin::ModuleScenewin() {
+ModuleScenewin::ModuleScenewin() 
+{
 	winimage = { 0, 0,304,224 };
-	winimage2= { 0, 0,304,224 };
+	winimage2 = { 0, 0,304,224 };
 }
 
 ModuleScenewin::~ModuleScenewin()
@@ -31,6 +34,12 @@ bool ModuleScenewin::Start()
 
 	// TODO 1: Enable (and properly disable) the player module
 	//App->player->Enable();
+
+	//Countdown
+	font_countdown = App->fonts->Load("media/UI/numbers2.png", "0123456789", 1);
+	timer = 9;
+	timertime = SDL_GetTicks();
+	
 	
 	return ret;
 }
@@ -61,6 +70,19 @@ update_status ModuleScenewin::Update()
 	if (App->player2->Life <= App->player->Life) {
 		App->render->Blit(graphics, 0, 0, &winimage);
 	}
+
+	//Countdown
+
+	if (SDL_GetTicks() - timertime >= 1000)
+	{
+		timertime = SDL_GetTicks();
+		timer--;
+	}
+
+	sprintf_s(timer_text, 10, "%d", timer);
+
+	App->fonts->BlitText(184, 64, font_countdown, timer_text);
+
 
 	// TODO 2: make so pressing SPACE the KEN stage is loaded
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)

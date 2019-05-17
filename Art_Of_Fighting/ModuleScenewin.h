@@ -21,6 +21,11 @@ public:
 	SDL_Texture* graphics = nullptr;
 	SDL_Rect winimage;
 	SDL_Rect winimage2;
+
+	char timer_text[10];
+	int font_countdown = -1;
+	int timertime;
+	uint timer;
 	
 };
 #endif // __MODULESCENEWIN_H__
