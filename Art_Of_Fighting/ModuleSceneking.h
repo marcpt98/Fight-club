@@ -40,6 +40,7 @@ public:
 	SDL_Rect beatBy;
 	SDL_Rect Round1;
 	SDL_Rect Fight;
+	SDL_Rect Shadow;
 
 	Collider* colliderMap;
 	Collider* colliderMap2;
@@ -60,6 +61,7 @@ public:
 	uint endingtimer = 0;
 	int starttime;
 	int timertime;
+	int timershadow;
 	bool matchstart = false;
 	bool RoundStart = true;
 };

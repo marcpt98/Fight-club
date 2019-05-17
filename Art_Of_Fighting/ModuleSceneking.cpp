@@ -73,6 +73,13 @@ ModuleSceneking::ModuleSceneking()
 	Fight.w = 80;
 	Fight.h = 16;
 
+	Shadow.x = 46;
+	Shadow.y = 28;
+	Shadow.w = 79;
+	Shadow.h = 15;
+	
+
+
 }
 
 ModuleSceneking::~ModuleSceneking()
@@ -207,8 +214,16 @@ update_status ModuleSceneking::Update()
 	
 	//App->render->BlitWithScale(graphicsUI, 210, 90, &Fight, 1, 0.0f, 1.0f, TOP_RIGHT);
 	
+	//Draw Shadows!
+	if((SDL_GetTicks() - starttime) % 2 == 0)
+	{
+		App->render->Blit(graphicsUI, App->player->position.x-10, 203, &Shadow, 1.0);
+	}
+	else
+	{
+		App->render->Blit(graphicsUI, App->player2->position.x - 10, 203, &Shadow, 1.0);
+	}	
 
-	/////////////////////////////////////////////////// Contdown
 
 	//Makes disappear Round1 Rectangle
 	if (matchstart == false)
