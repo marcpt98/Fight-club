@@ -10,7 +10,7 @@
 #define MAX_KEYS 300
 #define JUMP_TIME 820
 #define PUNCH_TIME 200
-#define KICK_TIME  530
+#define KICK_TIME  820
 #define PUNCH_CROUCH_TIME 320
 #define KICK_CROUCH_TIME 600
 #define HADOUKEN_TIME  550

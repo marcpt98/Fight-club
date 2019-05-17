@@ -20,7 +20,7 @@ private:
 	int animstart = 0;
 	float jumpSpeed = 6;
 	int initialPos;
-	bool attack = true;
+	bool SFXsound = true;
 public:
 	ModulePlayer2();
 	~ModulePlayer2();

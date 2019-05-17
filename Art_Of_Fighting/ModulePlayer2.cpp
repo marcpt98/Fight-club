@@ -54,11 +54,11 @@ ModulePlayer2::ModulePlayer2()
 	punchCrouch.PushBack({ 335,152,70,73 }, 0.1, 0, 0, 0, 0);
 
 	//kick animation(arcade sprite sheet)
-	kick.PushBack({ 4,593,72,113 }, 0.1, 0, 0, 0, 0);
-	kick.PushBack({ 96,593,51,112 }, 0.1, 0, 0, 0, 0);
-	kick.PushBack({ 172,593,82,112 }, 0.1, 0, 0, 0, 0);
-	kick.PushBack({ 264,599,49,102 }, 0.1, 0, 0, 0, 0);
-	kick.PushBack({ 338,607,63,92 }, 0.1, 0, 0, 0, 0);
+	kick.PushBack({ 4,593,72,113 }, 0.16363, 0, 0, 0, 0);
+	kick.PushBack({ 96,593,51,112 }, 0.16363, 0, 0, 36, -3);
+	kick.PushBack({ 172,593,82,112 }, 0.072727, 0, 0, 37, -3);
+	kick.PushBack({ 264,599,49,102 }, 0.065, 0, 0, 14, -3);
+	kick.PushBack({ 338,607,63,92 }, 0.072727, 0, 0, -15, 0);
 
 	lowkick.PushBack({ 84, 478, 56, 101 }, 0.1, 0, 0, 0, 0);
 	lowkick.PushBack({ 151, 478, 49, 101 }, 0.1, 0, 0, 0, 0);
@@ -294,10 +294,10 @@ update_status ModulePlayer2::Update()
 				position.y -= jumpSpeed;
 				current_animation = &jumping;
 
-				if (attack == true)
+				if (SFXsound == true)
 				{
 					App->audio->PlayFX(kingjump);
-					attack = false;
+					SFXsound = false;
 				}
 
 				if (position.y < 140) {
@@ -319,10 +319,10 @@ update_status ModulePlayer2::Update()
 				position.y -= jumpSpeed;
 				position.x += 3;
 
-				if (attack == true)
+				if (SFXsound == true)
 				{
 					App->audio->PlayFX(kingjump);
-					attack = false;
+					SFXsound = false;
 				}
 
 				if (position.y < 120) {
@@ -343,10 +343,10 @@ update_status ModulePlayer2::Update()
 				current_animation = &jumping;
 				position.y -= jumpSpeed;
 
-				if (attack == true)
+				if (SFXsound == true)
 				{
 					App->audio->PlayFX(kingjump);
-					attack = false;
+					SFXsound = false;
 				}
 
 				if (wall) {}
@@ -373,10 +373,10 @@ update_status ModulePlayer2::Update()
 			LOG("CROUCHING ****\n");
 			break;
 		case ST_PUNCH_CROUCH:
-			if (attack == true)
+			if (SFXsound == true)
 			{
 				App->audio->PlayFX(king_punch_crouch);
-				attack = false;
+				SFXsound = false;
 			}
 			if (animstart == 0)
 			{
@@ -386,10 +386,10 @@ update_status ModulePlayer2::Update()
 			LOG("PUNCH CROUCHING **++\n");
 			break;
 		case ST_PUNCH_STANDING:
-			if (attack == true)
+			if (SFXsound == true)
 			{
 				App->audio->PlayFX(kingpunch);
-				attack = false;
+				SFXsound = false;
 			}
 			if (animstart == 0)
 			{
@@ -398,10 +398,10 @@ update_status ModulePlayer2::Update()
 			LOG("PUNCH STANDING ++++\n");
 			break;
 		case ST_PUNCH_NEUTRAL_JUMP:
-			if (attack == true)
+			if (SFXsound == true)
 			{
 				//App->audio->PlayFX(ryopunch);
-				attack = false;
+				SFXsound = false;
 			}
 			if (animstart == 0)
 			{
@@ -417,12 +417,12 @@ update_status ModulePlayer2::Update()
 			break;
 		case ST_KICK_CROUCH:
 			position.x -= 0.5*speed;
-			if (attack == true)
+			if (SFXsound == true)
 			{
 				App->audio->PlayFX(king_punch_crouch);
 				App->audio->PlayFX(slize_sound);
 
-				attack = false;
+				SFXsound = false;
 			}
 			if (animstart == 0)
 			{
@@ -431,10 +431,10 @@ update_status ModulePlayer2::Update()
 			LOG("KICK CROUCHING **--\n");
 			break;
 		case ST_KICK_STANDING:
-			if (attack == true)
+			if (SFXsound == true)
 			{
 				App->audio->PlayFX(kingkick);
-				attack = false;
+				SFXsound = false;
 			}
 			if (animstart == 0)
 			{
@@ -443,10 +443,10 @@ update_status ModulePlayer2::Update()
 			LOG("KICK --\n")
 				break;
 		case ST_KICK_NEUTRAL_JUMP:
-			if (attack == true)
+			if (SFXsound == true)
 			{
 				//App->audio->PlayFX(ryokick);
-				attack = false;
+				SFXsound = false;
 			}
 			if (animstart == 0)
 			{
@@ -504,10 +504,10 @@ update_status ModulePlayer2::Update()
 			}
 			break;
 		case ST_TORNADOKICK:
-			if (attack == true)
+			if (SFXsound == true)
 			{
 				//App->audio->PlayFX(kingpunch);
-				attack = false;
+				SFXsound = false;
 			}
 			if (animstart == 0)
 			{
@@ -516,10 +516,10 @@ update_status ModulePlayer2::Update()
 			LOG("TORNADOKICK ++++\n");
 			break;
 		case ST_MOUSHUUKYAKU:
-			if (attack == true)
+			if (SFXsound == true)
 			{
 				//App->audio->PlayFX(kingpunch);
-				attack = false;
+				SFXsound = false;
 			}
 			if (animstart == 0)
 			{
@@ -536,8 +536,8 @@ update_status ModulePlayer2::Update()
 
 	if ((position.x + 25) >= (App->player->position.x + 25))
 	{
-		App->render->BlitWithScale(graphics, position.x+50, position.y - r->h, r, -1, 1.0f, 1, TOP_RIGHT);
-		ryohitbox->SetPos(position.x+15, position.y - r->h);
+		App->render->BlitWithScale(graphics, position.x + 50 + (-current_animation->pivotx2[current_animation->returnCurrentFrame()]), position.y - r->h + current_animation->pivoty2[current_animation->returnCurrentFrame()], r, -1, 1.0f, 1, TOP_RIGHT);
+		ryohitbox->SetPos(position.x + 15, position.y - r->h);
 
 		if (r == &lowkick.frames[lowkick.last_frame - 1])
 		{
@@ -575,8 +575,9 @@ update_status ModulePlayer2::Update()
 	}
 	else 
 	{
-		App->render->Blit(graphics, position.x, position.y - r->h, r);
+		App->render->Blit(graphics, position.x + (current_animation->pivotx2[current_animation->returnCurrentFrame()]), position.y - r->h + current_animation->pivoty2[current_animation->returnCurrentFrame()], r);
 		ryohitbox->SetPos(position.x, position.y - r->h);
+
 
 		if (r == &lowkick.frames[lowkick.last_frame - 1])
 		{
@@ -714,7 +715,7 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 		{
 			switch (last_input)
 			{
-			case IN_JUMP_FINISH2: state = ST_IDLE; animstart = 0; attack = true; break;
+			case IN_JUMP_FINISH2: state = ST_IDLE; animstart = 0; SFXsound = true; break;
 				//case IN_T: state = ST_PUNCH_NEUTRAL_JUMP;  punch_timer = SDL_GetTicks(); animstart = 0; attack = true; break;
 				//case IN_R: state = ST_KICK_NEUTRAL_JUMP; kick_timer = SDL_GetTicks(); animstart = 0; attack = true; break;
 				//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
@@ -726,7 +727,7 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 		{
 			switch (last_input)
 			{
-			case IN_JUMP_FINISH2: state = ST_IDLE; animstart = 0; attack = true; break;
+			case IN_JUMP_FINISH2: state = ST_IDLE; animstart = 0; SFXsound = true; break;
 				//case IN_T: state = ST_PUNCH_FORWARD_JUMP;  punch_timer = SDL_GetTicks(); break;
 				//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
 
@@ -738,7 +739,7 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 		{
 			switch (last_input)
 			{
-			case IN_JUMP_FINISH2: state = ST_IDLE; animstart = 0; attack = true; break;
+			case IN_JUMP_FINISH2: state = ST_IDLE; animstart = 0; SFXsound = true; break;
 				//case IN_T: state = ST_PUNCH_BACKWARD_JUMP;  punch_timer = SDL_GetTicks(); break;
 				//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
 
@@ -786,7 +787,7 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 		{
 			switch (last_input)
 			{
-			case IN_PUNCH_FINISH2: state = ST_IDLE; animstart = 0; attack = true; break;
+			case IN_PUNCH_FINISH2: state = ST_IDLE; animstart = 0; SFXsound = true; break;
 				//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
 
 
@@ -812,12 +813,12 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 			case IN_PUNCH_CROUCH_FINISH2:
 				if (IN_CROUCH_DOWN2 == true)
 				{
-					state = ST_CROUCH; animstart = 0; attack = true;
+					state = ST_CROUCH; animstart = 0; SFXsound = true;
 
 				}
 				else
 				{
-					state = ST_IDLE; animstart = 0; attack = true;
+					state = ST_IDLE; animstart = 0; SFXsound = true;
 				}
 
 			}
@@ -827,7 +828,7 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 		{
 			switch (last_input)
 			{
-			case IN_KICK_FINISH2: state = ST_IDLE; animstart = 0; attack = true; break;
+			case IN_KICK_FINISH2: state = ST_IDLE; animstart = 0; SFXsound = true; break;
 
 			}
 
@@ -837,7 +838,7 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 		{
 			switch (last_input)
 			{
-			case IN_KICK_FINISH2: state = ST_JUMP_NEUTRAL; animstart = 0; attack = true; break;
+			case IN_KICK_FINISH2: state = ST_JUMP_NEUTRAL; animstart = 0; SFXsound = true; break;
 			case IN_JUMP_FINISH2: state = ST_IDLE; break;
 				//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
 
@@ -851,12 +852,12 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 			case IN_KICK_CROUCH_FINISH2:
 				if (IN_CROUCH_DOWN2 == true)
 				{
-					state = ST_CROUCH; animstart = 0; attack = true;
+					state = ST_CROUCH; animstart = 0; SFXsound = true;
 
 				}
 				else
 				{
-					state = ST_IDLE; animstart = 0; attack = true;
+					state = ST_IDLE; animstart = 0; SFXsound = true;
 				}
 
 			}
@@ -875,7 +876,7 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 		{
 			switch (last_input)
 			{
-			case IN_HADOUKEN_FINISH2: state = ST_IDLE; animstart = 0; Activehadouken = true; attack = true; break;
+			case IN_HADOUKEN_FINISH2: state = ST_IDLE; animstart = 0; Activehadouken = true; SFXsound = true; break;
 			}
 			break;
 
@@ -885,7 +886,7 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 		{
 			switch (last_input)
 			{
-			case IN_MOUSHUUKYAKU_FINISH2: state = ST_IDLE; animstart = 0; attack = true; break;
+			case IN_MOUSHUUKYAKU_FINISH2: state = ST_IDLE; animstart = 0; SFXsound = true; break;
 			}
 			break;
 
@@ -895,7 +896,7 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 		{
 			switch (last_input)
 			{
-			case IN_TORNADOKICK_FINISH2: state = ST_IDLE; animstart = 0; attack = true; break;
+			case IN_TORNADOKICK_FINISH2: state = ST_IDLE; animstart = 0; SFXsound = true; break;
 			}
 			break;
 
