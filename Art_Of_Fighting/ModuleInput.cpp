@@ -252,6 +252,18 @@ bool ModuleInput::external_input()
 
 		}
 
+		//EXIT GAME
+		//PLAYER 1
+		if (SDL_GameControllerGetButton(gGameController2, SDL_CONTROLLER_BUTTON_GUIDE) == 1)
+		{
+			return false;
+		}
+		//PLAYER 2
+		if (SDL_GameControllerGetButton(gGameController, SDL_CONTROLLER_BUTTON_GUIDE) == 1)
+		{
+			return false;
+		}
+
 		//PLAYER 1 GAMEPAD BUTTONS
 		if (SDL_GameControllerGetButton(gGameController2, SDL_CONTROLLER_BUTTON_X) == 1)
 		{

@@ -26,34 +26,24 @@ bool ModuleParticles::Start()
 	graphics = App->textures->Load("media/Spritesheets/king_SpriteSheet.png");
 	
 	//HADOUKEN
-	Hadouken1.anim.PushBack({ 711, 69, 36, 44 }, 0.1, 0, 0, 0, 0);
-	Hadouken2.anim.PushBack({ 763, 74, 30, 39 }, 0.1, 0, 0, 0, 0);
-	Hadouken3.anim.PushBack({ 783, 27, 78, 24 }, 0.1, 0, 0, 0, 0);
-	Hadouken3.anim.PushBack({ 711, 26, 61, 30 }, 0.1, 0, 0, 0, 0);   //Loop animation
-	/*
-	Hadouken1.anim.speed = 0.1f;
-	Hadouken2.anim.speed = 0.1f;
-	Hadouken3.anim.loop = true;
-	Hadouken3.anim.speed = 0.1f;*/
+	Hadouken.anim.PushBack({ 711, 69, 36, 44 }, 0.1, 0, 0, 0, 0);
+	Hadouken.anim.PushBack({ 763, 74, 30, 39 }, 0.1, 0, 0, 0, 0);
+	Hadouken2.anim.PushBack({ 783, 27, 78, 24 }, 0.1, 0, 0, 0, 0);	//Loop animation
+	Hadouken2.anim.PushBack({ 711, 26, 61, 30 }, 0.1, 0, 0, 0, 0);   //Loop animation
 
-	//Hadouken3.speed.y = 0;
+	Hadouken2.anim.loop = true;
+	Hadouken2.life = 3000;
+	Hadouken2.speed.x = +3;
 
 	//HADOUKEN FLIP
+	HadoukenFlip.anim.PushBack({ 942, 175, 36, 44 }, 0.1, 0, 0, 0, 0);
+	HadoukenFlip.anim.PushBack({ 896, 180, 30, 39 }, 0.1, 0, 0, 0, 0);
+	HadoukenFlip2.anim.PushBack({ 828, 133, 78, 24 }, 0.1, 0, 0, 0, 0);	 //Loop animation
+	HadoukenFlip2.anim.PushBack({ 917, 132, 61, 30 }, 0.1, 0, 0, 0, 0);   //Loop animation
 
-	HadoukenFlip1.anim.PushBack({ 942, 175, 36, 44 }, 0.1, 0, 0, 0, 0);
-	HadoukenFlip2.anim.PushBack({ 896, 180, 30, 39 }, 0.1, 0, 0, 0, 0);
-	HadoukenFlip3.anim.PushBack({ 828, 133, 78, 24 }, 0.1, 0, 0, 0, 0);
-	HadoukenFlip3.anim.PushBack({ 917, 132, 61, 30 }, 0.1, 0, 0, 0, 0);   //Loop animation
-
-	/*HadoukenFlip1.anim.speed = 0.1f;
-	HadoukenFlip2.anim.speed = 0.1f;
-	HadoukenFlip3.anim.loop = true;
-	HadoukenFlip3.anim.speed = 0.1f;
-
-	Hadouken3.speed.y = 0;*/
-	
-
-
+	HadoukenFlip2.anim.loop = true;
+	HadoukenFlip2.life = 3000;
+	HadoukenFlip2.speed.x = -3;
 
 	return true;
 }

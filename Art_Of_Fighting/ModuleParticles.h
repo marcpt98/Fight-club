@@ -52,14 +52,12 @@ public:
 
 
 	//HADOUKEN
-	Particle Hadouken1;
+	Particle Hadouken;
 	Particle Hadouken2;
-	Particle Hadouken3;
 
 	//HADOUKEN FLIP
-	Particle HadoukenFlip1;
+	Particle HadoukenFlip;
 	Particle HadoukenFlip2;
-	Particle HadoukenFlip3;
 };
 
 #endif
