@@ -60,6 +60,9 @@ bool ModuleScenewin::CleanUp()
 update_status ModuleScenewin::Update()
 {
 	// Draw everything --------------------------------------	
+	if (timer == 0) {
+		App->fade->FadeToBlack(App->scene_win, App->scene_Welcome, 1);
+	}
 	if (App->player->Life > 0 && App->player2->Life > 0) {
 		App->render->Blit(graphics, 0, 0, &winimage);
 	}

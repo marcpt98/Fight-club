@@ -22,8 +22,8 @@ ModulePlayer::ModulePlayer()
 
 	// idle animation (arcade sprite sheet)                FIXED
 	idle.PushBack({ 118, 10, 54, 104 }, 0.13, 0, 0, 0, 0);
-	idle.PushBack({ 64, 10, 54, 104 }, 0.13, 0, 0, 0, 0);
-	idle.PushBack({ 7, 10, 54, 104 }, 0.13, 0, 0, 0, 0);
+	idle.PushBack({ 64, 10, 54, 104 }, 0.1, 0, 0, 0, 0);
+	idle.PushBack({ 7, 10, 54, 104 }, 0.1, 0, 0, 0, 0);
 
 	//jump animation(arcade sprite sheet)              
 	jumping.PushBack({ 68,140,48,85 }, 0.1, 0, 0, 0, 0);
@@ -45,9 +45,9 @@ ModulePlayer::ModulePlayer()
 	backward.PushBack({ 528, 10, 47, 104 }, 0.12, 0, 0, 0, 0);
 
 	//punch animation(arcade sprite sheet)                  FIXED
-	punch.PushBack({ 15, 476, 48, 102 }, 0.1, 6, 0, 0, 0);
-	punch.PushBack({ 527, 483, 94, 100 }, 0.1, 2, 0, 0, 0);
-	punch.PushBack({ 15, 476, 48, 102 }, 0.1, 0, 0, 0, 0);
+	punch.PushBack({ 15, 476, 48, 102 }, 0.23, 6, 0, 0, 0);
+	punch.PushBack({ 527, 483, 94, 100 }, 0.2, 2, 0, 0, 0);
+	punch.PushBack({ 15, 476, 48, 102 }, 0.2, 0, 0, 0, 0);
 
 	punchJump.PushBack({ 714,141,66,94 }, 0.1, 0, 0, 0, 0);
 	punchJump.PushBack({ 780,157,86,78 }, 0.1, 0, 0, 0, 0);
