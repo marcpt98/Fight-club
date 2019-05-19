@@ -23,7 +23,7 @@ ModuleParticles::~ModuleParticles()
 bool ModuleParticles::Start() 
 {
 	LOG("Loading particles");
-	graphics = App->textures->Load("media/Spritesheets/king_SpriteSheet.png");
+	graphics = App->textures->Load("media/Spritesheets/king_old_spritesheet.png");
 	
 	//HADOUKEN
 	Hadouken.anim.PushBack({ 711, 69, 36, 44 }, 0.1, 0, 0, 0, 0);

@@ -177,7 +177,7 @@ bool ModulePlayer::Start()
 {
 	LOG("Loading player textures");
 	bool ret = true;
-	graphics = App->textures->Load("media/Spritesheets/king_SpriteSheet.png"); // arcade version
+	graphics = App->textures->Load("media/Spritesheets/king_old_spritesheet.png"); // arcade version
 	graphicsWin = App->textures->Load("media/Win/WinPlayer.png");
 
 	kingkick = App->audio->LoadFX("media/FX/king_high_kick.wav");
