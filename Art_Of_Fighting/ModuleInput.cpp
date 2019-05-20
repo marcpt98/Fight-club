@@ -254,12 +254,12 @@ bool ModuleInput::external_input()
 
 		//EXIT GAME
 		//PLAYER 1
-		if (SDL_GameControllerGetButton(gGameController2, SDL_CONTROLLER_BUTTON_GUIDE) == 1)
+		if (SDL_GameControllerGetButton(gGameController2, SDL_CONTROLLER_BUTTON_BACK) == 1)
 		{
 			return false;
 		}
 		//PLAYER 2
-		if (SDL_GameControllerGetButton(gGameController, SDL_CONTROLLER_BUTTON_GUIDE) == 1)
+		if (SDL_GameControllerGetButton(gGameController, SDL_CONTROLLER_BUTTON_BACK) == 1)
 		{
 			return false;
 		}
@@ -272,10 +272,6 @@ bool ModuleInput::external_input()
 		if (SDL_GameControllerGetButton(gGameController2, SDL_CONTROLLER_BUTTON_Y) == 1)
 		{
 			inputs.Push(IN_R);
-		}
-		if (SDL_GameControllerGetButton(gGameController2, SDL_CONTROLLER_BUTTON_B) == 1)
-		{
-			return false;
 		}
 		//COMBOS PLAYER 1
 		if (SDL_GameControllerGetButton(gGameController2, SDL_CONTROLLER_BUTTON_A) == 1)
@@ -299,10 +295,6 @@ bool ModuleInput::external_input()
 		if (SDL_GameControllerGetButton(gGameController, SDL_CONTROLLER_BUTTON_Y) == 1)
 		{
 			inputs2.Push(IN_U);
-		}
-		if (SDL_GameControllerGetButton(gGameController, SDL_CONTROLLER_BUTTON_B) == 1)
-		{
-			return false;
 		}
 		//COMBOS PLAYER 2
 		if (SDL_GameControllerGetButton(gGameController, SDL_CONTROLLER_BUTTON_A) == 1)
