@@ -1,12 +1,13 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleWelcomeScreen.h"
+#include "ModuleCharacterSelect.h"
+#include "ModuleSceneking.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
-#include "ModuleSceneking.h"
 #include "ModuleAudio.h"
 #include "ModulePlayer2.h"
 
@@ -126,15 +127,15 @@ update_status ModuleWelcomeScreen::Update()
 	// TODO 2: make so pressing SPACE the KEN stage is loaded
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{
-		App->fade->FadeToBlack(App->scene_Welcome,App->scene_King, 2);
+		App->fade->FadeToBlack(App->scene_Welcome,App->scene_selection, 2);
 	}
 	if (SDL_GameControllerGetButton(App->input->gGameController2, SDL_CONTROLLER_BUTTON_START) == 1)
 	{
-		App->fade->FadeToBlack(App->scene_Welcome, App->scene_King, 2);
+		App->fade->FadeToBlack(App->scene_Welcome, App->scene_selection, 2);
 	}
 	if (SDL_GameControllerGetButton(App->input->gGameController, SDL_CONTROLLER_BUTTON_START) == 1)
 	{
-		App->fade->FadeToBlack(App->scene_Welcome, App->scene_King, 2);
+		App->fade->FadeToBlack(App->scene_Welcome, App->scene_selection, 2);
 	}
 
 	return UPDATE_CONTINUE;

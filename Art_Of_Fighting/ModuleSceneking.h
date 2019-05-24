@@ -42,8 +42,8 @@ public:
 	SDL_Rect Fight;
 	SDL_Rect Shadow;
 
-	Collider* colliderMap;
-	Collider* colliderMap2;
+	Collider* colliderMap=nullptr;
+	Collider* colliderMap2=nullptr;
 	int Scene_king = 0;
 	float foreground_pos;
 	bool forward;

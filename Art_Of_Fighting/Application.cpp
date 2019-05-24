@@ -7,6 +7,7 @@
 #include "ModulePlayer.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleWelcomeScreen.h"
+#include "ModuleCharacterSelect.h"
 #include "ModuleScenewin.h"
 #include "ModuleAudio.h"
 #include "ModuleParticles.h"
@@ -23,13 +24,14 @@ Application::Application()
 	modules[4] = fonts = new ModuleFonts();
 	modules[5] = scene_King = new ModuleSceneking();
 	modules[6] = scene_Welcome = new ModuleWelcomeScreen();
-	modules[7] = scene_win = new ModuleScenewin();
-	modules[8] = player = new ModulePlayer();
-	modules[9] = player2 = new ModulePlayer2();
-	modules[10] = particles = new ModuleParticles();
-	modules[11] = collision = new ModuleCollision();
-	modules[12] = fade = new ModuleFadeToBlack();
-	modules[13] = audio = new ModuleAudio();
+	modules[7] = scene_selection = new ModuleCharacterSelect();
+	modules[8] = scene_win = new ModuleScenewin();
+	modules[9] = player = new ModulePlayer();
+	modules[10] = player2 = new ModulePlayer2();
+	modules[11] = particles = new ModuleParticles();
+	modules[12] = collision = new ModuleCollision();
+	modules[13] = fade = new ModuleFadeToBlack();
+	modules[14] = audio = new ModuleAudio();
 	
 	
 }	
