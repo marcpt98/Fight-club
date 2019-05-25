@@ -52,6 +52,7 @@ bool Application::Init()
 	// Disable the map that you do not start with
 	scene_King-> Disable();
 	scene_win->Disable();
+	scene_selection->Disable();
 	for(int i = 0; i < NUM_MODULES && ret == true; ++i)
 		ret = modules[i]->Init();
 
