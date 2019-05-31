@@ -232,7 +232,8 @@ update_status ModuleSceneking::Update()
 	}
 
 	//Draw Round 2
-	if (RoundsWinP1 == 1 && RoundsWinP2 == 0 || RoundsWinP2 == 1 && RoundsWinP2 == 0)
+
+	if (Round2Start == true)
 	{
 		App->render->BlitWithScale(graphicsUI, 210, 90, &Round2, 1, 0.0f, 1.0f, TOP_RIGHT);
 	}
@@ -248,6 +249,13 @@ update_status ModuleSceneking::Update()
 
 		}
 		
+	}
+
+	//Makes disappear Round2 Rectangle
+	if (SDL_GetTicks() - starttime >= 1500)
+	{
+		Round2Start = false;
+
 	}
 
 	
@@ -288,6 +296,7 @@ update_status ModuleSceneking::Update()
 		if (RoundsWinP1 == 1 || RoundsWinP2 == 1)
 		{
 			App->fade->FadeToBlack(App->scene_King, App->scene_King, 2);
+			Round2Start = true;
 		}
 
 		if (RoundsWinP1 == 2 || RoundsWinP2 == 2)

@@ -65,6 +65,7 @@ public:
 	int timershadow;
 	bool matchstart = false;
 	bool RoundStart = true;
+	bool Round2Start = false;
 
 	int RoundsWinP1 = 0;
 	int RoundsWinP2 = 0;

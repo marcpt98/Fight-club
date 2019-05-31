@@ -584,9 +584,9 @@ update_status ModulePlayer::Update()
 		App->render->BlitWithScale(graphics, position.x + 50 + (-current_animation->pivotx[current_animation->returnCurrentFrame()]), position.y - r->h + current_animation->pivoty[current_animation->returnCurrentFrame()], r, -1, 1.0f, 1, TOP_RIGHT);
 		ryohitbox->SetPos(position.x + 15 + (-current_animation->pivotx[current_animation->returnCurrentFrame()]), position.y - r->h + current_animation->pivoty[current_animation->returnCurrentFrame()]);
 
-		if (r == &lowkick.frames[lowkick.last_frame - 1])
+		if (r == &kick.frames[kick.last_frame - 5])
 		{
-			kickCollider->SetPos(position.x - 40, position.y - r->h);
+			kickCollider->SetPos(position.x - 65, position.y - r->h);
 
 			kickCollider->Enabled = true;
 		}
@@ -595,27 +595,17 @@ update_status ModulePlayer::Update()
 			kickCollider->Enabled = false;
 		}
 
-		if (r == &punchCrouch.frames[punchCrouch.last_frame - 1])
+		if (r == &punch.frames[punch.last_frame - 1])
 		{
-			punchCrouchCollider->SetPos(position.x - 50, position.y + 30 - r->h);
+			punchCollider->SetPos(position.x - 40, position.y + 12 - r->h);
 
-			punchCrouchCollider->Enabled = true;
+			punchCollider->Enabled = true;
 		}
 		else
 		{
-			punchCrouchCollider->Enabled = false;
+			punchCollider->Enabled = false;
 		}
-
-		if (r == &kickCrouch.frames[kickCrouch.last_frame - 1])
-		{
-			kickCrouchCollider->SetPos(position.x - 50, position.y + 30 - r->h);
-
-			kickCrouchCollider->Enabled = true;
-		}
-		else
-		{
-			kickCrouchCollider->Enabled = false;
-		}
+		
 
 	}
 	else
@@ -627,7 +617,7 @@ update_status ModulePlayer::Update()
 
 		if (r == &kick.frames[kick.last_frame - 5])
 		{
-			kickCollider->SetPos(position.x + 75, position.y - 106);
+			kickCollider->SetPos(position.x + 70, position.y - r->h);
 
 			kickCollider->Enabled = true;
 		}
@@ -645,17 +635,6 @@ update_status ModulePlayer::Update()
 		else
 		{
 			punchCollider->Enabled = false;
-		}
-
-		if (r == &punchCrouch.frames[punchCrouch.last_frame - 1])
-		{
-			punchCrouchCollider->SetPos(position.x + 50, position.y + 30 - r->h);
-
-			punchCrouchCollider->Enabled = true;
-		}
-		else
-		{
-			punchCrouchCollider->Enabled = false;
 		}
 
 		if (r == &kickCrouch.frames[kickCrouch.last_frame - 1])

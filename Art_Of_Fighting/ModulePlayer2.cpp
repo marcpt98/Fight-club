@@ -41,9 +41,9 @@ ModulePlayer2::ModulePlayer2()
 	backward.PushBack({ 528, 10, 47, 104 }, 0.1, 0, 0, 0, 0);
 
 	//punch animation(arcade sprite sheet)
-	punch.PushBack({ 15, 476, 48, 102 }, 0.1, 0, 0, 0, 0);
-	punch.PushBack({ 527, 483, 94, 100 }, 0.1, 0, 0, 0, 0);
-	punch.PushBack({ 15, 476, 48, 102 }, 0.1, 0, 0, 0, 0);
+	punch.PushBack({ 15, 476, 48, 102 }, 0.23, 6, 0, 0, 0);
+	punch.PushBack({ 527, 483, 94, 100 }, 0.2, 2, 0, 0, 0);
+	punch.PushBack({ 15, 476, 48, 102 }, 0.2, 0, 0, 0, 0);
 
 	punchJump.PushBack({ 714,141,66,94 }, 0.1, 0, 0, 0, 0);
 	punchJump.PushBack({ 780,157,86,78 }, 0.1, 0, 0, 0, 0);
@@ -404,7 +404,6 @@ update_status ModulePlayer2::Update()
 		case ST_PUNCH_NEUTRAL_JUMP:
 			if (SFXsound == true)
 			{
-				//App->audio->PlayFX(ryopunch);
 				SFXsound = false;
 			}
 			if (animstart == 0)
@@ -543,49 +542,9 @@ update_status ModulePlayer2::Update()
 		App->render->BlitWithScale(graphics, position.x + 50 + (-current_animation->pivotx2[current_animation->returnCurrentFrame()]), position.y - r->h + current_animation->pivoty2[current_animation->returnCurrentFrame()], r, -1, 1.0f, 1, TOP_RIGHT);
 		ryohitbox->SetPos(position.x + 15, position.y - r->h);
 
-		if (r == &lowkick.frames[lowkick.last_frame - 5])
+		if (r == &kick.frames[kick.last_frame - 5])
 		{
-			kickCollider->SetPos(position.x - 40, position.y - r->h);
-
-			kickCollider->Enabled = true;
-		}
-		else
-		{
-			kickCollider->Enabled = false;
-		}
-
-		if (r == &punchCrouch.frames[punchCrouch.last_frame - 1])
-		{
-			punchCrouchCollider->SetPos(position.x - 50, position.y + 30 - r->h);
-
-			punchCrouchCollider->Enabled = true;
-		}
-		else
-		{
-			punchCrouchCollider->Enabled = false;
-		}
-
-		if (r == &kickCrouch.frames[kickCrouch.last_frame - 1])
-		{
-			kickCrouchCollider->SetPos(position.x - 50, position.y + 30 - r->h);
-
-			kickCrouchCollider->Enabled = true;
-		}
-		else
-		{
-			kickCrouchCollider->Enabled = false;
-		}
-
-	}
-	else 
-	{
-		App->render->Blit(graphics, position.x + (current_animation->pivotx2[current_animation->returnCurrentFrame()]), position.y - r->h + current_animation->pivoty2[current_animation->returnCurrentFrame()], r);
-		ryohitbox->SetPos(position.x, position.y - r->h);
-
-
-		if (r == &lowkick.frames[lowkick.last_frame - 5])
-		{
-			kickCollider->SetPos(position.x + 75, position.y - 105);
+			kickCollider->SetPos(position.x - 65, position.y - r->h);
 
 			kickCollider->Enabled = true;
 		}
@@ -596,7 +555,7 @@ update_status ModulePlayer2::Update()
 
 		if (r == &punch.frames[punch.last_frame - 1])
 		{
-			punchCollider->SetPos(position.x + 50, position.y + 12 - r->h);
+			punchCollider->SetPos(position.x - 40, position.y + 12 - r->h);
 
 			punchCollider->Enabled = true;
 		}
@@ -605,26 +564,35 @@ update_status ModulePlayer2::Update()
 			punchCollider->Enabled = false;
 		}
 
-		if (r == &punchCrouch.frames[punchCrouch.last_frame - 1])
-		{
-			punchCrouchCollider->SetPos(position.x + 50, position.y + 30 - r->h);
+		
 
-			punchCrouchCollider->Enabled = true;
+	}
+	else 
+	{
+		App->render->Blit(graphics, position.x + (current_animation->pivotx2[current_animation->returnCurrentFrame()]), position.y - r->h + current_animation->pivoty2[current_animation->returnCurrentFrame()], r);
+		ryohitbox->SetPos(position.x, position.y - r->h);
+
+
+		if (r == &kick.frames[kick.last_frame - 5])
+		{
+			kickCollider->SetPos(position.x + 70, position.y - r->h);
+
+			kickCollider->Enabled = true;
 		}
 		else
 		{
-			punchCrouchCollider->Enabled = false;
+			kickCollider->Enabled = false;
 		}
 
-		if (r == &kickCrouch.frames[kickCrouch.last_frame - 1])
+		if (r == &punch.frames[punch.last_frame - 1])
 		{
-			kickCrouchCollider->SetPos(position.x + 50, position.y + 30 - r->h);
+			punchCollider->SetPos(position.x + 32, position.y + 12 - r->h);
 
-			kickCrouchCollider->Enabled = true;
+			punchCollider->Enabled = true;
 		}
 		else
 		{
-			kickCrouchCollider->Enabled = false;
+			punchCollider->Enabled = false;
 		}
 	}
 	
@@ -967,9 +935,20 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 		}
 	}
 
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////// KICK HITBOX
+
 	if (kickCollider == c1 && c2->type == COLLIDER_PLAYER)
 	{
-		App->player->Life--;
+		App->player2->Life--;
+
+	}
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////// PUNCH HITBOX
+	if (punchCollider == c1 && c2->type == COLLIDER_PLAYER)
+	{
+		App->player2->Life--;
+		collision = true;
+
 	}
 
 }
