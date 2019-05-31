@@ -185,12 +185,13 @@ bool ModulePlayer2::Start()
 	position.y = 210;
 	initialPos = position.y;
 
+	//Colliders
 	ryohitbox = App->collision->AddCollider({ position.x,position.y, 35, 80 }, COLLIDER_ENEMY, this);
 
-	punchCollider = App->collision->AddCollider({ position.x,position.y, 40, 15 }, COLLIDER_ENEMY, this);
+	punchCollider = App->collision->AddCollider({ position.x,position.y, 60, 15 }, COLLIDER_ENEMY, this);
 	punchCollider->Enabled = false;
 
-	kickCollider = App->collision->AddCollider({ position.x,position.y, 60, 30 }, COLLIDER_ENEMY, this);
+	kickCollider = App->collision->AddCollider({ position.x,position.y, 45, 30 }, COLLIDER_ENEMY, this);
 	kickCollider->Enabled = false;
 
 	punchCrouchCollider = App->collision->AddCollider({ position.x, position.y - 70 , 40, 15 }, COLLIDER_ENEMY, this);
@@ -198,6 +199,9 @@ bool ModulePlayer2::Start()
 
 	kickCrouchCollider = App->collision->AddCollider({ position.x, position.y - 70 , 65, 15 }, COLLIDER_ENEMY, this);
 	kickCrouchCollider->Enabled = false;
+
+	//Initialize Stamina
+	Stamina = 100;
 
 	return ret;
 }
@@ -539,7 +543,7 @@ update_status ModulePlayer2::Update()
 		App->render->BlitWithScale(graphics, position.x + 50 + (-current_animation->pivotx2[current_animation->returnCurrentFrame()]), position.y - r->h + current_animation->pivoty2[current_animation->returnCurrentFrame()], r, -1, 1.0f, 1, TOP_RIGHT);
 		ryohitbox->SetPos(position.x + 15, position.y - r->h);
 
-		if (r == &lowkick.frames[lowkick.last_frame - 1])
+		if (r == &lowkick.frames[lowkick.last_frame - 5])
 		{
 			kickCollider->SetPos(position.x - 40, position.y - r->h);
 
@@ -579,9 +583,9 @@ update_status ModulePlayer2::Update()
 		ryohitbox->SetPos(position.x, position.y - r->h);
 
 
-		if (r == &lowkick.frames[lowkick.last_frame - 1])
+		if (r == &lowkick.frames[lowkick.last_frame - 5])
 		{
-			kickCollider->SetPos(position.x + 40, position.y - r->h);
+			kickCollider->SetPos(position.x + 75, position.y - 105);
 
 			kickCollider->Enabled = true;
 		}
@@ -918,16 +922,6 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 	{
 		wall = true;
 	}
-	if (kickCollider == c1 && c2->type == COLLIDER_PLAYER)
-	{
-		App->player->Life--;
-		if (position.x < App->player->position.x) {
-			App->player->position.x += 5;
-		}
-		else {
-			App->player->position.x -= 5;
-		}
-	}
 
 	if (ryohitbox == c1 && c2->type == COLLIDER_PLAYER)
 	{/*
@@ -972,15 +966,10 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 			speed = 0;
 		}
 	}
-	if (punchCollider == c1 && c2->type == COLLIDER_PLAYER)
+
+	if (kickCollider == c1 && c2->type == COLLIDER_PLAYER)
 	{
 		App->player->Life--;
-		if (position.x < App->player->position.x) {
-			App->player->position.x += 5;
-		}
-		else {
-			App->player->position.x -= 5;
-		}
 	}
 
 }

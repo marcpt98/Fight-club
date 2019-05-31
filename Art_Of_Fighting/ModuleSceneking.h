@@ -39,6 +39,7 @@ public:
 	SDL_Rect pictureEnemy;
 	SDL_Rect beatBy;
 	SDL_Rect Round1;
+	SDL_Rect Round2;
 	SDL_Rect Fight;
 	SDL_Rect Shadow;
 
@@ -64,6 +65,9 @@ public:
 	int timershadow;
 	bool matchstart = false;
 	bool RoundStart = true;
+
+	int RoundsWinP1 = 0;
+	int RoundsWinP2 = 0;
 };
 
 #endif // __MODULESCENELEVEL_1_H__

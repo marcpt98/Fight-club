@@ -192,6 +192,7 @@ bool ModulePlayer::Start()
 	position.y = 210;
 	initialPos = position.y;
 
+	//Coliders
 	ryohitbox = App->collision->AddCollider({ position.x,position.y, 35, 80 }, COLLIDER_PLAYER, this);
 
 	punchCollider = App->collision->AddCollider({ position.x,position.y, 60, 15 }, COLLIDER_PLAYER, this);
@@ -205,6 +206,9 @@ bool ModulePlayer::Start()
 
 	kickCrouchCollider = App->collision->AddCollider({ position.x, position.y - 70 , 65, 15 }, COLLIDER_PLAYER, this);
 	kickCrouchCollider->Enabled = false;
+
+	//Initalize Stamina
+	Stamina = 100;
 
 	return ret;
 }
@@ -621,9 +625,9 @@ update_status ModulePlayer::Update()
 		ryohitbox->SetPos(position.x + (current_animation->pivotx[current_animation->returnCurrentFrame()]), position.y - r->h + current_animation->pivoty[current_animation->returnCurrentFrame()]);
 
 
-		if (r == &kick.frames[kick.last_frame - 1])
+		if (r == &kick.frames[kick.last_frame - 5])
 		{
-			kickCollider->SetPos(position.x + 35, position.y - 106);
+			kickCollider->SetPos(position.x + 75, position.y - 106);
 
 			kickCollider->Enabled = true;
 		}
@@ -1094,11 +1098,13 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		App->player2->Life--;
 		collision = true;
 
-		if ((position.x + 25) >= (App->player2->position.x - 25)) {
+		if ((position.x + 25) >= (App->player2->position.x - 25)) 
+		{
 			App->player2->position.x -= 5;
 		}
 
-		else {
+		else 
+		{
 			if ((App->player2->position.x) <= (App->scene_King->positionlimitright.x + 300)) {
 				App->player2->position.x += 5;
 			}

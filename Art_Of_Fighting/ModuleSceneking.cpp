@@ -68,6 +68,11 @@ ModuleSceneking::ModuleSceneking()
 	Round1.w = 100;
 	Round1.h = 16;
 
+	Round2.x = 0;
+	Round2.y = 110;
+	Round2.w = 104;
+	Round2.h = 16;
+
 	Fight.x = 47;
 	Fight.y = 8;
 	Fight.w = 80;
@@ -105,7 +110,7 @@ bool ModuleSceneking::Start()
 	App->player2->Enable();
 	App->collision->Enable();
 	
-	//Start Round 1
+	
 	RoundStart == true;
 
 	graphicsLive = App->textures->Load("media/UI/live.png");
@@ -204,16 +209,10 @@ update_status ModuleSceneking::Update()
 	App->render->BlitWithScale(graphicsUI, 97, 2, &beatBy, 1, 0.0f, 1.0f, TOP_RIGHT);
 	App->render->BlitWithScale(graphicsUI, 278, 2, &beatBy, 1, 0.0f, 1.0f, TOP_RIGHT);
 
-	//Draw Round 1
-	if (RoundStart == true)
-	{
-		App->render->BlitWithScale(graphicsUI, 210, 90, &Round1, 1, 0.0f, 1.0f, TOP_RIGHT);
-	}
-
 	//Draw Fight!
-	
 	//App->render->BlitWithScale(graphicsUI, 210, 90, &Fight, 1, 0.0f, 1.0f, TOP_RIGHT);
 	
+
 	//Draw Shadows!
 	if((SDL_GetTicks() - starttime) % 2 == 0)
 	{
@@ -225,6 +224,19 @@ update_status ModuleSceneking::Update()
 	}	
 
 
+	//Draw Round 1
+	
+	if (RoundStart == true)
+	{
+		App->render->BlitWithScale(graphicsUI, 210, 90, &Round1, 1, 0.0f, 1.0f, TOP_RIGHT);
+	}
+
+	//Draw Round 2
+	if (RoundsWinP1 == 1 && RoundsWinP2 == 0 || RoundsWinP2 == 1 && RoundsWinP2 == 0)
+	{
+		App->render->BlitWithScale(graphicsUI, 210, 90, &Round2, 1, 0.0f, 1.0f, TOP_RIGHT);
+	}
+
 	//Makes disappear Round1 Rectangle
 	if (matchstart == false)
 	{
@@ -233,9 +245,13 @@ update_status ModuleSceneking::Update()
 			timertime = SDL_GetTicks();
 			matchstart = true;
 			RoundStart = false;
-			
+
 		}
+		
 	}
+
+	
+
 
 	//Countdown 
 	if (SDL_GetTicks() - timertime >= 1000)
@@ -256,29 +272,31 @@ update_status ModuleSceneking::Update()
 	App->fonts->BlitText(137, 8, font_score, timer_text);
 
 
-	if(timer <= 0) {
-		/* if (App->player->Life < App->player2->Life) {
-
+	//System of Rounds
+	if(timer <= 0 || App->player->Life == 0 || App->player2->Life == 0)
+	{
+		
+		if(App->player->Life > App->player2->Life || App->player2->Life == 0)
+		{
+			RoundsWinP1++;
 		}
-		else {
+		if(App->player->Life < App->player2->Life || App->player->Life == 0)
+		{
+			RoundsWinP2++;
+		}
 
-		}*/
+		if (RoundsWinP1 == 1 || RoundsWinP2 == 1)
+		{
+			App->fade->FadeToBlack(App->scene_King, App->scene_King, 2);
+		}
+
+		if (RoundsWinP1 == 2 || RoundsWinP2 == 2)
+		{
 			App->fade->FadeToBlack(App->scene_King, App->scene_win, 2);
-	}
-	/////////////////////////////////////////////////////
-
-	if (App->input->keyboard[SDL_SCANCODE_B] == 1)
-	{
-		App->player->Life--;
-	}
-
-	if (App->input->keyboard[SDL_SCANCODE_V] == 1)
-	{
-		App->player2->Life--;
-	}
-	if (App->player->Life <= 0 || App->player2->Life <= 0)
-	{
-		App->fade->FadeToBlack(App->scene_King, App->scene_win, 2);
+			RoundsWinP1 = 0;
+			RoundsWinP2 = 0;
+		}
+		
 	}
 
 
