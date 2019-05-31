@@ -36,8 +36,6 @@ ModulePlayer::ModulePlayer()
 	forward.PushBack({ 528, 10, 47, 104 }, 0.2, 0, -4, 0, 0);
 	forward.PushBack({ 474, 10, 48, 104 }, 0.2, 0, -2, 0, 0);
 
-
-
 	//backawrd animation                               FIXED
 	forward.PushBack({ 7, 10, 54, 104 }, 0.12, 0, 0, 0, 0);
 	backward.PushBack({ 419, 11, 49, 103 }, 0.12, 0, -1, 0, 0);
@@ -997,6 +995,8 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 			position.x += 2;
 		}
 	}
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////// ATTACKS
 	/////////////////////////////////////////////////////////////////////////////////////// KICK HITBOX
 	if (kickCollider == c1 && c2->type == COLLIDER_ENEMY)
 	{
