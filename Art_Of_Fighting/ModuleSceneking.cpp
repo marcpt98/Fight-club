@@ -110,8 +110,17 @@ bool ModuleSceneking::Start()
 	App->player2->Enable();
 	App->collision->Enable();
 	
-	
-	RoundStart == true;
+
+	if (RoundsWinP1 == 1 && RoundsWinP2 == 0 || RoundsWinP1 == 0 && RoundsWinP2 == 1)
+	{
+		RoundStart = false;
+		Round2Start = true;
+	}
+	else
+	{
+		RoundStart = true;
+		Round2Start = false;
+	}
 
 	graphicsLive = App->textures->Load("media/UI/live.png");
 	graphicsTime = App->textures->Load("media/UI/countdown.png");
@@ -258,8 +267,6 @@ update_status ModuleSceneking::Update()
 
 	}
 
-	
-
 
 	//Countdown 
 	if (SDL_GetTicks() - timertime >= 1000)
@@ -293,10 +300,15 @@ update_status ModuleSceneking::Update()
 			RoundsWinP2++;
 		}
 
-		if (RoundsWinP1 == 1 || RoundsWinP2 == 1)
+		if (RoundsWinP1 == 1 && RoundsWinP2 == 0 || RoundsWinP1 == 0 && RoundsWinP2 == 1)
 		{
 			App->fade->FadeToBlack(App->scene_King, App->scene_King, 2);
-			Round2Start = true;
+		}
+
+		if (RoundsWinP1 == 1 && RoundsWinP2 == 1)
+		{
+			App->fade->FadeToBlack(App->scene_King, App->scene_King, 2);
+			
 		}
 
 		if (RoundsWinP1 == 2 || RoundsWinP2 == 2)
