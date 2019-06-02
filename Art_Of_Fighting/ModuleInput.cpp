@@ -206,7 +206,8 @@ bool ModuleInput::external_input()
 			}
 
 			//Player 2 GAMEPAD
-			if (event.jaxis.which == 1) { //En el gamepad 2
+			if (event.jaxis.which == 1) //En el gamepad 2
+			{ 
 				if (event.jaxis.axis == 0)
 				{
 					//Left of dead zone
@@ -307,7 +308,7 @@ bool ModuleInput::external_input()
 		}
 		if (SDL_GameControllerGetButton(gGameController, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == 1)
 		{
-		inputs2.Push(IN_M);
+			inputs2.Push(IN_M);
 		}
 
 		//PLAYER 1

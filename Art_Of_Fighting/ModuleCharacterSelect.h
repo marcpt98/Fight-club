@@ -21,13 +21,27 @@ public:
 public:
 
 	SDL_Texture* graphics = nullptr;
-	SDL_Texture* graphicsUI = nullptr;
+	SDL_Texture* graphicsSelection = nullptr;
 	SDL_Rect background;
 	SDL_Rect SquareP1;
 	SDL_Rect SquareP2;
 	SDL_Rect SelectPlayer;
+	SDL_Rect Todoh;
+	SDL_Rect Ryo;
+	SDL_Rect Robert;
+	SDL_Rect Jack;
+	SDL_Rect Lee;
+	SDL_Rect King;
+	SDL_Rect Micky;
+	SDL_Rect John;
 
 
+	iPoint a[4][2];
+	iPoint b[4][2];
+	iPoint player1;
+	iPoint player2;
+
+	
 	
 	int welcomeScreenMusic = 0;
 
