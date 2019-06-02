@@ -12,12 +12,28 @@
 
 ModuleCharacterSelect::ModuleCharacterSelect()
 {
+	graphics = NULL;
+	graphicsUI = NULL;
+
 	background.x = 0;
 	background.y = 0;
 	background.h = 224;
 	background.w = 304;
 
+	SquareP1.x = 155;
+	SquareP1.y = 0;
+	SquareP1.w = 28;
+	SquareP1.h = 31;
 
+	SquareP2.x = 127;
+	SquareP2.y = 0;
+	SquareP2.w = 28;
+	SquareP2.h = 31;
+
+	SelectPlayer.x = 0;
+	SelectPlayer.y = 222;
+	SelectPlayer.w = 168;
+	SelectPlayer.h = 13;
 }
 
 ModuleCharacterSelect::~ModuleCharacterSelect()
@@ -28,12 +44,11 @@ bool ModuleCharacterSelect::Start()
 	LOG("Loading background assets");
 	bool ret = true;
 
-	graphics_selection = App->textures->Load("media/CharacterSelection/BackgroundSelection.png");
-	/*introTexture = App->textures->Load("media/WelcomeScreen/introtitle.png");
-	welcomeScreenMusic = App->audio->LoadMusic("media/Music/welcomescreen.ogg");
+	graphics = App->textures->Load("media/CharacterSelection/BackgroundSelection.png");
+	graphicsUI = App->textures->Load("media/UI/ui.png");
 
 	
-	App->audio->PlayMusic(welcomeScreenMusic);*/
+	App->audio->PlayMusic(welcomeScreenMusic);
 
 	App->render->camera.x = 0;
 	App->render->camera.y = 0;
@@ -48,7 +63,8 @@ bool ModuleCharacterSelect::CleanUp()
 	LOG("Unloading honda stage");
 	App->player->Disable();
 	App->player2->Disable();
-	App->textures->Unload(graphics_selection);
+	App->textures->Unload(graphics);
+	App->textures->Unload(graphicsUI);
 	App->audio->UnLoadMusic(welcomeScreenMusic);
 
 
@@ -56,61 +72,16 @@ bool ModuleCharacterSelect::CleanUp()
 	return true;
 }
 
-//void ModuleCharacterSelect::RenderWords()
-//{
-//	/*App->render->BlitWithScale(introTexture, of.position.x, of.position.y, &(of.rect), of.scale, 1.0f, 1.0f, MIDDLE);
-//	App->render->Blit(introTexture, art.position.x, art.position.y, &(art.rect));
-//	App->render->Blit(introTexture, fighting.position.x, fighting.position.y, &(fighting.rect));*/
-//	//App->render->DrawQuad({ 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT }, 255, 255, 255, 255 * (1 - of.scale), true);
-//}
 
 update_status ModuleCharacterSelect::Update()
 {
-	// Draw everything --------------------------------------
-	//switch (animationState)
-	//{
-	//case Enter:
-	//	art.position += finalArtPosition1;
-	//	of.scale += 0.02f;
-	//	step++;
-	//	if (step >= 40)
-	//	{
-	//		animationState = GoBack;
-	//		step = 0;
-	//	}
-	//	RenderWords();
-	//	break;
-	//case GoBack:
-	//	art.position -= finalArtPosition2;
-	//	of.scale += 0.02f;
-	//	fighting.position += {0, -4};
+	
 
-	//	step++;
-	//	if (step >= 20)
-	//	{
-	//		step = 0;
-	//		animationState = Fighting;
-	//	}
-	//	RenderWords();
-	//	break;
-	//case Fighting:
-	//	fighting.position += {0, -7};
-	//	step++;
-	//	if (step >= 20)
-	//	{
-	//		animationState = Done;
-	//	}
-	//	RenderWords();
-	//	break;
-	//case Done:
-	//	//RenderWords();
-	//	App->render->Blit(graphics, 0, 0, &(Welcomeimage.GetCurrentFrame()));
-	//	break;
-	//default:
-	//	break;
-	//}
+	App->render->Blit(graphics, 0, 0, &background, 0.0);
+	App->render->Blit(graphicsUI, 70, 15, &SelectPlayer, 0.0);
+	App->render->Blit(graphicsUI, 96, 151, &SquareP1, 0.0);
+	App->render->Blit(graphicsUI, 96, 182, &SquareP2, 0.0);
 
-	App->render->Blit(graphics_selection, 0, 0, &background);
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{

@@ -20,10 +20,15 @@ public:
 
 public:
 
-	SDL_Texture* graphics_selection = nullptr;
+	SDL_Texture* graphics = nullptr;
+	SDL_Texture* graphicsUI = nullptr;
 	SDL_Rect background;
+	SDL_Rect SquareP1;
+	SDL_Rect SquareP2;
+	SDL_Rect SelectPlayer;
 
-	Animation PlayerSelection;						//to blink the selection
+
+	
 	int welcomeScreenMusic = 0;
 
 private:
