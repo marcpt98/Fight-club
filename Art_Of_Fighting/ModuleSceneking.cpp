@@ -132,19 +132,18 @@ bool ModuleSceneking::Start()
 	App->player2->Enable();
 	App->collision->Enable();
 	
-
-	if (RoundsWinP1 == 1 && RoundsWinP2 == 0 || RoundsWinP1 == 0 && RoundsWinP2 == 1)
-	{
-		RoundStart = false;
-		Round2Start = true;
-		FinalRoundStart = false;
-	} 
-	else if(RoundsWinP1 == 1 && RoundsWinP2 == 1)
+	if (RoundsWinP1 == 1 && RoundsWinP2 == 1)
 	{
 		RoundStart = false;
 		Round2Start = false;
 		FinalRoundStart = true;
 	}
+	else if (RoundsWinP1 == 1 && RoundsWinP2 == 0 || RoundsWinP1 == 0 && RoundsWinP2 == 1)
+	{
+		RoundStart = false;
+		Round2Start = true;
+		FinalRoundStart = false;
+	} 
 	else
 	{
 		RoundStart = true;
