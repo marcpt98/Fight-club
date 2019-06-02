@@ -39,7 +39,6 @@ public:
 
 	int font_score = -1;
 	iPoint position;
-	SDL_Rect player1Win;
 
 	// TEXTURE
 	SDL_Texture* graphics = nullptr;

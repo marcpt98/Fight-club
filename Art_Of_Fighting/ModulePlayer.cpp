@@ -160,11 +160,6 @@ ModulePlayer::ModulePlayer()
 
 	beat.speed = 0.15f;*/
 
-	player1Win.x = 0;
-	player1Win.y = 40;
-	player1Win.w = 116;
-	player1Win.h = 39;
-
 }
 
 ModulePlayer::~ModulePlayer()
@@ -176,7 +171,6 @@ bool ModulePlayer::Start()
 	LOG("Loading player textures");
 	bool ret = true;
 	graphics = App->textures->Load("media/Spritesheets/king_old_spritesheet.png"); // arcade version
-	graphicsWin = App->textures->Load("media/Win/WinPlayer.png");
 
 	kingkick = App->audio->LoadFX("media/FX/king_high_kick.wav");
 	kingpunch = App->audio->LoadFX("media/FX/king_punch.wav");
@@ -651,14 +645,6 @@ update_status ModulePlayer::Update()
 	//ryohitbox->SetPos(position.x, position.y - r->h);
 
 	wall = false;
-
-
-
-	//Graphis PLAYER 1 WIN!
-	if (App->player2->Life <= 0)
-	{
-		App->render->BlitWithScale(graphicsWin, 210, 70, &player1Win, 1, 0.0f, 1.0f, TOP_RIGHT);
-	}
 
 	//Stamina increase
 	if (App->player->Stamina < 100)

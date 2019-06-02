@@ -18,6 +18,11 @@
 
 ModuleSceneking::ModuleSceneking()
 {
+	graphics = NULL;
+	graphicsLive = NULL;
+	graphicsTime = NULL;
+	graphicsUI = NULL;
+
 	background1.x = 0;
 	background1.y = 0;
 	background1.w = 552;
@@ -83,7 +88,20 @@ ModuleSceneking::ModuleSceneking()
 	Shadow.w = 79;
 	Shadow.h = 15;
 	
+	player1Win.x = 0;
+	player1Win.y = 142;
+	player1Win.w = 116;
+	player1Win.h = 40;
 
+	player2Win.x = 0;
+	player2Win.y = 183;
+	player2Win.w = 120;
+	player2Win.h = 40;
+
+	FinalRound.x = 0;
+	FinalRound.y = 126;
+	FinalRound.w = 167;
+	FinalRound.h = 16;
 
 }
 
@@ -97,8 +115,12 @@ bool ModuleSceneking::Start()
 	LOG("Loading ryo scene");
 
 	graphics = App->textures->Load("media/Stages/stage_king.png");
+	graphicsLive = App->textures->Load("media/UI/live.png");
+	graphicsTime = App->textures->Load("media/UI/countdown.png");
+	graphicsUI = App->textures->Load("media/UI/ui.png");
 
 	Scene_king = App->audio->LoadMusic("media/Music/king_stage.ogg");
+
 	App->player->Life = 100;
 	App->player2->Life = 100;
 
@@ -115,16 +137,22 @@ bool ModuleSceneking::Start()
 	{
 		RoundStart = false;
 		Round2Start = true;
+		FinalRoundStart = false;
+	} 
+	else if(RoundsWinP1 == 1 && RoundsWinP2 == 1)
+	{
+		RoundStart = false;
+		Round2Start = false;
+		FinalRoundStart = true;
 	}
 	else
 	{
 		RoundStart = true;
 		Round2Start = false;
+		FinalRoundStart = false;
 	}
 
-	graphicsLive = App->textures->Load("media/UI/live.png");
-	graphicsTime = App->textures->Load("media/UI/countdown.png");
-	graphicsUI = App->textures->Load("media/UI/ui.png");
+	
 
 	positionlimitleft.x = 133;//NEW
 	positionlimitleft.y = -150;//NEW
@@ -247,15 +275,19 @@ update_status ModuleSceneking::Update()
 		App->render->BlitWithScale(graphicsUI, 210, 90, &Round2, 1, 0.0f, 1.0f, TOP_RIGHT);
 	}
 
-	//Makes disappear Round1 Rectangle
+	//Draw FinalRound
+	if (FinalRoundStart == true)
+	{
+		App->render->BlitWithScale(graphicsUI, 240, 90, &FinalRound, 1, 0.0f, 1.0f, TOP_RIGHT);
+	}
+
+	//Initialize Countdown
 	if (matchstart == false)
 	{
 		if (SDL_GetTicks() - starttime >= 1500)
 		{
 			timertime = SDL_GetTicks();
 			matchstart = true;
-			RoundStart = false;
-
 		}
 		
 	}
@@ -263,8 +295,21 @@ update_status ModuleSceneking::Update()
 	//Makes disappear Round2 Rectangle
 	if (SDL_GetTicks() - starttime >= 1500)
 	{
+		RoundStart = false;
+
+	}
+
+	//Makes disappear Round2 Rectangle
+	if (SDL_GetTicks() - starttime >= 1500)
+	{
 		Round2Start = false;
 
+	}
+
+	//Makes disappear FinalRound Rectangle
+	if (SDL_GetTicks() - starttime >= 1500)
+	{
+		FinalRoundStart = false;
 	}
 
 
@@ -286,6 +331,18 @@ update_status ModuleSceneking::Update()
 
 	App->fonts->BlitText(137, 8, font_score, timer_text);
 
+	//Draw Player 1 / Player 2 Win
+
+	if (App->player2->Life == 0)
+	{
+		App->render->BlitWithScale(graphicsUI, 210, 70, &player1Win, 1, 0.0f, 1.0f, TOP_RIGHT);
+		
+	}
+	if (App->player->Life == 0)
+	{
+		App->render->BlitWithScale(graphicsUI, 210, 70, &player2Win, 1, 0.0f, 1.0f, TOP_RIGHT);
+		
+	}
 
 	//System of Rounds
 	if(timer <= 0 || App->player->Life == 0 || App->player2->Life == 0)
@@ -302,18 +359,18 @@ update_status ModuleSceneking::Update()
 
 		if (RoundsWinP1 == 1 && RoundsWinP2 == 0 || RoundsWinP1 == 0 && RoundsWinP2 == 1)
 		{
-			App->fade->FadeToBlack(App->scene_King, App->scene_King, 2);
+			App->fade->FadeToBlack(App->scene_King, App->scene_King, 3);
 		}
 
 		if (RoundsWinP1 == 1 && RoundsWinP2 == 1)
 		{
-			App->fade->FadeToBlack(App->scene_King, App->scene_King, 2);
+			App->fade->FadeToBlack(App->scene_King, App->scene_King, 3);
 			
 		}
 
 		if (RoundsWinP1 == 2 || RoundsWinP2 == 2)
 		{
-			App->fade->FadeToBlack(App->scene_King, App->scene_win, 2);
+			App->fade->FadeToBlack(App->scene_King, App->scene_win, 3);
 			RoundsWinP1 = 0;
 			RoundsWinP2 = 0;
 		}

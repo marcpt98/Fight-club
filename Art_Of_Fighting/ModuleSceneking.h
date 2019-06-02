@@ -40,8 +40,12 @@ public:
 	SDL_Rect beatBy;
 	SDL_Rect Round1;
 	SDL_Rect Round2;
+	SDL_Rect FinalRound;
 	SDL_Rect Fight;
 	SDL_Rect Shadow;
+	SDL_Rect player1Win;
+	SDL_Rect player2Win;
+
 
 	Collider* colliderMap=nullptr;
 	Collider* colliderMap2=nullptr;
@@ -64,8 +68,9 @@ public:
 	int timertime;
 	int timershadow;
 	bool matchstart = false;
-	bool RoundStart = true;
+	bool RoundStart = false;
 	bool Round2Start = false;
+	bool FinalRoundStart = false;
 
 	int RoundsWinP1 = 0;
 	int RoundsWinP2 = 0;

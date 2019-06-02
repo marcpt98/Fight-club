@@ -156,10 +156,6 @@ ModulePlayer2::ModulePlayer2()
 	beat.PushBack({ 866, 750,64,106 });
 	beat.speed = 0.15f;*/
 
-	player2Win.x = 0;
-	player2Win.y = 0;
-	player2Win.w = 120;
-	player2Win.h = 39;
 }
 
 ModulePlayer2::~ModulePlayer2()
@@ -171,7 +167,6 @@ bool ModulePlayer2::Start()
 	LOG("Loading player textures");
 	bool ret = true;
 	graphics = App->textures->Load("media/Spritesheets/king_old_spritesheet.png"); // arcade version
-	graphicsWin = App->textures->Load("media/Win/WinPlayer.png");
 
 	kingkick = App->audio->LoadFX("media/FX/king_high_kick.wav");
 	kingpunch = App->audio->LoadFX("media/FX/king_punch.wav");
@@ -600,13 +595,6 @@ update_status ModulePlayer2::Update()
 	
 	wall = false;
 
-
-
-	//Graphis PLAYER 2 WIN!
-	if (App->player->Life <= 0)
-	{
-		App->render->BlitWithScale(graphicsWin, 210, 70, &player2Win, 1, 0.0f, 1.0f, TOP_RIGHT);
-	}
 
 	//Stamina increase
 	if (App->player2->Stamina < 100)
