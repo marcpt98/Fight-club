@@ -31,8 +31,7 @@ public:
 	bool JumpMax = false;
 	bool JumpMin = false;
 	bool Activehadouken = true;
-	//bool beatanim = false;
-	bool damage = false;
+	bool hit = false;
 	bool collision = false;
 	bool shoot = false;
 public:
@@ -64,6 +63,7 @@ public:
 	Animation lowkick;
 	Animation kickJump;
 	Animation kickCrouch;
+	Animation damage;
 
 	// COLLIDERS
 	Collider *ryohitbox;
