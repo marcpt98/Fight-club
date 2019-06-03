@@ -9,6 +9,7 @@
 #include "ModuleSceneking.h"
 #include "ModuleAudio.h"
 #include "ModulePlayer2.h"
+#include "ModuleVersus.h"
 
 ModuleCharacterSelect::ModuleCharacterSelect()
 {
@@ -378,15 +379,15 @@ update_status ModuleCharacterSelect::Update()
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{
-		App->fade->FadeToBlack(App->scene_selection, App->scene_King, 2);
+		App->fade->FadeToBlack(App->scene_selection, App->scene_versus, 2);
 	}
 	if (SDL_GameControllerGetButton(App->input->gGameController2, SDL_CONTROLLER_BUTTON_START) == 1)
 	{
-		App->fade->FadeToBlack(App->scene_selection, App->scene_King, 2);
+		App->fade->FadeToBlack(App->scene_selection, App->scene_versus, 2);
 	}
 	if (SDL_GameControllerGetButton(App->input->gGameController, SDL_CONTROLLER_BUTTON_START) == 1)
 	{
-		App->fade->FadeToBlack(App->scene_selection, App->scene_King, 2);
+		App->fade->FadeToBlack(App->scene_selection, App->scene_versus, 2);
 	}
 
 	return UPDATE_CONTINUE;
