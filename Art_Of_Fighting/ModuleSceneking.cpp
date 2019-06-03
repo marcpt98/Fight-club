@@ -187,18 +187,34 @@ bool ModuleSceneking::CleanUp()
 // Update: draw background
 update_status ModuleSceneking::Update()
 {
-	
-	distance = ((App->player->position.x + App->player2->position.x) / 2);
-	App->render->camera.x = (distance*-1 +125);
-	
-	if (App->render->camera.x <= -330) {
-		App->render->camera.x = -330;
+	if (Zoom == false) {
+		distance = ((App->player->position.x + App->player2->position.x) / 2);
+		App->render->camera.x = (distance*-1 + 125);
+
+		if (App->render->camera.x <= -330) {
+			App->render->camera.x = -330;
+		}
+		if (App->render->camera.x >= 0) {
+			App->render->camera.x = 0;
+		}
+		colliderMap->SetPos((((App->render->camera.x*-1) - 10)), positionlimitleft.y);//NEW
+		colliderMap2->SetPos((((App->render->camera.x*-1) + 300)), positionlimitleft.y);//NEW
 	}
-	if (App->render->camera.x >= 0) {
-		App->render->camera.x = 0;
+
+
+	if (Zoom == true) {
+		distance = ((App->player->position.x + App->player2->position.x) / 2);
+		App->render->camera.x = (distance*-1);
+
+		if (App->render->camera.x <= -530) {
+			App->render->camera.x = -530;
+		}
+		if (App->render->camera.x >= 0) {
+			App->render->camera.x = 0;
+		}
+		colliderMap->SetPos((((App->render->camera.x*-1) - 10)), positionlimitleft.y);//NEW
+		colliderMap2->SetPos((((App->render->camera.x*-1) + 300)), positionlimitleft.y);//NEW
 	}
-	colliderMap->SetPos((((App->render->camera.x*-1)-10) ), positionlimitleft.y);//NEW
-	colliderMap2->SetPos((((App->render->camera.x*-1) +300) ), positionlimitleft.y);//NEW
 
 	// Draw everything --------------------------------------
 	App->render->Blit(graphics, 0, 0, &background1, 0.75f);
@@ -215,6 +231,10 @@ update_status ModuleSceneking::Update()
 		App->fade->FadeToBlack(App->scene_King, App->scene_win, 2);
 	}
 
+	if (App->scene_King->Zoom == true) {
+		App->scene_King->Zoom = false;   //this works for not making zoom to the UI
+		zoomcounter = true;
+	}
 	//Draw life
 	App->render->BlitWithScale(graphicsLive, 138, 15, &liveEmpty, -1, 0.0f, 1.0f, TOP_RIGHT);
 
@@ -245,6 +265,10 @@ update_status ModuleSceneking::Update()
 	App->render->BlitWithScale(graphicsUI, 97, 2, &beatBy, 1, 0.0f, 1.0f, TOP_RIGHT);
 	App->render->BlitWithScale(graphicsUI, 278, 2, &beatBy, 1, 0.0f, 1.0f, TOP_RIGHT);
 
+	if (zoomcounter == true) {
+		App->scene_King->Zoom = true; //this ALSO works for not making zoom to the UI
+		zoomcounter = false;
+	}
 	//Draw Fight!
 	//App->render->BlitWithScale(graphicsUI, 210, 90, &Fight, 1, 0.0f, 1.0f, TOP_RIGHT);
 	
@@ -375,6 +399,10 @@ update_status ModuleSceneking::Update()
 		}
 		
 	}
+	if (App->player->position.x >= App->player2->position.x - 150 && App->player->position.x <= App->player2->position.x + 150) {
+		Zoom = true;
+	}
+	else(Zoom = false);
 
 
 	return UPDATE_CONTINUE;

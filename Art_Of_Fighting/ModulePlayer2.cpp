@@ -445,9 +445,13 @@ update_status ModulePlayer2::Update()
 	if ((position.x + 25) >= (App->player->position.x + 25))
 	{
 		App->render->BlitWithScale(graphics, position.x + 50 + (-current_animation->pivotx2[current_animation->returnCurrentFrame()]), position.y - r->h + current_animation->pivoty2[current_animation->returnCurrentFrame()], r, -1, 1.0f, 1, TOP_RIGHT);
-		ryohitbox->SetPos(position.x + 15, position.y - r->h);
+		if (App->scene_King->Zoom == false) { ryohitbox->SetPos(position.x + 15, position.y - r->h); }
+		else {
+			ryohitbox->SetPos((position.x + (-current_animation->pivotx2[current_animation->returnCurrentFrame()]))*1.3, position.y - r->h + current_animation->pivoty2[current_animation->returnCurrentFrame()] + 50);
+			//this is the setpos for the zoom
+		}
 
-		if (r == &kick.frames[kick.last_frame - 5])
+		if (r == &kick.frames[kick.last_frame - 5] && App->scene_King->Zoom == false)
 		{
 			kickCollider->SetPos(position.x - 65, position.y - r->h);
 
@@ -458,9 +462,31 @@ update_status ModulePlayer2::Update()
 			kickCollider->Enabled = false;
 		}
 
-		if (r == &punch.frames[punch.last_frame - 1])
+		if (r == &kick.frames[kick.last_frame - 5] && App->scene_King->Zoom == true)
+		{
+			kickCollider->SetPos((position.x - 65)*1.3, position.y - r->h + 40);
+
+			kickCollider->Enabled = true;
+		}
+		else
+		{
+			kickCollider->Enabled = false;
+		}
+
+		if (r == &punch.frames[punch.last_frame - 1] && App->scene_King->Zoom == false)
 		{
 			punchCollider->SetPos(position.x - 40, position.y + 12 - r->h);
+
+			punchCollider->Enabled = true;
+		}
+		else
+		{
+			punchCollider->Enabled = false;
+		}
+
+		if (r == &punch.frames[punch.last_frame - 1] && App->scene_King->Zoom == true)
+		{
+			punchCollider->SetPos((position.x - 40)*1.3, position.y + 12 - r->h + 40);
 
 			punchCollider->Enabled = true;
 		}
@@ -475,10 +501,14 @@ update_status ModulePlayer2::Update()
 	else 
 	{
 		App->render->Blit(graphics, position.x + (current_animation->pivotx2[current_animation->returnCurrentFrame()]), position.y - r->h + current_animation->pivoty2[current_animation->returnCurrentFrame()], r);
-		ryohitbox->SetPos(position.x, position.y - r->h);
+		if (App->scene_King->Zoom == false) { ryohitbox->SetPos(position.x, position.y - r->h); }
+		else {
+			ryohitbox->SetPos((position.x + (current_animation->pivotx[current_animation->returnCurrentFrame()]))*1.3, position.y - r->h + current_animation->pivoty[current_animation->returnCurrentFrame()] + 50);
+
+		}
 
 
-		if (r == &kick.frames[kick.last_frame - 5])
+		if (r == &kick.frames[kick.last_frame - 5] && App->scene_King->Zoom == false)
 		{
 			kickCollider->SetPos(position.x + 70, position.y - r->h);
 
@@ -489,9 +519,31 @@ update_status ModulePlayer2::Update()
 			kickCollider->Enabled = false;
 		}
 
-		if (r == &punch.frames[punch.last_frame - 1])
+		if (r == &kick.frames[kick.last_frame - 5] && App->scene_King->Zoom == true)
+		{
+			kickCollider->SetPos((position.x + 70)*1.3, position.y - r->h + 40);
+
+			kickCollider->Enabled = true;
+		}
+		else
+		{
+			kickCollider->Enabled = false;
+		}
+
+		if (r == &punch.frames[punch.last_frame - 1] && App->scene_King->Zoom == false)
 		{
 			punchCollider->SetPos(position.x + 32, position.y + 12 - r->h);
+
+			punchCollider->Enabled = true;
+		}
+		else
+		{
+			punchCollider->Enabled = false;
+		}
+
+		if (r == &punch.frames[punch.last_frame - 1] && App->scene_King->Zoom == true)
+		{
+			punchCollider->SetPos((position.x + 32)*1.3, position.y + 12 - r->h + 40);
 
 			punchCollider->Enabled = true;
 		}
@@ -510,6 +562,23 @@ update_status ModulePlayer2::Update()
 	if (App->player2->Stamina < 100)
 	{
 		App->player2->Stamina = (App->player2->Stamina + 0.05);
+	}
+
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// HITBOXES AND ZOOM
+	if (App->scene_King->Zoom == true && createnewbighitbox == true) {
+		ryohitbox->to_delete = true;
+		createnewbighitbox2 = true;
+		ryohitbox = App->collision->AddCollider({ position.x,position.y, 55, 100 }, COLLIDER_ENEMY, this);
+		createnewbighitbox = false;
+
+	}
+	if (App->scene_King->Zoom == false && createnewbighitbox2 == true) {
+		ryohitbox->to_delete = true;
+		createnewbighitbox = true;
+		ryohitbox = App->collision->AddCollider({ position.x,position.y, 35, 80 }, COLLIDER_ENEMY, this);
+		createnewbighitbox2 = false;
+
 	}
 
 	return UPDATE_CONTINUE;

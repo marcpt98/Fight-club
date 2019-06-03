@@ -28,6 +28,8 @@ public:
 	bool Start();
 	update_status Update();
 	bool CleanUp();
+	bool createnewbighitbox = true;
+	bool createnewbighitbox2 = false;
 	bool JumpMax = false;
 	bool JumpMin = false;
 	bool Activehadouken = true;

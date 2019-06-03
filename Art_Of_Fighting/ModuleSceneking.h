@@ -67,6 +67,8 @@ public:
 	int starttime;
 	int timertime;
 	int timershadow;
+	bool zoomcounter = false;
+	bool Zoom = false;
 	bool matchstart = false;
 	bool RoundStart = false;
 	bool Round2Start = false;

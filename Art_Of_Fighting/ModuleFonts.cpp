@@ -3,7 +3,7 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModuleFonts.h"
-
+#include "ModuleSceneking.h"
 #include<string.h>
 
 // Constructor
@@ -95,6 +95,7 @@ void ModuleFonts::BlitText(int x, int y, int font_id, const char* text) const
 		for (uint j = 0; j < fonts[font_id].row_chars; ++j) {
 			if (fonts[font_id].table[j] == text[i]) {
 				rect.x = j * fonts[font_id].char_w;
+				App->scene_King->Zoom = false;
 				App->render->Blit(fonts[font_id].graphic, x, y, &rect, false);
 				x += rect.w;
 			}
