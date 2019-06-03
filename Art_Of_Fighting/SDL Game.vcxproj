@@ -14,7 +14,7 @@
     <ProjectGuid>{746CC4C3-787F-4B0E-AA66-E388FE3FF4F6}</ProjectGuid>
     <RootNamespace>Art of Fighting</RootNamespace>
     <ProjectName>Art of Fighting</ProjectName>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -90,6 +90,7 @@
     <ClInclude Include="ModuleSceneking.h" />
     <ClInclude Include="ModuleScenewin.h" />
     <ClInclude Include="ModuleTextures.h" />
+    <ClInclude Include="ModuleVersus.h" />
     <ClInclude Include="ModuleWelcomeScreen.h" />
     <ClInclude Include="ModuleWindow.h" />
     <ClInclude Include="p2Point.h" />
@@ -106,6 +107,7 @@
     <ClCompile Include="ModuleAudio.cpp" />
     <ClCompile Include="ModulePlayer2.cpp" />
     <ClCompile Include="ModuleScenewin.cpp" />
+    <ClCompile Include="ModuleVersus.cpp" />
     <ClCompile Include="ModuleWelcomeScreen.cpp" />
     <ClCompile Include="ModuleFadeToBlack.cpp" />
     <ClCompile Include="ModuleInput.cpp" />

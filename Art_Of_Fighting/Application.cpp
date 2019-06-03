@@ -14,6 +14,7 @@
 #include "ModulePlayer2.h"
 #include "ModuleCollision.h"
 #include "ModuleFonts.h"
+#include "ModuleVersus.h"
 
 Application::Application()
 {
@@ -25,13 +26,15 @@ Application::Application()
 	modules[5] = scene_King = new ModuleSceneking();
 	modules[6] = scene_Welcome = new ModuleWelcomeScreen();
 	modules[7] = scene_selection = new ModuleCharacterSelect();
-	modules[8] = scene_win = new ModuleScenewin();
-	modules[9] = player = new ModulePlayer();
-	modules[10] = player2 = new ModulePlayer2();
-	modules[11] = particles = new ModuleParticles();
-	modules[12] = collision = new ModuleCollision();
-	modules[13] = fade = new ModuleFadeToBlack();
-	modules[14] = audio = new ModuleAudio();
+	modules[8] = scene_versus = new ModuleVersus();
+	modules[9] = scene_win = new ModuleScenewin();
+	modules[10] = player = new ModulePlayer();
+	modules[11] = player2 = new ModulePlayer2();
+	modules[12] = particles = new ModuleParticles();
+	modules[13] = collision = new ModuleCollision();
+	modules[14] = fade = new ModuleFadeToBlack();
+	modules[15] = audio = new ModuleAudio();
+	
 	
 	
 }	
@@ -53,6 +56,7 @@ bool Application::Init()
 	scene_King-> Disable();
 	scene_win->Disable();
 	scene_selection->Disable();
+	scene_versus->Disable();
 	for(int i = 0; i < NUM_MODULES && ret == true; ++i)
 		ret = modules[i]->Init();
 
