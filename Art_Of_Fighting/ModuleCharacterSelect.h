@@ -34,6 +34,14 @@ public:
 	SDL_Rect King;
 	SDL_Rect Micky;
 	SDL_Rect John;
+	SDL_Rect TodohName;
+	SDL_Rect RyoName;
+	SDL_Rect RobertName;
+	SDL_Rect JackName;
+	SDL_Rect LeeName;
+	SDL_Rect KingName;
+	SDL_Rect MickyName;
+	SDL_Rect JohnName;
 
 
 	iPoint a[4][2];

@@ -75,6 +75,46 @@ ModuleCharacterSelect::ModuleCharacterSelect()
 	John.w = 128;
 	John.h = 128;
 
+	TodohName.x = 35;
+	TodohName.y = 126;
+	TodohName.w = 57;
+	TodohName.h = 15;
+
+	RyoName.x = 170;
+	RyoName.y = 124;
+	RyoName.w = 44;
+	RyoName.h = 15;
+
+	RobertName.x = 280;
+	RobertName.y = 120;
+	RobertName.w = 80;
+	RobertName.h = 15;
+
+	JackName.x = 417;
+	JackName.y = 123;
+	JackName.w = 58;
+	JackName.h = 15;
+
+	LeeName.x = 172;
+	LeeName.y = 267;
+	LeeName.w = 42;
+	LeeName.h = 15;
+
+	KingName.x = 288;
+	KingName.y = 267;
+	KingName.w = 53;
+	KingName.h = 15;
+
+	MickyName.x = 395;
+	MickyName.y = 267;
+	MickyName.w = 64;
+	MickyName.h = 15;
+
+	JohnName.x = 34;
+	JohnName.y = 270;
+	JohnName.w = 58;
+	JohnName.h = 15;
+
 	a[0][0] = { 96, 151 };
 	a[0][1] = { 96, 179 };
 	a[1][0] = { 124, 151 };
@@ -251,70 +291,86 @@ update_status ModuleCharacterSelect::Update()
 
 	if(a[player1.x][player1.y] == a[0][0])
 	{
-		App->render->Blit(graphicsSelection, 20, 10, &Todoh, 0.0);
+		App->render->Blit(graphicsSelection, 20, 8, &Todoh, 0.0);
+		App->render->Blit(graphicsSelection, 55, 136, &TodohName, 0.0);
 	}
 	if (a[player1.x][player1.y] == a[1][0])
 	{
 		App->render->Blit(graphicsSelection, 20, 10, &Ryo, 0.0);
+		App->render->Blit(graphicsSelection, 65, 136, &RyoName, 0.0);
 	}
 	if (a[player1.x][player1.y] == a[2][0])
 	{
-		App->render->Blit(graphicsSelection, 20, 10, &Robert, 0.0);
+		App->render->Blit(graphicsSelection, 20, 14, &Robert, 0.0);
+		App->render->Blit(graphicsSelection, 46, 136, &RobertName, 0.0);
 	}
 	if (a[player1.x][player1.y] == a[3][0])
 	{
-		App->render->Blit(graphicsSelection, 20, 10, &Jack, 0.0);
+		App->render->Blit(graphicsSelection, 20, 11, &Jack, 0.0);
+		App->render->Blit(graphicsSelection, 55, 136, &JackName, 0.0);
 	}
 	if (a[player1.x][player1.y] == a[0][1])
 	{
-		App->render->Blit(graphicsSelection, 20, 10, &Lee, 0.0);
+		App->render->Blit(graphicsSelection, 20, 6, &Lee, 0.0);
+		App->render->Blit(graphicsSelection, 60, 136, &LeeName, 0.0);
 	}
 	if (a[player1.x][player1.y] == a[1][1])
 	{
 		App->render->Blit(graphicsSelection, 20, 10, &King, 0.0);
+		App->render->Blit(graphicsSelection, 55, 136, &KingName, 0.0);
 	}
 	if (a[player1.x][player1.y] == a[2][1])
 	{
-		App->render->Blit(graphicsSelection, 20, 10, &Micky, 0.0);
+		App->render->Blit(graphicsSelection, 20, 9, &Micky, 0.0);
+		App->render->Blit(graphicsSelection, 55, 136, &MickyName, 0.0);
 	}
 	if (a[player1.x][player1.y] == a[3][1])
 	{
-		App->render->Blit(graphicsSelection, 20, 10, &John, 0.0);
+		App->render->Blit(graphicsSelection, 20, 5, &John, 0.0);
+		App->render->Blit(graphicsSelection, 55, 136, &JohnName, 0.0);
 	}
 	
 
 	//Blit Portraits Player 2
 	if (b[player2.x][player2.y] == b[0][0])
 	{
-		App->render->BlitWithScale(graphicsSelection, 280, 10, &Todoh, -1, 0.0f, 1.0f, TOP_RIGHT);
+		App->render->BlitWithScale(graphicsSelection, 280, 8, &Todoh, -1, 0.0f, 1.0f, TOP_RIGHT);
+		App->render->Blit(graphicsSelection, 185, 136, &TodohName, 0.0);
 	}
 	if (b[player2.x][player2.y] == b[1][0])
 	{
 		App->render->BlitWithScale(graphicsSelection, 280, 10, &Ryo, -1, 0.0f, 1.0f, TOP_RIGHT);
+		App->render->Blit(graphicsSelection, 195, 136, &RyoName, 0.0);
 	}
 	if (b[player2.x][player2.y] == b[2][0])
 	{
-		App->render->BlitWithScale(graphicsSelection, 280, 10, &Robert, -1, 0.0f, 1.0f, TOP_RIGHT);
+		App->render->BlitWithScale(graphicsSelection, 280, 14, &Robert, -1, 0.0f, 1.0f, TOP_RIGHT);
+		App->render->Blit(graphicsSelection, 176, 136, &RobertName, 0.0);
 	}
 	if (b[player2.x][player2.y] == b[3][0])
 	{
-		App->render->BlitWithScale(graphicsSelection, 280, 10, &Jack, -1, 0.0f, 1.0f, TOP_RIGHT);
+		App->render->BlitWithScale(graphicsSelection, 280, 11, &Jack, -1, 0.0f, 1.0f, TOP_RIGHT);
+		App->render->Blit(graphicsSelection, 185, 136, &JackName, 0.0);
 	}
 	if (b[player2.x][player2.y] == b[0][1])
 	{
-		App->render->BlitWithScale(graphicsSelection, 280, 10, &Lee, -1, 0.0f, 1.0f, TOP_RIGHT);
+		App->render->BlitWithScale(graphicsSelection, 280, 6, &Lee, -1, 0.0f, 1.0f, TOP_RIGHT);
+		App->render->Blit(graphicsSelection, 190, 136, &LeeName, 0.0);
 	}
 	if (b[player2.x][player2.y] == b[1][1])
 	{
 		App->render->BlitWithScale(graphicsSelection, 280, 10, &King, -1, 0.0f, 1.0f, TOP_RIGHT);
+		App->render->Blit(graphicsSelection, 185, 136, &KingName, 0.0);
 	}
 	if (b[player2.x][player2.y] == b[2][1])
 	{
-		App->render->BlitWithScale(graphicsSelection, 280, 10, &Micky, -1, 0.0f, 1.0f, TOP_RIGHT);
+		App->render->BlitWithScale(graphicsSelection, 280, 9, &Micky, -1, 0.0f, 1.0f, TOP_RIGHT);
+		App->render->Blit(graphicsSelection, 185, 136, &MickyName, 0.0);
 	}
 	if (b[player2.x][player2.y] == b[3][1])
 	{
-		App->render->BlitWithScale(graphicsSelection, 280, 10, &John, -1, 0.0f, 1.0f, TOP_RIGHT);
+		App->render->BlitWithScale(graphicsSelection, 280, 5, &John, -1, 0.0f, 1.0f, TOP_RIGHT);
+		App->render->Blit(graphicsSelection, 185, 136, &JohnName, 0.0);
 	}
 
 	App->render->Blit(graphicsSelection, 70, 15, &SelectPlayer, 0.0);
