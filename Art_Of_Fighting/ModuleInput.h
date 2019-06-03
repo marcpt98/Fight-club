@@ -11,8 +11,9 @@
 #define JUMP_TIME 820
 #define PUNCH_TIME 250
 #define KICK_TIME  820
-#define PUNCH_CROUCH_TIME 320
-#define KICK_CROUCH_TIME 600
+#define LOW_KICK_TIME  720
+#define PUNCH_CROUCH_TIME 280
+#define KICK_CROUCH_TIME 320
 #define HADOUKEN_TIME  550
 #define TORNADOKICK_TIME 600
 #define MOUSHUUKYAKU_TIME 600
@@ -35,6 +36,7 @@ enum king_states
 	ST_PUNCH_BACKWARD_JUMP,
 	ST_PUNCH_CROUCH,
 	ST_KICK_STANDING,
+	ST_LOW_KICK_STANDING,
 	ST_KICK_NEUTRAL_JUMP,
 	ST_KICK_FORWARD_JUMP,
 	ST_KICK_BACKWARD_JUMP,
@@ -60,6 +62,7 @@ enum king_inputs
 	IN_V,
 	IN_T,
 	IN_R,
+	IN_D,
 	IN_F,
 	IN_C,
 	IN_X,
@@ -67,6 +70,7 @@ enum king_inputs
 	IN_PUNCH_FINISH,
 	IN_PUNCH_CROUCH_FINISH,
 	IN_KICK_FINISH,
+	IN_LOW_KICK_FINISH,
 	IN_KICK_CROUCH_FINISH,
 	//IN_DAMAGE_RECEIVED,
 	//IN_DAMAGE_RECEIVED_FINISH,
@@ -94,6 +98,7 @@ enum king_inputs
 	IN_PUNCH_FINISH2,
 	IN_PUNCH_CROUCH_FINISH2,
 	IN_KICK_FINISH2,
+	IN_LOW_KICK_FINISH2,
 	IN_KICK_CROUCH_FINISH2,
 	//IN_DAMAGE_RECEIVED2,
 	//IN_DAMAGE_RECEIVED_FINISH2,
@@ -156,6 +161,7 @@ public:
 	Uint32 punch_timer = 0;
 	Uint32 punch_crouch_timer = 0;
 	Uint32 kick_timer = 0;
+	Uint32 low_kick_timer = 0;
 	Uint32 kick_crouch_timer = 0;
 	Uint32 hadouken_timer = 0;
 	Uint32 moshuukyaku_timer = 0;
@@ -167,6 +173,7 @@ public:
 	Uint32 punch_timer2 = 0;
 	Uint32 punch_crouch_timer2 = 0;
 	Uint32 kick_timer2 = 0;
+	Uint32 low_kick_timer2 = 0;
 	Uint32 kick_crouch_timer2 = 0;
 	Uint32 hadouken_timer2 = 0;
 	Uint32 moshuukyaku_timer2 = 0;

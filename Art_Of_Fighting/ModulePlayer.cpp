@@ -57,30 +57,35 @@ ModulePlayer::ModulePlayer()
 	kick.PushBack({ 686,660,62,92 }, 0.072727, -15, 0, 0, 0);
 
 
-	lowkick.PushBack({ 84, 478, 56, 101 }, 0.1, 0, 0, 0, 0);
-	lowkick.PushBack({ 151, 478, 49, 101 }, 0.1, 0, 0, 0, 0);
-	lowkick.PushBack({ 211, 478, 86, 101 }, 0.1, 0, 0, 0, 0);
-	lowkick.PushBack({ 151, 478, 49, 101 }, 0.1, 0, 0, 0, 0);
-	lowkick.PushBack({ 84, 478, 56, 101 }, 0.1, 0, 0, 0, 0);
+	lowkick.PushBack({ 748, 659, 55, 101 }, 0.15, 0, 0, 0, 0);
+	lowkick.PushBack({ 803, 660, 49, 99 }, 0.15, 15, -3, 0, 0);
+	lowkick.PushBack({ 852, 660, 85, 101 }, 0.08, 15, -3, 0, 0);
+	lowkick.PushBack({ 803, 660, 49, 99 }, 0.1, 15, -3, 0, 0);
+	lowkick.PushBack({ 748, 659, 55, 101 }, 0.1, 0, 0, 0, 0);
 
-	kickJump.PushBack({ 561,146,57,89 }, 0.1, 0, 0, 0, 0);											
+	kickJump.PushBack({ 561,146,57,89 }, 0.1, 0, 0, 0, 0);
 	kickJump.PushBack({ 618,149,96,86 }, 0.1, 0, 0, 0, 0);
 	kickJump.PushBack({ 561,146,57,89 }, 0.1, 0, 0, 0, 0);
 
-	kickCrouch.PushBack({ 335,152,70,73 }, 0.1, 0, 0, 0, 0);
-	kickCrouch.PushBack({ 405,157,103,68 }, 0.1, 0, 0, 0, 0);
-	kickCrouch.PushBack({ 335,152,70,73 }, 0.1, 0, 0, 0, 0);
+	kickCrouch.PushBack({ 1033, 660, 68, 72 }, 0.19, 0, 0, 0, 0);
+	kickCrouch.PushBack({ 1101,660,101,68 }, 0.08, -18, 0, 0, 0);
+	kickCrouch.PushBack({ 1033, 660, 68, 72 }, 0.18, 0, 0, 0, 0);
+
+	punchCrouch.PushBack({ 1033, 660, 68, 72 }, 0.15, 0, 0, 0, 0);
+	punchCrouch.PushBack({ 1101,660,101,68 }, 0.08, -15, 0, 0, 0);
+	punchCrouch.PushBack({ 1033, 660, 68, 72 }, 0.15, 0, 0, 0, 0);
 
 	//Hadouken king animation
-	hadouken.PushBack({ 431, 245, 56, 108 }, 0.1, 0, 0, 0, 0);                                   
+	hadouken.PushBack({ 431, 245, 56, 108 }, 0.1, 0, 0, 0, 0);
 	hadouken.PushBack({ 498, 245, 49, 100 }, 0.1, 0, 0, 0, 0);
 	hadouken.PushBack({ 552, 245, 81, 77 }, 0.1, 0, 0, 0, 0);
 	hadouken.PushBack({ 642, 241, 48, 86 }, 0.1, 0, 0, 0, 0);
 	hadouken.PushBack({ 724, 241, 53, 99 }, 0.1, 0, 0, 0, 0);
 
 	//crouch animation
-	crouch.PushBack({ 937, 660,49,91 }, 0.1, 0, 0, 0, 0);
-	crouch.PushBack({ 986, 660,47,73 }, 0.1, 0, 0, 0, 0);
+	crouch.PushBack({ 937, 660,49,91 }, 0.21, 0, 0, 0, 0);
+	crouch.PushBack({ 986, 660,47,73 }, 0.5, 0, 0, 0, 0);
+
 	crouch.loop = false;
 
 	//beat animation
@@ -406,6 +411,19 @@ update_status ModulePlayer::Update()
 			}
 			LOG("KICK --\n")
 				break;
+
+		case ST_LOW_KICK_STANDING:
+			if (SFXsound == true)
+			{
+				App->audio->PlayFX(kingkick);
+				SFXsound = false;
+			}
+			if (animstart == 0)
+			{
+				current_animation = &lowkick;
+			}
+			LOG("KICK --\n")
+				break;
 		case ST_KICK_NEUTRAL_JUMP:
 			if (SFXsound == true)
 			{
@@ -688,6 +706,7 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 			case IN_CROUCH_DOWN: state = ST_CROUCH; break;
 			case IN_T: state = ST_PUNCH_STANDING, App->input->punch_timer = SDL_GetTicks(); break;
 			case IN_R: state = ST_KICK_STANDING, App->input->kick_timer = SDL_GetTicks(); break;
+			case IN_D: state = ST_LOW_KICK_STANDING, App->input->low_kick_timer = SDL_GetTicks(); break;
 			case IN_F: state = ST_HADOUKEN, App->input->hadouken_timer = SDL_GetTicks(); break;
 			case IN_C: state = ST_MOUSHUUKYAKU, App->input->moshuukyaku_timer = SDL_GetTicks(); break;
 			case IN_X: state = ST_TORNADOKICK, App->input->tornadokick_timer = SDL_GetTicks(); break;
@@ -707,6 +726,7 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 			case IN_CROUCH_DOWN: state = ST_CROUCH; break;
 			case IN_T: state = ST_PUNCH_STANDING, App->input->punch_timer = SDL_GetTicks(); break;
 			case IN_R: state = ST_KICK_STANDING, App->input->kick_timer = SDL_GetTicks(); break;
+			case IN_D: state = ST_LOW_KICK_STANDING, App->input->low_kick_timer = SDL_GetTicks(); break;
 			case IN_F: state = ST_HADOUKEN, App->input->hadouken_timer = SDL_GetTicks(); break;
 			case IN_C: state = ST_MOUSHUUKYAKU, App->input->moshuukyaku_timer = SDL_GetTicks(); break;
 			case IN_X: state = ST_TORNADOKICK, App->input->tornadokick_timer = SDL_GetTicks(); break;
@@ -726,6 +746,7 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 			case IN_CROUCH_DOWN: state = ST_CROUCH; break;
 			case IN_T: state = ST_PUNCH_STANDING, App->input->punch_timer = SDL_GetTicks(); break;
 			case IN_R: state = ST_KICK_STANDING, App->input->kick_timer = SDL_GetTicks(); break;
+			case IN_D: state = ST_LOW_KICK_STANDING, App->input->low_kick_timer = SDL_GetTicks(); break;
 			case IN_F: state = ST_HADOUKEN, App->input->hadouken_timer = SDL_GetTicks(); break;
 			case IN_C: state = ST_MOUSHUUKYAKU, App->input->moshuukyaku_timer = SDL_GetTicks(); break;
 			case IN_X: state = ST_TORNADOKICK, App->input->tornadokick_timer = SDL_GetTicks(); break;
@@ -853,6 +874,16 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 			switch (last_input)
 			{
 			case IN_KICK_FINISH: state = ST_IDLE; animstart = 0; SFXsound = true; break;
+
+			}
+
+		}break;
+
+		case ST_LOW_KICK_STANDING:
+		{
+			switch (last_input)
+			{
+			case IN_LOW_KICK_FINISH: state = ST_IDLE; animstart = 0; SFXsound = true; break;
 
 			}
 

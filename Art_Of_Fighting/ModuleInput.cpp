@@ -274,6 +274,10 @@ bool ModuleInput::external_input()
 		{
 			inputs.Push(IN_R);
 		}
+		if (SDL_GameControllerGetButton(gGameController2, SDL_CONTROLLER_BUTTON_B) == 1)
+		{
+			inputs.Push(IN_D);
+		}
 		//COMBOS PLAYER 1
 		if (SDL_GameControllerGetButton(gGameController2, SDL_CONTROLLER_BUTTON_A) == 1)
 		{
@@ -406,10 +410,18 @@ void ModuleInput::internal_input(p2Qeue<king_inputs>& inputs, p2Qeue<king_inputs
 			kick_timer = 0;
 		}
 	}
+	if (low_kick_timer > 0)
+	{
+		if (SDL_GetTicks() - low_kick_timer > LOW_KICK_TIME)
+		{
+			inputs.Push(IN_LOW_KICK_FINISH);
+			low_kick_timer = 0;
+		}
+	}
 
 	if (kick_crouch_timer > 0)
 	{
-		if (SDL_GetTicks() - kick_crouch_timer > KICK_TIME)
+		if (SDL_GetTicks() - kick_crouch_timer > KICK_CROUCH_TIME)
 		{
 			inputs.Push(IN_KICK_CROUCH_FINISH);
 			kick_crouch_timer = 0;
@@ -492,7 +504,7 @@ void ModuleInput::internal_input(p2Qeue<king_inputs>& inputs, p2Qeue<king_inputs
 
 	if (kick_crouch_timer2 > 0)
 	{
-		if (SDL_GetTicks() - kick_crouch_timer2 > KICK_TIME)
+		if (SDL_GetTicks() - kick_crouch_timer2 > KICK_CROUCH_TIME)
 		{
 			inputs2.Push(IN_KICK_CROUCH_FINISH2);
 			kick_crouch_timer2 = 0;

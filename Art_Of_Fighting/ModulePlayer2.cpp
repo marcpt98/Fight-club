@@ -76,7 +76,7 @@ bool ModulePlayer2::Start()
 {
 	LOG("Loading player textures");
 	bool ret = true;
-	graphics = App->textures->Load("media/Spritesheets/king_Spritesheet_1.png"); // arcade version
+	graphics = App->textures->Load("media/Spritesheets/king_Spritesheet_2.png"); // arcade version
 
 	kingkick = App->audio->LoadFX("media/FX/king_high_kick.wav");
 	kingpunch = App->audio->LoadFX("media/FX/king_punch.wav");
