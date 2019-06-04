@@ -40,7 +40,7 @@ update_status ModuleFadeToBlack::Update()
 			{
 				// TODO 3: enable / disable the modules received when FadeToBlacks() gets called
 				off_module->Disable();
-				App->textures->CleanUp();
+				//App->textures->CleanUp();
 				on_module->Enable();
 				// ---
 				total_time += total_time;
