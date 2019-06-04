@@ -8,7 +8,7 @@
 #include "ModuleParticles.h"
 #include "SDL/include/SDL_timer.h"
 #include <math.h>
-#include "ModuleCollision.h"
+#include "ModuleSceneking.h"
 
 ModuleParticles::ModuleParticles()
 {
@@ -82,7 +82,8 @@ update_status  ModuleParticles::Update()
 		}
 		else if (SDL_GetTicks() >= p->born)
 		{
-			App->render->Blit(graphics, p->position.x, p->position.y, &(p->anim.GetCurrentFrame()));
+			if (App->scene_King->Zoom==false) { App->render->Blit(graphics, p->position.x, p->position.y, &(p->anim.GetCurrentFrame())); }
+			else{ App->render->Blit(graphics, p->position.x/1.3, p->position.y/1.3, &(p->anim.GetCurrentFrame())); }
 			if (p->fx_played == false)
 			{
 				p->fx_played = true;
@@ -102,8 +103,14 @@ void ModuleParticles::AddParticle(const Particle& particle, int x, int y,COLLIDE
 		{
 			Particle* p = new Particle(particle);
 			p->born = SDL_GetTicks() + delay;
-			p->position.x = x;
-			p->position.y = y;
+			if (App->scene_King->Zoom == false) {
+				p->position.x = x;
+				p->position.y = y;
+			}
+			else {
+				p->position.x = x*1.3;              // this is for the hitbox of the hadouken
+				p->position.y = y*1.3;
+			}
 			if (collider_type != COLLIDER_NONE)
 				p->collider = App->collision->AddCollider(p->anim.GetCurrentFrame(), collider_type, this);
 			active[i] = p;

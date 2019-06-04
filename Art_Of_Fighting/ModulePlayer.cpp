@@ -477,7 +477,8 @@ update_status ModulePlayer::Update()
 					{
 						App->particles->Hadouken2.speed.x = +8;
 						App->particles->AddParticle(App->particles->Hadouken, position.x + 10, position.y - 60, COLLIDER_PLAYER_SHOT);
-						App->particles->AddParticle(App->particles->Hadouken2, position.x + 10, position.y - 60, COLLIDER_PLAYER_SHOT);
+						App->particles->AddParticle(App->particles->Hadouken2, position.x + 10, position.y - 60, COLLIDER_PLAYER_SHOT); 
+				
 					}
 					shoot = false;
 				}
