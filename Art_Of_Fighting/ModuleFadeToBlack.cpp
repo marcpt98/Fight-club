@@ -3,6 +3,7 @@
 #include "Application.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleRender.h"
+#include "ModuleTextures.h"
 #include "SDL/include/SDL_render.h"
 #include "SDL/include/SDL_timer.h"
 
@@ -39,6 +40,7 @@ update_status ModuleFadeToBlack::Update()
 			{
 				// TODO 3: enable / disable the modules received when FadeToBlacks() gets called
 				off_module->Disable();
+				App->textures->CleanUp();
 				on_module->Enable();
 				
 				// ---
@@ -78,6 +80,5 @@ bool ModuleFadeToBlack::FadeToBlack(Module* module_off, Module* module_on, float
 		total_time = (Uint32)(time * 0.5f * 1000.0f);
 		ret = true;
 	}
-
 	return ret;
 }

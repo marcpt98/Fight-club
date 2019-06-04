@@ -46,6 +46,7 @@ bool ModuleTextures::CleanUp()
 		if (textures[i] != nullptr)
 			SDL_DestroyTexture(textures[i]);
 
+	last_texture = 0;
 	IMG_Quit();
 	return true;
 }
