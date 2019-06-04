@@ -54,7 +54,9 @@ bool ModuleVersus::Start()
 
 	
 	versusFX = App->audio->LoadFX("media/FX/Versus.wav");
-	
+	versusMusic = App->audio->LoadMusic("media/Music/Versus.ogg");
+
+	App->audio->PlayMusic(versusMusic);
 
 	App->render->camera.x = 0;
 	App->render->camera.y = 0;
@@ -73,6 +75,7 @@ bool ModuleVersus::CleanUp()
 	App->textures->Unload(graphics);
 	App->textures->Unload(graphicsKing);
 	App->audio->UnLoadFX(versusFX);
+	App->audio->UnLoadMusic(versusMusic);
 
 
 

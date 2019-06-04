@@ -10,6 +10,7 @@
 #include "ModuleScenewin.h"
 #include "ModuleWelcomeScreen.h"
 #include "ModuleFonts.h"
+#include "ModuleAudio.h"
 #include <stdio.h>
 
 ModuleScenewin::ModuleScenewin() 
@@ -28,6 +29,10 @@ bool ModuleScenewin::Start()
 	bool ret = true;
  	graphics = App->textures->Load("media/Win/WinCondition.png");
 	graphics2 = App->textures->Load("media/Win/WinCondition_P2.png");
+
+	winLoseMusic = App->audio->LoadMusic("media/Music/SceneWinLose.ogg");
+
+	App->audio->PlayMusic(winLoseMusic);
 
 	App->render->camera.x = 0;
 	App->render->camera.y = 0;
@@ -54,6 +59,7 @@ bool ModuleScenewin::CleanUp()
 	App->player2->Disable();
 	App->textures->Unload(graphics);
 	App->textures->Unload(graphics2);
+	App->audio->UnLoadMusic(winLoseMusic);
 	return true;
 }
 

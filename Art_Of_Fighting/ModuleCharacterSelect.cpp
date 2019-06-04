@@ -149,7 +149,7 @@ bool ModuleCharacterSelect::Start()
 
 	graphics = App->textures->Load("media/CharacterSelection/BackgroundSelection.png");
 	graphicsSelection = App->textures->Load("media/CharacterSelection/portraits.png");
-
+	welcomeScreenMusic = App->audio->LoadMusic("media/Music/SelectPlayer.ogg");
 	
 	App->audio->PlayMusic(welcomeScreenMusic);
 

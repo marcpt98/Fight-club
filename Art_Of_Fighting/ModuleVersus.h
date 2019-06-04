@@ -40,6 +40,7 @@ public:
 	SDL_Texture* graphicsKing = nullptr;
 	SDL_Rect background;
 	int versusFX = 0;
+	int versusMusic = 0;
 	int kingFX = 0;
 	int kingFX2 = 0;
 	bool firstFX = false;

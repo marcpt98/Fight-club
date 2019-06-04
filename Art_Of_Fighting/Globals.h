@@ -29,7 +29,7 @@ typedef unsigned int uint;
 #define WIN_FULLSCREEN 0
 #define WIN_FULLSCREEN_DESKTOP 2
 #define WIN_BORDERLESS 0
-#define WIN_RESIZABLE 0
+#define WIN_RESIZABLE 1
 #define REN_VSYNC 1
 
 #endif // __GLOBALS_H__

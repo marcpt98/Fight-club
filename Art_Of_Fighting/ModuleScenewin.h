@@ -26,6 +26,8 @@ public:
 	int font_countdown = -1;
 	int timertime;
 	uint timer;
+
+	int winLoseMusic = 0;
 	
 };
 #endif // __MODULESCENEWIN_H__
