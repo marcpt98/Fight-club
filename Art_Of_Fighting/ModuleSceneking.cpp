@@ -399,7 +399,7 @@ update_status ModuleSceneking::Update()
 		}
 		
 	}
-	if (App->player->position.x >= App->player2->position.x - 150 && App->player->position.x <= App->player2->position.x + 150) {
+	if (App->player->position.x >= App->player2->position.x - 120 && App->player->position.x <= App->player2->position.x + 120) {
 		Zoom = true;
 	}
 	else(Zoom = false);
