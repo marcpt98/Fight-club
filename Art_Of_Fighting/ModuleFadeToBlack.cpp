@@ -42,7 +42,6 @@ update_status ModuleFadeToBlack::Update()
 				off_module->Disable();
 				App->textures->CleanUp();
 				on_module->Enable();
-				
 				// ---
 				total_time += total_time;
 				start_time = SDL_GetTicks();

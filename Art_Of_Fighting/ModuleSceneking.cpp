@@ -382,18 +382,18 @@ update_status ModuleSceneking::Update()
 
 		if (RoundsWinP1 == 1 && RoundsWinP2 == 0 || RoundsWinP1 == 0 && RoundsWinP2 == 1)
 		{
-			App->fade->FadeToBlack(App->scene_King, App->scene_King, 3);
+			App->fade->FadeToBlack(App->scene_King, App->scene_King, 2);
 		}
 
 		if (RoundsWinP1 == 1 && RoundsWinP2 == 1)
 		{
-			App->fade->FadeToBlack(App->scene_King, App->scene_King, 3);
+			App->fade->FadeToBlack(App->scene_King, App->scene_King, 2);
 			
 		}
 
 		if (RoundsWinP1 == 2 || RoundsWinP2 == 2)
 		{
-			App->fade->FadeToBlack(App->scene_King, App->scene_win, 3);
+			App->fade->FadeToBlack(App->scene_King, App->scene_win, 2);
 			RoundsWinP1 = 0;
 			RoundsWinP2 = 0;
 		}
