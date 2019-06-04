@@ -203,8 +203,8 @@ update_status ModuleSceneking::Update()
 
 
 	if (Zoom == true) {
-		distance = ((App->player->position.x + App->player2->position.x) / 2);
-		App->render->camera.x = (distance*-1);
+		camera2= ((App->player->position.x + App->player2->position.x) / 2);
+		App->render->camera.x = ((camera2*-1+90)*1.3);
 
 		if (App->render->camera.x <= -530) {
 			App->render->camera.x = -530;

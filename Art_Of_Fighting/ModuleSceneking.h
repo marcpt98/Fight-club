@@ -67,6 +67,7 @@ public:
 	int starttime;
 	int timertime;
 	int timershadow;
+	float camera2 = 0;
 	bool zoomcounter = false;
 	bool Zoom = false;
 	bool matchstart = false;
