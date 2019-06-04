@@ -67,9 +67,9 @@ ModulePlayer2::ModulePlayer2()
 	crouch.loop = false;
 
 	//charge animation
-	charge.PushBack({ 358,892,51,100 }, 0.1, 0, 0, 0, 0);
-	charge.PushBack({ 414,892,54,102 }, 0.1, 0, 0, 0, 0);
-	charge.PushBack({ 473,892,63,103 }, 0.1, 0, 0, 0, 0);
+	charge.PushBack({ 358,892,51,100 }, 0.2, 0, 0, 0, 0);
+	charge.PushBack({ 414,892,54,102 }, 0.2, 0, 0, 0, 0);
+	charge.PushBack({ 473,892,63,103 }, 0.2, 0, 0, 0, 0);
 	charge.loop = false;
 
 }
@@ -91,6 +91,7 @@ bool ModulePlayer2::Start()
 	slize_sound = App->audio->LoadFX("media/FX/slize_sound.wav");
 	kingKoOuKen = App->audio->LoadFX("media/FX/king_haduken.wav");
 	ryoKoOuKensound = App->audio->LoadFX("media/FX/ryoKoOuKensound.wav");
+	kingcharge = App->audio->LoadFX("media/FX/king_charge.wav");
 
 	position.x = 420;
 	position.y = 210;
@@ -129,6 +130,7 @@ bool ModulePlayer2::CleanUp()
 	App->audio->UnLoadFX(king_punch_crouch);
 	App->audio->UnLoadFX(slize_sound);
 	App->audio->UnLoadFX(kingKoOuKen);
+	App->audio->UnLoadFX(kingcharge);
 
 	return true;
 }
@@ -382,13 +384,18 @@ update_status ModulePlayer2::Update()
 			current_animation = &App->player2->beat;
 			break;*/
 		case ST_CHARGE:
-			if (SFXsound == true)
+			if (Stamina < 99)
 			{
-				//App->audio->PlayFX(kingkick);
-				SFXsound = false;
+				if (SFXsound == true)
+				{
+					App->audio->PlayFX(kingcharge);
+					SFXsound = false;
+				}
+				current_animation = &charge;
+
+				Stamina++;
 			}
-			current_animation = &charge;
-			LOG("CHARGE2 --\n")
+			LOG("CHARGE --\n")
 				break;
 		case ST_HADOUKEN:
 			if (Activehadouken == true)

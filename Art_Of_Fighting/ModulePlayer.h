@@ -94,6 +94,7 @@ public:
 	int slize_sound = 0;
 	int kingKoOuKen = 0;
 	int ryoKoOuKensound = 0;
+	int kingcharge = 0;
 	
 	int GodMode = false;
 	int printMode = false;
