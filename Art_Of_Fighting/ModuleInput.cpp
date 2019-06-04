@@ -78,6 +78,10 @@ bool ModuleInput::external_input()
 				inputs.Push(IN_RIGHT_UP);
 				right = false;
 				break;
+			case SDLK_v:
+				inputs.Push(IN_CHARGE_UP);
+				charge = false;
+				break;
 				//PLAYER 2
 			case SDLK_k:
 				inputs2.Push(IN_CROUCH_UP2);
@@ -93,6 +97,10 @@ bool ModuleInput::external_input()
 			case SDLK_l:
 				inputs2.Push(IN_RIGHT_UP2);
 				right2 = false;
+				break;
+			case SDLK_b:
+				inputs2.Push(IN_CHARGE_UP2);
+				charge2 = false;
 				break;
 			}
 		}
@@ -118,6 +126,9 @@ bool ModuleInput::external_input()
 				break;
 			case SDLK_w:
 				up = true;
+				break;
+			case SDLK_v:
+				charge = true;
 				break;
 			case SDLK_s:
 				down = true;
@@ -155,6 +166,9 @@ bool ModuleInput::external_input()
 				break;
 			case SDLK_l:
 				right2 = true;
+				break;
+			case SDLK_b:
+				charge2 = true;
 				break;
 			}
 		}
@@ -331,6 +345,8 @@ bool ModuleInput::external_input()
 			inputs.Push(IN_RIGHT_UP);
 		if (!down)
 			inputs.Push(IN_CROUCH_UP);
+		if (!charge)
+			inputs.Push(IN_CHARGE_UP);
 
 		if (up && down)
 			inputs.Push(IN_JUMP_AND_CROUCH);
@@ -341,6 +357,8 @@ bool ModuleInput::external_input()
 			if (up)
 				inputs.Push(IN_JUMP);
 		}
+		if (charge)
+			inputs.Push(IN_CHARGE_DOWN);
 
 		//PLAYER 2
 		if (left2 && right2)
@@ -358,6 +376,8 @@ bool ModuleInput::external_input()
 			inputs2.Push(IN_RIGHT_UP2);
 		if (!down2)
 			inputs2.Push(IN_CROUCH_UP2);
+		if (!charge2)
+			inputs2.Push(IN_CHARGE_UP2);
 		
 		if (up2 && down2)
 			inputs2.Push(IN_JUMP_AND_CROUCH2);
@@ -368,6 +388,8 @@ bool ModuleInput::external_input()
 			if (up2)
 				inputs2.Push(IN_JUMP2);
 		}
+		if (charge2)
+			inputs2.Push(IN_CHARGE_DOWN2);
 	}
 	return true;
 }

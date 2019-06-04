@@ -66,6 +66,7 @@ public:
 	Animation kickJump;
 	Animation kickCrouch;
 	Animation damage;
+	Animation charge;
 
 	// COLLIDERS
 	Collider *ryohitbox;

@@ -14,7 +14,7 @@
 #define LOW_KICK_TIME  720
 #define PUNCH_CROUCH_TIME 280
 #define KICK_CROUCH_TIME 320
-#define HADOUKEN_TIME  550
+#define HADOUKEN_TIME  730
 #define TORNADOKICK_TIME 600
 #define MOUSHUUKYAKU_TIME 600
 //#define BEAT_TIME  500
@@ -44,7 +44,8 @@ enum king_states
 	ST_HIT,
 	ST_HADOUKEN,
 	ST_MOUSHUUKYAKU,
-	ST_TORNADOKICK
+	ST_TORNADOKICK,
+	ST_CHARGE
 };
 
 enum king_inputs
@@ -59,7 +60,8 @@ enum king_inputs
 	IN_CROUCH_UP,
 	IN_CROUCH_DOWN,
 	IN_JUMP_AND_CROUCH,
-	IN_V,
+	IN_CHARGE_UP,
+	IN_CHARGE_DOWN,
 	IN_T,
 	IN_R,
 	IN_D,
@@ -88,7 +90,8 @@ enum king_inputs
 	IN_CROUCH_UP2,
 	IN_CROUCH_DOWN2,
 	IN_JUMP_AND_CROUCH2,
-	IN_B,
+	IN_CHARGE_UP2,
+	IN_CHARGE_DOWN2,
 	IN_Y,
 	IN_U,
 	IN_H,
@@ -147,12 +150,14 @@ public:
 	bool right = false;
 	bool down = false;
 	bool up = false;
+	bool charge = false;
 
 	// PLAYER 2
 	bool left2 = false;
 	bool right2 = false;
 	bool down2 = false;
 	bool up2 = false;
+	bool charge2 = false;
 
 	int key = -1;
 

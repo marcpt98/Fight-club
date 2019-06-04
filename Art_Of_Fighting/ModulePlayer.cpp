@@ -93,7 +93,11 @@ ModulePlayer::ModulePlayer()
 	damage.PushBack({ 1093, 773, 59, 100 }, 0.1, 0, 0, 0, 0);
 	damage.PushBack({ 1156, 773, 70, 97 }, 0.1, 0, 0, 0, 0);
 
-	
+	//charge animation
+	charge.PushBack({ 358,892,51,100 }, 0.1, 0, 0, 0, 0);
+	charge.PushBack({ 414,892,54,102 }, 0.1, 0, 0, 0, 0);
+	charge.PushBack({ 473,892,63,103 }, 0.1, 0, 0, 0, 0);
+	charge.loop = false;
 
 }
 
@@ -219,6 +223,7 @@ update_status ModulePlayer::Update()
 			punchCrouch.Reset();
 			kickJump.Reset();
 			kickCrouch.Reset();
+			charge.Reset();
 			break;
 
 		case ST_WALK_FORWARD:
@@ -237,6 +242,7 @@ update_status ModulePlayer::Update()
 			punchCrouch.Reset();
 			kickJump.Reset();
 			kickCrouch.Reset();
+			charge.Reset();
 			break;
 
 		case ST_WALK_BACKWARD:
@@ -255,6 +261,7 @@ update_status ModulePlayer::Update()
 			punchCrouch.Reset();
 			kickJump.Reset();
 			kickCrouch.Reset();
+			charge.Reset();
 			break;
 
 		case ST_JUMP_NEUTRAL:
@@ -451,6 +458,15 @@ update_status ModulePlayer::Update()
 				hit = false;
 			}
 			break;
+		case ST_CHARGE:
+			if (SFXsound == true)
+			{
+				//App->audio->PlayFX(kingkick);
+				SFXsound = false;
+			}
+			current_animation = &charge;
+			LOG("CHARGE --\n")
+				break;
 		case ST_HADOUKEN:
 			if (Activehadouken == true)
 			{
@@ -711,6 +727,7 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 			case IN_F: state = ST_HADOUKEN, App->input->hadouken_timer = SDL_GetTicks(); break;
 			case IN_C: state = ST_MOUSHUUKYAKU, App->input->moshuukyaku_timer = SDL_GetTicks(); break;
 			case IN_X: state = ST_TORNADOKICK, App->input->tornadokick_timer = SDL_GetTicks(); break;
+			case IN_CHARGE_DOWN: state = ST_CHARGE; break;
 				//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
 
 			}
@@ -916,6 +933,14 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 					state = ST_IDLE; animstart = 0; SFXsound = true;
 				}
 
+			}
+		}
+
+		case ST_CHARGE:
+		{
+			switch (last_input)
+			{
+			case IN_CHARGE_UP:state = ST_IDLE; SFXsound = true; break;
 			}
 		}
 

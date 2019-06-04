@@ -66,6 +66,12 @@ ModulePlayer2::ModulePlayer2()
 	crouch.PushBack({ 986, 660,47,73 }, 0.1, 0, 0, 0, 0);
 	crouch.loop = false;
 
+	//charge animation
+	charge.PushBack({ 358,892,51,100 }, 0.1, 0, 0, 0, 0);
+	charge.PushBack({ 414,892,54,102 }, 0.1, 0, 0, 0, 0);
+	charge.PushBack({ 473,892,63,103 }, 0.1, 0, 0, 0, 0);
+	charge.loop = false;
+
 }
 
 ModulePlayer2::~ModulePlayer2()
@@ -158,6 +164,7 @@ update_status ModulePlayer2::Update()
 			punchCrouch.Reset();
 			kickJump.Reset();
 			kickCrouch.Reset();
+			charge.Reset();
 			break;
 
 		case ST_WALK_FORWARD:
@@ -176,6 +183,7 @@ update_status ModulePlayer2::Update()
 			punchCrouch.Reset();
 			kickJump.Reset();
 			kickCrouch.Reset();
+			charge.Reset();
 			LOG("FORWARD");
 			break;
 
@@ -195,6 +203,7 @@ update_status ModulePlayer2::Update()
 			punchCrouch.Reset();
 			kickJump.Reset();
 			kickCrouch.Reset();
+			charge.Reset();
 			break;
 
 		case ST_JUMP_NEUTRAL:
@@ -372,6 +381,15 @@ update_status ModulePlayer2::Update()
 			damage = true;
 			current_animation = &App->player2->beat;
 			break;*/
+		case ST_CHARGE:
+			if (SFXsound == true)
+			{
+				//App->audio->PlayFX(kingkick);
+				SFXsound = false;
+			}
+			current_animation = &charge;
+			LOG("CHARGE2 --\n")
+				break;
 		case ST_HADOUKEN:
 			if (Activehadouken == true)
 			{
@@ -606,6 +624,7 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 			case IN_H: state = ST_HADOUKEN, App->input->hadouken_timer2 = SDL_GetTicks(); break;
 			case IN_N: state = ST_MOUSHUUKYAKU, App->input->moshuukyaku_timer2 = SDL_GetTicks(); break;
 			case IN_M: state = ST_TORNADOKICK, App->input->tornadokick_timer2 = SDL_GetTicks(); break;
+			case IN_CHARGE_DOWN2: state = ST_CHARGE; break;
 				//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
 
 			}
@@ -799,6 +818,14 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 					state = ST_IDLE; animstart = 0; SFXsound = true;
 				}
 
+			}
+		}
+
+		case ST_CHARGE:
+		{
+			switch (last_input)
+			{
+			case IN_CHARGE_UP2:state = ST_IDLE; SFXsound = true; break;
 			}
 		}
 
