@@ -993,6 +993,14 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 		App->player->hit = true;
 		damageP1 = true;
 		App->input->inputs.Push(IN_DAMAGE);
+		if ((position.x) >= (App->player->position.x + 25)) {
+
+			App->player->position.x -= 15;
+		}
+		else {
+			App->player->position.x += 15;
+
+		}
 
 	}
 
