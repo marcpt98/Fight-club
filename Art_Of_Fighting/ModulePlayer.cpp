@@ -51,12 +51,20 @@ ModulePlayer::ModulePlayer()
 	punchCrouch.PushBack({ 1101,660,101,68 }, 0.08, -15, 0, 0, 0);
 	punchCrouch.PushBack({ 1033, 660, 68, 72 }, 0.15, 0, 0, 0, 0);
 
+	punch_Near.PushBack({ 299, 660, 47, 102 }, 0.2, 2, 0, 0, 0);
+	punch_Near.PushBack({ 633, 773, 79, 96 }, 0.2, 2, 0, 0, 0);
+	punch_Near.PushBack({ 299, 660, 47, 102 }, 0.2, 2, 0, 0, 0);
+
 	//kick animation(arcade sprite sheet)                  FIXED
-	kick.PushBack({ 438,660,70,113 }, 0.16363, 0, 0, 0, 0);
-	kick.PushBack({ 509,660,48,111 }, 0.16363, 36, -3, 0, 0);
-	kick.PushBack({ 559,660,79,111 }, 0.072727, 37, -3, 0, 0);
-	kick.PushBack({ 639,660,47,101 }, 0.065, 14, -3, 0, 0);
-	kick.PushBack({ 686,660,62,92 }, 0.072727, -15, 0, 0, 0);
+	kick.PushBack({ 438,660,70,113 }, 0.18, 0, 0, 0, 0);
+	kick.PushBack({ 509,660,48,111 }, 0.16, 36, -3, 0, 0);
+	kick.PushBack({ 559,660,79,111 }, 0.07, 37, -3, 0, 0);
+	kick.PushBack({ 639,660,47,101 }, 0.15, 14, -3, 0, 0);
+	kick.PushBack({ 686,660,62,92 }, 0.1, -15, 0, 0, 0);
+
+	kick_Near.PushBack({ 793,773,61,98 }, 0.16, 0, 0, 0, 0);
+	kick_Near.PushBack({ 858,773,93,97 }, 0.03, 0, 0, 0, 0);
+	kick_Near.PushBack({ 957,773,53,101 }, 0.16, 0, 0, 0, 0);
 
 	lowkick.PushBack({ 748, 659, 55, 101 }, 0.15, 0, 0, 0, 0);
 	lowkick.PushBack({ 803, 660, 49, 99 }, 0.15, 15, -3, 0, 0);
@@ -213,8 +221,10 @@ update_status ModulePlayer::Update()
 			backward.Reset();
 			crouch.Reset();
 			kick.Reset();
+			kick_Near.Reset();
 			lowkick.Reset();
 			punch.Reset();
+			punch_Near.Reset();
 			hadouken.Reset();
 			Tornado_Kick.Reset();
 			Moushuu_Kyaku.Reset();
@@ -241,9 +251,11 @@ update_status ModulePlayer::Update()
 			position.x += speed;
 			crouch.Reset();
 			kick.Reset();
+			kick_Near.Reset();
 			lowkick.Reset();
 			punch.Reset();
 			hadouken.Reset();
+			punch_Near.Reset();
 			Tornado_Kick.Reset();
 			Moushuu_Kyaku.Reset();
 			jumping.Reset();
@@ -269,9 +281,11 @@ update_status ModulePlayer::Update()
 			position.x -= speed;
 			crouch.Reset();
 			kick.Reset();
+			kick_Near.Reset();
 			lowkick.Reset();
 			punch.Reset();
 			hadouken.Reset();
+			punch_Near.Reset();
 			Tornado_Kick.Reset();
 			Moushuu_Kyaku.Reset();
 			jumping.Reset();
@@ -381,17 +395,45 @@ update_status ModulePlayer::Update()
 			LOG("PUNCH CROUCHING **++\n");
 			break;
 		case ST_PUNCH_STANDING:
+			if (position.x < App->player2->position.x) {
+				if ((position.x + 50) <= (App->player2->position.x - 25))
+				{
+					if (animstart == 0)
+					{
+						current_animation = &punch;
+					}
+				}
+				else
+				{
+					if (animstart == 0)
+					{
+						current_animation = &punch_Near;
+					}
+				}
+			}
+			else {
+				if ((position.x - 50) >= (App->player2->position.x + 25))
+				{
+					if (animstart == 0)
+					{
+						current_animation = &punch;
+					}
+				}
+				else
+				{
+					if (animstart == 0)
+					{
+						current_animation = &punch_Near;
+					}
+				}
+			}
 			if (SFXsound == true)
 			{
 				App->audio->PlayFX(kingpunch);
 				SFXsound = false;
 			}
-			if (animstart == 0)
-			{
-				current_animation = &punch;
-			}
-			LOG("PUNCH STANDING ++++\n");
-			break;
+			LOG("PUNCH --\n")
+				break;
 		case ST_PUNCH_NEUTRAL_JUMP:
 			if (SFXsound == true)
 			{
@@ -426,18 +468,45 @@ update_status ModulePlayer::Update()
 			LOG("KICK CROUCHING **--\n");
 			break;
 		case ST_KICK_STANDING:
+			if (position.x < App->player2->position.x) {
+				if ((position.x + 40) <= (App->player2->position.x - 25))
+				{
+					if (animstart == 0)
+					{
+						current_animation = &kick;
+					}
+				}
+				else
+				{
+					if (animstart == 0)
+					{
+						current_animation = &kick_Near;
+					}
+				}
+			}
+			else {
+				if ((position.x - 40) >= (App->player2->position.x + 25))
+				{
+					if (animstart == 0)
+					{
+						current_animation = &kick;
+					}
+				}
+				else
+				{
+					if (animstart == 0)
+					{
+						current_animation = &kick_Near;
+					}
+				}
+			}
 			if (SFXsound == true)
 			{
 				App->audio->PlayFX(kingkick);
 				SFXsound = false;
 			}
-			if (animstart == 0)
-			{
-				current_animation = &kick;
-			}
 			LOG("KICK --\n")
 				break;
-
 		case ST_LOW_KICK_STANDING:
 			if (SFXsound == true)
 			{

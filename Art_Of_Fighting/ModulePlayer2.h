@@ -59,9 +59,11 @@ public:
 	Animation Moushuu_Kyaku;
 	Animation Tornado_Kick;
 	Animation punch;
+	Animation punch_Near;
 	Animation punchJump;
 	Animation punchCrouch;
 	Animation kick;
+	Animation kick_Near;
 	Animation lowkick;
 	Animation kickJump;
 	Animation kickCrouch;
