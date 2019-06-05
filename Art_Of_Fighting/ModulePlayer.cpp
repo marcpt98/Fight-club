@@ -1114,12 +1114,12 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 
 		if ((position.x) >= (App->player2->position.x + 25)) 
 		{
-			App->player2->position.x -= 12;
+			App->player2->position.x -= 10;
 		}
 
 		else
 		{
-			App->player2->position.x += 12;
+			App->player2->position.x += 10;
 			if ((App->player2->position.x) <= (App->scene_King->positionlimitright.x + 300)) {
 				App->player2->position.x += 5;
 			}

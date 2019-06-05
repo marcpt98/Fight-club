@@ -125,7 +125,7 @@ bool ModulePlayer2::Start()
 	punchCollider = App->collision->AddCollider({ position.x,position.y, 60, 15 }, COLLIDER_ENEMY, this);
 	punchCollider->Enabled = false;
 
-	kickCollider = App->collision->AddCollider({ position.x,position.y, 45, 30 }, COLLIDER_ENEMY, this);
+	kickCollider = App->collision->AddCollider({ position.x,position.y, 45, 15 }, COLLIDER_ENEMY, this);
 	kickCollider->Enabled = false;
 
 	punchCrouchCollider = App->collision->AddCollider({ position.x, position.y - 70 , 40, 15 }, COLLIDER_ENEMY, this);
@@ -1002,11 +1002,11 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 
 		if ((position.x) >= (App->player->position.x + 25))
 		{
-			App->player->position.x -= 12;
+			App->player->position.x -= 10;
 		}
 		else
 		{
-			App->player->position.x += 12;
+			App->player->position.x += 10;
 		}
 		App->player->Life--;
 		App->player->hit = true;
