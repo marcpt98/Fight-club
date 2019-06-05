@@ -142,6 +142,9 @@ bool ModulePlayer2::Start()
 	kickCrouchCollider = App->collision->AddCollider({ position.x, position.y - 70 , 65, 15 }, COLLIDER_ENEMY, this);
 	kickCrouchCollider->Enabled = false;
 
+	punchNearCollider = App->collision->AddCollider({ position.x, position.y - 70 , 65, 15 }, COLLIDER_ENEMY, this);
+	punchNearCollider->Enabled = false;
+
 	//Initialize Stamina
 	Stamina = 100;
 
@@ -639,6 +642,17 @@ update_status ModulePlayer2::Update()
 			punchCollider->Enabled = false;
 		}
 
+		if (r == &punch_Near.frames[punch_Near.last_frame - 1] && App->scene_King->Zoom == true)
+		{
+			punchNearCollider->SetPos((position.x - 40)*1.3, position.y + 12 - r->h + 40);
+
+			punchNearCollider->Enabled = true;
+		}
+		else
+		{
+			punchNearCollider->Enabled = false;
+		}
+
 		
 
 	}
@@ -694,6 +708,17 @@ update_status ModulePlayer2::Update()
 		else
 		{
 			punchCollider->Enabled = false;
+		}
+
+		if (r == &punch_Near.frames[punch_Near.last_frame - 1] && App->scene_King->Zoom == true)
+		{
+			punchNearCollider->SetPos((position.x + 32)*1.3, position.y + 12 - r->h + 40);
+
+			punchNearCollider->Enabled = true;
+		}
+		else
+		{
+			punchNearCollider->Enabled = false;
 		}
 	}
 	
@@ -1077,6 +1102,25 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////// PUNCH HITBOX
 	if (punchCollider == c1 && c2->type == COLLIDER_PLAYER)
+	{
+
+		if ((position.x) >= (App->player->position.x + 25))
+		{
+			App->player->position.x -= 10;
+		}
+		else
+		{
+			App->player->position.x += 10;
+		}
+		App->player->Life--;
+		App->player->hit = true;
+		collision = true;
+		damageP1 = true;
+		App->input->inputs.Push(IN_DAMAGE);
+
+	}
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////// NEAR PUNCH
+	if (punchNearCollider == c1 && c2->type == COLLIDER_PLAYER)
 	{
 
 		if ((position.x) >= (App->player->position.x + 25))
