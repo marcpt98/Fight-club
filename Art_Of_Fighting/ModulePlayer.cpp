@@ -128,7 +128,7 @@ bool ModulePlayer::Start()
 	punchCollider = App->collision->AddCollider({ position.x,position.y, 60, 15 }, COLLIDER_PLAYER, this);
 	punchCollider->Enabled = false;
 
-	kickCollider = App->collision->AddCollider({ position.x,position.y, 45, 30 }, COLLIDER_PLAYER, this);
+	kickCollider = App->collision->AddCollider({ position.x,position.y, 45, 15 }, COLLIDER_PLAYER, this);
 	kickCollider->Enabled = false;
 
 	punchCrouchCollider = App->collision->AddCollider({ position.x, position.y - 70 , 40, 15 }, COLLIDER_PLAYER, this);
@@ -573,7 +573,7 @@ update_status ModulePlayer::Update()
 		App->render->BlitWithScale(graphics, position.x + 50 + (-current_animation->pivotx[current_animation->returnCurrentFrame()]), position.y - r->h + current_animation->pivoty[current_animation->returnCurrentFrame()], r, -1, 1.0f, 1, TOP_RIGHT);
 		if (App->scene_King->Zoom == false) { ryohitbox->SetPos(position.x + 15 + (-current_animation->pivotx[current_animation->returnCurrentFrame()]), position.y - r->h + current_animation->pivoty[current_animation->returnCurrentFrame()]); }
 		else {
-			ryohitbox->SetPos((position.x + (-current_animation->pivotx[current_animation->returnCurrentFrame()])+7)*1.3, position.y - r->h + current_animation->pivoty[current_animation->returnCurrentFrame()] + 50);
+			ryohitbox->SetPos((position.x + (-current_animation->pivotx[current_animation->returnCurrentFrame()])+7)*1.3, position.y - r->h + current_animation->pivoty[current_animation->returnCurrentFrame()] + 30);
 		}
 		if (r == &kick.frames[kick.last_frame - 5] && App->scene_King->Zoom == false)
 		{
@@ -626,7 +626,7 @@ update_status ModulePlayer::Update()
 		App->render->Blit(graphics, position.x + (current_animation->pivotx[current_animation->returnCurrentFrame()]), position.y - r->h + current_animation->pivoty[current_animation->returnCurrentFrame()], r);
 		if(App->scene_King->Zoom==false)ryohitbox->SetPos(position.x + (current_animation->pivotx[current_animation->returnCurrentFrame()]), position.y - r->h + current_animation->pivoty[current_animation->returnCurrentFrame()]);
 		else {
-			ryohitbox->SetPos((position.x + (current_animation->pivotx[current_animation->returnCurrentFrame()]))*1.3, position.y - r->h + current_animation->pivoty[current_animation->returnCurrentFrame()]+50);
+			ryohitbox->SetPos((position.x + (current_animation->pivotx[current_animation->returnCurrentFrame()]))*1.3, position.y - r->h + current_animation->pivoty[current_animation->returnCurrentFrame()]+30);
 		 //this is the setpos for the zoom WE MULTIPLICATE BY 1.3 BECAUSE IS THE NUMBER O F TIMES QE EXPAND THE BLIT
 		}
 
@@ -643,7 +643,7 @@ update_status ModulePlayer::Update()
 
 		if (r == &kick.frames[kick.last_frame - 5] && App->scene_King->Zoom == true)
 		{
-			kickCollider->SetPos((position.x + 70)*1.3, position.y - r->h+40);
+			kickCollider->SetPos((position.x + 60)*1.3, position.y - r->h+30);
 
 			kickCollider->Enabled = true;
 		}
@@ -664,7 +664,7 @@ update_status ModulePlayer::Update()
 		}
 		if (r == &punch.frames[punch.last_frame - 1] && App->scene_King->Zoom == true)
 		{
-			punchCollider->SetPos((position.x + 32)*1.3, position.y + 12 - r->h+40);
+			punchCollider->SetPos((position.x + 36)*1.3, position.y + 12 - r->h+40);
 
 			punchCollider->Enabled = true;
 		}
@@ -712,7 +712,7 @@ update_status ModulePlayer::Update()
 	if (App->scene_King->Zoom == true && createnewbighitbox == true) {
 		ryohitbox->to_delete = true;
 		createnewbighitbox2 = true;
-		ryohitbox = App->collision->AddCollider({ position.x,position.y, 55, 100 }, COLLIDER_PLAYER, this);
+		ryohitbox = App->collision->AddCollider({ position.x,position.y, 55, 120 }, COLLIDER_PLAYER, this);
 		createnewbighitbox = false;
 
 	}
@@ -1083,7 +1083,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 
 		if ((position.x + 25) >= (App->player2->position.x - 25)) {
 
-			App->player2->position.x += 5;
+			App->player2->position.x += 15;
 
 
 			if ((App->player2->position.x) >= (App->scene_King->positionlimitright.x + 300)) {
@@ -1112,13 +1112,14 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		App->input->inputs2.Push(IN_DAMAGE2);
 		collision = true;
 
-		if ((position.x + 25) >= (App->player2->position.x - 25)) 
+		if ((position.x) >= (App->player2->position.x + 25)) 
 		{
-			App->player2->position.x += 5;
+			App->player2->position.x -= 12;
 		}
 
 		else
 		{
+			App->player2->position.x += 12;
 			if ((App->player2->position.x) <= (App->scene_King->positionlimitright.x + 300)) {
 				App->player2->position.x += 5;
 			}

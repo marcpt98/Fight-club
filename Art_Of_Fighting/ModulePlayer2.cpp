@@ -520,7 +520,7 @@ update_status ModulePlayer2::Update()
 		App->render->BlitWithScale(graphics, position.x + 50 + (-current_animation->pivotx2[current_animation->returnCurrentFrame()]), position.y - r->h + current_animation->pivoty2[current_animation->returnCurrentFrame()], r, -1, 1.0f, 1, TOP_RIGHT);
 		if (App->scene_King->Zoom == false) { ryohitbox->SetPos(position.x + 15, position.y - r->h); }
 		else {
-			ryohitbox->SetPos((position.x + (-current_animation->pivotx2[current_animation->returnCurrentFrame()])+7)*1.3, position.y - r->h + current_animation->pivoty2[current_animation->returnCurrentFrame()] + 50);
+			ryohitbox->SetPos((position.x + (-current_animation->pivotx2[current_animation->returnCurrentFrame()])+7)*1.3, position.y - r->h + current_animation->pivoty2[current_animation->returnCurrentFrame()] + 30);
 			//this is the setpos for the zoom
 		}
 
@@ -576,7 +576,7 @@ update_status ModulePlayer2::Update()
 		App->render->Blit(graphics, position.x + (current_animation->pivotx2[current_animation->returnCurrentFrame()]), position.y - r->h + current_animation->pivoty2[current_animation->returnCurrentFrame()], r);
 		if (App->scene_King->Zoom == false) { ryohitbox->SetPos(position.x, position.y - r->h); }
 		else {
-			ryohitbox->SetPos((position.x + (current_animation->pivotx[current_animation->returnCurrentFrame()]))*1.3, position.y - r->h + current_animation->pivoty[current_animation->returnCurrentFrame()] + 50);
+			ryohitbox->SetPos((position.x + (current_animation->pivotx[current_animation->returnCurrentFrame()]))*1.3, position.y - r->h + current_animation->pivoty[current_animation->returnCurrentFrame()] + 30);
 
 		}
 
@@ -642,7 +642,7 @@ update_status ModulePlayer2::Update()
 	if (App->scene_King->Zoom == true && createnewbighitbox == true) {
 		ryohitbox->to_delete = true;
 		createnewbighitbox2 = true;
-		ryohitbox = App->collision->AddCollider({ position.x,position.y, 55, 100 }, COLLIDER_ENEMY, this);
+		ryohitbox = App->collision->AddCollider({ position.x,position.y, 55, 120 }, COLLIDER_ENEMY, this);
 		createnewbighitbox = false;
 
 	}
@@ -999,6 +999,15 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////// PUNCH HITBOX
 	if (punchCollider == c1 && c2->type == COLLIDER_PLAYER)
 	{
+
+		if ((position.x) >= (App->player->position.x + 25))
+		{
+			App->player->position.x -= 12;
+		}
+		else
+		{
+			App->player->position.x += 12;
+		}
 		App->player->Life--;
 		App->player->hit = true;
 		collision = true;
