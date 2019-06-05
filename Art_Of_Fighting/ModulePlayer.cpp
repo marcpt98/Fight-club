@@ -1081,9 +1081,9 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		damageP2 = true;
 		App->input->inputs2.Push(IN_DAMAGE2);
 
-		if ((position.x + 25) >= (App->player2->position.x - 25)) {
+		if ((position.x) >= (App->player2->position.x + 25)) {
 
-			App->player2->position.x += 15;
+			App->player2->position.x -= 15;
 
 
 			if ((App->player2->position.x) >= (App->scene_King->positionlimitright.x + 300)) {
@@ -1094,6 +1094,8 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 
 		else 
 		{
+			App->player2->position.x += 15;
+
 			if ((App->player2->position.x) <= (App->scene_King->positionlimitright.x + 300)) {
 				App->player2->position.x += 5;
 			}

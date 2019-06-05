@@ -285,7 +285,10 @@ update_status ModuleSceneking::Update()
 
 
 	//Draw Round 1
-	
+	if (App->scene_King->Zoom == true) {
+		App->scene_King->Zoom = false;   //this works for not making zoom to the UI
+		zoomcounter = true;
+	}
 	if (RoundStart == true)
 	{
 		App->render->BlitWithScale(graphicsUI, 210, 90, &Round1, 1, 0.0f, 1.0f, TOP_RIGHT);
@@ -302,6 +305,10 @@ update_status ModuleSceneking::Update()
 	if (FinalRoundStart == true)
 	{
 		App->render->BlitWithScale(graphicsUI, 240, 90, &FinalRound, 1, 0.0f, 1.0f, TOP_RIGHT);
+	}
+	if (zoomcounter == true) {
+		App->scene_King->Zoom = true; //this ALSO works for not making zoom to the UI
+		zoomcounter = false;
 	}
 
 	//Initialize Countdown
