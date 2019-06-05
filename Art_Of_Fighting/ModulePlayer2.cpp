@@ -523,7 +523,14 @@ update_status ModulePlayer2::Update()
 			if (Activehadouken == true)
 			{
 				if (Stamina > 0) {
-					if (Stamina >= 20) { shoot = true; }
+					if (Stamina >= 20)
+					{
+						shoot = true;
+					}
+					if (Stamina < 19)
+					{
+						shootNo = true;
+					}
 					Stamina = (Stamina - 20);
 					if (Stamina < 0) {
 						Stamina = 0;
@@ -551,6 +558,25 @@ update_status ModulePlayer2::Update()
 					shoot = false;
 				}
 
+				if (shootNo == true)
+				{
+					App->audio->PlayFX(kingKoOuKen);
+					App->audio->PlayFX(ryoKoOuKensound);
+					if ((position.x + 25) >= (App->player->position.x - 25))
+					{
+						App->particles->HadoukenFlipEnergy2.speed.x = -4;
+						App->particles->AddParticle(App->particles->HadoukenFlipEnergy, position.x - 10, position.y - 60, COLLIDER_ENEMY_SHOT);
+						App->particles->AddParticle(App->particles->HadoukenFlipEnergy2, position.x - 10, position.y - 60, COLLIDER_ENEMY_SHOT);
+					}
+					else
+					{
+						App->particles->HadoukenEnergy2.speed.x = +4;
+						App->particles->AddParticle(App->particles->HadoukenEnergy, position.x + 10, position.y - 60, COLLIDER_ENEMY_SHOT);
+						App->particles->AddParticle(App->particles->HadoukenEnergy2, position.x + 10, position.y - 60, COLLIDER_ENEMY_SHOT);
+					}
+					shootNo = false;
+				}
+
 			}
 			Activehadouken = false;
 			if (animstart == 0)
@@ -558,6 +584,7 @@ update_status ModulePlayer2::Update()
 				current_animation = &hadouken;
 			}
 			break;
+
 		case ST_TORNADOKICK:
 			if (SFXsound == true)
 			{

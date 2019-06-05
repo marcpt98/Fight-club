@@ -36,6 +36,7 @@ public:
 	bool hit = false;
 	bool collision = false;
 	bool shoot = false;
+	bool shootNo = false;
 	bool damageP2 = false;
 public:
 

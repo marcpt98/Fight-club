@@ -30,10 +30,22 @@ bool ModuleParticles::Start()
 	Hadouken.anim.PushBack({ 1323, 724, 32, 42 }, 0.2, 0, 0, 0, 0);
 	Hadouken2.anim.PushBack({ 1413, 736, 76, 24 }, 0.6, 0, 0, 0, 0);	//Loop animation
 	Hadouken2.anim.PushBack({ 1346, 699, 59, 28 }, 0.6, 0, 0, 0, 0);   //Loop animation
+	
+	//HADOUKEN NO ENERGY
+	HadoukenEnergy.anim.PushBack({ 1462, 767, 36, 44 }, 0.3, 0, 0, 0, 0);
+	HadoukenEnergy.anim.PushBack({ 1323, 724, 32, 42 }, 0.2, 0, 0, 0, 0);
+	HadoukenEnergy2.anim.PushBack({ 1412, 699, 26, 26 }, 0.2, 0, 0, 0, 0);
+	HadoukenEnergy2.anim.PushBack({ 1323, 724, 32, 42 }, 0.2, 0, 0, 0, 0);
+	HadoukenEnergy2.anim.PushBack({ 1462, 767, 36, 44 }, 0.1, 0, 0, 0, 0);
+	HadoukenEnergy2.anim.PushBack({ 1378, 736, 29, 46 }, 0.1, 0, 0, 0, 0);
 
 	Hadouken2.anim.loop = true;
 	Hadouken2.life = 3000;
 	Hadouken2.speed.x = +3;
+
+	HadoukenEnergy2.anim.loop = false;
+	HadoukenEnergy2.life = 450;
+	HadoukenEnergy2.speed.x = +3;
 
 	//HADOUKEN FLIP
 	HadoukenFlip.anim.PushBack({ 1533, 766, 36, 44 }, 0.3, 0, 0, 0, 0);
@@ -41,9 +53,20 @@ bool ModuleParticles::Start()
 	HadoukenFlip2.anim.PushBack({ 1559, 732, 78, 24 }, 0.6, 0, 0, 0, 0);	 //Loop animation
 	HadoukenFlip2.anim.PushBack({ 1630, 775, 61, 30 }, 0.6, 0, 0, 0, 0);   //Loop animation
 
+	//HADOUKEN FLIP NO ENERGY
+	HadoukenFlipEnergy.anim.PushBack({ 1533, 766, 36, 44 }, 0.3, 0, 0, 0, 0);
+	HadoukenFlipEnergy.anim.PushBack({ 1648, 719, 30, 39 }, 0.2, 0, 0, 0, 0);
+	HadoukenFlipEnergy2.anim.PushBack({ 1412, 699, 26, 26 }, 0.2, 0, 0, 0, 0);
+	HadoukenFlipEnergy2.anim.PushBack({ 1648, 719, 30, 39 }, 0.2, 0, 0, 0, 0);
+	HadoukenFlipEnergy2.anim.PushBack({ 1533, 766, 36, 44 }, 0.3, 0, 0, 0, 0);
+	HadoukenFlipEnergy2.anim.PushBack({ 1584, 766, 29, 46 }, 0.1, 0, 0, 0, 0);
+
 	HadoukenFlip2.anim.loop = true;
 	HadoukenFlip2.life = 3000;
 	HadoukenFlip2.speed.x = -3;
+
+	HadoukenFlipEnergy2.anim.loop = false;
+	HadoukenFlipEnergy2.life = 450;
 
 	return true;
 }
@@ -131,13 +154,16 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 			active[i] = nullptr;
 			if(c1->type == COLLIDER_PLAYER_SHOT && c2->type == COLLIDER_ENEMY)
 			{
-				App->player2->Life = App->player2->Life - 10;
+				if (App->player->Stamina >= 20) {
+					App->player2->Life = App->player2->Life - 10;
+				}
 			}
 			if (c1->type == COLLIDER_ENEMY_SHOT && c2->type == COLLIDER_PLAYER)
 			{
-				App->player->Life = App->player->Life - 10;
+				if (App->player2->Stamina >= 20) {
+					App->player->Life = App->player->Life - 10;
+				}
 			}
-
 			break;
 		}
 	}

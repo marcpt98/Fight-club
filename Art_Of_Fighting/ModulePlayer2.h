@@ -35,6 +35,7 @@ public:
 	bool Activehadouken = true;
 	bool collision = false;
 	bool shoot = false;
+	bool shootNo = false;
 	bool damageP1 = false;
 public:
 
