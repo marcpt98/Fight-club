@@ -396,7 +396,7 @@ update_status ModulePlayer::Update()
 			break;
 		case ST_PUNCH_STANDING:
 			if (position.x < App->player2->position.x) {
-				if ((position.x + 50) <= (App->player2->position.x - 25))
+				if ((position.x + 40) <= (App->player2->position.x - 25))
 				{
 					if (animstart == 0)
 					{
@@ -412,7 +412,7 @@ update_status ModulePlayer::Update()
 				}
 			}
 			else {
-				if ((position.x - 50) >= (App->player2->position.x + 25))
+				if ((position.x - 40) >= (App->player2->position.x + 25))
 				{
 					if (animstart == 0)
 					{
