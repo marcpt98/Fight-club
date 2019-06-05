@@ -103,6 +103,11 @@ ModuleSceneking::ModuleSceneking()
 	FinalRound.w = 167;
 	FinalRound.h = 16;
 
+	ball.x = 30;
+	ball.y = 79;
+	ball.w = 14;
+	ball.h = 15;
+
 }
 
 ModuleSceneking::~ModuleSceneking()
@@ -361,18 +366,7 @@ update_status ModuleSceneking::Update()
 
 	App->fonts->BlitText(137, 8, font_score, timer_text);
 
-	//Draw Player 1 / Player 2 Win
-
-	if (App->player2->Life == 0)
-	{
-		App->render->BlitWithScale(graphicsUI, 210, 70, &player1Win, 1, 0.0f, 1.0f, TOP_RIGHT);
-		
-	}
-	if (App->player->Life == 0)
-	{
-		App->render->BlitWithScale(graphicsUI, 210, 70, &player2Win, 1, 0.0f, 1.0f, TOP_RIGHT);
-		
-	}
+	
 
 	//System of Rounds
 	if(timer <= 0 || App->player->Life == 0 || App->player2->Life == 0)
@@ -380,10 +374,12 @@ update_status ModuleSceneking::Update()
 		
 		if(App->player->Life > App->player2->Life || App->player2->Life == 0)
 		{
+			App->render->BlitWithScale(graphicsUI, 210, 70, &player1Win, 1, 0.0f, 1.0f, TOP_RIGHT);
 			RoundsWinP1++;
 		}
 		if(App->player->Life < App->player2->Life || App->player->Life == 0)
 		{
+			App->render->BlitWithScale(graphicsUI, 210, 70, &player2Win, 1, 0.0f, 1.0f, TOP_RIGHT);
 			RoundsWinP2++;
 		}
 

@@ -45,6 +45,7 @@ public:
 	SDL_Rect Shadow;
 	SDL_Rect player1Win;
 	SDL_Rect player2Win;
+	SDL_Rect ball;
 
 
 	Collider* colliderMap=nullptr;
