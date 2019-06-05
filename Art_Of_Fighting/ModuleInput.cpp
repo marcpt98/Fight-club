@@ -4,6 +4,8 @@
 #include "SDL/include/SDL.h"
 #include "p2Qeue.h"
 #include "SDL/include/SDL_gamecontroller.h"
+#include "ModulePlayer.h"
+#include "ModulePlayer2.h"
 
 ModuleInput::ModuleInput() : Module()
 {
@@ -477,15 +479,15 @@ void ModuleInput::internal_input(p2Qeue<king_inputs>& inputs, p2Qeue<king_inputs
 		}
 	}
 
-	/*if (beat_timer > 0)
+	if (damage_timer > 0)
 	{
-	if (SDL_GetTicks() - beat_timer > BEAT_TIME)
-	{
-	inputs.Push(IN_DAMAGE_RECEIVED_FINISH);
-	beat_timer = 0;
-	collision = false;
+		if (SDL_GetTicks() - damage_timer > DAMAGE_TIME)
+		{
+			inputs.Push(IN_DAMAGE_FINISH);
+			damage_timer = 0;
+			App->player->damageP2 = false;
+		}
 	}
-	}*/
 
 	//PLAYER 2
 	if (jump_timer2 > 0)
@@ -560,15 +562,15 @@ void ModuleInput::internal_input(p2Qeue<king_inputs>& inputs, p2Qeue<king_inputs
 		}
 	}
 
-	/*if (beat_timer > 0)
+	if (damage_timer2 > 0)
 	{
-	if (SDL_GetTicks() - beat_timer > BEAT_TIME)
-	{
-	inputs.Push(IN_DAMAGE_RECEIVED_FINISH);
-	beat_timer = 0;
-	collision = false;
+		if (SDL_GetTicks() - damage_timer2 > DAMAGE_TIME)
+		{
+			inputs2.Push(IN_DAMAGE_FINISH2);
+			damage_timer2 = 0;
+			App->player2->damageP1 = false;
+		}
 	}
-	}*/
 }
 
 // Called every draw update

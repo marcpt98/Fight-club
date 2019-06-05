@@ -36,6 +36,7 @@ public:
 	bool hit = false;
 	bool collision = false;
 	bool shoot = false;
+	bool damageP2 = false;
 public:
 
 	int font_score = -1;
@@ -54,7 +55,6 @@ public:
 	Animation forward;
 	Animation backward;
 	Animation crouch;
-	//Animation beat;
 	Animation hadouken;
 	Animation Moushuu_Kyaku;
 	Animation Tornado_Kick;

@@ -33,10 +33,9 @@ public:
 	bool JumpMax = false;
 	bool JumpMin = false;
 	bool Activehadouken = true;
-	//bool beatanim = false;
-	bool damage = false;
 	bool collision = false;
 	bool shoot = false;
+	bool damageP1 = false;
 public:
 
 	int font_score = -1;
@@ -55,7 +54,7 @@ public:
 	Animation forward;
 	Animation backward;
 	Animation crouch;
-	//Animation beat;
+	Animation damage;
 	Animation hadouken;
 	Animation Moushuu_Kyaku;
 	Animation Tornado_Kick;

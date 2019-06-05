@@ -17,7 +17,7 @@
 #define HADOUKEN_TIME  730
 #define TORNADOKICK_TIME 600
 #define MOUSHUUKYAKU_TIME 600
-//#define BEAT_TIME  500
+#define DAMAGE_TIME 500
 
 enum king_states
 {
@@ -41,11 +41,11 @@ enum king_states
 	ST_KICK_FORWARD_JUMP,
 	ST_KICK_BACKWARD_JUMP,
 	ST_KICK_CROUCH,
-	ST_HIT,
 	ST_HADOUKEN,
 	ST_MOUSHUUKYAKU,
 	ST_TORNADOKICK,
-	ST_CHARGE
+	ST_CHARGE,
+	ST_DAMAGE
 };
 
 enum king_inputs
@@ -74,8 +74,8 @@ enum king_inputs
 	IN_KICK_FINISH,
 	IN_LOW_KICK_FINISH,
 	IN_KICK_CROUCH_FINISH,
-	//IN_DAMAGE_RECEIVED,
-	//IN_DAMAGE_RECEIVED_FINISH,
+	IN_DAMAGE,
+	IN_DAMAGE_FINISH,
 	IN_HADOUKEN_FINISH,
 	IN_MOUSHUUKYAKU_FINISH,
 	IN_TORNADOKICK_FINISH,
@@ -103,8 +103,8 @@ enum king_inputs
 	IN_KICK_FINISH2,
 	IN_LOW_KICK_FINISH2,
 	IN_KICK_CROUCH_FINISH2,
-	//IN_DAMAGE_RECEIVED2,
-	//IN_DAMAGE_RECEIVED_FINISH2,
+	IN_DAMAGE2,
+	IN_DAMAGE_FINISH2,
 	IN_HADOUKEN_FINISH2,
 	IN_MOUSHUUKYAKU_FINISH2,
 	IN_TORNADOKICK_FINISH2
@@ -171,7 +171,7 @@ public:
 	Uint32 hadouken_timer = 0;
 	Uint32 moshuukyaku_timer = 0;
 	Uint32 tornadokick_timer = 0;
-	//Uint32 beat_timer = 0;
+	Uint32 damage_timer = 0;
 
 	// PLAYER 2
 	Uint32 jump_timer2 = 0;
@@ -183,7 +183,7 @@ public:
 	Uint32 hadouken_timer2 = 0;
 	Uint32 moshuukyaku_timer2 = 0;
 	Uint32 tornadokick_timer2 = 0;
-	//Uint32 beat_timer2 = 0;
+	Uint32 damage_timer2 = 0;
 
 	// GAMEPAD
 	const int JOYSTICK_DEAD_ZONE = 8000;
