@@ -99,6 +99,9 @@ ModulePlayer::ModulePlayer()
 	charge.PushBack({ 473,892,63,103 }, 0.2, 0, 0, 0, 0);
 	charge.loop = false;
 
+	//taunt animation
+	taunt.PushBack({ 1285,773,49,102 }, 0.1, 0, 0, 0, 0);
+	taunt.PushBack({ 1230,773,49,102 }, 0.1, 0, 0, 0, 0); 
 }
 
 ModulePlayer::~ModulePlayer()
@@ -119,6 +122,8 @@ bool ModulePlayer::Start()
 	kingKoOuKen = App->audio->LoadFX("media/FX/king_haduken.wav");
 	ryoKoOuKensound = App->audio->LoadFX("media/FX/ryoKoOuKensound.wav");
 	kingcharge = App->audio->LoadFX("media/FX/king_charge.wav");
+	//kingdamage = App->audio->LoadFX("");
+	//kingtaunt=App->audio->LoadFX("");
 
 	position.x = 200;
 	position.y = 210;
@@ -165,6 +170,8 @@ bool ModulePlayer::CleanUp()
 	App->audio->UnLoadFX(kingKoOuKen);
 	App->audio->UnLoadFX(ryoKoOuKensound);
 	App->audio->UnLoadFX(kingcharge);
+	//App->audio->UnLoadFX(kingdamage);
+	//App->audio->UnLoadFX(kingtaunt);
 
 	return true;
 }
@@ -234,6 +241,7 @@ update_status ModulePlayer::Update()
 			kickCrouch.Reset();
 			charge.Reset();
 			damage.Reset();
+			taunt.Reset();
 			break;
 
 		case ST_WALK_FORWARD:
@@ -263,6 +271,7 @@ update_status ModulePlayer::Update()
 			kickCrouch.Reset();
 			charge.Reset();
 			damage.Reset();
+			taunt.Reset();
 			break;
 
 		case ST_WALK_BACKWARD:
@@ -292,6 +301,7 @@ update_status ModulePlayer::Update()
 			kickCrouch.Reset();
 			charge.Reset();
 			damage.Reset();
+			taunt.Reset();
 			break;
 
 		case ST_JUMP_NEUTRAL:
@@ -547,6 +557,19 @@ update_status ModulePlayer::Update()
 			Stamina++;
 			}
 			LOG("CHARGE --\n")
+				break;
+		case ST_TAUNT:
+			if (SFXsound == true)
+			{
+				//App->audio->PlayFX(kingtaunt);
+				SFXsound = false;
+			}
+			if (animstart == 0)
+			{
+				current_animation = &taunt;
+			}
+			App->player2->Stamina--;
+			LOG("TAUNT --\n")
 				break;
 		case ST_HADOUKEN:
 			if (Activehadouken == true)
@@ -880,6 +903,7 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 			case IN_X: state = ST_TORNADOKICK, App->input->tornadokick_timer = SDL_GetTicks(); break;
 			case IN_CHARGE_DOWN: state = ST_CHARGE; break;
 			case IN_DAMAGE: state = ST_DAMAGE, App->input->damage_timer = SDL_GetTicks(); break;
+			case IN_TAUNT: state = ST_TAUNT, App->input->taunt_timer = SDL_GetTicks(); break;
 			}
 		}
 		break;
@@ -898,6 +922,7 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 			case IN_C: state = ST_MOUSHUUKYAKU, App->input->moshuukyaku_timer = SDL_GetTicks(); break;
 			case IN_X: state = ST_TORNADOKICK, App->input->tornadokick_timer = SDL_GetTicks(); break;
 			case IN_DAMAGE: state = ST_DAMAGE, App->input->damage_timer = SDL_GetTicks(); break;
+			case IN_TAUNT: state = ST_TAUNT, App->input->taunt_timer = SDL_GetTicks(); break;
 
 			}
 		}
@@ -916,6 +941,7 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 			case IN_F: state = ST_HADOUKEN, App->input->hadouken_timer = SDL_GetTicks(); break;
 			case IN_C: state = ST_MOUSHUUKYAKU, App->input->moshuukyaku_timer = SDL_GetTicks(); break;
 			case IN_X: state = ST_TORNADOKICK, App->input->tornadokick_timer = SDL_GetTicks(); break;
+			case IN_TAUNT: state = ST_TAUNT, App->input->taunt_timer = SDL_GetTicks(); break;
 			}
 		}
 		break;
@@ -1011,6 +1037,7 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 			case IN_T: state = ST_PUNCH_CROUCH; App->input->punch_crouch_timer = SDL_GetTicks(); break;
 			case IN_R: state = ST_KICK_CROUCH; App->input->kick_crouch_timer = SDL_GetTicks(); break;
 			case IN_DAMAGE: state = ST_DAMAGE, App->input->damage_timer = SDL_GetTicks(); break;
+			case IN_TAUNT: state = ST_TAUNT, App->input->taunt_timer = SDL_GetTicks(); break;
 			}
 		}
 		break;
@@ -1086,6 +1113,16 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 			break;
 
 		}
+
+		case ST_TAUNT:
+		{
+			switch (last_input)
+			{
+			case IN_TAUNT_FINISH: state = ST_IDLE; animstart = 0;  SFXsound = true; break;
+			}
+			break;
+		}
+
 		case ST_HADOUKEN:
 		{
 			switch (last_input)

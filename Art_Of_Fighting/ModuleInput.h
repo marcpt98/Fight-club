@@ -17,6 +17,7 @@
 #define TORNADOKICK_TIME 600
 #define MOUSHUUKYAKU_TIME 600
 #define DAMAGE_TIME 500
+#define TAUNT_TIME 1000
 
 enum king_states
 {
@@ -43,7 +44,8 @@ enum king_states
 	ST_MOUSHUUKYAKU,
 	ST_TORNADOKICK,
 	ST_CHARGE,
-	ST_DAMAGE
+	ST_DAMAGE,
+	ST_TAUNT
 };
 
 enum king_inputs
@@ -60,6 +62,8 @@ enum king_inputs
 	IN_JUMP_AND_CROUCH,
 	IN_CHARGE_UP,
 	IN_CHARGE_DOWN,
+	IN_TAUNT,
+	IN_TAUNT_FINISH,
 	IN_T,
 	IN_R,
 	IN_D,
@@ -89,6 +93,8 @@ enum king_inputs
 	IN_JUMP_AND_CROUCH2,
 	IN_CHARGE_UP2,
 	IN_CHARGE_DOWN2,
+	IN_TAUNT2,
+	IN_TAUNT_FINISH2,
 	IN_Y,
 	IN_U,
 	IN_H,
@@ -167,6 +173,7 @@ public:
 	Uint32 moshuukyaku_timer = 0;
 	Uint32 tornadokick_timer = 0;
 	Uint32 damage_timer = 0;
+	Uint32 taunt_timer = 0;
 
 	// PLAYER 2
 	Uint32 jump_timer2 = 0;
@@ -178,6 +185,7 @@ public:
 	Uint32 moshuukyaku_timer2 = 0;
 	Uint32 tornadokick_timer2 = 0;
 	Uint32 damage_timer2 = 0;
+	Uint32 taunt_timer2 = 0;
 
 	// GAMEPAD
 	const int JOYSTICK_DEAD_ZONE = 8000;

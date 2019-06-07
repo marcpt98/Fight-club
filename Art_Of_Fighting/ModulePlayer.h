@@ -99,6 +99,8 @@ public:
 	int kingKoOuKen = 0;
 	int ryoKoOuKensound = 0;
 	int kingcharge = 0;
+	//int kingdamage = 0;
+	int kingtaunt = 0;
 	
 	int GodMode = false;
 	int printMode = false;

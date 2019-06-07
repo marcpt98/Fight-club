@@ -126,6 +126,9 @@ bool ModuleInput::external_input()
 			case SDLK_x:
 				inputs.Push(IN_X);
 				break;
+			case SDLK_q:
+				inputs.Push(IN_TAUNT);
+				break;
 			case SDLK_w:
 				up = true;
 				break;
@@ -156,6 +159,9 @@ bool ModuleInput::external_input()
 				break;
 			case SDLK_m:
 				inputs2.Push(IN_M);
+				break;
+			case SDLK_o:
+				inputs2.Push(IN_TAUNT2);
 				break;
 			case SDLK_i:
 				up2 = true;
@@ -481,6 +487,15 @@ void ModuleInput::internal_input(p2Qeue<king_inputs>& inputs, p2Qeue<king_inputs
 		}
 	}
 
+	if (taunt_timer > 0)
+	{
+		if (SDL_GetTicks() - taunt_timer > TAUNT_TIME)
+		{
+			inputs.Push(IN_TAUNT_FINISH);
+			taunt_timer = 0;
+		}
+	}
+
 	//PLAYER 2
 	if (jump_timer2 > 0)
 	{
@@ -561,6 +576,15 @@ void ModuleInput::internal_input(p2Qeue<king_inputs>& inputs, p2Qeue<king_inputs
 			inputs2.Push(IN_DAMAGE_FINISH2);
 			damage_timer2 = 0;
 			App->player2->damageP1 = false;
+		}
+	}
+
+	if (taunt_timer2 > 0)
+	{
+		if (SDL_GetTicks() - taunt_timer2 > TAUNT_TIME)
+		{
+			inputs2.Push(IN_TAUNT_FINISH2);
+			taunt_timer2 = 0;
 		}
 	}
 }
