@@ -11,6 +11,8 @@
 #include "ModuleAudio.h"
 #include "ModulePlayer2.h"
 #include "ModuleVersus.h"
+#include "ModuleFonts.h"
+#include <stdio.h>
 
 
 ModuleVersus::ModuleVersus()
@@ -60,6 +62,9 @@ bool ModuleVersus::Start()
 
 	App->render->camera.x = 0;
 	App->render->camera.y = 0;
+
+	timer = 9;
+	timertime = SDL_GetTicks();
 	
 	firstFX = true;
 
@@ -142,6 +147,23 @@ update_status ModuleVersus::Update()
 	default:
 		break;
 	}
+
+	if (timer == 0)
+	{
+		App->fade->FadeToBlack(App->scene_versus, App->scene_King, 1);
+	}
+
+	//Countdown
+
+	if (SDL_GetTicks() - timertime >= 1000)
+	{
+		timertime = SDL_GetTicks();
+		timer--;
+	}
+
+	sprintf_s(timer_text, 10, "%d", timer);
+
+
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{
