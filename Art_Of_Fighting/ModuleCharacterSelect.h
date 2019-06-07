@@ -42,6 +42,7 @@ public:
 	SDL_Rect KingName;
 	SDL_Rect MickyName;
 	SDL_Rect JohnName;
+	SDL_Rect timeRect;
 
 
 	iPoint a[4][2];
@@ -49,7 +50,10 @@ public:
 	iPoint player1;
 	iPoint player2;
 
-	
+	char timer_text[10];
+	int font_countdown = -1;
+	int timertime;
+	uint timer;
 	
 	int welcomeScreenMusic = 0;
 

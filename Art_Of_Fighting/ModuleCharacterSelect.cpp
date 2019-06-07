@@ -10,6 +10,8 @@
 #include "ModuleAudio.h"
 #include "ModulePlayer2.h"
 #include "ModuleVersus.h"
+#include "ModuleFonts.h"
+#include <stdio.h>
 
 ModuleCharacterSelect::ModuleCharacterSelect()
 {
@@ -116,6 +118,12 @@ ModuleCharacterSelect::ModuleCharacterSelect()
 	JohnName.w = 58;
 	JohnName.h = 15;
 
+	timeRect.x = 73;
+	timeRect.y = 315;
+	timeRect.w = 32;
+	timeRect.h = 8;
+
+
 	a[0][0] = { 96, 151 };
 	a[0][1] = { 96, 179 };
 	a[1][0] = { 124, 151 };
@@ -156,7 +164,9 @@ bool ModuleCharacterSelect::Start()
 	App->render->camera.x = 0;
 	App->render->camera.y = 0;
 
-
+	font_countdown = App->fonts->Load("media/UI/numbers3.png", "0123456789", 1);
+	timer = 9;
+	timertime = SDL_GetTicks();
 
 
 	return ret;
@@ -183,7 +193,7 @@ update_status ModuleCharacterSelect::Update()
 	
 
 	App->render->Blit(graphics, 0, 0, &background, 0.0);
-
+	
 
 	//Ipoint Player 1
 	if (App->input->right)
@@ -292,90 +302,108 @@ update_status ModuleCharacterSelect::Update()
 
 	if(a[player1.x][player1.y] == a[0][0])
 	{
-		App->render->Blit(graphicsSelection, 20, 8, &Todoh, 0.0);
-		App->render->Blit(graphicsSelection, 55, 136, &TodohName, 0.0);
+		App->render->Blit(graphicsSelection, 6, 8, &Todoh, 0.0);
+		App->render->Blit(graphicsSelection, 41, 136, &TodohName, 0.0);
 	}
 	if (a[player1.x][player1.y] == a[1][0])
 	{
-		App->render->Blit(graphicsSelection, 20, 10, &Ryo, 0.0);
-		App->render->Blit(graphicsSelection, 65, 136, &RyoName, 0.0);
+		App->render->Blit(graphicsSelection, 6, 10, &Ryo, 0.0);
+		App->render->Blit(graphicsSelection, 51, 136, &RyoName, 0.0);
 	}
 	if (a[player1.x][player1.y] == a[2][0])
 	{
-		App->render->Blit(graphicsSelection, 20, 14, &Robert, 0.0);
-		App->render->Blit(graphicsSelection, 46, 136, &RobertName, 0.0);
+		App->render->Blit(graphicsSelection, 6, 14, &Robert, 0.0);
+		App->render->Blit(graphicsSelection, 34, 136, &RobertName, 0.0);
 	}
 	if (a[player1.x][player1.y] == a[3][0])
 	{
-		App->render->Blit(graphicsSelection, 20, 11, &Jack, 0.0);
-		App->render->Blit(graphicsSelection, 55, 136, &JackName, 0.0);
+		App->render->Blit(graphicsSelection, 6, 11, &Jack, 0.0);
+		App->render->Blit(graphicsSelection, 41, 136, &JackName, 0.0);
 	}
 	if (a[player1.x][player1.y] == a[0][1])
 	{
-		App->render->Blit(graphicsSelection, 20, 6, &Lee, 0.0);
-		App->render->Blit(graphicsSelection, 60, 136, &LeeName, 0.0);
+		App->render->Blit(graphicsSelection, 6, 6, &Lee, 0.0);
+		App->render->Blit(graphicsSelection, 46, 136, &LeeName, 0.0);
 	}
 	if (a[player1.x][player1.y] == a[1][1])
 	{
-		App->render->Blit(graphicsSelection, 20, 10, &King, 0.0);
-		App->render->Blit(graphicsSelection, 55, 136, &KingName, 0.0);
+		App->render->Blit(graphicsSelection, 6, 10, &King, 0.0);
+		App->render->Blit(graphicsSelection, 41, 136, &KingName, 0.0);
 	}
 	if (a[player1.x][player1.y] == a[2][1])
 	{
-		App->render->Blit(graphicsSelection, 20, 9, &Micky, 0.0);
-		App->render->Blit(graphicsSelection, 55, 136, &MickyName, 0.0);
+		App->render->Blit(graphicsSelection, 6, 9, &Micky, 0.0);
+		App->render->Blit(graphicsSelection, 41, 136, &MickyName, 0.0);
 	}
 	if (a[player1.x][player1.y] == a[3][1])
 	{
-		App->render->Blit(graphicsSelection, 20, 5, &John, 0.0);
-		App->render->Blit(graphicsSelection, 55, 136, &JohnName, 0.0);
+		App->render->Blit(graphicsSelection, 6, 5, &John, 0.0);
+		App->render->Blit(graphicsSelection, 41, 136, &JohnName, 0.0);
 	}
 	
 
 	//Blit Portraits Player 2
 	if (b[player2.x][player2.y] == b[0][0])
 	{
-		App->render->BlitWithScale(graphicsSelection, 280, 8, &Todoh, -1, 0.0f, 1.0f, TOP_RIGHT);
-		App->render->Blit(graphicsSelection, 185, 136, &TodohName, 0.0);
+		App->render->BlitWithScale(graphicsSelection, 298, 8, &Todoh, -1, 0.0f, 1.0f, TOP_RIGHT);
+		App->render->Blit(graphicsSelection, 202, 136, &TodohName, 0.0);
 	}
 	if (b[player2.x][player2.y] == b[1][0])
 	{
-		App->render->BlitWithScale(graphicsSelection, 280, 10, &Ryo, -1, 0.0f, 1.0f, TOP_RIGHT);
-		App->render->Blit(graphicsSelection, 195, 136, &RyoName, 0.0);
+		App->render->BlitWithScale(graphicsSelection, 298, 10, &Ryo, -1, 0.0f, 1.0f, TOP_RIGHT);
+		App->render->Blit(graphicsSelection, 213, 136, &RyoName, 0.0);
 	}
 	if (b[player2.x][player2.y] == b[2][0])
 	{
-		App->render->BlitWithScale(graphicsSelection, 280, 14, &Robert, -1, 0.0f, 1.0f, TOP_RIGHT);
-		App->render->Blit(graphicsSelection, 176, 136, &RobertName, 0.0);
+		App->render->BlitWithScale(graphicsSelection, 298, 14, &Robert, -1, 0.0f, 1.0f, TOP_RIGHT);
+		App->render->Blit(graphicsSelection, 194, 136, &RobertName, 0.0);
 	}
 	if (b[player2.x][player2.y] == b[3][0])
 	{
-		App->render->BlitWithScale(graphicsSelection, 280, 11, &Jack, -1, 0.0f, 1.0f, TOP_RIGHT);
-		App->render->Blit(graphicsSelection, 185, 136, &JackName, 0.0);
+		App->render->BlitWithScale(graphicsSelection, 298, 11, &Jack, -1, 0.0f, 1.0f, TOP_RIGHT);
+		App->render->Blit(graphicsSelection, 203, 136, &JackName, 0.0);
 	}
 	if (b[player2.x][player2.y] == b[0][1])
 	{
-		App->render->BlitWithScale(graphicsSelection, 280, 6, &Lee, -1, 0.0f, 1.0f, TOP_RIGHT);
-		App->render->Blit(graphicsSelection, 190, 136, &LeeName, 0.0);
+		App->render->BlitWithScale(graphicsSelection, 298, 6, &Lee, -1, 0.0f, 1.0f, TOP_RIGHT);
+		App->render->Blit(graphicsSelection, 208, 136, &LeeName, 0.0);
 	}
 	if (b[player2.x][player2.y] == b[1][1])
 	{
-		App->render->BlitWithScale(graphicsSelection, 280, 10, &King, -1, 0.0f, 1.0f, TOP_RIGHT);
-		App->render->Blit(graphicsSelection, 185, 136, &KingName, 0.0);
+		App->render->BlitWithScale(graphicsSelection, 298, 10, &King, -1, 0.0f, 1.0f, TOP_RIGHT);
+		App->render->Blit(graphicsSelection, 214, 136, &KingName, 0.0);
 	}
 	if (b[player2.x][player2.y] == b[2][1])
 	{
-		App->render->BlitWithScale(graphicsSelection, 280, 9, &Micky, -1, 0.0f, 1.0f, TOP_RIGHT);
-		App->render->Blit(graphicsSelection, 185, 136, &MickyName, 0.0);
+		App->render->BlitWithScale(graphicsSelection, 298, 9, &Micky, -1, 0.0f, 1.0f, TOP_RIGHT);
+		App->render->Blit(graphicsSelection, 203, 136, &MickyName, 0.0);
 	}
 	if (b[player2.x][player2.y] == b[3][1])
 	{
-		App->render->BlitWithScale(graphicsSelection, 280, 5, &John, -1, 0.0f, 1.0f, TOP_RIGHT);
-		App->render->Blit(graphicsSelection, 185, 136, &JohnName, 0.0);
+		App->render->BlitWithScale(graphicsSelection, 298, 5, &John, -1, 0.0f, 1.0f, TOP_RIGHT);
+		App->render->Blit(graphicsSelection, 203, 136, &JohnName, 0.0);
 	}
 
 	App->render->Blit(graphicsSelection, 70, 15, &SelectPlayer, 0.0);
 
+
+	if (timer == 0) 
+	{
+		App->fade->FadeToBlack(App->scene_selection, App->scene_versus, 1);
+	}
+
+	//Countdown
+
+	if (SDL_GetTicks() - timertime >= 1000)
+	{
+		timertime = SDL_GetTicks();
+		timer--;
+	}
+
+	sprintf_s(timer_text, 10, "%d", timer);
+
+	App->fonts->BlitText(148, 90, font_countdown, timer_text);
+	App->render->Blit(graphicsSelection, 136, 82, &timeRect, 0.0);
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{
