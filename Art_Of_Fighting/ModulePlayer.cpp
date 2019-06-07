@@ -1315,8 +1315,9 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 	/////////////////////////////////////////////////////////////////////////////////////// KICK HITBOX
 	if (kickCollider == c1 && c2->type == COLLIDER_ENEMY)
 	{
+		App->render->StartCameraShake(300, 3);
 		App->SlowDownShake->StartSlowDownShake(200, 40);
-		App->player2->Life--;
+		App->player2->Life = App->player2->Life - 3;
 		damageP2 = true;
 		App->input->inputs2.Push(IN_DAMAGE2);
 
@@ -1348,9 +1349,10 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////// PUNCH HITBOX
 	if (punchCollider == c1 && c2->type == COLLIDER_ENEMY )
 	{
+		App->render->StartCameraShake(150, 2);
 		App->SlowDownShake->StartSlowDownShake(500, 40);
-		App->player2->Life--;
-		App->player2->Life--;
+		App->player2->Life = App->player2->Life - 2;
+		
 		damageP2 = true;
 		App->input->inputs2.Push(IN_DAMAGE2);
 		collision = true;
@@ -1383,8 +1385,9 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 	/////////////////////////////////////////////////////////////////////////////////////////////////// PUNCH CROUCH HITBOX
 	if (punchCrouchCollider == c1 && c2->type == COLLIDER_ENEMY)
 	{
+
 		App->SlowDownShake->StartSlowDownShake(500, 40);
-		App->player2->Life--;
+		App->player2->Life= App->player2->Life-1;
 		damageP2 = true;
 		App->input->inputs2.Push(IN_DAMAGE2);
 		collision = true;
@@ -1409,7 +1412,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 	if (kickCrouchCollider == c1 && c2->type == COLLIDER_ENEMY)
 	{
 		App->SlowDownShake->StartSlowDownShake(500, 40);
-		App->player2->Life--;
+		App->player2->Life= App->player2->Life-1;
 		damageP2 = true;
 		App->input->inputs2.Push(IN_DAMAGE2);
 		collision = true;
@@ -1438,7 +1441,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 	if (kickNearCollider == c1 && c2->type == COLLIDER_ENEMY)
 	{
 		App->SlowDownShake->StartSlowDownShake(500, 40);
-		App->player2->Life--;
+		App->player2->Life= App->player2->Life-3;
 		damageP2 = true;
 		App->input->inputs2.Push(IN_DAMAGE2);
 		collision = true;
@@ -1467,8 +1470,9 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 
 	if (punchNearCollider == c1 && c2->type == COLLIDER_ENEMY)
 	{
+		App->render->StartCameraShake(100, 2);
 		App->SlowDownShake->StartSlowDownShake(500, 40);
-		App->player2->Life--;
+		App->player2->Life= App->player2->Life-2;
 		damageP2 = true;
 		
 		App->input->inputs2.Push(IN_DAMAGE2);

@@ -13,6 +13,7 @@
 #include "SDL/include/SDL_timer.h"
 #include "SDL/include/SDL.h"
 #include "ModuleSceneking.h"
+#include "ModuleSlowDownShake.h"
 
 ModulePlayer2::ModulePlayer2()
 {
@@ -759,7 +760,7 @@ update_status ModulePlayer2::Update()
 			kickCollider->Enabled = false;
 		}
 
-		if (r == &kick.frames[kick.last_frame - 5] && App->scene_King->Zoom == true)
+		if (r == &kick.frames[kick.last_frame -1] && App->scene_King->Zoom == true)
 		{
 			kickCollider->SetPos((position.x + 70)*1.3, position.y - r->h + 40);
 
@@ -1229,7 +1230,9 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 
 	if (kickCollider == c1 && c2->type == COLLIDER_PLAYER)
 	{
-		App->player->Life--;
+		App->render->StartCameraShake(300, 3);
+		App->SlowDownShake->StartSlowDownShake(200, 40);
+		App->player->Life= App->player->Life-3;
 		App->player->hit = true;
 		damageP1 = true;
 		App->input->inputs.Push(IN_DAMAGE);
@@ -1247,7 +1250,9 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////// PUNCH HITBOX
 	if (punchCollider == c1 && c2->type == COLLIDER_PLAYER)
 	{
-
+		App->render->StartCameraShake(150, 2);
+		App->SlowDownShake->StartSlowDownShake(500, 40);
+		App->player->Life= App->player->Life-2;
 		if ((position.x) >= (App->player->position.x + 25))
 		{
 			App->player->position.x -= 10;
@@ -1256,7 +1261,7 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 		{
 			App->player->position.x += 10;
 		}
-		App->player->Life--;
+		
 		App->player->hit = true;
 		collision = true;
 		damageP1 = true;
@@ -1266,7 +1271,8 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////// NEAR PUNCH
 	if (punchNearCollider == c1 && c2->type == COLLIDER_PLAYER)
 	{
-
+		App->render->StartCameraShake(100, 2);
+		App->SlowDownShake->StartSlowDownShake(500, 40);
 		if ((position.x) >= (App->player->position.x + 25))
 		{
 			App->player->position.x -= 10;
@@ -1275,7 +1281,7 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 		{
 			App->player->position.x += 10;
 		}
-		App->player->Life--;
+		App->player->Life= App->player->Life-2;
 		App->player->hit = true;
 		collision = true;
 		damageP1 = true;
@@ -1285,7 +1291,8 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////// NEAR kick
 	if (kicknearCollider == c1 && c2->type == COLLIDER_PLAYER)
 	{
-		App->player->Life--;
+		App->SlowDownShake->StartSlowDownShake(500, 40);
+		App->player->Life= App->player->Life-3;
 		damageP1 = true;
 		App->input->inputs.Push(IN_DAMAGE);
 		collision = true;

@@ -66,6 +66,9 @@ update_status ModuleRender::Update()
 	if (camera.x > -660 && App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT)
 		camera.x -= speed;
 		*/
+	if (shaking)
+		UpdateCameraShake();
+
 	if (App->scene_King->Zoom == true) {
 		camera.y = -60;
 
@@ -103,8 +106,8 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section, f
 {
 	bool ret = true;
 	SDL_Rect rect;
-	rect.x = (int)(camera.x * speed) + x * SCREEN_SIZE;
-	rect.y = (int)(camera.y * speed) + y * SCREEN_SIZE;
+	rect.x = (int)(camera.x * speed + camera_offset.x) + x * SCREEN_SIZE;
+	rect.y = (int)(camera.y * speed + camera_offset.y) + y * SCREEN_SIZE;
 
 	if (section != NULL)
 	{
@@ -120,8 +123,8 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section, f
 	rect.h *= SCREEN_SIZE;
 
 	if (App->scene_King->Zoom == true) {
-		rect.x = (int)(camera.x * speed) + x * SCREEN_SIZE*1.3;
-		rect.y = (int)(camera.y * speed) + y * SCREEN_SIZE*1.3;
+		rect.x = (int)(camera.x * speed + camera_offset.x) + x * SCREEN_SIZE*1.3;
+		rect.y = (int)(camera.y * speed + camera_offset.y) + y * SCREEN_SIZE*1.3;
 		rect.w *= SCREEN_SIZE * 1.3;
 		rect.h *= SCREEN_SIZE * 1.3;
 	}
@@ -148,27 +151,27 @@ bool ModuleRender::BlitWithScale(SDL_Texture * texture, int x, int y, SDL_Rect *
 	switch (pivot)
 	{
 	case TOP_RIGHT:
-		rect.x = (int)(camera.x * speed) + (x - section.w)* SCREEN_SIZE;
-		rect.y = (int)(camera.y * speed) + y * SCREEN_SIZE;
+		rect.x = (int)(camera.x * speed+ camera_offset.x) + (x - section.w)* SCREEN_SIZE;
+		rect.y = (int)(camera.y * speed + camera_offset.y) + y * SCREEN_SIZE;
 		if (App->scene_King->Zoom == true) {
-			rect.x = (int)(camera.x * speed) + (x - section.w)* SCREEN_SIZE*1.3;
-			rect.y = (int)(camera.y * speed) + y * SCREEN_SIZE*1.3;
+			rect.x = (int)(camera.x * speed + camera_offset.x) + (x - section.w)* SCREEN_SIZE*1.3;
+			rect.y = (int)(camera.y * speed + camera_offset.y) + y * SCREEN_SIZE*1.3;
 		}
 		break;
 	case TOP_LEFT:
-		rect.x = (int)(camera.x * speed) + (x)* SCREEN_SIZE;
-		rect.y = (int)(camera.y * speed) + y * SCREEN_SIZE;
+		rect.x = (int)(camera.x * speed + camera_offset.x) + (x)* SCREEN_SIZE;
+		rect.y = (int)(camera.y * speed + camera_offset.y) + y * SCREEN_SIZE;
 		if (App->scene_King->Zoom == true) {
-			rect.x = (int)(camera.x * speed) + (x)* SCREEN_SIZE*1.3;
-			rect.y = (int)(camera.y * speed) + y * SCREEN_SIZE*1.3;
+			rect.x = (int)(camera.x * speed + camera_offset.x) + (x)* SCREEN_SIZE*1.3;
+			rect.y = (int)(camera.y * speed + camera_offset.y) + y * SCREEN_SIZE*1.3;
 		}
 		break;
 	case MIDDLE:
-		rect.x = (int)(camera.x * speed) + (x + w + section.x / 2)* SCREEN_SIZE;
-		rect.y = (int)(camera.y * speed) + (y + section.y / 2)* SCREEN_SIZE;
+		rect.x = (int)(camera.x * speed + camera_offset.x) + (x + w + section.x / 2)* SCREEN_SIZE;
+		rect.y = (int)(camera.y * speed + camera_offset.y) + (y + section.y / 2)* SCREEN_SIZE;
 		if (App->scene_King->Zoom == true) {
-			rect.x = (int)(camera.x * speed) + (x + w + section.x / 2)* SCREEN_SIZE*1.3;
-			rect.y = (int)(camera.y * speed) + (y + section.y / 2)* SCREEN_SIZE*1.3;
+			rect.x = (int)(camera.x * speed + camera_offset.x) + (x + w + section.x / 2)* SCREEN_SIZE*1.3;
+			rect.y = (int)(camera.y * speed + camera_offset.y) + (y + section.y / 2)* SCREEN_SIZE*1.3;
 		}
 		break;
 	}
