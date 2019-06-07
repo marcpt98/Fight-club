@@ -52,8 +52,9 @@ ModulePlayer::ModulePlayer()
 	punchCrouch.PushBack({ 1033, 660, 68, 72 }, 0.15, 0, 0, 0, 0);
 
 	punch_Near.PushBack({ 299, 660, 47, 102 }, 0.2, 2, 0, 0, 0);
-	punch_Near.PushBack({ 633, 773, 79, 96 }, 0.2, 2, 0, 0, 0);
+	punch_Near.PushBack({ 633, 773, 79, 96 }, 0.1, 2, 0, 0, 0);
 	punch_Near.PushBack({ 299, 660, 47, 102 }, 0.2, 2, 0, 0, 0);
+
 
 	//kick animation(arcade sprite sheet)                  FIXED
 	kick.PushBack({ 438,660,70,113 }, 0.18, 0, 0, 0, 0);
@@ -1256,32 +1257,38 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		}
 	}
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////// PUNCH HITBOX
-	if (punchCollider == c1 && c2->type == COLLIDER_ENEMY)
+	if (punchCollider == c1 && c2->type == COLLIDER_ENEMY || punchNearCollider == c1 && c2->type == COLLIDER_ENEMY)
 	{
 		App->player2->Life--;
 		damageP2 = true;
 		App->input->inputs2.Push(IN_DAMAGE2);
 		collision = true;
 
-		if ((position.x) >= (App->player2->position.x + 25)) 
+		if ((position.x + 25) >= (App->player2->position.x))
 		{
-			App->player2->position.x -= 10;
-		}
 
+			if (position.x >= 100) {
+				App->player2->position.x -= 10;
+			}
+			else {
+				position.x += 15;
+			}
+		}
 		else
 		{
-			App->player2->position.x += 10;
-			if ((App->player2->position.x) <= (App->scene_King->positionlimitright.x + 300)) {
+
+			if (position.x <= 500) {
+				App->player2->position.x += 10;
+			}
+			else {
 				App->player2->position.x += 5;
+				position.x -= 15;
 			}
 
-			if ((App->player2->position.x) >= (App->scene_King->positionlimitright.x + 300)) {
-				position.x -= 5;
-				App->player2->position.x -= 3;
-			}
 		}
 
 	}
+
 	/////////////////////////////////////////////////////////////////////////////////////////////////// PUNCH CROUCH HITBOX
 	if (punchCrouchCollider == c1 && c2->type == COLLIDER_ENEMY)
 	{
