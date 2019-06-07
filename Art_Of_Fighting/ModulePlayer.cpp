@@ -461,7 +461,13 @@ update_status ModulePlayer::Update()
 			LOG("PUNCH JUMP BACKWARD ^<<+\n");
 			break;
 		case ST_KICK_CROUCH:
-			position.x += 0.5*speed;
+			if (position.x < App->player2->position.x) {
+				position.x += 0.5*speed;
+			}
+			else {
+				position.x -= 0.5*speed;
+			}
+
 			if (SFXsound == true)
 			{
 				App->audio->PlayFX(king_punch_crouch);
@@ -747,6 +753,17 @@ update_status ModulePlayer::Update()
 			punchNearCollider->Enabled = false;
 		}
 
+		if (r == &kickCrouch.frames[kickCrouch.last_frame - 1] && App->scene_King->Zoom == true)
+		{
+			kickCrouchCollider->SetPos((position.x - 30)*1.3, position.y + 30 - r->h + 40);
+
+			kickCrouchCollider->Enabled = true;
+		}
+		else
+		{
+			kickCrouchCollider->Enabled = false;
+		}
+
 	}
 	else
 	{
@@ -814,7 +831,7 @@ update_status ModulePlayer::Update()
 
 		if (r == &kickCrouch.frames[kickCrouch.last_frame - 1] && App->scene_King->Zoom == true)
 		{
-			kickCrouchCollider->SetPos((position.x + 50)*1.3, position.y + 30 - r->h+40);
+			kickCrouchCollider->SetPos((position.x + 30)*1.3, position.y + 30 - r->h+40);
 
 			kickCrouchCollider->Enabled = true;
 		}
