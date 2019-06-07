@@ -188,7 +188,7 @@ public:
 	Uint32 taunt_timer2 = 0;
 
 	// GAMEPAD
-	const int JOYSTICK_DEAD_ZONE = 8000;
+	const int JOYSTICK_DEAD_ZONE = 20000;
 	SDL_GameController* gGameController = NULL;
 	SDL_GameController* gGameController2 = NULL;
 };

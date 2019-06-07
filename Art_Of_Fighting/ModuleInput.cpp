@@ -21,30 +21,50 @@ ModuleInput::~ModuleInput()
 // Called before render is available
 bool ModuleInput::Init()
 {
-	
-	
 	bool ret = true;
 	SDL_Init(0);
 	SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER);
 
-	if (SDL_InitSubSystem(SDL_INIT_EVENTS) < 0)
-	{
-		LOG("SDL_EVENTS could not initialize! SDL_Error: %s\n", SDL_GetError());
-		ret = false;
-	}
-	if (SDL_NumJoysticks() < 1)
-	{
-		LOG("Warning: No joysticks connected!\n");
-	}
-	else
-	{
-		//Load joystick
-		gGameController = SDL_GameControllerOpen(0);
-		gGameController2 = SDL_GameControllerOpen(1);
+	SDL_Event event;
 
-		if (gGameController == NULL)
+	while (SDL_PollEvent(&event))
+	{
+		switch (event.type)
 		{
-			LOG("Warning: Unable to open game controller! SDL Error: %s\n", SDL_GetError());
+		case SDL_CONTROLLERDEVICEADDED:
+			LOG("CONNECTED");
+
+			if (gGameController == NULL)
+			{
+				gGameController = SDL_GameControllerOpen(0);
+			}
+			else
+			{
+				if (gGameController2 == NULL) 
+				{
+					gGameController2 = SDL_GameControllerOpen(1);
+				}
+			}
+			break;
+
+		case SDL_CONTROLLERDEVICEREMOVED:
+			LOG("REMOVED");
+			if (gGameController2 != NULL) 
+			{
+				LOG("PLAYER 2 CONTROLLER REMOVED");
+				SDL_GameControllerClose(gGameController2);
+				gGameController = NULL;
+			}
+			else
+			{
+				if (gGameController != NULL)
+				{
+					LOG("PLAYER 1 CONTROLLER REMOVED");
+					SDL_GameControllerClose(gGameController);
+					gGameController = NULL;
+				}
+			}
+			break;
 		}
 	}
 	return ret;
@@ -57,6 +77,8 @@ bool ModuleInput::external_input()
 
 	while (SDL_PollEvent(&event))
 	{
+		
+		//KEYBOARD
 		if (event.type == SDL_KEYUP && event.key.repeat == 0)
 		{
 			switch (event.key.keysym.sym)
@@ -180,11 +202,13 @@ bool ModuleInput::external_input()
 				break;
 			}
 		}
+
+		//GAMEPAD JOYSTICK
 		if (event.type == SDL_CONTROLLERAXISMOTION) 
 		{
 			if (event.jaxis.which == 0) 
 			{ 
-				//PLAYER 1 GAMEPAD
+				//PLAYER 1 JOYSTICK
 				if (event.jaxis.axis == 0)
 				{
 					//Left of dead zone
@@ -227,7 +251,7 @@ bool ModuleInput::external_input()
 				}
 			}
 
-			//Player 2 GAMEPAD
+			//Player 2 JOYSTICK
 			if (event.jaxis.which == 1) //En el gamepad 2
 			{ 
 				if (event.jaxis.axis == 0)
@@ -275,68 +299,86 @@ bool ModuleInput::external_input()
 
 		}
 
-		//EXIT GAME
-		//PLAYER 1
-		if (SDL_GameControllerGetButton(gGameController2, SDL_CONTROLLER_BUTTON_BACK) == 1)
+		//GAMEPAD BUTTONS
+		if (event.type == SDL_CONTROLLERBUTTONDOWN)
 		{
-			return false;
-		}
-		//PLAYER 2
-		if (SDL_GameControllerGetButton(gGameController, SDL_CONTROLLER_BUTTON_BACK) == 1)
-		{
-			return false;
-		}
-
-		//PLAYER 1 GAMEPAD BUTTONS
-		if (SDL_GameControllerGetButton(gGameController2, SDL_CONTROLLER_BUTTON_X) == 1)
-		{
-			inputs.Push(IN_T);
-		}
-		if (SDL_GameControllerGetButton(gGameController2, SDL_CONTROLLER_BUTTON_Y) == 1)
-		{
-			inputs.Push(IN_R);
-		}
-		if (SDL_GameControllerGetButton(gGameController2, SDL_CONTROLLER_BUTTON_B) == 1)
-		{
-			inputs.Push(IN_D);
-		}
-		//COMBOS PLAYER 1
-		if (SDL_GameControllerGetButton(gGameController2, SDL_CONTROLLER_BUTTON_A) == 1)
-		{
-			inputs.Push(IN_F);
-		}
-		if (SDL_GameControllerGetButton(gGameController2, SDL_CONTROLLER_BUTTON_LEFTSHOULDER) == 1)
-		{
-			inputs.Push(IN_C);
-		}
-		if (SDL_GameControllerGetButton(gGameController2, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == 1)
-		{
-		inputs.Push(IN_X);
-		}
-
-		//PLAYER 2 GAMEPAD BUTTONS
-		if (SDL_GameControllerGetButton(gGameController, SDL_CONTROLLER_BUTTON_X) == 1)
-		{
-			inputs2.Push(IN_Y);
-		}
-		if (SDL_GameControllerGetButton(gGameController, SDL_CONTROLLER_BUTTON_Y) == 1)
-		{
-			inputs2.Push(IN_U);
-		}
-		//COMBOS PLAYER 2
-		if (SDL_GameControllerGetButton(gGameController, SDL_CONTROLLER_BUTTON_A) == 1)
-		{
-			inputs2.Push(IN_H);
-		}
-		if (SDL_GameControllerGetButton(gGameController, SDL_CONTROLLER_BUTTON_LEFTSHOULDER) == 1)
-		{
-			inputs2.Push(IN_N);
-		}
-		if (SDL_GameControllerGetButton(gGameController, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == 1)
-		{
-			inputs2.Push(IN_M);
+			//PLAYER 1 BUTTONS
+			if (event.cbutton.which == 0)
+			{
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_BACK) 
+				{
+					return false;
+				}
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_X)
+				{
+					inputs.Push(IN_T);
+				}
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_Y)
+				{
+					inputs.Push(IN_R);
+				}
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_LEFTSHOULDER)
+				{
+					inputs.Push(IN_TAUNT);
+				}
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_RIGHTSHOULDER)
+				{
+					charge = true;
+				}
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_A)
+				{
+					inputs.Push(IN_F);
+				}
+			}
+			
+			//PLAYER 2 BUTTONS
+			if (event.cbutton.which == 1)
+			{
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_X)
+				{
+					inputs2.Push(IN_Y);
+				}
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_Y)
+				{
+					inputs2.Push(IN_U);
+				}
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_LEFTSHOULDER)
+				{
+					inputs2.Push(IN_TAUNT2);
+				}
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_RIGHTSHOULDER)
+				{
+					charge2 = true;
+				}
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_A)
+				{
+					inputs2.Push(IN_H);
+				}
+			}
 		}
 
+		if (event.type == SDL_CONTROLLERBUTTONUP)
+		{
+			//PLAYER 1 CHARGE
+			if (event.cbutton.which == 0)
+			{
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_RIGHTSHOULDER)
+				{
+					inputs.Push(IN_CHARGE_UP);
+					charge = false;
+				}
+			}
+			//PLAYER 2 CHARGE
+			if (event.cbutton.which == 1)
+			{
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_RIGHTSHOULDER)
+				{
+					inputs2.Push(IN_CHARGE_UP2);
+					charge2 = false;
+				}
+			}
+		}
+		
 		//PLAYER 1
 		if (left && right)
 			inputs.Push(IN_LEFT_AND_RIGHT);
