@@ -77,6 +77,7 @@ public:
 	Collider *punchCollider;
 	Collider *punchCrouchCollider;
 	Collider *punchNearCollider;
+	Collider *kicknearCollider;
 	
 
 

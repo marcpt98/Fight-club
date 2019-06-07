@@ -145,6 +145,8 @@ bool ModulePlayer2::Start()
 	punchNearCollider = App->collision->AddCollider({ position.x, position.y - 70 , 65, 15 }, COLLIDER_ENEMY, this);
 	punchNearCollider->Enabled = false;
 
+	kicknearCollider = App->collision->AddCollider({ position.x, position.y , 45, 15 }, COLLIDER_ENEMY, this);
+	kicknearCollider->Enabled = false;
 	//Initialize Stamina
 	Stamina = 100;
 
@@ -695,6 +697,16 @@ update_status ModulePlayer2::Update()
 			punchNearCollider->Enabled = false;
 		}
 
+		if (r == &kick_Near.frames[kick_Near.last_frame - 1] && App->scene_King->Zoom == true)
+		{
+			kicknearCollider->SetPos((position.x - 40)*1.3, position.y + 12 - r->h + 40);
+
+			kicknearCollider->Enabled = true;
+		}
+		else
+		{
+			kicknearCollider->Enabled = false;
+		}
 		
 
 	}
@@ -761,6 +773,17 @@ update_status ModulePlayer2::Update()
 		else
 		{
 			punchNearCollider->Enabled = false;
+		}
+
+		if (r == &kick_Near.frames[kick_Near.last_frame - 1] && App->scene_King->Zoom == true)
+		{
+			kicknearCollider->SetPos((position.x + 40)*1.3, position.y + 12 - r->h + 40);
+
+			kicknearCollider->Enabled = true;
+		}
+		else
+		{
+			kicknearCollider->Enabled = false;
 		}
 	}
 	
@@ -1192,6 +1215,33 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 		collision = true;
 		damageP1 = true;
 		App->input->inputs.Push(IN_DAMAGE);
+
+	}
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////// NEAR kick
+	if (kicknearCollider == c1 && c2->type == COLLIDER_PLAYER)
+	{
+		App->player->Life--;
+		damageP1 = true;
+		App->input->inputs.Push(IN_DAMAGE);
+		collision = true;
+
+		if ((App->player->position.x) >= (position.x + 25))
+		{
+			App->player->position.x += 10;
+		}
+
+		else
+		{
+			App->player->position.x -= 10;
+			if ((App->player->position.x) <= (App->scene_King->positionlimitright.x + 300)) {
+				App->player->position.x += 5;
+			}
+
+			if ((App->player->position.x) >= (App->scene_King->positionlimitright.x + 300)) {
+				position.x -= 5;
+				App->player->position.x -= 3;
+			}
+		}
 
 	}
 
