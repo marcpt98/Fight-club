@@ -171,6 +171,8 @@ bool ModuleSceneking::Start()
 	timer = 60;
 	starttime = SDL_GetTicks();
 	endingtimer = 0;
+	matchforP1 = false;
+
 	return true;
 }
 
@@ -373,6 +375,7 @@ update_status ModuleSceneking::Update()
 		App->input->inputs2.Push(IN_DEFEAT2);
 		App->input->inputs.Push(IN_WIN);
 		
+		matchforP1 = true;
 
 		if (endingtimer == 0)endingtimer = SDL_GetTicks();
 		if (SDL_GetTicks() - endingtimer >= 3000)App->fade->FadeToBlack(App->scene_King, App->scene_win, 5);
@@ -383,9 +386,20 @@ update_status ModuleSceneking::Update()
 		App->input->inputs2.Push(IN_WIN2);
 		App->input->inputs.Push(IN_DEFEAT);
 		
+		matchforP2 = true;
 
 		if (endingtimer == 0)endingtimer = SDL_GetTicks();
 		if (SDL_GetTicks() - endingtimer >= 4000)App->fade->FadeToBlack(App->scene_King, App->scene_win, 5);
+	}
+
+	if (App->scene_King->matchforP1 == true)
+	{
+		App->render->BlitWithScale(graphicsUI, 210, 70, &player1Win, 1, 0.0f, 1.0f, TOP_RIGHT);
+	}
+
+	if (App->scene_King->matchforP2 == true)
+	{
+		App->render->BlitWithScale(graphicsUI, 210, 70, &player2Win, 1, 0.0f, 1.0f, TOP_RIGHT);
 	}
 
 	//System of Rounds

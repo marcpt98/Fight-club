@@ -75,6 +75,8 @@ public:
 	bool RoundStart = false;
 	bool Round2Start = false;
 	bool FinalRoundStart = false;
+	bool matchforP1 = false;
+	bool matchforP2 = false;
 
 	int RoundsWinP1 = 0;
 	int RoundsWinP2 = 0;
