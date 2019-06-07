@@ -370,8 +370,9 @@ update_status ModuleSceneking::Update()
 	//PLAYER 1 WINS
 	if (App->player2->Life <= 0)
 	{
-		
+		App->input->inputs2.Push(IN_DEFEAT2);
 		App->input->inputs.Push(IN_WIN);
+		
 
 		if (endingtimer == 0)endingtimer = SDL_GetTicks();
 		if (SDL_GetTicks() - endingtimer >= 3000)App->fade->FadeToBlack(App->scene_King, App->scene_win, 5);
@@ -379,6 +380,7 @@ update_status ModuleSceneking::Update()
 
 	if (App->player->Life <= 0)
 	{
+		App->input->inputs2.Push(IN_WIN2);
 		App->input->inputs.Push(IN_DEFEAT);
 		
 

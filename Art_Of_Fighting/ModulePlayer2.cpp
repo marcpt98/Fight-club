@@ -100,6 +100,17 @@ ModulePlayer2::ModulePlayer2()
 	taunt.PushBack({ 1285,773,49,102 }, 0.1, 0, 0, 0, 0);
 	taunt.PushBack({ 1230,773,49,102 }, 0.1, 0, 0, 0, 0);
 
+	//win animation
+	winAnimation.PushBack({ 178,1024,42,100 }, 0.1, 0, 0, 0, 0);
+	winAnimation.PushBack({ 224,1024,61,96 }, 0.1, 0, 0, 0, 0);
+	winAnimation.PushBack({ 291,1024,62,93 }, 0.1, 0, 0, 0, 0);
+	winAnimation.loop = false;
+
+	//lose animation
+	defeatAnimation.PushBack({ 1156,773,70,97 }, 0.1, 0, 0, 0, 0);
+	defeatAnimation.PushBack({ 356,1024,86,78 }, 0.1, 0, 0, 0, 0);
+	defeatAnimation.PushBack({ 454,1024,89,55 }, 0.1, 0, 0, 0, 0);
+	defeatAnimation.loop = false;
 }
 
 ModulePlayer2::~ModulePlayer2()
@@ -150,11 +161,15 @@ bool ModulePlayer2::Start()
 	//Initialize Stamina
 	Stamina = 100;
 
+	winAnimation.Reset();
+	defeatAnimation.Reset();
 	return ret;
 }
 
 bool ModulePlayer2::CleanUp()
-{
+{	
+	App->input->inputs2.Push(IN_WIN_FINISH2);
+	App->input->inputs2.Push(IN_DEFEAT_FINISH2);
 	LOG("Unloading player");
 
 	App->textures->Unload(graphics);
@@ -207,6 +222,8 @@ update_status ModulePlayer2::Update()
 			charge.Reset();
 			damage.Reset();
 			taunt.Reset();
+			winAnimation.Reset();
+			defeatAnimation.Reset();
 			break;
 
 		case ST_WALK_FORWARD:
@@ -237,6 +254,8 @@ update_status ModulePlayer2::Update()
 			charge.Reset();
 			damage.Reset();
 			taunt.Reset();
+			winAnimation.Reset();
+			defeatAnimation.Reset();
 			break;
 
 		case ST_WALK_BACKWARD:
@@ -267,6 +286,8 @@ update_status ModulePlayer2::Update()
 			charge.Reset();
 			damage.Reset();
 			taunt.Reset();
+			winAnimation.Reset();
+			defeatAnimation.Reset();
 			break;
 
 		case ST_JUMP_NEUTRAL:
@@ -626,6 +647,13 @@ update_status ModulePlayer2::Update()
 			}
 			LOG("MOUSHUUKYAKU ++++\n");
 			break;
+		case ST_WIN:
+			current_animation = &winAnimation;
+			break;
+		case ST_DEFEAT:
+			current_animation = &defeatAnimation;
+			break;
+		
 		}
 	}
 	current_state = state;
@@ -843,6 +871,8 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 			case IN_CHARGE_DOWN2: state = ST_CHARGE; break;
 			case IN_DAMAGE2: state = ST_DAMAGE, App->input->damage_timer2 = SDL_GetTicks(); break;
 			case IN_TAUNT2: state = ST_TAUNT, App->input->taunt_timer2 = SDL_GetTicks(); break;
+			case IN_WIN2: state = ST_WIN; break;
+			case IN_DEFEAT2: state = ST_DEFEAT; break;
 
 			}
 		}
@@ -863,7 +893,8 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 			case IN_M: state = ST_TORNADOKICK, App->input->tornadokick_timer2 = SDL_GetTicks(); break;
 			case IN_DAMAGE2: state = ST_DAMAGE, App->input->damage_timer2 = SDL_GetTicks(); break;
 			case IN_TAUNT2: state = ST_TAUNT, App->input->taunt_timer = SDL_GetTicks(); break;
-
+			case IN_WIN2: state = ST_WIN; break;
+			case IN_DEFEAT2: state = ST_DEFEAT; break;
 			}
 		}
 		break;
@@ -882,6 +913,8 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 			case IN_N: state = ST_MOUSHUUKYAKU, App->input->moshuukyaku_timer2 = SDL_GetTicks(); break;
 			case IN_M: state = ST_TORNADOKICK, App->input->tornadokick_timer2 = SDL_GetTicks(); break;
 			case IN_TAUNT2: state = ST_TAUNT, App->input->taunt_timer = SDL_GetTicks(); break;
+			case IN_WIN2: state = ST_WIN; break;
+			case IN_DEFEAT2: state = ST_DEFEAT; break;
 			}
 		}
 		break;
@@ -891,6 +924,8 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 			switch (last_input)
 			{
 			case IN_JUMP_FINISH2: state = ST_IDLE; animstart = 0; SFXsound = true; break;
+			case IN_WIN2: state = ST_WIN; animstart = 0; break;
+			case IN_DEFEAT2: state = ST_DEFEAT; animstart = 0; break;
 				//case IN_T: state = ST_PUNCH_NEUTRAL_JUMP;  punch_timer = SDL_GetTicks(); animstart = 0; attack = true; break;
 				//case IN_R: state = ST_KICK_NEUTRAL_JUMP; kick_timer = SDL_GetTicks(); animstart = 0; attack = true; break;
 				//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
@@ -903,6 +938,8 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 			switch (last_input)
 			{
 			case IN_JUMP_FINISH2: state = ST_IDLE; animstart = 0; SFXsound = true; break;
+			case IN_WIN2: state = ST_WIN; animstart = 0; break;
+			case IN_DEFEAT2: state = ST_DEFEAT; animstart = 0; break;
 				//case IN_T: state = ST_PUNCH_FORWARD_JUMP;  punch_timer = SDL_GetTicks(); break;
 				//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
 
@@ -915,6 +952,8 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 			switch (last_input)
 			{
 			case IN_JUMP_FINISH2: state = ST_IDLE; animstart = 0; SFXsound = true; break;
+			case IN_WIN2: state = ST_WIN; animstart = 0; break;
+			case IN_DEFEAT2: state = ST_DEFEAT; animstart = 0; break;
 				//case IN_T: state = ST_PUNCH_BACKWARD_JUMP;  punch_timer = SDL_GetTicks(); break;
 				//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
 
@@ -964,6 +1003,8 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 			{
 			case IN_PUNCH_FINISH2: state = ST_IDLE; animstart = 0; SFXsound = true; break;
 			case IN_DAMAGE2: state = ST_DAMAGE, App->input->damage_timer2 = SDL_GetTicks(); break;
+			case IN_WIN2: state = ST_WIN; break;
+			case IN_DEFEAT2: state = ST_DEFEAT; break;
 			}
 		}
 		break;
@@ -978,6 +1019,8 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 			case IN_U: state = ST_KICK_CROUCH; App->input->kick_crouch_timer2 = SDL_GetTicks(); break;
 			case IN_DAMAGE2: state = ST_DAMAGE, App->input->damage_timer2 = SDL_GetTicks(); break;
 			case IN_TAUNT2: state = ST_TAUNT, App->input->taunt_timer = SDL_GetTicks(); break;
+			case IN_WIN2: state = ST_WIN; break;
+			case IN_DEFEAT2: state = ST_DEFEAT; break;
 			}
 		}
 		break;
@@ -997,6 +1040,8 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 				{
 					state = ST_IDLE; animstart = 0; SFXsound = true;
 				}
+			case IN_WIN2: state = ST_WIN; break;
+			case IN_DEFEAT2: state = ST_DEFEAT; break;
 			}
 		}
 		break;
@@ -1007,6 +1052,8 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 			{
 			case IN_KICK_FINISH2: state = ST_IDLE; animstart = 0; SFXsound = true; break;
 			case IN_DAMAGE2: state = ST_DAMAGE, App->input->damage_timer2 = SDL_GetTicks(); break;
+			case IN_WIN2: state = ST_WIN; break;
+			case IN_DEFEAT2: state = ST_DEFEAT; break;
 			}
 
 		}break;
@@ -1036,6 +1083,8 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 				{
 					state = ST_IDLE; animstart = 0; SFXsound = true;
 				}
+			case IN_WIN2: state = ST_WIN; break;
+			case IN_DEFEAT2: state = ST_DEFEAT; break;
 			}
 		}
 		break;
@@ -1046,6 +1095,8 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 			{
 			case IN_CHARGE_UP2:state = ST_IDLE; SFXsound = true; break;
 			case IN_DAMAGE2: state = ST_DAMAGE, App->input->damage_timer2 = SDL_GetTicks(); break;
+			case IN_WIN2: state = ST_WIN; break;
+			case IN_DEFEAT2: state = ST_DEFEAT; break;
 			}
 		}
 
@@ -1054,6 +1105,8 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 			switch (last_input)
 			{
 			case IN_DAMAGE_FINISH2: state = ST_IDLE; animstart = 0;  SFXsound = true; break;
+			case IN_WIN2: state = ST_WIN; break;
+			case IN_DEFEAT2: state = ST_DEFEAT; break;
 			}
 			break;
 		}
@@ -1096,6 +1149,20 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 			break;
 
 		}
+		case ST_WIN:
+			switch (last_input) 
+			{
+			case IN_WIN_FINISH2: state = ST_IDLE; animstart = 0; break;
+			}
+			break;
+
+		case ST_DEFEAT:
+			switch (last_input) 
+			{
+			case IN_DEFEAT_FINISH2: state = ST_IDLE; animstart = 0; break;
+			}
+			break;
+		
 
 		}
 
