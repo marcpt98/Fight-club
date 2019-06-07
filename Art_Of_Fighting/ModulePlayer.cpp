@@ -1095,7 +1095,7 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 				}
 			}
 		}
-
+		break;
 		case ST_CHARGE:
 		{
 			switch (last_input)

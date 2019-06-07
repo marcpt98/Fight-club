@@ -1031,7 +1031,6 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 				if (IN_CROUCH_DOWN2 == true)
 				{
 					state = ST_CROUCH; animstart = 0; SFXsound = true;
-
 				}
 				else
 				{
@@ -1039,6 +1038,7 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 				}
 			}
 		}
+		break;
 
 		case ST_CHARGE:
 		{
