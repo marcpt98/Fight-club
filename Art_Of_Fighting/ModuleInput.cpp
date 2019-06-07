@@ -334,6 +334,10 @@ bool ModuleInput::external_input()
 			//PLAYER 2 BUTTONS
 			if (event.cbutton.which == 1)
 			{
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_BACK)
+				{
+					return false;
+				}
 				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_X)
 				{
 					inputs2.Push(IN_Y);
