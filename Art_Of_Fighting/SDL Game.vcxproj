@@ -89,6 +89,7 @@
     <ClInclude Include="ModuleRender.h" />
     <ClInclude Include="ModuleSceneking.h" />
     <ClInclude Include="ModuleScenewin.h" />
+    <ClInclude Include="ModuleSlowDownShake.h" />
     <ClInclude Include="ModuleTextures.h" />
     <ClInclude Include="ModuleVersus.h" />
     <ClInclude Include="ModuleWelcomeScreen.h" />
@@ -107,6 +108,7 @@
     <ClCompile Include="ModuleAudio.cpp" />
     <ClCompile Include="ModulePlayer2.cpp" />
     <ClCompile Include="ModuleScenewin.cpp" />
+    <ClCompile Include="ModuleSlowDownShake.cpp" />
     <ClCompile Include="ModuleVersus.cpp" />
     <ClCompile Include="ModuleWelcomeScreen.cpp" />
     <ClCompile Include="ModuleFadeToBlack.cpp" />

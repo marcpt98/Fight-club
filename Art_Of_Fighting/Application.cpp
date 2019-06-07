@@ -15,6 +15,7 @@
 #include "ModuleCollision.h"
 #include "ModuleFonts.h"
 #include "ModuleVersus.h"
+#include "ModuleSlowDownShake.h"
 
 Application::Application()
 {
@@ -34,9 +35,7 @@ Application::Application()
 	modules[13] = collision = new ModuleCollision();
 	modules[14] = fade = new ModuleFadeToBlack();
 	modules[15] = audio = new ModuleAudio();
-	
-	
-	
+	modules[16] = SlowDownShake = new ModuleSlowDownShake();
 }	
 
 Application::~Application()

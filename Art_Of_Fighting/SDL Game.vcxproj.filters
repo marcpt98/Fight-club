@@ -83,6 +83,9 @@
     <ClInclude Include="ModuleVersus.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleSlowDownShake.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -140,6 +143,9 @@
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleVersus.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleSlowDownShake.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>

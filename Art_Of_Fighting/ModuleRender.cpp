@@ -3,8 +3,13 @@
 #include "ModuleRender.h"
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
+#include "ModulePlayer.h"
+#include "ModulePlayer2.h"
 #include "SDL/include/SDL.h"
 #include "ModuleSceneking.h"
+#include <time.h>
+#include <stdlib.h>
+
 
 ModuleRender::ModuleRender() : Module()
 {
@@ -12,6 +17,7 @@ ModuleRender::ModuleRender() : Module()
 	camera.y = 0;
 	camera.w = SCREEN_WIDTH;   
 	camera.h = SCREEN_HEIGHT;  
+	srand(time(NULL));
 }
 
 // Destructor
@@ -233,5 +239,31 @@ bool ModuleRender::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uin
 	}
 
 	return ret;
+}
+
+void ModuleRender::StartCameraShake(int duration, float magnitude)
+{
+	//TODO 1: Store the data and start the shake
+	shake_magnitude = magnitude;
+	shake_duration = duration;
+	shaking = true;
+	shake_timer = SDL_GetTicks();
+}
+
+void ModuleRender::UpdateCameraShake()
+{
+	//TODO 2: Update the shake timer, stop shaking if we reach the full duration
+	//		  Generate a random value and set the camera offset
+	if (SDL_GetTicks() - shake_timer < shake_duration) {
+
+		camera_offset.x = -(int)shake_magnitude + rand() % (int)shake_magnitude;
+		camera_offset.y = -(int)shake_magnitude + rand() % (int)shake_magnitude;
+
+	}
+	else {
+		camera_offset.x = 0;
+		camera_offset.y = 0;
+		shaking = false;
+	}
 }
 
