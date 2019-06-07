@@ -65,11 +65,11 @@ public:
 	Animation punchCrouch;
 	Animation kick;
 	Animation kick_Near;
-	Animation lowkick;
 	Animation kickJump;
 	Animation kickCrouch;
 	Animation damage;
 	Animation charge;
+	Animation taunt;
 
 	// COLLIDERS
 	Collider *ryohitbox;

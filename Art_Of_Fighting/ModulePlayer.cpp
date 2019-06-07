@@ -66,12 +66,6 @@ ModulePlayer::ModulePlayer()
 	kick_Near.PushBack({ 858,773,93,97 }, 0.03, 0, 0, 0, 0);
 	kick_Near.PushBack({ 957,773,53,101 }, 0.16, 0, 0, 0, 0);
 
-	lowkick.PushBack({ 748, 659, 55, 101 }, 0.15, 0, 0, 0, 0);
-	lowkick.PushBack({ 803, 660, 49, 99 }, 0.15, 15, -3, 0, 0);
-	lowkick.PushBack({ 852, 660, 85, 101 }, 0.08, 15, -3, 0, 0);
-	lowkick.PushBack({ 803, 660, 49, 99 }, 0.1, 15, -3, 0, 0);
-	lowkick.PushBack({ 748, 659, 55, 101 }, 0.1, 0, 0, 0, 0);
-
 	kickJump.PushBack({ 561,146,57,89 }, 0.1, 0, 0, 0, 0);
 	kickJump.PushBack({ 618,149,96,86 }, 0.1, 0, 0, 0, 0);
 	kickJump.PushBack({ 561,146,57,89 }, 0.1, 0, 0, 0, 0);
@@ -228,7 +222,6 @@ update_status ModulePlayer::Update()
 			crouch.Reset();
 			kick.Reset();
 			kick_Near.Reset();
-			lowkick.Reset();
 			punch.Reset();
 			punch_Near.Reset();
 			hadouken.Reset();
@@ -258,7 +251,6 @@ update_status ModulePlayer::Update()
 			crouch.Reset();
 			kick.Reset();
 			kick_Near.Reset();
-			lowkick.Reset();
 			punch.Reset();
 			hadouken.Reset();
 			punch_Near.Reset();
@@ -288,7 +280,6 @@ update_status ModulePlayer::Update()
 			crouch.Reset();
 			kick.Reset();
 			kick_Near.Reset();
-			lowkick.Reset();
 			punch.Reset();
 			hadouken.Reset();
 			punch_Near.Reset();
@@ -510,18 +501,6 @@ update_status ModulePlayer::Update()
 			{
 				App->audio->PlayFX(kingkick);
 				SFXsound = false;
-			}
-			LOG("KICK --\n")
-				break;
-		case ST_LOW_KICK_STANDING:
-			if (SFXsound == true)
-			{
-				App->audio->PlayFX(kingkick);
-				SFXsound = false;
-			}
-			if (animstart == 0)
-			{
-				current_animation = &lowkick;
 			}
 			LOG("KICK --\n")
 				break;
@@ -1064,17 +1043,6 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 			}
 
 		}break;
-
-		case ST_LOW_KICK_STANDING:
-		{
-			switch (last_input)
-			{
-			case IN_LOW_KICK_FINISH: state = ST_IDLE; animstart = 0; SFXsound = true; break;
-			case IN_DAMAGE: state = ST_DAMAGE, App->input->damage_timer = SDL_GetTicks(); break;
-			}
-
-		}break;
-
 		case ST_KICK_NEUTRAL_JUMP:
 		{
 			switch (last_input)

@@ -434,14 +434,6 @@ void ModuleInput::internal_input(p2Qeue<king_inputs>& inputs, p2Qeue<king_inputs
 			kick_timer = 0;
 		}
 	}
-	if (low_kick_timer > 0)
-	{
-		if (SDL_GetTicks() - low_kick_timer > LOW_KICK_TIME)
-		{
-			inputs.Push(IN_LOW_KICK_FINISH);
-			low_kick_timer = 0;
-		}
-	}
 
 	if (kick_crouch_timer > 0)
 	{
