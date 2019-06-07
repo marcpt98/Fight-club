@@ -16,7 +16,7 @@ class ModulePlayer2 : public Module
 {
 private:
 	bool wall = false;
-	int speed = 2;
+	Uint32 speed = 2;
 	int animstart = 0;
 	float jumpSpeed = 6;
 	int initialPos;

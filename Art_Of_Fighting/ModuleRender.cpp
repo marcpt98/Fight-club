@@ -66,7 +66,6 @@ update_status ModuleRender::Update()
 	if (camera.x > -660 && App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT)
 		camera.x -= speed;
 		*/
-
 	if (App->scene_King->Zoom == true) {
 		camera.y = -60;
 

@@ -13,6 +13,7 @@
 #include "SDL/include/SDL_timer.h"
 #include "SDL/include/SDL.h"
 #include "ModuleSceneking.h"
+#include "ModuleSlowDownShake.h"
 
 ModulePlayer::ModulePlayer()
 {
@@ -807,7 +808,7 @@ update_status ModulePlayer::Update()
 			kickCollider->Enabled = false;
 		}
 
-		if (r == &kick.frames[kick.last_frame - 5] && App->scene_King->Zoom == true)
+		if (r == &kick.frames[kick.last_frame - 3] && App->scene_King->Zoom == true)
 		{
 			kickCollider->SetPos((position.x + 60)*1.3, position.y - r->h+30);
 
@@ -872,7 +873,7 @@ update_status ModulePlayer::Update()
 			kickNearCollider->Enabled = false;
 		}
 
-		if (r == &punch_Near.frames[punch_Near.last_frame - 1] && App->scene_King->Zoom == true)
+		if (r == &punch_Near.frames[punch_Near.last_frame - 2] && App->scene_King->Zoom == true)
 		{
 			punchNearCollider->SetPos((position.x + 40)*1.3, position.y + 12 - r->h + 40);
 
@@ -1283,6 +1284,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 	/////////////////////////////////////////////////////////////////////////////////////// KICK HITBOX
 	if (kickCollider == c1 && c2->type == COLLIDER_ENEMY)
 	{
+		App->SlowDownShake->StartSlowDownShake(200, 40);
 		App->player2->Life--;
 		damageP2 = true;
 		App->input->inputs2.Push(IN_DAMAGE2);
@@ -1313,8 +1315,10 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		}
 	}
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////// PUNCH HITBOX
-	if (punchCollider == c1 && c2->type == COLLIDER_ENEMY || punchNearCollider == c1 && c2->type == COLLIDER_ENEMY)
+	if (punchCollider == c1 && c2->type == COLLIDER_ENEMY )
 	{
+		App->SlowDownShake->StartSlowDownShake(500, 40);
+		App->player2->Life--;
 		App->player2->Life--;
 		damageP2 = true;
 		App->input->inputs2.Push(IN_DAMAGE2);
@@ -1348,6 +1352,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 	/////////////////////////////////////////////////////////////////////////////////////////////////// PUNCH CROUCH HITBOX
 	if (punchCrouchCollider == c1 && c2->type == COLLIDER_ENEMY)
 	{
+		App->SlowDownShake->StartSlowDownShake(500, 40);
 		App->player2->Life--;
 		damageP2 = true;
 		App->input->inputs2.Push(IN_DAMAGE2);
@@ -1372,6 +1377,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 	/////////////////////////////////////////////////////////////////////////////////////////////////// KICK CROUCH HITBOX
 	if (kickCrouchCollider == c1 && c2->type == COLLIDER_ENEMY)
 	{
+		App->SlowDownShake->StartSlowDownShake(500, 40);
 		App->player2->Life--;
 		damageP2 = true;
 		App->input->inputs2.Push(IN_DAMAGE2);
@@ -1400,6 +1406,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 
 	if (kickNearCollider == c1 && c2->type == COLLIDER_ENEMY)
 	{
+		App->SlowDownShake->StartSlowDownShake(500, 40);
 		App->player2->Life--;
 		damageP2 = true;
 		App->input->inputs2.Push(IN_DAMAGE2);
@@ -1429,19 +1436,26 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 
 	if (punchNearCollider == c1 && c2->type == COLLIDER_ENEMY)
 	{
+		App->SlowDownShake->StartSlowDownShake(500, 40);
 		App->player2->Life--;
 		damageP2 = true;
+		
 		App->input->inputs2.Push(IN_DAMAGE2);
 		collision = true;
 
 		if ((position.x) >= (App->player2->position.x + 25))
 		{
-			App->player2->position.x -= 10;
+			if ((position.x) >= (App->player2->position.x + 25)) {
+				App->player2->position.x -= speed;
+			}
+			else { speed = 0; }
+			
 		}
+		
 
 		else
 		{
-			App->player2->position.x += 10;
+			App->player2->position.x += speed;
 			if ((App->player2->position.x) <= (App->scene_King->positionlimitright.x + 300)) {
 				App->player2->position.x += 5;
 			}
