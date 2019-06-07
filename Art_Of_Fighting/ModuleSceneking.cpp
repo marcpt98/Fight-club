@@ -366,12 +366,24 @@ update_status ModuleSceneking::Update()
 
 	App->fonts->BlitText(137, 8, font_score, timer_text);
 
+
+	//PLAYER 1 WINS
 	if (App->player2->Life <= 0)
 	{
+		
 		App->input->inputs.Push(IN_WIN);
 
 		if (endingtimer == 0)endingtimer = SDL_GetTicks();
 		if (SDL_GetTicks() - endingtimer >= 3000)App->fade->FadeToBlack(App->scene_King, App->scene_win, 5);
+	}
+
+	if (App->player->Life <= 0)
+	{
+		App->input->inputs.Push(IN_DEFEAT);
+		
+
+		if (endingtimer == 0)endingtimer = SDL_GetTicks();
+		if (SDL_GetTicks() - endingtimer >= 4000)App->fade->FadeToBlack(App->scene_King, App->scene_win, 5);
 	}
 
 	//System of Rounds
@@ -410,6 +422,7 @@ update_status ModuleSceneking::Update()
 		
 	}
 	*/
+
 	if (App->player->position.x >= App->player2->position.x - 120 && App->player->position.x <= App->player2->position.x + 120) {
 		Zoom = true;
 	}

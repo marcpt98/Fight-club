@@ -46,7 +46,8 @@ enum king_states
 	ST_CHARGE,
 	ST_DAMAGE,
 	ST_TAUNT,
-	ST_WIN
+	ST_WIN,
+	ST_DEFEAT,
 };
 
 enum king_inputs
@@ -83,6 +84,9 @@ enum king_inputs
 	IN_TORNADOKICK_FINISH,
 	IN_WIN,
 	IN_WIN_FINISH,
+	IN_DEFEAT,
+	IN_DEFEAT_FINISH,
+
 
 	// PLAYER 2
 	IN_LEFT_DOWN2,
