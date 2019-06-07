@@ -875,7 +875,6 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 			case IN_CROUCH_DOWN: state = ST_CROUCH; break;
 			case IN_T: state = ST_PUNCH_STANDING, App->input->punch_timer = SDL_GetTicks(); break;
 			case IN_R: state = ST_KICK_STANDING, App->input->kick_timer = SDL_GetTicks(); break;
-			case IN_D: state = ST_LOW_KICK_STANDING, App->input->low_kick_timer = SDL_GetTicks(); break;
 			case IN_F: state = ST_HADOUKEN, App->input->hadouken_timer = SDL_GetTicks(); break;
 			case IN_C: state = ST_MOUSHUUKYAKU, App->input->moshuukyaku_timer = SDL_GetTicks(); break;
 			case IN_X: state = ST_TORNADOKICK, App->input->tornadokick_timer = SDL_GetTicks(); break;
@@ -895,7 +894,6 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 			case IN_CROUCH_DOWN: state = ST_CROUCH; break;
 			case IN_T: state = ST_PUNCH_STANDING, App->input->punch_timer = SDL_GetTicks(); break;
 			case IN_R: state = ST_KICK_STANDING, App->input->kick_timer = SDL_GetTicks(); break;
-			case IN_D: state = ST_LOW_KICK_STANDING, App->input->low_kick_timer = SDL_GetTicks(); break;
 			case IN_F: state = ST_HADOUKEN, App->input->hadouken_timer = SDL_GetTicks(); break;
 			case IN_C: state = ST_MOUSHUUKYAKU, App->input->moshuukyaku_timer = SDL_GetTicks(); break;
 			case IN_X: state = ST_TORNADOKICK, App->input->tornadokick_timer = SDL_GetTicks(); break;
@@ -915,7 +913,6 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 			case IN_CROUCH_DOWN: state = ST_CROUCH; break;
 			case IN_T: state = ST_PUNCH_STANDING, App->input->punch_timer = SDL_GetTicks(); break;
 			case IN_R: state = ST_KICK_STANDING, App->input->kick_timer = SDL_GetTicks(); break;
-			case IN_D: state = ST_LOW_KICK_STANDING, App->input->low_kick_timer = SDL_GetTicks(); break;
 			case IN_F: state = ST_HADOUKEN, App->input->hadouken_timer = SDL_GetTicks(); break;
 			case IN_C: state = ST_MOUSHUUKYAKU, App->input->moshuukyaku_timer = SDL_GetTicks(); break;
 			case IN_X: state = ST_TORNADOKICK, App->input->tornadokick_timer = SDL_GetTicks(); break;
