@@ -45,7 +45,8 @@ enum king_states
 	ST_TORNADOKICK,
 	ST_CHARGE,
 	ST_DAMAGE,
-	ST_TAUNT
+	ST_TAUNT,
+	ST_WIN
 };
 
 enum king_inputs
@@ -80,6 +81,8 @@ enum king_inputs
 	IN_HADOUKEN_FINISH,
 	IN_MOUSHUUKYAKU_FINISH,
 	IN_TORNADOKICK_FINISH,
+	IN_WIN,
+	IN_WIN_FINISH,
 
 	// PLAYER 2
 	IN_LEFT_DOWN2,

@@ -70,6 +70,8 @@ public:
 	Animation damage;
 	Animation charge;
 	Animation taunt;
+	Animation winAnimation;
+	Animation loseAnimation;
 
 	// COLLIDERS
 	Collider *ryohitbox;

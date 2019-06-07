@@ -59,6 +59,11 @@ private:
 	iPoint finalKingPosition1;
 	iPoint finalKingPosition2;
 
+	char timer_text[10];
+	int font_countdown = -1;
+	int timertime;
+	uint timer;
+
 };
 
 #endif // __MODULEWELCOMESCREEN_H__
