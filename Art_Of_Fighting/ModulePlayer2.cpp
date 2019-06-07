@@ -1040,8 +1040,7 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 				{
 					state = ST_IDLE; animstart = 0; SFXsound = true;
 				}
-			case IN_WIN2: state = ST_WIN; break;
-			case IN_DEFEAT2: state = ST_DEFEAT; break;
+			
 			}
 		}
 		break;
@@ -1083,8 +1082,7 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 				{
 					state = ST_IDLE; animstart = 0; SFXsound = true;
 				}
-			case IN_WIN2: state = ST_WIN; break;
-			case IN_DEFEAT2: state = ST_DEFEAT; break;
+			
 			}
 		}
 		break;

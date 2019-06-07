@@ -294,8 +294,7 @@ update_status ModulePlayer::Update()
 			charge.Reset();
 			damage.Reset();
 			taunt.Reset();
-			winAnimation.Reset();
-			defeatAnimation.Reset();
+			
 			break;
 
 		case ST_WALK_BACKWARD:
@@ -326,7 +325,7 @@ update_status ModulePlayer::Update()
 			charge.Reset();
 			damage.Reset();
 			taunt.Reset();
-			winAnimation.Reset();
+		
 			break;
 
 		case ST_JUMP_NEUTRAL:
@@ -1101,6 +1100,7 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 			case IN_DAMAGE: state = ST_DAMAGE, App->input->damage_timer = SDL_GetTicks(); break;
 			case IN_TAUNT: state = ST_TAUNT, App->input->taunt_timer = SDL_GetTicks(); break;
 			case IN_WIN: state = ST_WIN; break;
+			case IN_DEFEAT: state = ST_DEFEAT; break;
 			}
 		}
 		break;
@@ -1118,8 +1118,7 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 				{
 					state = ST_IDLE; animstart = 0; SFXsound = true;
 				}
-			case IN_WIN: state = ST_WIN; break;
-			case IN_DEFEAT: state = ST_DEFEAT; break;
+			
 			}
 		}
 		break;
@@ -1129,8 +1128,6 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 			{
 			case IN_KICK_FINISH: state = ST_IDLE; animstart = 0; SFXsound = true; break;
 			case IN_DAMAGE: state = ST_DAMAGE, App->input->damage_timer = SDL_GetTicks(); break;
-			case IN_WIN: state = ST_WIN; break;
-			case IN_DEFEAT: state = ST_DEFEAT; break;
 			}
 
 		}break;
@@ -1140,6 +1137,8 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 			{
 			case IN_KICK_FINISH: state = ST_JUMP_NEUTRAL; animstart = 0; SFXsound = true; break;
 			case IN_JUMP_FINISH: state = ST_IDLE; break;
+			case IN_WIN: state = ST_WIN; break;
+			case IN_DEFEAT: state = ST_DEFEAT; break;
 				//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
 
 			}
@@ -1159,6 +1158,8 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 				{
 					state = ST_IDLE; animstart = 0; SFXsound = true;
 				}
+			
+
 			}
 		}
 		break;
@@ -1168,6 +1169,8 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 			{
 			case IN_CHARGE_UP:state = ST_IDLE; SFXsound = true; break;
 			case IN_DAMAGE: state = ST_DAMAGE, App->input->damage_timer = SDL_GetTicks(); break;
+			case IN_WIN: state = ST_WIN; break;
+			case IN_DEFEAT: state = ST_DEFEAT; break;
 			}
 		}
 
@@ -1176,6 +1179,8 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 			switch (last_input)
 			{
 			case IN_DAMAGE_FINISH: state = ST_IDLE; animstart = 0;  SFXsound = true; break;
+			case IN_WIN: state = ST_WIN; break;
+			case IN_DEFEAT: state = ST_DEFEAT; break;
 			}
 			break;
 

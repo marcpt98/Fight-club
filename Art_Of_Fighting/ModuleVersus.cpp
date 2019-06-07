@@ -63,7 +63,7 @@ bool ModuleVersus::Start()
 	App->render->camera.x = 0;
 	App->render->camera.y = 0;
 
-	timer = 9;
+	timer = 5;
 	timertime = SDL_GetTicks();
 	
 	firstFX = true;

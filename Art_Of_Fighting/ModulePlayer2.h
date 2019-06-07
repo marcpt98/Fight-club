@@ -18,6 +18,7 @@ private:
 	bool wall = false;
 	Uint32 speed = 2;
 	int animstart = 0;
+	int jumpanim = 0;
 	float jumpSpeed = 6;
 	int initialPos;
 	bool SFXsound = true;
