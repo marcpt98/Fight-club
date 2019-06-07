@@ -107,9 +107,9 @@ ModulePlayer2::ModulePlayer2()
 	winAnimation.loop = false;
 
 	//lose animation
-	defeatAnimation.PushBack({ 1156,773,70,97 }, 0.1, 0, 0, 0, 0);
-	defeatAnimation.PushBack({ 356,1024,86,78 }, 0.1, 0, 0, 0, 0);
-	defeatAnimation.PushBack({ 454,1024,89,55 }, 0.1, 0, 0, 0, 0);
+	defeatAnimation.PushBack({ 1156,773,70,97 }, 0.1, 0, 0, -8, 2);
+	defeatAnimation.PushBack({ 356,1024,86,78 }, 0.1, 0, 0, -35, 2);
+	defeatAnimation.PushBack({ 454,1024,89,55 }, 0.1, 0, 0, -18, 2);
 	defeatAnimation.loop = false;
 }
 
