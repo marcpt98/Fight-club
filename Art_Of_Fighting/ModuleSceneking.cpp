@@ -145,18 +145,21 @@ bool ModuleSceneking::Start()
 	
 	if (RoundsWinP1 == 1 && RoundsWinP2 == 1)
 	{
+		App->audio->PlayFX(finalRoundFX);
 		RoundStart = false;
 		Round2Start = false;
 		FinalRoundStart = true;
 	}
 	else if (RoundsWinP1 == 1 && RoundsWinP2 == 0 || RoundsWinP1 == 0 && RoundsWinP2 == 1)
 	{
+		App->audio->PlayFX(round2FX);
 		RoundStart = false;
 		Round2Start = true;
 		FinalRoundStart = false;
 	} 
 	else
 	{
+		App->audio->PlayFX(round1FX);
 		RoundStart = true;
 		Round2Start = false;
 		FinalRoundStart = false;
@@ -314,7 +317,7 @@ update_status ModuleSceneking::Update()
 	if (RoundStart == true)
 	{
 		App->render->BlitWithScale(graphicsUI, 210, 90, &Round1, 1, 0.0f, 1.0f, TOP_RIGHT);
-		App->audio->PlayFX(round1FX);
+		
 	}
 
 	//Draw Round 2
@@ -322,14 +325,12 @@ update_status ModuleSceneking::Update()
 	if (Round2Start == true)
 	{
 		App->render->BlitWithScale(graphicsUI, 210, 90, &Round2, 1, 0.0f, 1.0f, TOP_RIGHT);
-		App->audio->PlayFX(round2FX);
 	}
 
 	//Draw FinalRound
 	if (FinalRoundStart == true)
 	{
 		App->render->BlitWithScale(graphicsUI, 240, 90, &FinalRound, 1, 0.0f, 1.0f, TOP_RIGHT);
-		App->audio->PlayFX(finalRoundFX);
 	}
 	if (zoomcounter == true) 
 	{
