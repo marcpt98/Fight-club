@@ -774,9 +774,18 @@ update_status ModulePlayer2::Update()
 			LOG("TORNADOKICK ++++\n");
 			break;
 		case ST_MOUSHUUKYAKU:
+			if (Activehadouken == true)
+			{
+				Stamina = (Stamina - 20);
+				if (Stamina < 0)
+				{
+					Stamina = 0;
+				}
+			}
+			Activehadouken = false;
 			if (SFXsound == true)
 			{
-				//App->audio->PlayFX(MoushuuKyaku);
+				//App->audio->PlayFX(KingMoushuuKyaku);
 				SFXsound = false;
 			}
 			if (animstart == 0)
@@ -787,9 +796,11 @@ update_status ModulePlayer2::Update()
 				break;
 		case ST_WIN:
 			current_animation = &winAnimation;
+			position.y = 210;
 			break;
 		case ST_DEFEAT:
 			current_animation = &defeatAnimation;
+			position.y = 210;
 			break;
 		
 		}
@@ -1086,7 +1097,7 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 				if (SDL_GetTicks() - combotime < 120) {
 					if (combo2 == 2)combo2 = 3;
 				}
-				if (combo2 == 3)
+				if (combo2 == 3 && Stamina >= 20)
 				{
 					state = ST_MOUSHUUKYAKU; App->input->moshuukyaku_timer2 = SDL_GetTicks(); combo2 = 0; break;
 				}
@@ -1383,7 +1394,7 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 		{
 			switch (last_input)
 			{
-			case IN_MOUSHUUKYAKU_FINISH2: state = ST_IDLE; animstart = 0; SFXsound = true; break;
+			case IN_MOUSHUUKYAKU_FINISH2: state = ST_IDLE; animstart = 0; Activehadouken = true; SFXsound = true; break;
 			}
 			break;
 

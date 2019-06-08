@@ -740,12 +740,11 @@ update_status ModulePlayer::Update()
 						shootNo = true;
 					}
 					Stamina = (Stamina - 20);
-					if (Stamina < 0) {
+					if (Stamina < 0) 
+					{
 						Stamina = 0;
 					}
-
 				}
-
 				if (shoot == true)
 				{
 					App->audio->PlayFX(kingKoOuKen);
@@ -765,7 +764,6 @@ update_status ModulePlayer::Update()
 					}
 					shoot = false;
 				}
-
 				if (shootNo == true)
 				{
 					App->audio->PlayFX(kingKoOuKen);
@@ -785,9 +783,7 @@ update_status ModulePlayer::Update()
 					}
 					shootNo = false;
 				}
-
 			}
-
 			Activehadouken = false;
 			if (animstart == 0)
 			{
@@ -807,9 +803,18 @@ update_status ModulePlayer::Update()
 			LOG("TORNADOKICK ++++\n");
 			break;
 		case ST_MOUSHUUKYAKU:
+			if (Activehadouken == true)
+			{
+				Stamina = (Stamina - 20);
+				if (Stamina < 0)
+				{
+					Stamina = 0;
+				}
+			}
+			Activehadouken = false;
 			if (SFXsound == true)
 			{
-				//App->audio->PlayFX(MoushuuKyaku);
+				//App->audio->PlayFX(KingMoushuuKyaku);
 				SFXsound = false;
 			}
 			if (animstart == 0)
@@ -820,9 +825,11 @@ update_status ModulePlayer::Update()
 				break;
 		case ST_WIN:
 			current_animation = &winAnimation;
+			position.y = 210;
 			break;
 		case ST_DEFEAT:
 			current_animation = &defeatAnimation;
+			position.y = 210;
 			break;
 
 		}
@@ -1123,12 +1130,13 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 				if (SDL_GetTicks() - combotime < 120) {
 					if (combo2 == 2)combo2 = 3;
 				}
-				if (combo2 == 3)
+				if (combo2 == 3 && Stamina >= 20)
 				{
 					state = ST_MOUSHUUKYAKU; App->input->moshuukyaku_timer = SDL_GetTicks(); combo2 = 0; break;
 				}
-				else {
-					state = ST_KICK_STANDING, App->input->kick_timer = SDL_GetTicks(); break;
+				else 
+				{
+					state = ST_KICK_STANDING, App->input->kick_timer = SDL_GetTicks(); combo2 = 0; break;
 				}
 			case IN_F: state = ST_HADOUKEN, App->input->hadouken_timer = SDL_GetTicks(); break;
 			case IN_C: state = ST_MOUSHUUKYAKU, App->input->moshuukyaku_timer = SDL_GetTicks(); break;
@@ -1415,7 +1423,7 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 		{
 			switch (last_input)
 			{
-			case IN_MOUSHUUKYAKU_FINISH: state = ST_IDLE; animstart = 0; SFXsound = true; break;
+			case IN_MOUSHUUKYAKU_FINISH: state = ST_IDLE; animstart = 0; Activehadouken = true; SFXsound = true; break;
 			}
 			break;
 
