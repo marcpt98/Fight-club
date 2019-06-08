@@ -124,7 +124,7 @@ bool ModuleSceneking::Start()
 	graphicsTime = App->textures->Load("media/UI/countdown.png");
 	graphicsUI = App->textures->Load("media/UI/ui.png");
 
-	Scene_king = App->audio->LoadMusic("media/Music/king_stage.ogg");
+	//Scene_king = App->audio->LoadMusic("media/Music/king_stage.ogg");
 	end = App->audio->LoadFX("media/FX/king_win.wav");
 
 	App->player->Life = 100;

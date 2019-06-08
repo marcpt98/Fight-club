@@ -976,7 +976,17 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 			case IN_JUMP2: state = ST_JUMP_NEUTRAL; jumpSpeed = 5;  App->input->jump_timer2 = SDL_GetTicks(); animstart = 0; jumptimer = SDL_GetTicks(); break;
 			case IN_CROUCH_DOWN2: state = ST_CROUCH; break;
 			case IN_Y: state = ST_PUNCH_STANDING, App->input->punch_timer2 = SDL_GetTicks(); break;
-			case IN_U: state = ST_KICK_STANDING, App->input->kick_timer2 = SDL_GetTicks(); break;
+			case IN_U:
+				if (SDL_GetTicks() - combotime < 120) {
+					if (combo1 == 2)combo1 = 3;
+				}
+				if (combo1 == 3)
+				{
+					state = ST_HADOUKEN; App->input->hadouken_timer2 = SDL_GetTicks(); combo1 = 0; break;
+				}
+				else {
+					state = ST_KICK_STANDING, App->input->kick_timer2 = SDL_GetTicks(); break;
+				}
 			case IN_H: state = ST_HADOUKEN, App->input->hadouken_timer2 = SDL_GetTicks(); break;
 			case IN_N: state = ST_MOUSHUUKYAKU, App->input->moshuukyaku_timer2 = SDL_GetTicks(); break;
 			case IN_M: state = ST_TORNADOKICK, App->input->tornadokick_timer2 = SDL_GetTicks(); break;
@@ -992,6 +1002,17 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 
 		case ST_WALK_FORWARD:
 		{
+			if ((position.x + 25) <= (App->player->position.x - 25))
+			{
+				if (SDL_GetTicks() - combotime < 120) {
+					if (combo1 == 1)combo1 = 2;
+					combotime = SDL_GetTicks();
+				}
+				else
+				{
+					combo1 = 0;
+				}
+			}
 			switch (last_input)
 			{
 			case IN_RIGHT_UP2: state = ST_IDLE; break;
@@ -1013,6 +1034,18 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 
 		case ST_WALK_BACKWARD:
 		{
+			if ((position.x + 25) >= (App->player->position.x - 25))
+			{
+				if (SDL_GetTicks() - combotime < 120) {
+					if (combo1 == 1)combo1 = 2;
+					combotime = SDL_GetTicks();
+				}
+				else
+				{
+					combo1 = 0;
+				}
+			}
+
 			switch (last_input)
 			{
 			case IN_LEFT_UP2: state = ST_IDLE; break;
@@ -1089,6 +1122,14 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 
 		case ST_CROUCH:
 		{
+			combo1 = 1;
+			combotime = SDL_GetTicks();
+
+			if (SDL_GetTicks() - combotimeHadouken < 120) {
+				if (combo2 == 1)combo2 = 2;
+				combotimeHadouken = SDL_GetTicks();
+			}
+
 			switch (last_input)
 			{
 			case IN_CROUCH_UP2: state = ST_IDLE; break;

@@ -1042,13 +1042,17 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 
 		case ST_WALK_FORWARD:
 		{
-			if (SDL_GetTicks() - combotime < 120) {
-				if (combo1 == 1)combo1 = 2;
-				combotime = SDL_GetTicks();
-			}
-			else 
-			{ 
-				combo1 = 0;
+			if ((position.x + 25) <= (App->player2->position.x - 25))
+			{
+				if (SDL_GetTicks() - combotime < 120)
+				{
+					if (combo1 == 1)combo1 = 2;
+					combotime = SDL_GetTicks();
+				}
+				else
+				{
+					combo1 = 0;
+				}
 			}
 
 			switch (last_input)
@@ -1073,6 +1077,18 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 
 		case ST_WALK_BACKWARD:
 		{
+			if ((position.x + 25) >= (App->player2->position.x - 25))
+			{
+				if (SDL_GetTicks() - combotime < 120) {
+					if (combo1 == 1)combo1 = 2;
+					combotime = SDL_GetTicks();
+				}
+				else
+				{
+					combo1 = 0;
+				}
+			}
+
 			switch (last_input)
 			{
 			case IN_LEFT_UP: state = ST_IDLE; break;
