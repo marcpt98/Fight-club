@@ -538,7 +538,13 @@ update_status ModulePlayer2::Update()
 			LOG("PUNCH JUMP BACKWARD ^<<+\n");
 			break;
 		case ST_KICK_CROUCH:
-			position.x -= 0.5*speed;
+			if (position.x < App->player->position.x) {
+				position.x += 0.5*speed;
+			}
+			else {
+				position.x -= 0.5*speed;
+			}
+
 			if (SFXsound == true)
 			{
 				App->audio->PlayFX(king_punch_crouch);
@@ -828,6 +834,17 @@ update_status ModulePlayer2::Update()
 		{
 			kicknearCollider->Enabled = false;
 		}
+
+		if (r == &kickCrouch.frames[kickCrouch.last_frame - 1] && App->scene_King->Zoom == true)
+		{
+			kickCrouchCollider->SetPos((position.x - 30)*1.3, position.y + 30 - r->h + 40);
+
+			kickCrouchCollider->Enabled = true;
+		}
+		else
+		{
+			kickCrouchCollider->Enabled = false;
+		}
 		
 
 	}
@@ -885,6 +902,27 @@ update_status ModulePlayer2::Update()
 			punchCollider->Enabled = false;
 		}
 
+		if (r == &kickCrouch.frames[kickCrouch.last_frame - 5] && App->scene_King->Zoom == false)
+		{
+			kickCrouchCollider->SetPos(position.x + 50, position.y + 30 - r->h);
+
+			kickCrouchCollider->Enabled = true;
+		}
+		else
+		{
+			kickCrouchCollider->Enabled = false;
+		}
+
+		if (r == &kickCrouch.frames[kickCrouch.last_frame - 1] && App->scene_King->Zoom == true)
+		{
+			kickCrouchCollider->SetPos((position.x + 30)*1.3, position.y + 30 - r->h + 40);
+
+			kickCrouchCollider->Enabled = true;
+		}
+		else
+		{
+			kickCrouchCollider->Enabled = false;
+		}
 		if (r == &punch_Near.frames[punch_Near.last_frame - 1] && App->scene_King->Zoom == true)
 		{
 			punchNearCollider->SetPos((position.x + 32)*1.3, position.y + 12 - r->h + 40);
@@ -1410,5 +1448,31 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 		}
 
 	}
+	/////////////////////////////////////////////////////////////////////////////////////////////////// KICK CROUCH HITBOX
+	if (kickCrouchCollider == c1 && c2->type == COLLIDER_PLAYER)
+	{
+		App->SlowDownShake->StartSlowDownShake(500, 40);
+		App->player->Life = App->player->Life - 1;
+		damageP1 = true;
+		App->input->inputs.Push(IN_DAMAGE);
+		collision = true;
 
+		if ((position.x + 25) >= (App->player2->position.x - 25))
+		{
+			App->player2->position.x -= 5;
+		}
+
+		else
+		{
+			if ((App->player->position.x) <= (App->scene_King->positionlimitright.x + 300)) {
+				App->player->position.x += 5;
+			}
+
+			if ((App->player->position.x) >= (App->scene_King->positionlimitright.x + 300)) {
+				position.x -= 5;
+				App->player->position.x -= 3;
+			}
+		}
+
+	}
 }
