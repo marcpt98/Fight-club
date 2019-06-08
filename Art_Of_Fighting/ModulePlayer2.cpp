@@ -1386,18 +1386,19 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 	if (kickCrouchCollider == c1 && c2->type == COLLIDER_PLAYER)
 	{
 		App->SlowDownShake->StartSlowDownShake(500, 40);
-		App->player->Life = App->player->Life - 1;
+		App->player->Life = App->player->Life - 4;
 		damageP1 = true;
 		App->input->inputs.Push(IN_DAMAGE);
 		collision = true;
 
-		if ((position.x + 25) >= (App->player2->position.x - 25))
+		if ((position.x + 25) >= (App->player->position.x))
 		{
-			App->player2->position.x -= 5;
+			App->player->position.x -= 10;
 		}
 
 		else
 		{
+			App->player->position.x += 10;
 			if ((App->player->position.x) <= (App->scene_King->positionlimitright.x + 300)) {
 				App->player->position.x += 5;
 			}
