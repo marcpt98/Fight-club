@@ -154,19 +154,21 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 			active[i] = nullptr;
 			if (c1->type == COLLIDER_PLAYER_SHOT && c2->type == COLLIDER_ENEMY)
 			{
-				App->player->damageHadokenP2 = true;
-				App->input->inputs2.Push(IN_DAMAGE_HADOKEN2);
+				
 				if (App->player->Stamina >= 20)
 				{
+					App->player->damageHadokenP2 = true;
+					App->input->inputs2.Push(IN_DAMAGE_HADOKEN2);
 					App->player2->Life = App->player2->Life - 10;
 				}
 			}
 			if (c1->type == COLLIDER_ENEMY_SHOT && c2->type == COLLIDER_PLAYER)
 			{
-				App->player2->damageHadokenP1 = true;
-				App->input->inputs.Push(IN_DAMAGE_HADOKEN);
+				
 				if (App->player2->Stamina >= 20)
 				{
+					App->player2->damageHadokenP1 = true;
+					App->input->inputs.Push(IN_DAMAGE_HADOKEN);
 					App->player->Life = App->player->Life - 10;
 				}
 			}
