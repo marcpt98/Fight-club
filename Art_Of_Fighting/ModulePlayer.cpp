@@ -95,9 +95,9 @@ ModulePlayer::ModulePlayer()
 	crouch.loop = false;
 
 	//beat animation
-	damage.PushBack({ 1033, 773, 54, 100 }, 0.1, 0, 0, 0, 0);
-	damage.PushBack({ 1093, 773, 59, 100 }, 0.1, 0, 0, 0, 0);
-	damage.PushBack({ 1033, 773, 54, 100 }, 0.1, 0, 0, 0, 0);
+	damage.PushBack({ 1033, 773, 54, 100 }, 0.1, -6, 3, 0, 0);
+	damage.PushBack({ 1093, 773, 59, 100 }, 0.08, -6, 3, 0, 0);
+	damage.PushBack({ 1033, 773, 54, 100 }, 0.1, -6, 3, 0, 0);
 
 	//charge animation
 	charge.PushBack({ 358,892,51,100 }, 0.2, 0, 0, 0, 0);
@@ -800,9 +800,9 @@ update_status ModulePlayer::Update()
 			kickCollider->Enabled = false;
 		}
 
-		if (r == &kick.frames[kick.last_frame - 5] && App->scene_King->Zoom == true)
+		if (r == &kick.frames[kick.last_frame - 3] && App->scene_King->Zoom == true)
 		{
-			kickCollider->SetPos((position.x - 65)*1.3, position.y - r->h + 40);
+			kickCollider->SetPos((position.x - 45)*1.3, position.y - r->h + 30);
 
 			kickCollider->Enabled = true;
 		}
