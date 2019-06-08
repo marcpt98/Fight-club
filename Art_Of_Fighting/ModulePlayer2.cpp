@@ -75,8 +75,13 @@ ModulePlayer2::ModulePlayer2()
 	kickJump.loop = false;
 
 	kickCrouch.PushBack({ 1033, 660, 68, 72 }, 0.19, 0, 0, 0, 0);
-	kickCrouch.PushBack({ 1101,660,101,68 }, 0.08, 0, 0, -18, 0);
+	kickCrouch.PushBack({ 777, 1021, 104, 70 }, 0.16, 0, 0, 0, 0);
+	kickCrouch.PushBack({ 890, 1024, 111, 69 }, 0.16, 0, 0, 0, 0);
+	kickCrouch.PushBack({ 1004, 1020, 95, 78 }, 0.53, 0, 0, 0, 0);
+	kickCrouch.PushBack({ 1100, 1023, 93, 75 }, 0.53, 0, 0, 0, 0);
+	kickCrouch.PushBack({ 1101,660,101,68 }, 0.08, -18, 0, 0, 0);
 	kickCrouch.PushBack({ 1033, 660, 68, 72 }, 0.18, 0, 0, 0, 0);
+
 
 	// Hadouken king animation
 	hadouken.PushBack({ 1202, 660, 47, 85 }, 0.2, 0, 0, 0, 0);
@@ -154,6 +159,16 @@ ModulePlayer2::ModulePlayer2()
 	damageHadoken.PushBack({ 1332,1024,47,60 }, 0.2, 0, 0, -8, 2);
 	damageHadoken.PushBack({ 1275,1024,49,78 }, 0.1, 0, 0, -8, 2);
 	damageHadoken.PushBack({ 1204,1024,63,87 }, 0.1, 0, 0, -8, 2);
+
+	//protect animation
+	protect.PushBack({ 541, 841, 52,102 }, 0.1, 0, 0, 0, 0);
+	protect.PushBack({ 599, 890, 51,103 }, 0.1, 0, 0, 0, 0);
+
+	//HITS ANIMATION
+	yellow.PushBack({ 1971, 52, 26,31 }, 0.1, 0, 0, 0, 0);
+	yellow.PushBack({ 1998, 52, 46,49 }, 0.1, 0, 0, 0, 0);
+	blue.PushBack({ 1901,175, 19,22 }, 0.1, 0, 0, 0, 0);
+	blue.PushBack({ 1932,169, 31,31 }, 0.1, 0, 0, 0, 0);
 }
 
 ModulePlayer2::~ModulePlayer2()

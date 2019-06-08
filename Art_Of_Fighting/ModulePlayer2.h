@@ -76,6 +76,11 @@ public:
 	Animation winAnimation;
 	Animation defeatAnimation;
 	Animation damageHadoken;
+	Animation protect;
+	Animation yellow;
+	Animation blue;
+
+
 
 	// COLLIDERS
 	Collider *ryohitbox;
