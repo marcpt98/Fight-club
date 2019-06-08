@@ -185,6 +185,8 @@ bool ModuleSceneking::Start()
 	matchforP1 = false;
 	matchforP2 = false;
 
+
+
 	return true;
 }
 
@@ -211,6 +213,7 @@ bool ModuleSceneking::CleanUp()
 // Update: draw background
 update_status ModuleSceneking::Update()
 {
+
 	if (Zoom == false) {
 		distance = ((App->player->position.x + App->player2->position.x) / 2);
 		App->render->camera.x = (distance*-1 + 125);
