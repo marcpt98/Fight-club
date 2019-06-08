@@ -88,6 +88,35 @@ ModulePlayer::ModulePlayer()
 	hadouken.PushBack({ 576, 773, 48, 85 }, 0.13, 0, -20, 0, 0);
 	hadouken.PushBack({ 686, 660, 62, 92 }, 0.1, 0, -1, 0, 0); //CHANGE
 
+	//MoushuuKyaku animation
+	// Moushuu Kyaku animation
+	Moushuu_Kyaku.PushBack({ 3, 892, 57, 101 }, 0.3, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 68, 892, 102, 100 }, 0.3, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 178, 892, 67, 100 }, 0.3, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 253, 892, 96, 116 }, 0.3, 0, 0, 0, 0);
+
+	Moushuu_Kyaku.PushBack({ 178, 892, 67, 100 }, 0.3, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 68, 892, 102, 100 }, 0.3, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 178, 892, 67, 100 }, 0.3, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 253, 892, 96, 116 }, 0.3, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 178, 892, 67, 100 }, 0.3, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 68, 892, 102, 100 }, 0.3, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 178, 892, 67, 100 }, 0.3, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 253, 892, 96, 116 }, 0.3, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 178, 892, 67, 100 }, 0.3, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 68, 892, 102, 100 }, 0.3, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 178, 892, 67, 100 }, 0.3, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 253, 892, 96, 116 }, 0.3, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 68, 892, 102, 100 }, 0.3, 0, 0, 0, 0);
+	//2 TIMES LOOP AND LAST FRAME //2
+	Moushuu_Kyaku.PushBack({ 3, 892, 57, 101 }, 0.3, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 107, 660, 52, 103 }, 0.3, 0, 0, 0, 0);
+	//NORMAL KICK
+	Moushuu_Kyaku.PushBack({ 438,660,70,113 }, 0.18, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 509,660,48,111 }, 0.16, 36, -3, 0, 0);
+	Moushuu_Kyaku.PushBack({ 559,660,79,111 }, 0.07, 37, -3, 0, 0);
+	Moushuu_Kyaku.PushBack({ 639,660,47,101 }, 0.15, 14, -3, 0, 0);
+	Moushuu_Kyaku.PushBack({ 686,660,62,92 }, 0.1, -15, 0, 0, 0);
 
 	//crouch animation
 	crouch.PushBack({ 937, 660,49,91 }, 0.21, 0, 0, 0, 0);
@@ -149,6 +178,7 @@ bool ModulePlayer::Start()
 	kingcharge = App->audio->LoadFX("media/FX/king_charge.wav");
 	//kingdamage = App->audio->LoadFX("");
 	//kingtaunt=App->audio->LoadFX("");
+	//KingMoushuuKyaku=App->audio->LoadFX("");
 
 	position.x = 200;
 	position.y = 210;
@@ -209,6 +239,7 @@ bool ModulePlayer::CleanUp()
 	App->audio->UnLoadFX(kingcharge);
 	//App->audio->UnLoadFX(kingdamage);
 	//App->audio->UnLoadFX(kingtaunt);
+	//App->audio->UnLoadFX(KingMoushuuKyaku);
 
 	return true;
 }
@@ -778,15 +809,15 @@ update_status ModulePlayer::Update()
 		case ST_MOUSHUUKYAKU:
 			if (SFXsound == true)
 			{
-				//App->audio->PlayFX(kingpunch);
+				//App->audio->PlayFX(MoushuuKyaku);
 				SFXsound = false;
 			}
 			if (animstart == 0)
 			{
 				current_animation = &Moushuu_Kyaku;
 			}
-			LOG("MOUSHUUKYAKU ++++\n");
-			break;
+			LOG("MOUSHUUKYAKU --\n")
+				break;
 		case ST_WIN:
 			current_animation = &winAnimation;
 			break;
@@ -1089,6 +1120,13 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 				{
 					state = ST_HADOUKEN; App->input->hadouken_timer = SDL_GetTicks(); combo1 = 0; break; 
 				}
+				if (SDL_GetTicks() - combotime < 120) {
+					if (combo2 == 2)combo2 = 3;
+				}
+				if (combo2 == 3)
+				{
+					state = ST_MOUSHUUKYAKU; App->input->moshuukyaku_timer = SDL_GetTicks(); combo2 = 0; break;
+				}
 				else {
 					state = ST_KICK_STANDING, App->input->kick_timer = SDL_GetTicks(); break;
 				}
@@ -1107,6 +1145,19 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 
 		case ST_WALK_FORWARD:
 		{
+			//NOTSUAMARU RIGHT SIDE
+			if ((position.x + 25) >= (App->player2->position.x - 25))
+			{
+				if (SDL_GetTicks() - combotime < 120) {
+					if (combo2 == 1)combo2 = 2;
+					combotime = SDL_GetTicks();
+				}
+				else
+				{
+					combo2 = 0;
+				}
+			}
+			//HADOUKEN LEFT SIDE
 			if ((position.x + 25) <= (App->player2->position.x - 25))
 			{
 				if (SDL_GetTicks() - combotime < 120)
@@ -1143,6 +1194,17 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 
 		case ST_WALK_BACKWARD:
 		{
+			//MOSTUAMARU LEFT SIDE
+			if (SDL_GetTicks() - combotime < 120) {
+				if (combo2 == 1)combo2 = 2;
+				combotime = SDL_GetTicks();
+			}
+			else
+			{
+				combo2 = 0;
+			}
+
+			//HADOUKEN RIGHT SIDE
 			if ((position.x + 25) >= (App->player2->position.x - 25))
 			{
 				if (SDL_GetTicks() - combotime < 120) {
@@ -1232,11 +1294,16 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 		case ST_CROUCH:
 		{
 			combo1 = 1;
+			combo2 = 1;
 			combotime = SDL_GetTicks();
 
 			if (SDL_GetTicks() - combotimeHadouken < 120) {
-				if (combo2 == 1)combo2 = 2;
+				if (combo1 == 1)combo1 = 2;
 				combotimeHadouken = SDL_GetTicks();
+			}
+			if (SDL_GetTicks() - combotimeMoushuuKyaku < 120) {
+				if (combo2 == 1)combo2 = 2;
+				combotimeMoushuuKyaku = SDL_GetTicks();
 			}
 
 			switch (last_input)

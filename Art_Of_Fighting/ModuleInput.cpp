@@ -327,7 +327,7 @@ bool ModuleInput::external_input()
 				}
 				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_A)
 				{
-					inputs.Push(IN_F);
+					inputs.Push(IN_C);
 				}
 				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_RIGHT)
 				{

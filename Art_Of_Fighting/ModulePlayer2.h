@@ -121,6 +121,7 @@ public:
 	Uint32 combo3 = 0;
 	Uint32 combotime;
 	Uint32 combotimeHadouken;
+	Uint32 combotimeMoushuuKyaku;
 };
 
 #endif
