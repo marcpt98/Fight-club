@@ -155,7 +155,7 @@ update_status ModuleVersus::Update()
 
 	//Countdown
 
-	if (SDL_GetTicks() - timertime >= 1000)
+	if (SDL_GetTicks() - timertime >= 500)
 	{
 		timertime = SDL_GetTicks();
 		timer--;

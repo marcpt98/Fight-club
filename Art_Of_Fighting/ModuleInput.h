@@ -172,6 +172,21 @@ public:
 	bool up2 = false;
 	bool charge2 = false;
 
+	// PLAYER 1
+	bool Menuleft = false;
+	bool Menuright = false;
+	bool Menudown = false;
+	bool Menuup = false;
+	bool Menucharge = false;
+
+	// PLAYER 2
+	bool Menuleft2 = false;
+	bool Menuright2 = false;
+	bool Menudown2 = false;
+	bool Menuup2 = false;
+	bool Menucharge2 = false;
+
+
 	int key = -1;
 
 	// PLAYER 1

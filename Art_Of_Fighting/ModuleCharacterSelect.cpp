@@ -11,6 +11,7 @@
 #include "ModulePlayer2.h"
 #include "ModuleVersus.h"
 #include "ModuleFonts.h"
+#include "SDL/include/SDL.h"
 #include <stdio.h>
 
 ModuleCharacterSelect::ModuleCharacterSelect()
@@ -194,9 +195,11 @@ update_status ModuleCharacterSelect::Update()
 
 	App->render->Blit(graphics, 0, 0, &background, 0.0);
 	
+	
 
+	
 	//Ipoint Player 1
-	if (App->input->right)
+	if (App->input->Menuright == true)
 	{
 		player1.x += 1;
 
@@ -205,10 +208,10 @@ update_status ModuleCharacterSelect::Update()
 			player1.x = 3;
 		}
 
-		App->input->right = false;
+		App->input->Menuright = false;
 	}
 
-	if (App->input->left)
+	if (App->input->Menuleft == true)
 	{
 		player1.x -= 1;
 
@@ -217,10 +220,10 @@ update_status ModuleCharacterSelect::Update()
 			player1.x = 0;
 		}
 
-		App->input->left = false;
+		App->input->Menuleft = false;
 	}
 
-	if (App->input->up)
+	if (App->input->Menuup == true)
 	{
 		player1.y -= 1;
 
@@ -229,10 +232,10 @@ update_status ModuleCharacterSelect::Update()
 			player1.y = 0;
 		}
 
-		App->input->up = false;
+		App->input->Menuup = false;
 	}
 
-	if (App->input->down)
+	if (App->input->Menudown == true)
 	{
 		player1.y += 1;
 
@@ -241,14 +244,14 @@ update_status ModuleCharacterSelect::Update()
 			player1.y = 1;
 		}
 
-		App->input->down = false;
+		App->input->Menudown = false;
 	}
 
 	App->render->Blit(graphicsSelection, a[player1.x][player1.y].x, a[player1.x][player1.y].y, &SquareP1, 0.0);
 
 	//Ipoint Player 2
 
-	if (App->input->right2)
+	if (App->input->Menuright2 == true)
 	{
 		player2.x += 1;
 
@@ -257,10 +260,10 @@ update_status ModuleCharacterSelect::Update()
 			player2.x = 3;
 		}
 
-		App->input->right2 = false;
+		App->input->Menuright2 = false;
 	}
 
-	if (App->input->left2)
+	if (App->input->Menuleft2 == true)
 	{
 		player2.x -= 1;
 
@@ -269,10 +272,10 @@ update_status ModuleCharacterSelect::Update()
 			player2.x = 0;
 		}
 
-		App->input->left2 = false;
+		App->input->Menuleft2 = false;
 	}
 
-	if (App->input->up2)
+	if (App->input->Menuup2 == true)
 	{
 		player2.y -= 1;
 
@@ -281,10 +284,10 @@ update_status ModuleCharacterSelect::Update()
 			player2.y = 0;
 		}
 
-		App->input->up2 = false;
+		App->input->Menuup2 = false;
 	}
 
-	if (App->input->down2)
+	if (App->input->Menudown2 == true)
 	{
 		player2.y += 1;
 
@@ -293,7 +296,7 @@ update_status ModuleCharacterSelect::Update()
 			player2.y = 1;
 		}
 
-		App->input->down2 = false;
+		App->input->Menudown2 = false;
 	}
 
 	App->render->Blit(graphicsSelection, b[player2.x][player2.y].x, b[player2.x][player2.y].y, &SquareP2, 0.0);

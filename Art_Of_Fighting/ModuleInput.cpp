@@ -329,6 +329,34 @@ bool ModuleInput::external_input()
 				{
 					inputs.Push(IN_F);
 				}
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_RIGHT)
+				{
+					Menuright=true;
+				}
+				else {
+					Menuright =false;
+				}
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_LEFT)
+				{
+					Menuleft = true;
+				}
+				else {
+					Menuleft = false;
+				}
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_UP)
+				{
+					Menuup = true;
+				}
+				else {
+					Menuup = false;
+				}
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_DOWN)
+				{
+					Menudown = true;
+				}
+				else {
+					Menudown = false;
+				}
 			}
 			
 			//PLAYER 2 BUTTONS
@@ -357,6 +385,34 @@ bool ModuleInput::external_input()
 				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_A)
 				{
 					inputs2.Push(IN_H);
+				}
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_RIGHT)
+				{
+					Menuright2 = true;
+				}
+				else {
+					Menuright2 = false;
+				}
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_LEFT)
+				{
+					Menuleft2 = true;
+				}
+				else {
+					Menuleft2 = false;
+				}
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_UP)
+				{
+					Menuup2 = true;
+				}
+				else {
+					Menuup2 = false;
+				}
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_DOWN)
+				{
+					Menudown2 = true;
+				}
+				else {
+					Menudown2 = false;
 				}
 			}
 		}
