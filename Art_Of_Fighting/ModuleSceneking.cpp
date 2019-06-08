@@ -94,7 +94,7 @@ ModuleSceneking::ModuleSceneking()
 	player1Win.h = 40;
 
 	player2Win.x = 0;
-	player2Win.y = 183;
+	player2Win.y = 182;
 	player2Win.w = 120;
 	player2Win.h = 40;
 
