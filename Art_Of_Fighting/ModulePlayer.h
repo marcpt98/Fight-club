@@ -19,7 +19,8 @@ private:
 	Uint32 speed = 2;
 	int animstart = 0;
 	int jumpanim = 0;
-	float jumpSpeed = 6;
+	float jumpSpeed = 0;
+	bool SFXsound2 = true;
 	int initialPos;
 	bool SFXsound = true;
 public:
@@ -91,7 +92,8 @@ public:
 	float MaxLife = 100;
 	float Stamina = 100;
 	float MaxStamina = 100;
-	int time = 0;
+	Uint32 time = 0;
+	Uint32 jumptimer = 0;
 	
 	// FX
 	int kingkick = 0;

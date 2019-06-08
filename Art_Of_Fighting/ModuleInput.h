@@ -8,7 +8,7 @@
 #include "p2Qeue.h"
 
 #define MAX_KEYS 300
-#define JUMP_TIME 820
+#define JUMP_TIME 630
 #define PUNCH_TIME 250
 #define KICK_TIME  670
 #define PUNCH_CROUCH_TIME 280
