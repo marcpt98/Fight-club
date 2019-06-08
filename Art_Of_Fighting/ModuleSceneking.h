@@ -14,6 +14,7 @@ class ModuleSceneking : public Module
 {
 private://NEW
 	int speed = 3;//NEW
+	void OnMatchEnd();
 public:
 	ModuleSceneking();
 	~ModuleSceneking();
@@ -52,6 +53,9 @@ public:
 	Collider* colliderMap2=nullptr;
 	int Scene_king = 0;
 	int end = 0;
+	int round1FX = 0;
+	int round2FX = 0;
+	int finalRoundFX = 0;
 	float foreground_pos;
 	bool forward;
 	float distance = 0;
@@ -64,7 +68,7 @@ public:
 
 	char timer_text[10];
 	int font_timer = -1;
-	uint timer;
+	int timer;
 	uint endingtimer = 0;
 	int starttime;
 	int timertime;
@@ -78,7 +82,9 @@ public:
 	bool FinalRoundStart = false;
 	bool matchforP1 = false;
 	bool matchforP2 = false;
-
+	bool matchEnded = false;
+	bool paintBallforP1 = false;
+	bool paintBallforP2 = false;
 	int RoundsWinP1 = 0;
 	int RoundsWinP2 = 0;
 

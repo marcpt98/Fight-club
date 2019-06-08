@@ -124,8 +124,13 @@ bool ModuleSceneking::Start()
 	graphicsTime = App->textures->Load("media/UI/countdown.png");
 	graphicsUI = App->textures->Load("media/UI/ui.png");
 
-	//Scene_king = App->audio->LoadMusic("media/Music/king_stage.ogg");
+	Scene_king = App->audio->LoadMusic("media/Music/king_stage.ogg");
 	end = App->audio->LoadFX("media/FX/king_win.wav");
+	round1FX = App->audio->LoadFX("media/FX/Round_1.wav");
+	round2FX = App->audio->LoadFX("media/FX/Round_2.wav");
+	finalRoundFX = App->audio->LoadFX("media/FX/Final_Round.wav");
+
+
 
 	App->player->Life = 100;
 	App->player2->Life = 100;
@@ -157,7 +162,6 @@ bool ModuleSceneking::Start()
 		FinalRoundStart = false;
 	}
 
-	
 
 	positionlimitleft.x = 133;//NEW
 	positionlimitleft.y = -150;//NEW
@@ -174,7 +178,9 @@ bool ModuleSceneking::Start()
 	endingtimer = 0;
 	matchforP1 = false;
 	playFX = true;
-
+	matchEnded = false;
+	matchforP1 = false;
+	matchforP2 = false;
 
 	return true;
 }
@@ -192,6 +198,9 @@ bool ModuleSceneking::CleanUp()
 
 	App->audio->UnLoadMusic(Scene_king);
 	App->audio->UnLoadFX(end);
+	App->audio->UnLoadFX(round1FX);
+	App->audio->UnLoadFX(round2FX);
+	App->audio->UnLoadFX(finalRoundFX);
 
 	return true;
 }
@@ -295,15 +304,17 @@ update_status ModuleSceneking::Update()
 		App->render->Blit(graphicsUI, App->player2->position.x - 10, 203, &Shadow, 1.0);
 	}	
 
-
 	//Draw Round 1
-	if (App->scene_King->Zoom == true) {
+	if (App->scene_King->Zoom == true) 
+	{
 		App->scene_King->Zoom = false;   //this works for not making zoom to the UI
 		zoomcounter = true;
 	}
+
 	if (RoundStart == true)
 	{
 		App->render->BlitWithScale(graphicsUI, 210, 90, &Round1, 1, 0.0f, 1.0f, TOP_RIGHT);
+		App->audio->PlayFX(round1FX);
 	}
 
 	//Draw Round 2
@@ -311,14 +322,17 @@ update_status ModuleSceneking::Update()
 	if (Round2Start == true)
 	{
 		App->render->BlitWithScale(graphicsUI, 210, 90, &Round2, 1, 0.0f, 1.0f, TOP_RIGHT);
+		App->audio->PlayFX(round2FX);
 	}
 
 	//Draw FinalRound
 	if (FinalRoundStart == true)
 	{
 		App->render->BlitWithScale(graphicsUI, 240, 90, &FinalRound, 1, 0.0f, 1.0f, TOP_RIGHT);
+		App->audio->PlayFX(finalRoundFX);
 	}
-	if (zoomcounter == true) {
+	if (zoomcounter == true) 
+	{
 		App->scene_King->Zoom = true; //this ALSO works for not making zoom to the UI
 		zoomcounter = false;
 	}
@@ -338,6 +352,7 @@ update_status ModuleSceneking::Update()
 	if (SDL_GetTicks() - starttime >= 1500)
 	{
 		RoundStart = false;
+		
 
 	}
 
@@ -373,9 +388,18 @@ update_status ModuleSceneking::Update()
 
 	App->fonts->BlitText(137, 8, font_score, timer_text);
 
+	if(paintBallforP1)
+	{
+		App->render->BlitWithScale(graphicsUI, 65, 40, &ball, 1, 0.0f, 1.0f, TOP_RIGHT);
+	}
+
+	if(paintBallforP2)
+	{
+		App->render->BlitWithScale(graphicsUI, 255, 40, &ball, 1, 0.0f, 1.0f, TOP_RIGHT);
+	}
 
 	//PLAYER 1 /PLAYER 2 WINS
-	if (App->player2->Life <= 0)
+	if (App->player2->Life <= 0 || timer < 0 && App->player->Life > App->player2->Life)
 	{
 		App->input->inputs2.Push(IN_DEFEAT2);
 		App->input->inputs.Push(IN_WIN);
@@ -385,10 +409,18 @@ update_status ModuleSceneking::Update()
 		if (playFX)App->audio->PlayFX(end); playFX = false;
 
 		if (endingtimer == 0)endingtimer = SDL_GetTicks();
-		if (SDL_GetTicks() - endingtimer >= 3000)App->fade->FadeToBlack(App->scene_King, App->scene_win, 5);
+		if (SDL_GetTicks() - endingtimer >= 3000)OnMatchEnd();
+
+		if (!matchEnded)
+		{
+			RoundsWinP1++;
+		}
+
+		matchEnded = true;
+		paintBallforP1 = true;
 	}
 
-	if (App->player->Life <= 0)
+	if (App->player->Life <= 0 || timer < 0 && App->player->Life < App->player2->Life)
 	{
 		App->input->inputs2.Push(IN_WIN2);
 		App->input->inputs.Push(IN_DEFEAT);
@@ -398,15 +430,23 @@ update_status ModuleSceneking::Update()
 		if (playFX)App->audio->PlayFX(end); playFX = false;
 
 		if (endingtimer == 0)endingtimer = SDL_GetTicks();
-		if (SDL_GetTicks() - endingtimer >= 4000)App->fade->FadeToBlack(App->scene_King, App->scene_win, 5);
+		if (SDL_GetTicks() - endingtimer >= 4000)OnMatchEnd();
+
+		if (!matchEnded)
+		{
+			RoundsWinP2++;
+		}
+
+		matchEnded = true;
+		paintBallforP2 = true;
 	}
 
-	if (App->scene_King->matchforP1 == true)
+	if (matchforP1 == true)
 	{
 		App->render->BlitWithScale(graphicsUI, 210, 70, &player1Win, 1, 0.0f, 1.0f, TOP_RIGHT);
 	}
 
-	if (App->scene_King->matchforP2 == true)
+	if (matchforP2 == true)
 	{
 		App->render->BlitWithScale(graphicsUI, 210, 70, &player2Win, 1, 0.0f, 1.0f, TOP_RIGHT);
 	}
@@ -455,4 +495,27 @@ update_status ModuleSceneking::Update()
 
 
 	return UPDATE_CONTINUE;
+}
+
+
+void ModuleSceneking::OnMatchEnd()
+{
+	if (RoundsWinP1 == 1 && RoundsWinP2 == 0 || RoundsWinP1 == 0 && RoundsWinP2 == 1)
+	{
+		App->fade->FadeToBlack(App->scene_King, App->scene_King, 2);
+		return;
+	}
+
+	if (RoundsWinP1 == 1 && RoundsWinP2 == 1)
+	{
+		App->fade->FadeToBlack(App->scene_King, App->scene_King, 2);
+		return;
+	}
+
+	if (RoundsWinP1 == 2 || RoundsWinP2 == 2)
+	{
+		App->fade->FadeToBlack(App->scene_King, App->scene_win, 5);
+		RoundsWinP1 = 0;
+		RoundsWinP2 = 0;
+	}
 }
