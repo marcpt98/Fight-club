@@ -51,6 +51,7 @@ public:
 	Collider* colliderMap=nullptr;
 	Collider* colliderMap2=nullptr;
 	int Scene_king = 0;
+	int end = 0;
 	float foreground_pos;
 	bool forward;
 	float distance = 0;
@@ -80,6 +81,8 @@ public:
 
 	int RoundsWinP1 = 0;
 	int RoundsWinP2 = 0;
+
+	bool playFX = false;
 };
 
 #endif // __MODULESCENELEVEL_1_H__
