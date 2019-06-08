@@ -178,8 +178,8 @@ bool ModulePlayer::Start()
 	kickjump = App->collision->AddCollider({ position.x,position.y, 75, 15 }, COLLIDER_PLAYER, this);
 	kickjump->Enabled = false;
 
-	kickpunch = App->collision->AddCollider({ position.x,position.y, 70, 15 }, COLLIDER_PLAYER, this);
-	kickpunch->Enabled = false;
+	punchjump = App->collision->AddCollider({ position.x,position.y, 40, 40 }, COLLIDER_PLAYER, this);
+	punchjump->Enabled = false;
 
 	//Initalize Stamina
 	Stamina = 100;
@@ -898,6 +898,17 @@ update_status ModulePlayer::Update()
 		{
 			kickjump->Enabled = false;
 		}
+
+		if (r == &punchJump.frames[punchJump.last_frame - 1] && App->scene_King->Zoom == true) {
+
+			punchjump->SetPos((position.x - 25)*1.3, position.y - r->h + 40);
+
+			punchjump->Enabled = true;
+		}
+		else
+		{
+			punchjump->Enabled = false;
+		}
 	}
 	else
 	{
@@ -997,13 +1008,23 @@ update_status ModulePlayer::Update()
 		}
 		if (r == &kickJump.frames[kickJump.last_frame - 1] && App->scene_King->Zoom == true) {
 
-			kickjump->SetPos((position.x + 25)*1.3, position.y - r->h + 40);
+			kickjump->SetPos((position.x+25)*1.3, position.y - r->h + 40);
 
 			kickjump->Enabled = true;
 		}
 		else
 		{
 			kickjump->Enabled = false;
+		}
+		if (r == &punchJump.frames[punchJump.last_frame - 1] && App->scene_King->Zoom == true) {
+
+			punchjump->SetPos((position.x + 25)*1.3, position.y - r->h + 40);
+
+			punchjump->Enabled = true;
+		}
+		else
+		{
+			punchjump->Enabled = false;
 		}
 
 	}
@@ -1627,6 +1648,9 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		}
 
 	}
+
+	
+////////////////////////////////////////////////////////////////////////////////////////////// PUNCH near
 	if (kickjump == c1 && c2->type == COLLIDER_ENEMY)
 	{
 		App->SlowDownShake->StartSlowDownShake(500, 40);
@@ -1637,6 +1661,35 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		collision = true;
 
 		if ((position.x+25) >= (App->player2->position.x + 25))
+		{
+			App->player2->position.x -= 15;
+		}
+
+		else
+		{
+			App->player2->position.x += 15;
+			if ((App->player2->position.x) <= (App->scene_King->positionlimitright.x + 300)) {
+				App->player2->position.x += 5;
+			}
+
+			if ((App->player2->position.x) >= (App->scene_King->positionlimitright.x + 300)) {
+				position.x -= 5;
+				App->player2->position.x -= 3;
+			}
+		}
+
+	}
+	/////////////////////////////////////////////////////////////////////////////////////////////////// PUNCH jump
+	if (punchjump == c1 && c2->type == COLLIDER_ENEMY)
+	{
+		App->SlowDownShake->StartSlowDownShake(500, 40);
+		App->render->StartCameraShake(150, 20);
+		App->player2->Life = App->player2->Life - 6;
+		damageP2 = true;
+		App->input->inputs2.Push(IN_DAMAGE2);
+		collision = true;
+
+		if ((position.x + 25) >= (App->player2->position.x))
 		{
 			App->player2->position.x -= 15;
 		}

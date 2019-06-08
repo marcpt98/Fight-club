@@ -175,8 +175,8 @@ bool ModulePlayer2::Start()
 	kickjump = App->collision->AddCollider({ position.x,position.y, 75, 15 }, COLLIDER_ENEMY, this);
 	kickjump->Enabled = false;
 
-	kickpunch = App->collision->AddCollider({ position.x,position.y, 70, 15 }, COLLIDER_ENEMY, this);
-	kickpunch->Enabled = false;
+	punchjump = App->collision->AddCollider({ position.x,position.y, 40, 40 }, COLLIDER_ENEMY, this);
+	punchjump->Enabled = false;
 
 
 	//Initialize Stamina
@@ -863,6 +863,16 @@ update_status ModulePlayer2::Update()
 			kickjump->Enabled = false;
 		}
 
+		if (r == &punchJump.frames[punchJump.last_frame - 1] && App->scene_King->Zoom == true) {
+
+			punchjump->SetPos((position.x - 25)*1.3, position.y - r->h + 40);
+
+			punchjump->Enabled = true;
+		}
+		else
+		{
+			punchjump->Enabled = false;
+		}
 
 	}
 	else 
@@ -970,6 +980,16 @@ update_status ModulePlayer2::Update()
 		else
 		{
 			kickjump->Enabled = false;
+		}
+		if (r == &punchJump.frames[punchJump.last_frame - 1] && App->scene_King->Zoom == true) {
+
+			punchjump->SetPos((position.x+25)*1.3, position.y - r->h + 40);
+
+			punchjump->Enabled = true;
+		}
+		else
+		{
+			punchjump->Enabled = false;
 		}
 
 	}
@@ -1517,6 +1537,36 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 	}
 	/////////////////////////////////////////////////////////////////////////////////////////////////// KICK jump
 	if (kickjump == c1 && c2->type == COLLIDER_PLAYER)
+	{
+		App->SlowDownShake->StartSlowDownShake(500, 40);
+		App->render->StartCameraShake(150, 20);
+		App->player->Life = App->player->Life - 6;
+		damageP1 = true;
+		App->input->inputs.Push(IN_DAMAGE);
+		collision = true;
+
+		if ((position.x + 25) >= (App->player->position.x))
+		{
+			App->player->position.x -= 15;
+		}
+
+		else
+		{
+			App->player->position.x += 15;
+			if ((App->player->position.x) <= (App->scene_King->positionlimitright.x + 300)) {
+				App->player->position.x += 5;
+			}
+
+			if ((App->player->position.x) >= (App->scene_King->positionlimitright.x + 300)) {
+				position.x -= 5;
+				App->player->position.x -= 3;
+			}
+		}
+
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////// PUNCH jump
+	if (punchjump == c1 && c2->type == COLLIDER_PLAYER)
 	{
 		App->SlowDownShake->StartSlowDownShake(500, 40);
 		App->render->StartCameraShake(150, 20);
