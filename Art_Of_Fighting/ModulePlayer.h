@@ -110,6 +110,13 @@ public:
 	
 	int GodMode = false;
 	int printMode = false;
+
+	// COMBOS
+	Uint32 combo1 = 0;
+	Uint32 combo2 = 0;
+	Uint32 combo3 = 0;
+	Uint32 combotime;
+	Uint32 combotimeHadouken;
 };
 
 #endif

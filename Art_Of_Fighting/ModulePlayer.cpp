@@ -1017,7 +1017,17 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 			case IN_JUMP: state = ST_JUMP_NEUTRAL; jumpSpeed = 5;  App->input->jump_timer = SDL_GetTicks(); animstart = 0; jumptimer = SDL_GetTicks(); break;
 			case IN_CROUCH_DOWN: state = ST_CROUCH; break;
 			case IN_T: state = ST_PUNCH_STANDING, App->input->punch_timer = SDL_GetTicks(); break;
-			case IN_R: state = ST_KICK_STANDING, App->input->kick_timer = SDL_GetTicks(); break;
+			case IN_R: 
+				if (SDL_GetTicks() - combotime < 120) {
+					if (combo1 == 2)combo1 = 3;
+				}
+				if (combo1 == 3) 
+				{
+					state = ST_HADOUKEN; App->input->hadouken_timer = SDL_GetTicks(); combo1 = 0; break; 
+				}
+				else {
+					state = ST_KICK_STANDING, App->input->kick_timer = SDL_GetTicks(); break;
+				}
 			case IN_F: state = ST_HADOUKEN, App->input->hadouken_timer = SDL_GetTicks(); break;
 			case IN_C: state = ST_MOUSHUUKYAKU, App->input->moshuukyaku_timer = SDL_GetTicks(); break;
 			case IN_X: state = ST_TORNADOKICK, App->input->tornadokick_timer = SDL_GetTicks(); break;
@@ -1032,6 +1042,15 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 
 		case ST_WALK_FORWARD:
 		{
+			if (SDL_GetTicks() - combotime < 120) {
+				if (combo1 == 1)combo1 = 2;
+				combotime = SDL_GetTicks();
+			}
+			else 
+			{ 
+				combo1 = 0;
+			}
+
 			switch (last_input)
 			{
 			case IN_RIGHT_UP: state = ST_IDLE; break;
@@ -1128,6 +1147,14 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 
 		case ST_CROUCH:
 		{
+			combo1 = 1;
+			combotime = SDL_GetTicks();
+
+			if (SDL_GetTicks() - combotimeHadouken < 120) {
+				if (combo2 == 1)combo2 = 2;
+				combotimeHadouken = SDL_GetTicks();
+			}
+
 			switch (last_input)
 			{
 			case IN_CROUCH_UP: state = ST_IDLE; break;
