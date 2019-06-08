@@ -84,6 +84,8 @@ public:
 	Collider *punchCrouchCollider;
 	Collider *kickNearCollider;
 	Collider *punchNearCollider;
+	Collider *kickjump;
+	Collider *kickpunch;
 
 
 	void OnCollision(Collider* c1, Collider* c2);

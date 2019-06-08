@@ -168,6 +168,12 @@ bool ModulePlayer::Start()
 	punchNearCollider = App->collision->AddCollider({ position.x, position.y - 70 , 65, 15 }, COLLIDER_PLAYER, this);
 	punchNearCollider->Enabled = false;
 
+	kickjump = App->collision->AddCollider({ position.x,position.y, 75, 15 }, COLLIDER_PLAYER, this);
+	kickjump->Enabled = false;
+
+	kickpunch = App->collision->AddCollider({ position.x,position.y, 70, 15 }, COLLIDER_PLAYER, this);
+	kickpunch->Enabled = false;
+
 	//Initalize Stamina
 	Stamina = 100;
 
@@ -866,6 +872,16 @@ update_status ModulePlayer::Update()
 			kickCrouchCollider->Enabled = false;
 		}
 
+		if (r == &kickJump.frames[kickJump.last_frame - 1] && App->scene_King->Zoom == true) {
+
+			kickjump->SetPos((position.x - 25)*1.3, position.y - r->h + 40);
+
+			kickjump->Enabled = true;
+		}
+		else
+		{
+			kickjump->Enabled = false;
+		}
 	}
 	else
 	{
@@ -963,6 +979,17 @@ update_status ModulePlayer::Update()
 		{
 			punchNearCollider->Enabled = false;
 		}
+		if (r == &kickJump.frames[kickJump.last_frame - 1] && App->scene_King->Zoom == true) {
+
+			kickjump->SetPos((position.x + 25)*1.3, position.y - r->h + 40);
+
+			kickjump->Enabled = true;
+		}
+		else
+		{
+			kickjump->Enabled = false;
+		}
+
 	}
 
 
@@ -1557,6 +1584,34 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		else
 		{
 			App->player2->position.x += speed;
+			if ((App->player2->position.x) <= (App->scene_King->positionlimitright.x + 300)) {
+				App->player2->position.x += 5;
+			}
+
+			if ((App->player2->position.x) >= (App->scene_King->positionlimitright.x + 300)) {
+				position.x -= 5;
+				App->player2->position.x -= 3;
+			}
+		}
+
+	}
+	if (kickjump == c1 && c2->type == COLLIDER_ENEMY)
+	{
+		App->SlowDownShake->StartSlowDownShake(500, 40);
+		App->render->StartCameraShake(150, 20);
+		App->player2->Life = App->player2->Life - 6;
+		damageP2 = true;
+		App->input->inputs.Push(IN_DAMAGE);
+		collision = true;
+
+		if ((position.x+25) >= (App->player2->position.x + 25))
+		{
+			App->player2->position.x -= 15;
+		}
+
+		else
+		{
+			App->player2->position.x += 15;
 			if ((App->player2->position.x) <= (App->scene_King->positionlimitright.x + 300)) {
 				App->player2->position.x += 5;
 			}
