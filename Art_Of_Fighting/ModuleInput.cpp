@@ -589,6 +589,16 @@ void ModuleInput::internal_input(p2Qeue<king_inputs>& inputs, p2Qeue<king_inputs
 		}
 	}
 
+	if (damageHadoken_timer > 0)
+	{
+		if (SDL_GetTicks() - damageHadoken_timer > DAMAGEHADOKEN_TIME)
+		{
+			inputs.Push(IN_DAMAGE_HADOKEN_FINISH);
+			damageHadoken_timer = 0;
+			App->player->damageHadokenP2 = false;
+		}
+	}
+
 	if (taunt_timer > 0)
 	{
 		if (SDL_GetTicks() - taunt_timer > TAUNT_TIME)
@@ -687,6 +697,16 @@ void ModuleInput::internal_input(p2Qeue<king_inputs>& inputs, p2Qeue<king_inputs
 		{
 			inputs2.Push(IN_TAUNT_FINISH2);
 			taunt_timer2 = 0;
+		}
+	}
+
+	if (damageHadoken_timer2 > 0)
+	{
+		if (SDL_GetTicks() - damageHadoken_timer2 > DAMAGEHADOKEN_TIME)
+		{
+			inputs2.Push(IN_DAMAGE_HADOKEN_FINISH2);
+			damageHadoken_timer2 = 0;
+			App->player2->damageHadokenP1 = false;
 		}
 	}
 }

@@ -40,6 +40,7 @@ public:
 	bool shoot = false;
 	bool shootNo = false;
 	bool damageP1 = false;
+	bool damageHadokenP1 = false;
 public:
 
 	int font_score = -1;
@@ -74,6 +75,7 @@ public:
 	Animation taunt;
 	Animation winAnimation;
 	Animation defeatAnimation;
+	Animation damageHadoken;
 
 	// COLLIDERS
 	Collider *ryohitbox;
