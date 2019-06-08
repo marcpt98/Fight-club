@@ -248,6 +248,7 @@ update_status ModulePlayer::Update()
 		{
 		case ST_IDLE:
 			current_animation = &idle;
+			position.y = 210;
 			forward.Reset();
 			backward.Reset();
 			crouch.Reset();
@@ -281,6 +282,7 @@ update_status ModulePlayer::Update()
 				current_animation = &forward;
 				backward.Reset();
 			}
+			position.y = 210;
 			position.x += speed;
 			crouch.Reset();
 			kick.Reset();
@@ -312,6 +314,7 @@ update_status ModulePlayer::Update()
 				current_animation = &backward;
 				forward.Reset();
 			}
+			position.y = 210;
 			position.x -= speed;
 			crouch.Reset();
 			kick.Reset();
@@ -376,7 +379,7 @@ update_status ModulePlayer::Update()
 				if (position.y < 120)
 				{
 					jumpSpeed -= 1.5;
-					if (jumpSpeed < 0) jumpSpeed = -6;
+					if (jumpSpeed < 0) jumpSpeed = -5;
 				}
 				if (position.y >= initialPos)
 				{
@@ -412,7 +415,7 @@ update_status ModulePlayer::Update()
 							SFXsound2 = false;
 						}
 						time = SDL_GetTicks();
-						LOG("JUMP PUNCH \n");
+						LOG("JUMP PUNCH FORWARD\n");
 					}
 					break;
 				case 2:
@@ -429,14 +432,21 @@ update_status ModulePlayer::Update()
 					}
 					break;
 				}
-				speed = 3;
-				if (position.y < 120) {
-					jumpSpeed -= 0.5;
-					if (jumpSpeed < 0) jumpSpeed = -6;
+				position.y -= jumpSpeed;
+				position.x += jumpSpeedx;
+				if (position.y < 120)
+				{
+					jumpSpeed -= 6;
+					if (jumpSpeed < 0)
+					{
+						jumpSpeed = -4;
+						jumpSpeedx = 4;
+					}
 				}
-				if (position.y >= initialPos && jumpSpeed < 0) {
-					animstart = 1;
+				if (position.y >= initialPos)
+				{
 					position.y = initialPos;
+					if (animstart != 0)animstart = 1;
 					punchJump.Reset();
 					kickJump.Reset();
 				}
@@ -466,7 +476,7 @@ update_status ModulePlayer::Update()
 							SFXsound2 = false;
 						}
 						time = SDL_GetTicks();
-						LOG("JUMP PUNCH \n");
+						LOG("JUMP PUNCH BACKWARDS\n");
 					}
 					break;
 				case 2:
@@ -483,47 +493,27 @@ update_status ModulePlayer::Update()
 					}
 					break;
 				}
-				speed = -3;
-				if (position.y < 120) {
-					jumpSpeed -= 0.5;
-					if (jumpSpeed < 0) jumpSpeed = -6;
+				position.y -= jumpSpeed;
+				position.x -= jumpSpeedx;
+				if (position.y < 120)
+				{
+					jumpSpeed -= 6;
+					if (jumpSpeed < 0)
+					{
+						jumpSpeed = -4;
+						jumpSpeedx = 4;
+					}
 				}
-				if (position.y >= initialPos && jumpSpeed < 0) {
-					animstart = 1;
+				if (position.y >= initialPos)
+				{
 					position.y = initialPos;
+					if (animstart != 0)animstart = 1;
 					punchJump.Reset();
 					kickJump.Reset();
 				}
 				LOG("JUMP BACKWARD \n");
 			}
 			break;
-			/*if (animstart == 0)
-			{
-				current_animation = &jumping;
-				position.y -= jumpSpeed;
-
-				if (SFXsound == true)
-				{
-					App->audio->PlayFX(kingjump);
-					SFXsound = false;
-				}
-
-				if (wall) {}
-				else {
-					if (position.x) position.x -= 3;
-				}
-				if (position.y < 120) {
-					jumpSpeed -= 0.5;
-					if (jumpSpeed < 0) jumpSpeed = -6;
-				}
-				if (position.y >= initialPos && jumpSpeed < 0) {
-					animstart = 1;
-					position.y = initialPos;
-					jumpSpeed = 6;
-				}
-			}
-			LOG("JUMPING BACKWARD ^^<<\n");
-			break;*/
 		case ST_CROUCH:
 			current_animation = &crouch;
 			punchCrouch.Reset();
@@ -584,24 +574,6 @@ update_status ModulePlayer::Update()
 			}
 			LOG("PUNCH --\n")
 				break;
-		case ST_PUNCH_NEUTRAL_JUMP:
-			if (SFXsound == true)
-			{
-				App->audio->PlayFX(kingpunch);
-				SFXsound = false;
-			}
-			if (animstart == 0)
-			{
-				current_animation = &punchJump;
-			}
-			LOG("PUNCH NEUTRAL JUMP ++++\n");
-			break;
-		case ST_PUNCH_FORWARD_JUMP:
-			LOG("PUNCH JUMP FORWARD ^>>+\n");
-			break;
-		case ST_PUNCH_BACKWARD_JUMP:
-			LOG("PUNCH JUMP BACKWARD ^<<+\n");
-			break;
 		case ST_KICK_CROUCH:
 			if (position.x < App->player2->position.x) {
 				position.x += 0.5*speed;
@@ -663,24 +635,6 @@ update_status ModulePlayer::Update()
 			}
 			LOG("KICK --\n")
 				break;
-		case ST_KICK_NEUTRAL_JUMP:
-			if (SFXsound == true)
-			{
-				//App->audio->PlayFX(ryokick);
-				SFXsound = false;
-			}
-			if (animstart == 0)
-			{
-				current_animation = &kickJump;
-			}
-			LOG("KICK JUMP NEUTRAL ^^--\n");
-			break;
-		case ST_KICK_FORWARD_JUMP:
-			LOG("KICK JUMP FORWARD ^>>-\n");
-			break;
-		case ST_KICK_BACKWARD_JUMP:
-			LOG("KICK JUMP BACKWARD ^<<-\n");
-			break;
 		case ST_DAMAGE:
 			if (SFXsound == true)
 			{
@@ -1060,7 +1014,7 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 			{
 			case IN_RIGHT_DOWN: state = ST_WALK_FORWARD; break;
 			case IN_LEFT_DOWN: state = ST_WALK_BACKWARD; break;
-			case IN_JUMP: state = ST_JUMP_NEUTRAL; jumpSpeed = 6;  App->input->jump_timer = SDL_GetTicks(); animstart = 0; jumptimer = SDL_GetTicks(); break;
+			case IN_JUMP: state = ST_JUMP_NEUTRAL; jumpSpeed = 5;  App->input->jump_timer = SDL_GetTicks(); animstart = 0; jumptimer = SDL_GetTicks(); break;
 			case IN_CROUCH_DOWN: state = ST_CROUCH; break;
 			case IN_T: state = ST_PUNCH_STANDING, App->input->punch_timer = SDL_GetTicks(); break;
 			case IN_R: state = ST_KICK_STANDING, App->input->kick_timer = SDL_GetTicks(); break;
@@ -1082,7 +1036,7 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 			{
 			case IN_RIGHT_UP: state = ST_IDLE; break;
 			case IN_LEFT_AND_RIGHT: state = ST_IDLE; break;
-			case IN_JUMP: state = ST_JUMP_FORWARD;  App->input->jump_timer = SDL_GetTicks();  break;
+			case IN_JUMP: state = ST_JUMP_FORWARD; jumpSpeed = 4; jumpSpeedx = 4; jumptimer = SDL_GetTicks();  App->input->jump_timer = SDL_GetTicks();  break;
 			case IN_CROUCH_DOWN: state = ST_CROUCH; break;
 			case IN_T: state = ST_PUNCH_STANDING, App->input->punch_timer = SDL_GetTicks(); break;
 			case IN_R: state = ST_KICK_STANDING, App->input->kick_timer = SDL_GetTicks(); break;
@@ -1104,7 +1058,7 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 			{
 			case IN_LEFT_UP: state = ST_IDLE; break;
 			case IN_LEFT_AND_RIGHT: state = ST_IDLE; break;
-			case IN_JUMP: state = ST_JUMP_BACKWARD;  App->input->jump_timer = SDL_GetTicks();  break;
+			case IN_JUMP: state = ST_JUMP_BACKWARD; jumpSpeed = 4; jumpSpeedx = 4; jumptimer = SDL_GetTicks(); App->input->jump_timer = SDL_GetTicks();  break;
 			case IN_CROUCH_DOWN: state = ST_CROUCH; break;
 			case IN_T: state = ST_PUNCH_STANDING, App->input->punch_timer = SDL_GetTicks(); break;
 			case IN_R: state = ST_KICK_STANDING, App->input->kick_timer = SDL_GetTicks(); break;
@@ -1136,7 +1090,7 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 		{
 			switch (last_input)
 			{
-			case IN_JUMP_FINISH: state = ST_IDLE; animstart = 0; SFXsound = true; break;
+			case IN_JUMP_FINISH: state = ST_IDLE; animstart = 0; jumpanim = 0; SFXsound = true; SFXsound2 = true; jumping.Reset(); break;
 			case IN_WIN: state = ST_WIN; animstart = 0; break;
 			case IN_DEFEAT: state = ST_DEFEAT; animstart = 0; break;
 			case IN_T: if (SDL_GetTicks() - jumptimer > 300) { if (jumpanim == 0)jumpanim = 1; } break;
@@ -1151,49 +1105,11 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 		{
 			switch (last_input)
 			{
-			case IN_JUMP_FINISH: state = ST_IDLE; animstart = 0; SFXsound = true; break;
+			case IN_JUMP_FINISH: state = ST_IDLE; animstart = 0; jumpanim = 0; SFXsound = true; SFXsound2 = true; jumping.Reset(); break;
 			case IN_WIN: state = ST_WIN; animstart = 0; break;
 			case IN_DEFEAT: state = ST_DEFEAT; animstart = 0; break;
 			case IN_T: if (SDL_GetTicks() - jumptimer > 300) { if (jumpanim == 0)jumpanim = 1; } break;
 			case IN_R: if (SDL_GetTicks() - jumptimer > 300) { if (jumpanim == 0)jumpanim = 2; } break;
-				//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
-
-			}
-		}
-		break;
-
-		case ST_PUNCH_NEUTRAL_JUMP:
-		{
-			switch (last_input)
-			{
-				//case IN_PUNCH_FINISH: state = ST_JUMP_NEUTRAL; animstart = 0; attack = true; break;
-			case IN_JUMP_FINISH: state = ST_IDLE; break;
-			case IN_WIN: state = ST_WIN; break;
-			case IN_DEFEAT: state = ST_DEFEAT; break;
-				//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
-
-			}
-		}
-		break;
-
-		case ST_PUNCH_FORWARD_JUMP:
-		{
-			switch (last_input)
-			{
-			case IN_PUNCH_FINISH: state = ST_JUMP_FORWARD; break;
-			case IN_JUMP_FINISH: state = ST_IDLE; break;
-				//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
-
-			}
-		}
-		break;
-
-		case ST_PUNCH_BACKWARD_JUMP:
-		{
-			switch (last_input)
-			{
-			case IN_PUNCH_FINISH: state = ST_JUMP_BACKWARD; break;
-			case IN_JUMP_FINISH: state = ST_IDLE; break;
 				//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
 
 			}
@@ -1250,20 +1166,8 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 			case IN_KICK_FINISH: state = ST_IDLE; animstart = 0; SFXsound = true; break;
 			case IN_DAMAGE: state = ST_DAMAGE, App->input->damage_timer = SDL_GetTicks(); break;
 			}
-
-		}break;
-		case ST_KICK_NEUTRAL_JUMP:
-		{
-			switch (last_input)
-			{
-			case IN_KICK_FINISH: state = ST_JUMP_NEUTRAL; animstart = 0; SFXsound = true; break;
-			case IN_JUMP_FINISH: state = ST_IDLE; break;
-			case IN_WIN: state = ST_WIN; break;
-			case IN_DEFEAT: state = ST_DEFEAT; break;
-				//case IN_DAMAGE_RECEIVED: state = ST_HIT, beat_timer = SDL_GetTicks(); break;
-
-			}
 		}
+		break;
 
 		case ST_KICK_CROUCH:
 		{
@@ -1279,8 +1183,6 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 				{
 					state = ST_IDLE; animstart = 0; SFXsound = true;
 				}
-			
-
 			}
 		}
 		break;

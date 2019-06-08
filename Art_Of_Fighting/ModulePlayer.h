@@ -20,6 +20,7 @@ private:
 	int animstart = 0;
 	int jumpanim = 0;
 	float jumpSpeed = 0;
+	float jumpSpeedx = 0;
 	bool SFXsound2 = true;
 	int initialPos;
 	bool SFXsound = true;
