@@ -125,6 +125,7 @@ bool ModuleSceneking::Start()
 	graphicsUI = App->textures->Load("media/UI/ui.png");
 
 	Scene_king = App->audio->LoadMusic("media/Music/king_stage.ogg");
+	end = App->audio->LoadFX("media/FX/king_win.wav");
 
 	App->player->Life = 100;
 	App->player2->Life = 100;
@@ -172,6 +173,8 @@ bool ModuleSceneking::Start()
 	starttime = SDL_GetTicks();
 	endingtimer = 0;
 	matchforP1 = false;
+	playFX = true;
+
 
 	return true;
 }
@@ -188,6 +191,8 @@ bool ModuleSceneking::CleanUp()
 	App->collision->Disable();
 
 	App->audio->UnLoadMusic(Scene_king);
+	App->audio->UnLoadFX(end);
+
 	return true;
 }
 
@@ -369,13 +374,15 @@ update_status ModuleSceneking::Update()
 	App->fonts->BlitText(137, 8, font_score, timer_text);
 
 
-	//PLAYER 1 WINS
+	//PLAYER 1 /PLAYER 2 WINS
 	if (App->player2->Life <= 0)
 	{
 		App->input->inputs2.Push(IN_DEFEAT2);
 		App->input->inputs.Push(IN_WIN);
 		
 		matchforP1 = true;
+
+		if (playFX)App->audio->PlayFX(end); playFX = false;
 
 		if (endingtimer == 0)endingtimer = SDL_GetTicks();
 		if (SDL_GetTicks() - endingtimer >= 3000)App->fade->FadeToBlack(App->scene_King, App->scene_win, 5);
@@ -387,6 +394,8 @@ update_status ModuleSceneking::Update()
 		App->input->inputs.Push(IN_DEFEAT);
 		
 		matchforP2 = true;
+
+		if (playFX)App->audio->PlayFX(end); playFX = false;
 
 		if (endingtimer == 0)endingtimer = SDL_GetTicks();
 		if (SDL_GetTicks() - endingtimer >= 4000)App->fade->FadeToBlack(App->scene_King, App->scene_win, 5);
