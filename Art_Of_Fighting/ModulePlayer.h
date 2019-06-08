@@ -15,7 +15,7 @@ struct SDL_Texture;
 class ModulePlayer : public Module
 {
 private:
-	bool wall = false;
+	
 	Uint32 speed = 2;
 	int animstart = 0;
 	int jumpanim = 0;
@@ -31,6 +31,8 @@ public:
 	bool Start();
 	update_status Update();
 	bool CleanUp();
+	bool inair = false;	
+	bool wall = false;
 	bool createnewbighitbox = true;
 	bool createnewbighitbox2 = false;
 	bool JumpMax = false;

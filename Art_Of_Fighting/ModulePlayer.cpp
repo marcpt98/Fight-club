@@ -309,6 +309,7 @@ update_status ModulePlayer::Update()
 		case ST_IDLE:
 			current_animation = &idle;
 			position.y = 210;
+			inair = false;
 			forward.Reset();
 			backward.Reset();
 			crouch.Reset();
@@ -344,6 +345,7 @@ update_status ModulePlayer::Update()
 				backward.Reset();
 			}
 			position.y = 210;
+			inair = false;
 			position.x += speed;
 			crouch.Reset();
 			kick.Reset();
@@ -376,6 +378,7 @@ update_status ModulePlayer::Update()
 				forward.Reset();
 			}
 			position.y = 210;
+			inair = false;
 			position.x -= speed;
 			crouch.Reset();
 			kick.Reset();
@@ -400,6 +403,7 @@ update_status ModulePlayer::Update()
 		case ST_JUMP_NEUTRAL:
 			if (animstart == 0 || 2)
 			{
+				inair = true;
 				switch (jumpanim)
 				{
 				case 0:
@@ -457,6 +461,7 @@ update_status ModulePlayer::Update()
 		case ST_JUMP_FORWARD:
 			if (animstart == 0 || 2)
 			{
+				inair = true;
 				switch (jumpanim)
 				{
 				case 0:
@@ -518,6 +523,7 @@ update_status ModulePlayer::Update()
 		case ST_JUMP_BACKWARD:
 			if (animstart == 0 || 2)
 			{
+				inair = true;
 				switch (jumpanim)
 				{
 				case 0:
@@ -1496,57 +1502,71 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		wall = true;
 	}
 
+
 	if (ryohitbox == c1 && c2->type == COLLIDER_ENEMY)
 	{
-		/*if (App->input->keyboard[SDL_SCANCODE_A] == NULL && App->input->keyboard[SDL_SCANCODE_D] == NULL && App->input->keyboard[SDL_SCANCODE_J] == NULL && App->input->keyboard[SDL_SCANCODE_L] == NULL && position.x < (App->player2->position.x - 65)) {
-			position.x -= 3;
+		if (inair == false && App->player2->inair == false) {
+
+			if (App->input->left == false && App->input->right == false && App->input->left2 == false && App->input->right2 == false && position.x + 25 <= App->player2->position.x + 25) {
+				position.x -= 10;
+			}
+			if (App->input->left == false && App->input->right == false && App->input->left2 == false && App->input->right2 == false && position.x + 25 > App->player2->position.x + 25) {
+				position.x += 10;
+			}
+			if (App->input->right == true && App->input->left2 == true) {
+				position.x -= 2;
+				App->player2->position.x += 2;
+			}
+
+			if (App->input->right2 == true && App->input->left == true) {
+				position.x += 2;
+				App->player2->position.x -= 2;
+			}
+
+			if (App->input->right == true && App->input->left2 == false) {
+				App->player2->position.x += 2;
+			}
+			if (App->input->left == true && App->input->right2 == false) {
+				App->player2->position.x -= 2;
+			}
+			if (App->input->right == true && App->input->left2 == false && App->player2->wall == true) {
+				position.x -= 4;
+			}
+			if (App->input->left == true && App->input->right2 == false && App->player2->wall == true) {
+				position.x += 4;
+			}
 		}
-		if (App->input->keyboard[SDL_SCANCODE_A] == NULL && App->input->keyboard[SDL_SCANCODE_D] == NULL && App->input->keyboard[SDL_SCANCODE_J] == NULL && App->input->keyboard[SDL_SCANCODE_L] == NULL && position.x >(App->player2->position.x - 25)) {
-			position.x += 3;
+		else {
+
 		}
-		if (App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_REPEAT && App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT) {
-			speed = 0;
-			position.x -= 2;
-		}
-		else if (App->input->keyboard[SDL_SCANCODE_L] == KEY_STATE::KEY_REPEAT && App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT) { //NEW
-			speed = 0;
-			position.x += 2;
-		}
-		else if (App->input->keyboard[SDL_SCANCODE_J] != NULL && App->input->keyboard[SDL_SCANCODE_D] == NULL) { //when player 2 run and player 1 no (player 2 in the left side)
-			position.x -= 2;
-		}
-		else if (App->input->keyboard[SDL_SCANCODE_D] != NULL && App->input->keyboard[SDL_SCANCODE_J] == NULL) { //when player 1 run and player 2 no (player 1 in the left side)
-			position.x -= 1;
-		}
-		else if (App->input->keyboard[SDL_SCANCODE_L] != NULL && App->input->keyboard[SDL_SCANCODE_A] == NULL) { //when player 2 run and player 1 no (player 2 in the left side)
-			position.x += 2;
-		}
-		else if (App->input->keyboard[SDL_SCANCODE_A] != NULL && App->input->keyboard[SDL_SCANCODE_L] == NULL) { //when player 2 run and player 1 no (player 2 in the left side)
-			position.x += 1;
-		}
-*/
+
 	}
 
 	if (ryohitbox == c1 && App->scene_King->colliderMap2 == c2)   //Colisions with second wall
 	{
 		if (App->input->keyboard[SDL_SCANCODE_A] == NULL) {
 			speed = 0;
-			position.x -= 2;
+			position.x -= 4;
 		}
-		if (App->input->keyboard[SDL_SCANCODE_A] != NULL) {
+		if (App->input->left == true) {
 			speed = 2;
 		}
 	}
 	if (ryohitbox == c1 && App->scene_King->colliderMap == c2)   //Colisions with first wall
 	{
-		if (App->input->keyboard[SDL_SCANCODE_D] == NULL) {
+		if (App->input->left == true) {
+			position.x += 4;
+		}
+		if (App->input->left == false) {
+			position.x += 4;
+		}
+		if (App->input->right == false) {
 			speed = 0;
-			position.x += 2;
+
 		}
-		if (App->input->keyboard[SDL_SCANCODE_D] != NULL) {
-			position.x += 2;
-		}
+
 	}
+
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////// ATTACKS
 	/////////////////////////////////////////////////////////////////////////////////////// KICK HITBOX
