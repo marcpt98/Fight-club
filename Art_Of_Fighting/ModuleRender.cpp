@@ -194,11 +194,13 @@ bool ModuleRender::BlitWithScale(SDL_Texture * texture, int x, int y, SDL_Rect *
 		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
 	}
 
-	if (App->scene_King->Zoom == true) {
+	if (App->scene_King->Zoom == true)
+	{
 		rect.w *= SCREEN_SIZE * 1.3;
 		rect.h *= SCREEN_SIZE * 1.3;
 	}
-	else {
+	else 
+	{
 		rect.w *= SCREEN_SIZE;
 		rect.h *= SCREEN_SIZE;
 	}
@@ -209,9 +211,7 @@ bool ModuleRender::BlitWithScale(SDL_Texture * texture, int x, int y, SDL_Rect *
 		ret = false;
 	}
 
-	if (App->scene_King->Zoom == true) {
-
-	}
+	
 
 	return ret;
 

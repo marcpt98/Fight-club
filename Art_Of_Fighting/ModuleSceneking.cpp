@@ -184,6 +184,7 @@ bool ModuleSceneking::Start()
 	matchEnded = false;
 	matchforP1 = false;
 	matchforP2 = false;
+	gameEnd = false;
 
 
 
@@ -455,48 +456,16 @@ update_status ModuleSceneking::Update()
 		App->render->BlitWithScale(graphicsUI, 210, 70, &player2Win, 1, 0.0f, 1.0f, TOP_RIGHT);
 	}
 
-	//System of Rounds
-	/*
-	if(timer <= 0 || App->player->Life == 0 || App->player2->Life == 0)
+	if(gameEnd)
 	{
-		
-		if(App->player->Life > App->player2->Life || App->player2->Life == 0)
-		{
-			App->render->BlitWithScale(graphicsUI, 210, 70, &player1Win, 1, 0.0f, 1.0f, TOP_RIGHT);
-			RoundsWinP1++;
-		}
-		if(App->player->Life < App->player2->Life || App->player->Life == 0)
-		{
-			App->render->BlitWithScale(graphicsUI, 210, 70, &player2Win, 1, 0.0f, 1.0f, TOP_RIGHT);
-			RoundsWinP2++;
-		}
-
-		if (RoundsWinP1 == 1 && RoundsWinP2 == 0 || RoundsWinP1 == 0 && RoundsWinP2 == 1)
-		{
-			App->fade->FadeToBlack(App->scene_King, App->scene_King, 2);
-		}
-
-		if (RoundsWinP1 == 1 && RoundsWinP2 == 1)
-		{
-			App->fade->FadeToBlack(App->scene_King, App->scene_King, 2);
-			
-		}
-
-		if (RoundsWinP1 == 2 || RoundsWinP2 == 2)
-		{
-			App->fade->FadeToBlack(App->scene_King, App->scene_win, 2);
-			RoundsWinP1 = 0;
-			RoundsWinP2 = 0;
-		}
-		
+		paintBallforP1 = false;
+		paintBallforP2 = false;
 	}
-	*/
 
 	if (App->player->position.x >= App->player2->position.x - 120 && App->player->position.x <= App->player2->position.x + 120) {
 		Zoom = true;
 	}
 	else(Zoom = false);
-
 
 	return UPDATE_CONTINUE;
 }
@@ -521,5 +490,6 @@ void ModuleSceneking::OnMatchEnd()
 		App->fade->FadeToBlack(App->scene_King, App->scene_win, 5);
 		RoundsWinP1 = 0;
 		RoundsWinP2 = 0;
+		gameEnd = true;
 	}
 }

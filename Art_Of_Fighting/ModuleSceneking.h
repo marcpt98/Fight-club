@@ -85,6 +85,7 @@ public:
 	bool matchEnded = false;
 	bool paintBallforP1 = false;
 	bool paintBallforP2 = false;
+	bool gameEnd = false;
 	int RoundsWinP1 = 0;
 	int RoundsWinP2 = 0;
 
