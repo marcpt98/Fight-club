@@ -191,7 +191,7 @@ bool ModulePlayer2::Start()
 	kingcharge = App->audio->LoadFX("media/FX/king_charge.wav");
 	kingdamagepunch = App->audio->LoadFX("media/FX/king_hit_by_punch.wav");
 	kingdamagekick = App->audio->LoadFX("media/FX/king_hit_by_high_kick.wav");
-	//kingtaunt=App->audio->LoadFX("");
+	kingtaunt = App->audio->LoadFX("media/FX/king_taunt.wav");
 	//KingMoushuuKyaku=App->audio->LoadFX("");
 
 	position.x = 420;
@@ -251,7 +251,7 @@ bool ModulePlayer2::CleanUp()
 	App->audio->UnLoadFX(kingcharge);
 	App->audio->UnLoadFX(kingdamagepunch);
 	App->audio->UnLoadFX(kingdamagekick);
-	//App->audio->UnLoadFX(kingtaunt);
+	App->audio->UnLoadFX(kingtaunt);
 	//App->audio->UnLoadFX(KingMoushuuKyaku);
 
 	return true;
@@ -817,7 +817,7 @@ update_status ModulePlayer2::Update()
 		case ST_TAUNT:
 			if (SFXsound == true)
 			{
-				//App->audio->PlayFX(kingtaunt);
+				App->audio->PlayFX(kingtaunt);
 				SFXsound = false;
 			}
 			if (animstart == 0)
@@ -1052,7 +1052,15 @@ update_status ModulePlayer2::Update()
 		{
 			punchjump->Enabled = false;
 		}
+		if (r == &punchCrouch.frames[punchJump.last_frame - 2] && App->scene_King->Zoom == true) {
+			punchCrouchCollider->SetPos((position.x - 30)*1.3, position.y + 30 - r->h + 40);
 
+			punchCrouchCollider->Enabled = true;
+		}
+		else
+		{
+			punchCrouchCollider->Enabled = false;
+		}
 	}
 	else 
 	{
@@ -1169,6 +1177,15 @@ update_status ModulePlayer2::Update()
 		else
 		{
 			punchjump->Enabled = false;
+		}
+		if (r == &punchCrouch.frames[punchJump.last_frame - 2] && App->scene_King->Zoom == true) {
+			punchCrouchCollider->SetPos((position.x + 50)*1.3, position.y + 30 - r->h + 40);
+
+			punchCrouchCollider->Enabled = true;
+		}
+		else
+		{
+			punchCrouchCollider->Enabled = false;
 		}
 
 	}
@@ -1720,11 +1737,31 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 	if (punchCrouchCollider == c1 && c2->type == COLLIDER_PLAYER)
 	{
 		if (damageHit = true) {
-			damagepunch = true;
+			damagekick = true;
 		}
-		//INSERT CODE HERE
-		
+		App->SlowDownShake->StartSlowDownShake(500, 40);
+		App->player->Life = App->player->Life - 3;
+		damageP1 = true;
+		App->input->inputs.Push(IN_DAMAGE);
+		collision = true;
 
+		if ((App->player->position.x) >= (position.x + 25))
+		{
+			App->player->position.x += 10;
+		}
+
+		else
+		{
+			App->player->position.x -= 10;
+			if ((App->player->position.x) <= (App->scene_King->positionlimitright.x + 300)) {
+				App->player->position.x += 5;
+			}
+
+			if ((App->player->position.x) >= (App->scene_King->positionlimitright.x + 300)) {
+				position.x -= 5;
+				App->player->position.x -= 3;
+			}
+		}
 
 	}
 
