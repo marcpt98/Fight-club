@@ -33,6 +33,7 @@ public:
 	bool CleanUp();
 	bool wall = false;
 	bool inair = false;
+	bool litlledmgcombo = false;
 	bool createnewbighitbox = true;
 	bool createnewbighitbox2 = false;
 	bool JumpMax = false;
@@ -97,6 +98,7 @@ public:
 	Collider *kicknearCollider;
 	Collider *kickjump;
 	Collider *punchjump;
+	Collider *kickcombo;
 
 
 

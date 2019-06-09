@@ -855,7 +855,7 @@ update_status ModulePlayer::Update()
 			}
 			current_animation = &charge;
 		
-			Stamina++;
+			Stamina = Stamina + 0.5;
 			}
 			LOG("CHARGE --\n")
 				break;
@@ -1250,6 +1250,25 @@ update_status ModulePlayer::Update()
 		else
 		{
 			punchCrouchCollider->Enabled = false;
+		}
+
+		if (r == &Moushuu_Kyaku.frames[Moushuu_Kyaku.last_frame - 4] && App->scene_King->Zoom == true) {
+			litlledmgcombo = false;
+			kickcombo->SetPos((position.x + 70)*1.3, position.y + 30 - r->h + 40);
+			kickcombo->Enabled = true;
+		}
+		else
+		{
+			kickcombo->Enabled = false;
+		}
+		if (r == &Moushuu_Kyaku.frames[Moushuu_Kyaku.last_frame - 5] && App->scene_King->Zoom == true || r == &Moushuu_Kyaku.frames[Moushuu_Kyaku.last_frame - 10] && App->scene_King->Zoom == true || r == &Moushuu_Kyaku.frames[Moushuu_Kyaku.last_frame - 15] && App->scene_King->Zoom == true) {
+			litlledmgcombo = true;
+			kickcombo->SetPos((position.x + 70)*1.3, position.y + 30 - r->h + 40);
+			kickcombo->Enabled = true;
+		}
+		else
+		{
+			kickcombo->Enabled = false;
 		}
 
 	}

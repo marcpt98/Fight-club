@@ -221,6 +221,8 @@ bool ModulePlayer2::Start()
 	punchjump = App->collision->AddCollider({ position.x,position.y, 40, 40 }, COLLIDER_ENEMY, this);
 	punchjump->Enabled = false;
 
+	kickcombo = App->collision->AddCollider({ position.x,position.y, 40, 40 }, COLLIDER_ENEMY, this);
+	kickcombo->Enabled = false;
 
 	//Initialize Stamina
 	Stamina = 100;
@@ -819,7 +821,7 @@ update_status ModulePlayer2::Update()
 				}
 				current_animation = &charge;
 
-				Stamina++;
+				Stamina = Stamina + 0.5;
 			}
 			LOG("CHARGE --\n")
 				break;
@@ -1070,6 +1072,24 @@ update_status ModulePlayer2::Update()
 		{
 			punchCrouchCollider->Enabled = false;
 		}
+		if (r == &Moushuu_Kyaku.frames[Moushuu_Kyaku.last_frame - 4] && App->scene_King->Zoom == true) {
+			litlledmgcombo = false;
+			kickcombo->SetPos((position.x - 50)*1.3, position.y + 30 - r->h + 40);
+			kickcombo->Enabled = true;
+		}
+		else
+		{
+			kickcombo->Enabled = false;
+		}
+		if (r == &Moushuu_Kyaku.frames[Moushuu_Kyaku.last_frame - 5] && App->scene_King->Zoom == true || r == &Moushuu_Kyaku.frames[Moushuu_Kyaku.last_frame - 10] && App->scene_King->Zoom == true || r == &Moushuu_Kyaku.frames[Moushuu_Kyaku.last_frame - 15] && App->scene_King->Zoom == true) {
+			litlledmgcombo = true;
+			kickcombo->SetPos((position.x - 50)*1.3, position.y + 30 - r->h + 40);
+			kickcombo->Enabled = true;
+		}
+		else
+		{
+			kickcombo->Enabled = false;
+		}
 	}
 	else 
 	{
@@ -1195,6 +1215,24 @@ update_status ModulePlayer2::Update()
 		else
 		{
 			punchCrouchCollider->Enabled = false;
+		}
+		if (r == &Moushuu_Kyaku.frames[Moushuu_Kyaku.last_frame - 4] && App->scene_King->Zoom == true) {
+			litlledmgcombo = false;
+			kickcombo->SetPos((position.x + 70)*1.3, position.y + 30 - r->h + 40);
+			kickcombo->Enabled = true;
+		}
+		else
+		{
+			kickcombo->Enabled = false;
+		}
+		if (r == &Moushuu_Kyaku.frames[Moushuu_Kyaku.last_frame - 5] && App->scene_King->Zoom == true || r == &Moushuu_Kyaku.frames[Moushuu_Kyaku.last_frame - 10] && App->scene_King->Zoom == true || r == &Moushuu_Kyaku.frames[Moushuu_Kyaku.last_frame - 15] && App->scene_King->Zoom == true) {
+			litlledmgcombo = true;
+			kickcombo->SetPos((position.x + 70)*1.3, position.y + 30 - r->h + 40);
+			kickcombo->Enabled = true;
+		}
+		else
+		{
+			kickcombo->Enabled = false;
 		}
 
 	}
@@ -1943,6 +1981,44 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 				App->player->position.x -= 3;
 			}
 		}
+
+	}
+	/////////////////////////////////////////////////////////////////////////////////////////////////// COMBO KICK HITBOX
+	if (kickcombo == c1 && c2->type == COLLIDER_PLAYER)
+	{
+
+		if (damageHit = true) {
+			damagepunch = true;
+		}
+		if (litlledmgcombo == true) {
+			damageP1 = true;
+			collision = true;
+			App->SlowDownShake->StartSlowDownShake(250, 20);
+			App->render->StartCameraShake(75, 10);
+			App->player2->Life = App->player2->Life - 0.5;
+			
+			App->input->inputs.Push(IN_DAMAGE);
+
+			if ((position.x + 25) >= (App->player->position.x))
+			{
+				App->player->position.x += 13;
+			}
+
+			else
+			{
+				App->player->position.x -= 13;
+				if ((App->player->position.x) <= (App->scene_King->positionlimitright.x + 300)) {
+					App->player->position.x += 5;
+				}
+
+				if ((App->player->position.x) >= (App->scene_King->positionlimitright.x + 300)) {
+					position.x -= 5;
+					App->player->position.x -= 3;
+				}
+			}
+
+		}
+		
 
 	}
 }
