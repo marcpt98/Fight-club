@@ -65,6 +65,7 @@ bool ModuleScenewin::CleanUp()
 
 update_status ModuleScenewin::Update()
 {
+	App->scene_King->Zoom = false;
 	// Draw everything --------------------------------------	
 	if (timer == 0) {
 		App->fade->FadeToBlack(App->scene_win, App->scene_Welcome, 1);

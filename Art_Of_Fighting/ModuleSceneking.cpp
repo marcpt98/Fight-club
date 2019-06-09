@@ -426,6 +426,10 @@ update_status ModuleSceneking::Update()
 
 	App->fonts->BlitText(137, 8, font_score, timer_text);
 
+	if (App->scene_King->Zoom == true) {
+		App->scene_King->Zoom = false;   //this works for not making zoom to the UI
+		zoomcounter = true;
+	}
 	if(paintBallforP1)
 	{
 		App->render->BlitWithScale(graphicsUI, 65, 40, &ball, 1, 0.0f, 1.0f, TOP_RIGHT);
@@ -434,6 +438,10 @@ update_status ModuleSceneking::Update()
 	if(paintBallforP2)
 	{
 		App->render->BlitWithScale(graphicsUI, 255, 40, &ball, 1, 0.0f, 1.0f, TOP_RIGHT);
+	}
+	if (zoomcounter == true) {
+		App->scene_King->Zoom = true; //this ALSO works for not making zoom to the UI
+		zoomcounter = false;
 	}
 
 	//PLAYER 1 /PLAYER 2 WINS
@@ -479,6 +487,10 @@ update_status ModuleSceneking::Update()
 		paintBallforP2 = true;
 	}
 
+	if (App->scene_King->Zoom == true) {
+		App->scene_King->Zoom = false;   //this works for not making zoom to the UI
+		zoomcounter = true;
+	}
 	if (matchforP1 == true)
 	{
 		App->render->BlitWithScale(graphicsUI, 210, 70, &player1Win, 1, 0.0f, 1.0f, TOP_RIGHT);
@@ -487,6 +499,11 @@ update_status ModuleSceneking::Update()
 	if (matchforP2 == true)
 	{
 		App->render->BlitWithScale(graphicsUI, 210, 70, &player2Win, 1, 0.0f, 1.0f, TOP_RIGHT);
+	}
+	
+	if (zoomcounter == true) {
+		App->scene_King->Zoom = true; //this ALSO works for not making zoom to the UI
+		zoomcounter = false;
 	}
 
 	if(gameEnd)

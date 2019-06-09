@@ -192,7 +192,7 @@ bool ModuleCharacterSelect::CleanUp()
 update_status ModuleCharacterSelect::Update()
 {
 	
-
+	App->scene_King->Zoom = false;
 	App->render->Blit(graphics, 0, 0, &background, 0.0);
 	
 	

@@ -80,6 +80,7 @@ void ModuleWelcomeScreen::RenderWords()
 
 update_status ModuleWelcomeScreen::Update()
 {
+	App->scene_King->Zoom = false;
 	// Draw everything --------------------------------------
 	switch (animationState)
 	{
