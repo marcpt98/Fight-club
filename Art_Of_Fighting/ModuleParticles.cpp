@@ -68,6 +68,15 @@ bool ModuleParticles::Start()
 	HadoukenFlipEnergy2.anim.loop = false;
 	HadoukenFlipEnergy2.life = 450;
 
+	starP1.anim.PushBack({ 1446, 700, 18, 22 }, 0.3, 0, 0, 0, 0);
+	starP1.anim.PushBack({ 1466, 700, 31, 34 }, 0.3, 0, 0, 0, 0);
+	starP1.anim.loop = false;
+	starP1.life = 100;
+
+	starP2.anim.PushBack({ 1446, 700, 18, 22 }, 0.3, 0, 0, 0, 0);
+	starP2.anim.PushBack({ 1466, 700, 31, 34 }, 0.3, 0, 0, 0, 0);
+	starP2.anim.loop = false;
+	starP2.life = 100;
 	return true;
 }
 

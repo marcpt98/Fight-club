@@ -62,6 +62,9 @@ public:
 	Particle HadoukenFlip2;
 	Particle HadoukenFlipEnergy;
 	Particle HadoukenFlipEnergy2;
+
+	Particle starP1;
+	Particle starP2;
 };
 
 #endif

@@ -825,6 +825,7 @@ update_status ModulePlayer::Update()
 			if (App->player2->damageP1 == true)
 			{
 				current_animation = &damage;
+				App->particles->AddParticle(App->particles->starP1, position.x + 15, position.y - 100, NO_COLLIDER);
 			}
 			LOG("AAAAAAAAAAAAA ^^--\n");
 			break;
