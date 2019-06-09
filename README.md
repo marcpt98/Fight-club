@@ -96,6 +96,10 @@ When the installation is finished, it's time to click on the .exe file and enjoy
 
 - Joystick right (Player 2, when other player is attacking): Protect.
 
+- Joystick down + Joystick right + Y: Venom Strike.
+
+- Joystick down + Joystick left + Y: Moushuu Kyaku.
+
 - START: Pass scene.
 
 - BACK: Exit game.
