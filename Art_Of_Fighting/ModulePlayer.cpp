@@ -1541,30 +1541,33 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		}
 
 	}
-
-	if (ryohitbox == c1 && App->scene_King->colliderMap2 == c2)   //Colisions with second wall
-	{
-		if (App->input->keyboard[SDL_SCANCODE_A] == NULL) {
-			speed = 0;
-			position.x -= 4;
-		}
-		if (App->input->left == true) {
-			speed = 2;
+	if (position.x > 250 || App->player2->position.x > 250) {
+		if (ryohitbox == c1 && App->scene_King->colliderMap2 == c2)   //Colisions with second wall
+		{
+			if (App->input->keyboard[SDL_SCANCODE_A] == NULL) {
+				speed = 0;
+				position.x -= 4;
+			}
+			if (App->input->left == true) {
+				speed = 2;
+			}
 		}
 	}
-	if (ryohitbox == c1 && App->scene_King->colliderMap == c2)   //Colisions with first wall
-	{
-		if (App->input->left == true) {
-			position.x += 4;
-		}
-		if (App->input->left == false) {
-			position.x += 4;
-		}
-		if (App->input->right == false) {
-			speed = 0;
+	if (position.x < 100 || App->player2->position.x < 100) {
+		if (ryohitbox == c1 && App->scene_King->colliderMap == c2)   //Colisions with first wall
+		{
+			if (App->input->left == true) {
+				position.x += 4;
+			}
+			if (App->input->left == false) {
+				position.x += 4;
+			}
+			if (App->input->right == false) {
+				speed = 0;
+
+			}
 
 		}
-
 	}
 
 
