@@ -805,6 +805,7 @@ update_status ModulePlayer2::Update()
 			if (App->player->damageHadokenP2 == true)
 			{
 				current_animation = &damageHadoken;
+				App->particles->AddParticle(App->particles->starP1, position.x + 15, position.y - 60, NO_COLLIDER);
 			}
 			LOG("DAMAGE HADOKEEEEEEEEEEEN ^^--\n");
 			break;

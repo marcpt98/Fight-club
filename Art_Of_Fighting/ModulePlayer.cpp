@@ -842,6 +842,7 @@ update_status ModulePlayer::Update()
 			if (App->player2->damageHadokenP1 == true)
 			{
 				current_animation = &damageHadoken;
+				App->particles->AddParticle(App->particles->starP1, position.x + 15, position.y - 60, NO_COLLIDER);
 			}
 			break;
 		case ST_CHARGE:
