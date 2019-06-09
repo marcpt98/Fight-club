@@ -97,22 +97,17 @@ ModulePlayer::ModulePlayer()
 	// Moushuu Kyaku animation
 	Moushuu_Kyaku.PushBack({ 3, 892, 57, 101 }, 0.3, 0, 0, 0, 0);
 	Moushuu_Kyaku.PushBack({ 68, 892, 102, 100 }, 0.3, 0, 0, 0, 0);
-	Moushuu_Kyaku.PushBack({ 178, 892, 67, 100 }, 0.3, 0, 0, 0, 0);
-	Moushuu_Kyaku.PushBack({ 253, 892, 96, 116 }, 0.3, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 178, 892, 67, 100 }, 0.4, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 253, 892, 96, 116 }, 0.4, 0, 0, 0, 0);
 
-	Moushuu_Kyaku.PushBack({ 178, 892, 67, 100 }, 0.3, 0, 0, 0, 0);
-	Moushuu_Kyaku.PushBack({ 68, 892, 102, 100 }, 0.3, 0, 0, 0, 0);
-	Moushuu_Kyaku.PushBack({ 178, 892, 67, 100 }, 0.3, 0, 0, 0, 0);
-	Moushuu_Kyaku.PushBack({ 253, 892, 96, 116 }, 0.3, 0, 0, 0, 0);
-	Moushuu_Kyaku.PushBack({ 178, 892, 67, 100 }, 0.3, 0, 0, 0, 0);
-	Moushuu_Kyaku.PushBack({ 68, 892, 102, 100 }, 0.3, 0, 0, 0, 0);
-	Moushuu_Kyaku.PushBack({ 178, 892, 67, 100 }, 0.3, 0, 0, 0, 0);
-	Moushuu_Kyaku.PushBack({ 253, 892, 96, 116 }, 0.3, 0, 0, 0, 0);
-	Moushuu_Kyaku.PushBack({ 178, 892, 67, 100 }, 0.3, 0, 0, 0, 0);
-	Moushuu_Kyaku.PushBack({ 68, 892, 102, 100 }, 0.3, 0, 0, 0, 0);
-	Moushuu_Kyaku.PushBack({ 178, 892, 67, 100 }, 0.3, 0, 0, 0, 0);
-	Moushuu_Kyaku.PushBack({ 253, 892, 96, 116 }, 0.3, 0, 0, 0, 0);
-	Moushuu_Kyaku.PushBack({ 68, 892, 102, 100 }, 0.3, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 178, 892, 67, 100 }, 0.4, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 68, 892, 102, 100 }, 0.4, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 178, 892, 67, 100 }, 0.4, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 253, 892, 96, 116 }, 0.4, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 178, 892, 67, 100 }, 0.4, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 68, 892, 102, 100 }, 0.4, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 178, 892, 67, 100 }, 0.4, 0, 0, 0, 0);
+	Moushuu_Kyaku.PushBack({ 253, 892, 96, 116 }, 0.4, 0, 0, 0, 0);
 	//2 TIMES LOOP AND LAST FRAME //2
 	Moushuu_Kyaku.PushBack({ 3, 892, 57, 101 }, 0.3, 0, 0, 0, 0);
 	Moushuu_Kyaku.PushBack({ 107, 660, 52, 103 }, 0.3, 0, 0, 0, 0);
@@ -195,7 +190,7 @@ bool ModulePlayer::Start()
 	kingdamagepunch = App->audio->LoadFX("media/FX/king_hit_by_punch.wav");
 	kingdamagekick = App->audio->LoadFX("media/FX/king_hit_by_high_kick.wav");
 	kingtaunt = App->audio->LoadFX("media/FX/king_taunt.wav");
-	//KingMoushuuKyaku=App->audio->LoadFX("");
+	KingMoushuuKyaku = App->audio->LoadFX("media/FX/king_combo_2.wav");
 
 	position.x = 200;
 	position.y = 210;
@@ -259,7 +254,7 @@ bool ModulePlayer::CleanUp()
 	App->audio->UnLoadFX(kingdamagepunch);
 	App->audio->UnLoadFX(kingdamagekick);
 	App->audio->UnLoadFX(kingtaunt);
-	//App->audio->UnLoadFX(KingMoushuuKyaku);
+	App->audio->UnLoadFX(KingMoushuuKyaku);
 
 	return true;
 }
@@ -954,7 +949,7 @@ update_status ModulePlayer::Update()
 			Activehadouken = false;
 			if (SFXsound == true)
 			{
-				//App->audio->PlayFX(KingMoushuuKyaku);
+				App->audio->PlayFX(KingMoushuuKyaku);
 				SFXsound = false;
 			}
 			if (animstart == 0)

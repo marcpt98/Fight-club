@@ -117,7 +117,7 @@ public:
 	int ryoKoOuKensound = 0;
 	int kingcharge = 0;
 	int kingtaunt = 0;
-	//int KingMoushuuKyaku = 0;
+	int KingMoushuuKyaku = 0;
 	// FX DAMAGE
 	int kingdamagepunch = 0;
 	bool damagepunch = false;
