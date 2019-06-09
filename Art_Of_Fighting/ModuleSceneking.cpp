@@ -130,7 +130,7 @@ bool ModuleSceneking::Start()
 	round2FX = App->audio->LoadFX("media/FX/Round_2.wav");
 	finalRoundFX = App->audio->LoadFX("media/FX/Final_Round.wav");
 
-
+	starttimeround = SDL_GetTicks();
 
 	App->player->Life = 100;
 	App->player2->Life = 100;
@@ -214,6 +214,9 @@ bool ModuleSceneking::CleanUp()
 // Update: draw background
 update_status ModuleSceneking::Update()
 {
+	if (SDL_GetTicks() - starttimeround >= 4000) {
+		App->input->playerinput = true;
+	}
 
 	if (Zoom == false) {
 		distance = ((App->player->position.x + App->player2->position.x) / 2);
@@ -456,6 +459,7 @@ update_status ModuleSceneking::Update()
 
 		matchEnded = true;
 		paintBallforP1 = true;
+		App->input->playerinput = false;
 	}
 
 	if (App->player->Life <= 0 || timer < 0 && App->player->Life < App->player2->Life)
@@ -477,6 +481,7 @@ update_status ModuleSceneking::Update()
 
 		matchEnded = true;
 		paintBallforP2 = true;
+		App->input->playerinput = false;
 	}
 
 	if (matchforP1 == true)

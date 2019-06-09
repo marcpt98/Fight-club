@@ -218,6 +218,8 @@ public:
 	const int JOYSTICK_DEAD_ZONE = 20000;
 	SDL_GameController* gGameController = NULL;
 	SDL_GameController* gGameController2 = NULL;
+
+	bool playerinput = false;
 };
 
 #endif // ModuleInput_H

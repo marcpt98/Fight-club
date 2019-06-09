@@ -93,6 +93,8 @@ public:
 	int RoundsWinP2 = 0;
 
 	bool playFX = false;
+
+	int starttimeround;
 };
 
 #endif // __MODULESCENELEVEL_1_H__
