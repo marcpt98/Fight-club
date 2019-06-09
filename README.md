@@ -1,4 +1,4 @@
-# Introduction
+﻿# Introduction
 
 This game has been made by four students from CITM Terrassa. It is a tribute to Art Of Fighting original game, whitch is a martial art game created by Capcom in 1987.
 
