@@ -128,6 +128,12 @@ public:
 	bool damagekick = false;
 	bool damageHit = false;
 	bool litlledmgcombo = false;
+	bool punchneardmg = false;
+	bool punchdmg = false;
+	bool kickneardmg = false;
+	bool kickdmg = false;
+	bool punchjumpdmg = false;
+	bool kickjumpdmg = false;
 	int GodMode = false;
 	int printMode = false;
 

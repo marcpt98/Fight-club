@@ -650,13 +650,22 @@ update_status ModulePlayer2::Update()
 			if (position.x < App->player->position.x) {
 				if ((position.x + 40) <= (App->player->position.x - 25))
 				{
+					if (punchdmg == true) {
+						App->player->Life = App->player->Life - 10;
+						punchdmg = false;
+					}
 					if (animstart == 0)
 					{
+						
 						current_animation = &punch;
 					}
 				}
 				else
 				{
+					if (punchneardmg == true) {
+						App->player->Life = App->player->Life - 10;
+						punchneardmg = false;
+					}
 					if (animstart == 0)
 					{
 						current_animation = &punch_Near;
@@ -666,6 +675,10 @@ update_status ModulePlayer2::Update()
 			else {
 				if ((position.x - 40) >= (App->player->position.x + 25))
 				{
+					if (punchdmg == true) {
+						App->player->Life = App->player->Life - 10;
+						punchdmg = false;
+					}
 					if (animstart == 0)
 					{
 						current_animation = &punch;
@@ -673,6 +686,10 @@ update_status ModulePlayer2::Update()
 				}
 				else
 				{
+					if (punchneardmg == true) {
+						App->player->Life = App->player->Life - 10;
+						punchneardmg = false;
+					}
 					if (animstart == 0)
 					{
 						current_animation = &punch_Near;
@@ -732,13 +749,22 @@ update_status ModulePlayer2::Update()
 			if (position.x < App->player->position.x) {
 				if ((position.x + 40) <= (App->player->position.x - 25))
 				{
+					if (kickdmg == true) {
+						App->player->Life = App->player->Life - 15;
+						kickdmg = false;
+					}
 					if (animstart == 0)
 					{
+						
 						current_animation = &kick;
 					}
 				}
 				else
 				{
+					if (kickneardmg == true) {
+						App->player->Life = App->player->Life - 15;
+						kickneardmg = false;
+					}
 					if (animstart == 0)
 					{
 						current_animation = &kick_Near;
@@ -748,6 +774,10 @@ update_status ModulePlayer2::Update()
 			else {
 				if ((position.x - 40) >= (App->player->position.x + 25))
 				{
+					if (kickdmg == true) {
+						App->player->Life = App->player->Life - 15;
+						kickdmg = false;
+					}
 					if (animstart == 0)
 					{
 						current_animation = &kick;
@@ -755,6 +785,10 @@ update_status ModulePlayer2::Update()
 				}
 				else
 				{
+					if (kickneardmg == true) {
+						App->player->Life = App->player->Life - 15;
+						kickneardmg = false;
+					}
 					if (animstart == 0)
 					{
 						current_animation = &kick_Near;
@@ -1245,7 +1279,7 @@ update_status ModulePlayer2::Update()
 	//Stamina increase
 	if (App->player2->Stamina < 100)
 	{
-		App->player2->Stamina = (App->player2->Stamina + 0.05);
+		App->player2->Stamina = (App->player2->Stamina + 0.015);
 	}
 
 
@@ -1729,10 +1763,10 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 		App->render->StartCameraShake(300, 3);
 		App->SlowDownShake->StartSlowDownShake(200, 40);
 		if (App->player->blockleftP1 == false && App->player->position.x<position.x) {
-			App->player->Life = App->player->Life - 3;
+			kickdmg = true;
 		}
 		if (App->player->blockrightP1 == false && App->player->position.x > position.x) {
-			App->player->Life = App->player->Life - 3;
+			kickdmg = true;
 		}
 		App->player->hit = true;
 		damageP1 = true;
@@ -1794,10 +1828,10 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 			App->player->position.x += 10;
 		}
 		if (App->player->blockleftP1 == false && App->player->position.x<position.x) {
-			App->player->Life = App->player->Life - 2;
+			punchneardmg = true;
 		}
 		if (App->player->blockrightP1 == false && App->player->position.x > position.x) {
-			App->player->Life = App->player->Life - 2;
+			punchneardmg = true;
 		}
 		App->player->hit = true;
 		collision = true;
@@ -1849,10 +1883,10 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 		}
 		App->SlowDownShake->StartSlowDownShake(500, 40);
 		if (App->player->blockleftP1 == false && App->player->position.x<position.x) {
-			App->player->Life = App->player->Life - 3;
+			kickneardmg = true;
 		}
 		if (App->player->blockrightP1 == false && App->player->position.x > position.x) {
-			App->player->Life = App->player->Life - 3;
+			kickneardmg = true;
 		}
 		damageP1 = true;
 		App->input->inputs.Push(IN_DAMAGE);
@@ -1995,7 +2029,7 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 			collision = true;
 			App->SlowDownShake->StartSlowDownShake(250, 20);
 			App->render->StartCameraShake(75, 10);
-			App->player2->Life = App->player2->Life - 0.5;
+			App->player->Life = App->player->Life - 2;
 			
 			App->input->inputs.Push(IN_DAMAGE);
 

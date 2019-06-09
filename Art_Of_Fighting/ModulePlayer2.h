@@ -47,6 +47,10 @@ public:
 	bool blockrightP2 = false;
 	bool blockleftP2 = false;
 	bool damageHadokenP1 = false;
+	bool punchneardmg = false;
+	bool punchdmg = false;
+	bool kickneardmg = false;
+	bool kickdmg = false;
 public:
 
 	int font_score = -1;
