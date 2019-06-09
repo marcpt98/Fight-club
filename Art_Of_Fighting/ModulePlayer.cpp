@@ -1087,6 +1087,16 @@ update_status ModulePlayer::Update()
 		{
 			punchjump->Enabled = false;
 		}
+
+		if (r == &punchCrouch.frames[punchJump.last_frame - 2] && App->scene_King->Zoom == true) {
+			punchCrouchCollider->SetPos((position.x - 30)*1.3, position.y + 30 - r->h + 40);
+
+			punchCrouchCollider->Enabled = true;
+		}
+		else
+		{
+			punchCrouchCollider->Enabled = false;
+		}
 	}
 	else
 	{
@@ -1203,6 +1213,15 @@ update_status ModulePlayer::Update()
 		else
 		{
 			punchjump->Enabled = false;
+		}
+		if (r == &punchCrouch.frames[punchJump.last_frame - 2] && App->scene_King->Zoom == true) {
+			punchCrouchCollider->SetPos((position.x + 50)*1.3, position.y + 30 - r->h + 40);
+
+			punchCrouchCollider->Enabled = true;
+		}
+		else
+		{
+			punchCrouchCollider->Enabled = false;
 		}
 
 	}
@@ -1816,6 +1835,37 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		{
 			if ((App->player2->position.x) <= (App->scene_King->positionlimitright.x + 300)) {
 				App->player2->position.x += 5;
+			}
+
+			if ((App->player2->position.x) >= (App->scene_King->positionlimitright.x + 300)) {
+				position.x -= 5;
+				App->player2->position.x -= 3;
+			}
+		}
+
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////// punch CROUCH HITBOX
+	if (punchCrouchCollider == c1 && c2->type == COLLIDER_ENEMY)
+	{
+		if (damageHit = true) {
+			damagekick = true;
+		}
+		App->SlowDownShake->StartSlowDownShake(500, 40);
+		App->player2->Life = App->player2->Life - 1;
+		damageP2 = true;
+		App->input->inputs2.Push(IN_DAMAGE2);
+		collision = true;
+
+		if ((position.x + 25) >= (App->player2->position.x + 25))
+		{
+			App->player2->position.x -= 8;
+		}
+
+		else
+		{
+			if ((App->player2->position.x) <= (App->scene_King->positionlimitright.x + 300)) {
+				App->player2->position.x += 8;
 			}
 
 			if ((App->player2->position.x) >= (App->scene_King->positionlimitright.x + 300)) {

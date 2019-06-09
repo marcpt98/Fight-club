@@ -1052,7 +1052,15 @@ update_status ModulePlayer2::Update()
 		{
 			punchjump->Enabled = false;
 		}
+		if (r == &punchCrouch.frames[punchJump.last_frame - 2] && App->scene_King->Zoom == true) {
+			punchCrouchCollider->SetPos((position.x - 30)*1.3, position.y + 30 - r->h + 40);
 
+			punchCrouchCollider->Enabled = true;
+		}
+		else
+		{
+			punchCrouchCollider->Enabled = false;
+		}
 	}
 	else 
 	{
@@ -1169,6 +1177,15 @@ update_status ModulePlayer2::Update()
 		else
 		{
 			punchjump->Enabled = false;
+		}
+		if (r == &punchCrouch.frames[punchJump.last_frame - 2] && App->scene_King->Zoom == true) {
+			punchCrouchCollider->SetPos((position.x + 50)*1.3, position.y + 30 - r->h + 40);
+
+			punchCrouchCollider->Enabled = true;
+		}
+		else
+		{
+			punchCrouchCollider->Enabled = false;
 		}
 
 	}
@@ -1720,11 +1737,31 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 	if (punchCrouchCollider == c1 && c2->type == COLLIDER_PLAYER)
 	{
 		if (damageHit = true) {
-			damagepunch = true;
+			damagekick = true;
 		}
-		//INSERT CODE HERE
-		
+		App->SlowDownShake->StartSlowDownShake(500, 40);
+		App->player->Life = App->player->Life - 3;
+		damageP1 = true;
+		App->input->inputs.Push(IN_DAMAGE);
+		collision = true;
 
+		if ((App->player->position.x) >= (position.x + 25))
+		{
+			App->player->position.x += 10;
+		}
+
+		else
+		{
+			App->player->position.x -= 10;
+			if ((App->player->position.x) <= (App->scene_King->positionlimitright.x + 300)) {
+				App->player->position.x += 5;
+			}
+
+			if ((App->player->position.x) >= (App->scene_King->positionlimitright.x + 300)) {
+				position.x -= 5;
+				App->player->position.x -= 3;
+			}
+		}
 
 	}
 
