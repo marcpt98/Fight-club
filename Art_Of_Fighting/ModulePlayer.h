@@ -124,7 +124,7 @@ public:
 	int kingdamagekick = 0;
 	bool damagekick = false;
 	bool damageHit = false;
-	
+	bool litlledmgcombo = false;
 	int GodMode = false;
 	int printMode = false;
 

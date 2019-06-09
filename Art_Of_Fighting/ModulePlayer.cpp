@@ -1092,6 +1092,25 @@ update_status ModulePlayer::Update()
 		{
 			punchCrouchCollider->Enabled = false;
 		}
+		
+		if (r == &Moushuu_Kyaku.frames[Moushuu_Kyaku.last_frame - 4] && App->scene_King->Zoom == true) {
+			litlledmgcombo = false;
+			kickcombo->SetPos((position.x - 50)*1.3, position.y + 30 - r->h + 40);
+			kickcombo->Enabled = true;
+		}
+		else
+		{
+			kickcombo->Enabled = false;
+		}
+		if (r == &Moushuu_Kyaku.frames[Moushuu_Kyaku.last_frame - 5] && App->scene_King->Zoom == true || r == &Moushuu_Kyaku.frames[Moushuu_Kyaku.last_frame - 10] && App->scene_King->Zoom == true || r == &Moushuu_Kyaku.frames[Moushuu_Kyaku.last_frame - 15] && App->scene_King->Zoom == true) {
+			litlledmgcombo = true;
+			kickcombo->SetPos((position.x - 50)*1.3, position.y + 30 - r->h + 40);
+			kickcombo->Enabled = true;
+		}
+		else
+		{
+			kickcombo->Enabled = false;
+		}
 	}
 	else
 	{
@@ -1249,7 +1268,9 @@ update_status ModulePlayer::Update()
 
 	}
 
-
+	if (litlledmgcombo == true) {
+		LOG("LITLEE DMGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG")
+	}
 
 	return UPDATE_CONTINUE;
 }
@@ -2007,6 +2028,62 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 				App->player2->position.x -= 3;
 			}
 		}
+
+	}
+	/////////////////////////////////////////////////////////////////////////////////////////////////// COMBO KICK HITBOX
+	if (kickcombo == c1 && c2->type == COLLIDER_ENEMY)
+	{
+
+		if (damageHit = true) {
+			damagepunch = true;
+		}
+		if (litlledmgcombo == true) {
+			damageP2 = true;
+			collision = true;
+			App->SlowDownShake->StartSlowDownShake(250, 20);
+			App->render->StartCameraShake(75, 10);
+			App->player2->Life = App->player2->Life - 0.5;
+			App->input->inputs2.Push(IN_DAMAGE2);
+
+			if ((position.x + 25) >= (App->player2->position.x))
+			{
+				App->player2->position.x += 13;
+			}
+
+			else
+			{
+				App->player2->position.x -= 13;
+				if ((App->player2->position.x) <= (App->scene_King->positionlimitright.x + 300)) {
+					App->player2->position.x += 5;
+				}
+
+				if ((App->player2->position.x) >= (App->scene_King->positionlimitright.x + 300)) {
+					position.x -= 5;
+					App->player2->position.x -= 3;
+				}
+			}
+
+		}
+		else {
+			App->SlowDownShake->StartSlowDownShake(500, 40);
+			App->render->StartCameraShake(150, 20);
+			App->player2->Life = App->player2->Life - 1;
+			damageP2 = true;
+			App->input->inputs2.Push(IN_DAMAGE2);
+			collision = true;
+
+			if ((position.x + 25) >= (App->player2->position.x))
+			{
+				App->player2->position.x -= 40;
+			}
+
+			else
+			{
+				App->player2->position.x += 40;
+				
+			}
+		}
+		
 
 	}
 }
