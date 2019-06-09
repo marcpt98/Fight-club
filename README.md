@@ -10,61 +10,80 @@ To install the game, it's only necessary to download the latest release: https:/
 
 When the installation is finished, it's time to click on the .exe file and enjoy the game.
 
-#Controls
+# Controls (keyboard)
 
 ## Player 1
 
-A: Move left.
+- A: Move left.
 
-D: Move right.
+- D: Move right.
 
-W: Jump.
+- W: Jump.
 
-S: Crouch.
+- S: Crouch.
 
-T: Punch.
+- T: Punch.
 
-R: Kick.
+- R: Kick.
 
-S+T: Crouch Punch.
+- S+T: Crouch Punch.
 
-S+R: Crouch Kick.
+- S+R: Crouch Kick.
 
-F: Special attack (Hadouken).
+- F: Special attack (Hadouken).
 
-F4: Insta Kill.
+- F4: Insta Kill.
 
 ## Player 2
 
-J: Move left.
+- J: Move left.
 
-L: Move right.
+- L: Move right.
 
-I: Jump.
+- I: Jump.
 
-K: Crouch.
+- K: Crouch.
 
-O: Punch.
+- O: Punch.
 
-P: Kick.
+- P: Kick.
 
-K+O: Crouch Punch.
+- K+O: Crouch Punch.
 
-K+P: Crouch Kick.
+- K+P: Crouch Kick.
 
-U: Special attack (Hadouken).
+- U: Special attack (Hadouken).
 
-F8: Insta kill.
+- F8: Insta kill.
 
 ## Other controls
 
-F3: Show collisions on screen with colours.
+- F3: Show collisions on screen with colours.
 
-F5: God mode (players without collisions).
+- F5: God mode (players without collisions).
 
-SPACE: Change scene.
+- SPACE: Change scene.
 
-ESC: Exit game.
+- ESC: Exit game.
+
+ # Controls (Gamepad):
+    
+- Joystick right(Player 1): Move forward.
+- Joystick left(Player 1): Move backward.
+- Joystick left(Player 2): Move forward.
+- Joystick right(Player 2): Move backward.
+- Joystick up: Jump.
+- Joystick down: Crouch.
+- X: Punch.
+- Y: Kick.
+- Joystick down + X: Punch crouch.
+- Joystick down + Y: Kick crouch.
+- Joystick up + X: Jump punch.
+- Joystick up + Y: Jump Kick.
+- Joystick left (Player 1, when other player is attacking): Protect.
+- Joystick right (Player 2, when other player is attacking): Protect.
+- START: Pass scene.</br>
+- BACK: Exit game.</br>
 
 # Changes for each version
 
@@ -88,6 +107,30 @@ SFX from moves implemented. Hadouken implemented.
 
 Collisions added to both players and to hadouken.
 
+## 0.5
+Added new character spritesheet and background
+Implemented gamepad state machine
+Added some SFX from moves and 
+solving esc bug
+
+## 0.65
+
+Added basic movements with gamepad. Only SFX from moves.
+Pivot for animations added.
+
+## 1.0
+All SFX added.
+King spritesheed 1 and 2 reimplemented.
+All animations implemented.
+Character selection added.
+King vs king added.
+Round system implemented.
+Combos implemented.
+Block animation implemented.
+All UI system added, with health bars, stamine and scoreboard working.
+Scene win implemented with score working, and it changes depending on the winner.
+Crashing between rounds bug solved.
+
 # Links
 
 Github link: https://github.com/marcpt98/Fight-club.
@@ -98,7 +141,7 @@ Marc Palma: https://github.com/marcpt98
 
 Pol De La Torre: https://github.com/polf780
 
-Maci‡ Dalmau: https://github.com/maciadalmau
+Maci√† Dalmau: https://github.com/maciadalmau
 
 Pol Camacho: https://github.com/polcamacho
  
