@@ -325,10 +325,6 @@ bool ModuleInput::external_input()
 				{
 					charge = true;
 				}
-				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_A)
-				{
-					inputs.Push(IN_C);
-				}
 				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_RIGHT)
 				{
 					Menuright=true;
@@ -381,10 +377,6 @@ bool ModuleInput::external_input()
 				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_RIGHTSHOULDER)
 				{
 					charge2 = true;
-				}
-				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_A)
-				{
-					inputs2.Push(IN_H);
 				}
 				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_RIGHT)
 				{
