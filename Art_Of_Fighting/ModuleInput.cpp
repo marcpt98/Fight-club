@@ -88,62 +88,42 @@ bool ModuleInput::external_input()
 				break;
 				//PLAYER 1
 			case SDLK_s:
-				if (playerinput == true) {
-					inputs.Push(IN_CROUCH_UP);
-				}
+				inputs.Push(IN_CROUCH_UP);
 				down = false;
 				break;
 			case SDLK_w:
-				if (playerinput == true) {
-					up = false;
-				}
+				up = false;
 				break;
 			case SDLK_a:
-				if (playerinput == true) {
-					inputs.Push(IN_LEFT_UP);
-				}
+				inputs.Push(IN_LEFT_UP);
 				left = false;
 				break;
 			case SDLK_d:
-				if (playerinput == true) {
-					inputs.Push(IN_RIGHT_UP);
-				}
+				inputs.Push(IN_RIGHT_UP);
 				right = false;
 				break;
 			case SDLK_v:
-				if (playerinput == true) {
-					inputs.Push(IN_CHARGE_UP);
-				}
+				inputs.Push(IN_CHARGE_UP);
 				charge = false;
 				break;
 				//PLAYER 2
 			case SDLK_k:
-				if (playerinput == true) {
-					inputs2.Push(IN_CROUCH_UP2);
-				}
+				inputs2.Push(IN_CROUCH_UP2);
 				down2 = false;
 				break;
 			case SDLK_i:
-				if (playerinput == true) {
-					up2 = false;
-				}
+				up2 = false;
 				break;
 			case SDLK_j:
-				if (playerinput == true) {
-					inputs2.Push(IN_LEFT_UP2);
-				}
+				inputs2.Push(IN_LEFT_UP2);
 				left2 = false;
 				break;
 			case SDLK_l:
-				if (playerinput == true) {
-					inputs2.Push(IN_RIGHT_UP2);
-				}
+				inputs2.Push(IN_RIGHT_UP2);
 				right2 = false;
 				break;
 			case SDLK_b:
-				if (playerinput == true) {
-					inputs2.Push(IN_CHARGE_UP2);
-				}
+				inputs2.Push(IN_CHARGE_UP2);
 				charge2 = false;
 				break;
 			}
@@ -154,115 +134,71 @@ bool ModuleInput::external_input()
 			{
 				//PLAYER 1
 			case SDLK_r:
-				if (playerinput == true) {
-					inputs.Push(IN_R);
-				}
+				inputs.Push(IN_R);
 				break;
 			case SDLK_t:
-				if (playerinput == true) {
-					inputs.Push(IN_T);
-				}
+				inputs.Push(IN_T);
 				break;
 			case SDLK_f:
-				if (playerinput == true) {
-					inputs.Push(IN_F);
-				}
+				inputs.Push(IN_F);
 				break;
 			case SDLK_c:
-				if (playerinput == true) {
-					inputs.Push(IN_C);
-				}
+				inputs.Push(IN_C);
 				break;
 			case SDLK_x:
-				if (playerinput == true) {
-					inputs.Push(IN_X);
-				}
+				inputs.Push(IN_X);
 				break;
 			case SDLK_q:
-				if (playerinput == true) {
-					inputs.Push(IN_TAUNT);
-				}
+				inputs.Push(IN_TAUNT);
 				break;
 			case SDLK_w:
-				if (playerinput == true) {
-					up = true;
-				}
+				up = true;
 				break;
 			case SDLK_v:
-				if (playerinput == true) {
-					charge = true;
-				}
+				charge = true;
 				break;
 			case SDLK_s:
-				if (playerinput == true) {
-					down = true;
-				}
+				down = true;
 				break;
 			case SDLK_a:
-				if (playerinput == true) {
-					left = true;
-				}
+				left = true;
 				break;
 			case SDLK_d:
-				if (playerinput == true) {
-					right = true;
-				}
+				right = true;
 				break;
 				//PLAYER 2
 			case SDLK_u:
-				if (playerinput == true) {
-					inputs2.Push(IN_U);
-				}
+				inputs2.Push(IN_U);
 				break;
 			case SDLK_y:
-				if (playerinput == true) {
-					inputs2.Push(IN_Y);
-				}
+				inputs2.Push(IN_Y);
 				break;
 			case SDLK_h:
-				if (playerinput == true) {
-					inputs2.Push(IN_H);
-				}
+				inputs2.Push(IN_H);
 				break;
 			case SDLK_n:
-				if (playerinput == true) {
-					inputs2.Push(IN_N);
-				}
+				inputs2.Push(IN_N);
 				break;
 			case SDLK_m:
-				if (playerinput == true) {
-					inputs2.Push(IN_M);
-				}
+				inputs2.Push(IN_M);
 				break;
 			case SDLK_o:
-				if (playerinput == true) {
-					inputs2.Push(IN_TAUNT2);
-				}
+				inputs2.Push(IN_TAUNT2);
 				break;
 			case SDLK_i:
-				if (playerinput == true) {
-					up2 = true;
-				}
+				up2 = true;
 				break;
 			case SDLK_k:
-				if (playerinput == true) {
-					down2 = true;
-				}
+				down2 = true;
 				break;
 			case SDLK_j:
-				if (playerinput == true) {
-					left2 = true;
-				}
+				left2 = true;
 				break;
 			case SDLK_l:
-				if (playerinput == true) {
-					right2 = true;
-				}
+				right2 = true;
 				break;
 			case SDLK_b:
-				if (playerinput == true) {
-					charge2 = true;
-				}
+				charge2 = true;
 				break;
 			}
 		}
@@ -278,25 +214,19 @@ bool ModuleInput::external_input()
 					//Left of dead zone
 					if (event.jaxis.value < -JOYSTICK_DEAD_ZONE)
 					{
-						if (playerinput == true) {
-							left = true;
-							right = false;
-						}
+						left = true;
+						right = false;
 					}
 					//Right of dead zone
 					else if (event.jaxis.value > JOYSTICK_DEAD_ZONE)
 					{
-						if (playerinput == true) {
-							right = true;
-							left = false;
-						}
+						right = true;
+						left = false;
 					}
 					else
 					{
-						if (playerinput == true) {
-							left = false;
-							right = false;
-						}
+						left = false;
+						right = false;
 					}
 				}
 				else if (event.jaxis.axis == 1)
@@ -304,25 +234,19 @@ bool ModuleInput::external_input()
 					//Below of dead zone
 					if (event.jaxis.value < -JOYSTICK_DEAD_ZONE)
 					{
-						if (playerinput == true) {
-							down = false;
-							up = true;
-						}
+						down = false;
+						up = true;
 					}
 					//Above of dead zone
 					else if (event.jaxis.value > JOYSTICK_DEAD_ZONE)
 					{
-						if (playerinput == true) {
-							up = false;
-							down = true;
-						}
+						up = false;
+						down = true;
 					}
 					else
 					{
-						if (playerinput == true) {
-							down = false;
-							up = false;
-						}
+						down = false;
+						up = false;
 					}
 				}
 			}
@@ -335,25 +259,19 @@ bool ModuleInput::external_input()
 					//Left of dead zone
 					if (event.jaxis.value < -JOYSTICK_DEAD_ZONE)
 					{
-						if (playerinput == true) {
-							left2 = true;
-							right2 = false;
-						}
+						left2 = true;
+						right2 = false;
 					}
 					//Right of dead zone
 					else if (event.jaxis.value > JOYSTICK_DEAD_ZONE)
 					{
-						if (playerinput == true) {
-							right2 = true;
-							left2 = false;
-						}
+						right2 = true;
+						left2 = false;
 					}
 					else
 					{
-						if (playerinput == true) {
-							left2 = false;
-							right2 = false;
-						}
+						left2 = false;
+						right2 = false;
 					}
 				}
 				else if (event.jaxis.axis == 1)
@@ -361,25 +279,19 @@ bool ModuleInput::external_input()
 					//Below of dead zone
 					if (event.jaxis.value < -JOYSTICK_DEAD_ZONE)
 					{
-						if (playerinput == true) {
-							down2 = false;
-							up2 = true;
-						}
+						down2 = false;
+						up2 = true;
 					}
 					//Above of dead zone
 					else if (event.jaxis.value > JOYSTICK_DEAD_ZONE)
 					{
-						if (playerinput == true) {
-							up2 = false;
-							down2 = true;
-						}
+						up2 = false;
+						down2 = true;
 					}
 					else
 					{
-						if (playerinput == true) {
-							down2 = false;
-							up2 = false;
-						}
+						down2 = false;
+						up2 = false;
 					}
 				}
 			}
@@ -399,27 +311,23 @@ bool ModuleInput::external_input()
 				}
 				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_X)
 				{
-					if (playerinput == true) {
-						inputs.Push(IN_T);
-					}
+					inputs.Push(IN_T);
 				}
 				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_Y)
 				{
-					if (playerinput == true) {
-						inputs.Push(IN_R);
-					}
+					inputs.Push(IN_R);
 				}
 				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_LEFTSHOULDER)
 				{
-					if (playerinput == true) {
-						inputs.Push(IN_TAUNT);
-					}
+					inputs.Push(IN_TAUNT);
 				}
 				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_RIGHTSHOULDER)
 				{
-					if (playerinput == true) {
-						charge = true;
-					}
+					charge = true;
+				}
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_A)
+				{
+					inputs.Push(IN_C);
 				}
 				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_RIGHT)
 				{
@@ -460,27 +368,23 @@ bool ModuleInput::external_input()
 				}
 				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_X)
 				{
-					if (playerinput == true) {
-						inputs2.Push(IN_Y);
-					}
+					inputs2.Push(IN_Y);
 				}
 				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_Y)
 				{
-					if (playerinput == true) {
-						inputs2.Push(IN_U);
-					}
+					inputs2.Push(IN_U);
 				}
 				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_LEFTSHOULDER)
 				{
-					if (playerinput == true) {
-						inputs2.Push(IN_TAUNT2);
-					}
+					inputs2.Push(IN_TAUNT2);
 				}
 				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_RIGHTSHOULDER)
 				{
-					if (playerinput == true) {
-						charge2 = true;
-					}
+					charge2 = true;
+				}
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_A)
+				{
+					inputs2.Push(IN_H);
 				}
 				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_RIGHT)
 				{
@@ -520,9 +424,7 @@ bool ModuleInput::external_input()
 			{
 				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_RIGHTSHOULDER)
 				{
-					if (playerinput == true) {
-						inputs.Push(IN_CHARGE_UP);
-					}
+					inputs.Push(IN_CHARGE_UP);
 					charge = false;
 				}
 			}
@@ -531,9 +433,7 @@ bool ModuleInput::external_input()
 			{
 				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_RIGHTSHOULDER)
 				{
-					if (playerinput == true) {
-						inputs2.Push(IN_CHARGE_UP2);
-					}
+					inputs2.Push(IN_CHARGE_UP2);
 					charge2 = false;
 				}
 			}
