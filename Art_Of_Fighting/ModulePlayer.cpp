@@ -898,7 +898,7 @@ update_status ModulePlayer::Update()
 				{
 					App->audio->PlayFX(kingKoOuKen);
 					App->audio->PlayFX(ryoKoOuKensound);
-					if ((position.x + 25) >= (App->player2->position.x - 25))
+					if ((position.x + 25) >= (App->player2->position.x))
 					{
 						App->particles->HadoukenFlip2.speed.x = -8;
 						App->particles->AddParticle(App->particles->HadoukenFlip, position.x - 10, position.y - 60, COLLIDER_PLAYER_SHOT);
