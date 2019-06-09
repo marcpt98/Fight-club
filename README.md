@@ -162,6 +162,8 @@ Crashing between rounds bug solved.
 
 Github link: https://github.com/marcpt98/Fight-club.
 
+Website link: https://marcpt98.github.io/Fight-club/
+
 ## Students involved:
 
 Marc Palma: https://github.com/marcpt98
