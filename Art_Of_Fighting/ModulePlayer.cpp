@@ -192,7 +192,7 @@ bool ModulePlayer::Start()
 	kingKoOuKen = App->audio->LoadFX("media/FX/king_haduken.wav");
 	ryoKoOuKensound = App->audio->LoadFX("media/FX/ryoKoOuKensound.wav");
 	kingcharge = App->audio->LoadFX("media/FX/king_charge.wav");
-	//kingdamage = App->audio->LoadFX("");
+	kingdamagepunch = App->audio->LoadFX("media/FX/king_hit_by_punch.wav");
 	//kingtaunt=App->audio->LoadFX("");
 	//KingMoushuuKyaku=App->audio->LoadFX("");
 
@@ -253,7 +253,7 @@ bool ModulePlayer::CleanUp()
 	App->audio->UnLoadFX(kingKoOuKen);
 	App->audio->UnLoadFX(ryoKoOuKensound);
 	App->audio->UnLoadFX(kingcharge);
-	//App->audio->UnLoadFX(kingdamage);
+	App->audio->UnLoadFX(kingdamagepunch);
 	//App->audio->UnLoadFX(kingtaunt);
 	//App->audio->UnLoadFX(KingMoushuuKyaku);
 
@@ -639,6 +639,16 @@ update_status ModulePlayer::Update()
 			{
 				App->audio->PlayFX(kingpunch);
 				SFXsound = false;
+			}
+			if (SFXsound2 == true)
+			{
+				if (damagepunch == true && damageHit == true)
+				{
+					App->audio->PlayFX(kingdamagepunch);
+					damagepunch = false;
+					SFXsound2 = false;
+					LOG("PUNCH HIT");
+				}
 			}
 			LOG("PUNCH --\n")
 				break;
@@ -1314,7 +1324,7 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 		{
 			switch (last_input)
 			{
-			case IN_PUNCH_FINISH: state = ST_IDLE; animstart = 0; SFXsound = true; break;
+			case IN_PUNCH_FINISH: state = ST_IDLE; animstart = 0; SFXsound = true; SFXsound2 = true; damageHit = false; break;
 			case IN_DAMAGE: state = ST_DAMAGE, App->input->damage_timer = SDL_GetTicks(); break;
 			case IN_DAMAGE_HADOKEN: state = ST_DAMAGE_HADOKEN, App->input->damageHadoken_timer = SDL_GetTicks(); break;
 			}
@@ -1609,6 +1619,9 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////// PUNCH HITBOX
 	if (punchCollider == c1 && c2->type == COLLIDER_ENEMY )
 	{
+		if (damageHit = true) {
+			damagepunch = true;
+		}
 		App->render->StartCameraShake(150, 2);
 		App->SlowDownShake->StartSlowDownShake(500, 40);
 		App->player2->Life = App->player2->Life - 2;
@@ -1696,7 +1709,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 
 	}
 
-	//////////////////////////////////////////////////////////////////////////////////////////// Kick Near
+	//////////////////////////////////////////////////////////////////////////////////////////// KICK NEAR HITBOX
 
 	if (kickNearCollider == c1 && c2->type == COLLIDER_ENEMY)
 	{
@@ -1726,10 +1739,13 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 
 	}
 
-	/////////////////////////////////////////////////////////////////////////////// Punch
+	/////////////////////////////////////////////////////////////////////////////// PUNCH NEAR HITBOX
 
 	if (punchNearCollider == c1 && c2->type == COLLIDER_ENEMY)
 	{
+		if (damageHit = true) {
+			damagepunch = true;
+		}
 		App->render->StartCameraShake(100, 2);
 		App->SlowDownShake->StartSlowDownShake(500, 40);
 		App->player2->Life= App->player2->Life-2;
@@ -1764,7 +1780,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 	}
 
 	
-////////////////////////////////////////////////////////////////////////////////////////////// PUNCH near
+////////////////////////////////////////////////////////////////////////////////////////////// KICK JUMP HITBOX
 	if (kickjump == c1 && c2->type == COLLIDER_ENEMY)
 	{
 		App->SlowDownShake->StartSlowDownShake(500, 40);
@@ -1793,7 +1809,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		}
 
 	}
-	/////////////////////////////////////////////////////////////////////////////////////////////////// PUNCH jump
+	/////////////////////////////////////////////////////////////////////////////////////////////////// PUNCH JUMP HITBOX
 	if (punchjump == c1 && c2->type == COLLIDER_ENEMY)
 	{
 		App->SlowDownShake->StartSlowDownShake(500, 40);

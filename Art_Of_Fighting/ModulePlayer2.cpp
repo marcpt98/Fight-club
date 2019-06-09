@@ -189,7 +189,7 @@ bool ModulePlayer2::Start()
 	kingKoOuKen = App->audio->LoadFX("media/FX/king_haduken.wav");
 	ryoKoOuKensound = App->audio->LoadFX("media/FX/ryoKoOuKensound.wav");
 	kingcharge = App->audio->LoadFX("media/FX/king_charge.wav");
-	//kingdamage = App->audio->LoadFX("");
+	kingdamagepunch = App->audio->LoadFX("media/FX/king_hit_by_punch.wav");
 	//kingtaunt=App->audio->LoadFX("");
 	//KingMoushuuKyaku=App->audio->LoadFX("");
 
@@ -248,7 +248,7 @@ bool ModulePlayer2::CleanUp()
 	App->audio->UnLoadFX(slize_sound);
 	App->audio->UnLoadFX(kingKoOuKen);
 	App->audio->UnLoadFX(kingcharge);
-	//App->audio->UnLoadFX(kingdamage);
+	App->audio->UnLoadFX(kingdamagepunch);
 	//App->audio->UnLoadFX(kingtaunt);
 	//App->audio->UnLoadFX(KingMoushuuKyaku);
 
@@ -605,6 +605,16 @@ update_status ModulePlayer2::Update()
 			{
 				App->audio->PlayFX(kingpunch);
 				SFXsound = false;
+			}
+			if (SFXsound2 == true)
+			{
+				if (damagepunch == true && damageHit == true)
+				{
+					App->audio->PlayFX(kingdamagepunch);
+					damagepunch = false;
+					SFXsound2 = false;
+					LOG("PUNCH HIT");
+				}
 			}
 			LOG("PUNCH --\n")
 				break;
@@ -1276,7 +1286,7 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 		{
 			switch (last_input)
 			{
-			case IN_PUNCH_FINISH2: state = ST_IDLE; animstart = 0; SFXsound = true; break;
+			case IN_PUNCH_FINISH2: state = ST_IDLE; animstart = 0; SFXsound = true; SFXsound2 = true; damageHit = false; break;
 			case IN_DAMAGE2: state = ST_DAMAGE, App->input->damage_timer2 = SDL_GetTicks(); break;
 			case IN_DAMAGE_HADOKEN2: state = ST_DAMAGE_HADOKEN, App->input->damageHadoken_timer2 = SDL_GetTicks(); break;
 			case IN_WIN2: state = ST_WIN; break;
@@ -1553,6 +1563,9 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////// PUNCH HITBOX
 	if (punchCollider == c1 && c2->type == COLLIDER_PLAYER)
 	{
+		if (damageHit = true) {
+			damagepunch = true;
+		}
 		App->render->StartCameraShake(150, 2);
 		App->SlowDownShake->StartSlowDownShake(500, 40);
 		App->player->Life= App->player->Life-2;
@@ -1571,9 +1584,12 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 		App->input->inputs.Push(IN_DAMAGE);
 
 	}
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////// NEAR PUNCH
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////// PUNCH NEAR HITBOX
 	if (punchNearCollider == c1 && c2->type == COLLIDER_PLAYER)
 	{
+		if (damageHit = true) {
+			damagepunch = true;
+		}
 		App->render->StartCameraShake(100, 2);
 		App->SlowDownShake->StartSlowDownShake(500, 40);
 		if ((position.x) >= (App->player->position.x + 25))
@@ -1591,7 +1607,7 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 		App->input->inputs.Push(IN_DAMAGE);
 
 	}
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////// NEAR kick
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////// KICK NEAR HITBOX
 	if (kicknearCollider == c1 && c2->type == COLLIDER_PLAYER)
 	{
 		App->SlowDownShake->StartSlowDownShake(500, 40);
@@ -1647,7 +1663,7 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 		}
 
 	}
-	/////////////////////////////////////////////////////////////////////////////////////////////////// KICK jump
+	/////////////////////////////////////////////////////////////////////////////////////////////////// KICK JUMP HITBOX
 	if (kickjump == c1 && c2->type == COLLIDER_PLAYER)
 	{
 		App->SlowDownShake->StartSlowDownShake(500, 40);
@@ -1677,7 +1693,7 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 
 	}
 
-	/////////////////////////////////////////////////////////////////////////////////////////////////// PUNCH jump
+	/////////////////////////////////////////////////////////////////////////////////////////////////// PUNCH JUMP HITBOX
 	if (punchjump == c1 && c2->type == COLLIDER_PLAYER)
 	{
 		App->SlowDownShake->StartSlowDownShake(500, 40);
