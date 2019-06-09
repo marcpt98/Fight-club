@@ -127,8 +127,24 @@ ModulePlayer2::ModulePlayer2()
 
 	//charge animation
 	charge.PushBack({ 358,892,51,100 }, 0.2, 0, 0, 0, 0);
-	charge.PushBack({ 414,892,54,102 }, 0.2, 0, 0, 0, 0);
-	charge.PushBack({ 473,892,63,103 }, 0.2, 0, 0, 0, 0);
+	charge.PushBack({ 551,1025,65,104 }, 0.1, 0, 0, 0, 0);
+	charge.PushBack({ 623,1025,65,104 }, 0.1, 0, 0, 0, 0);
+	charge.PushBack({ 694,1025,65,104 }, 0.1, 0, 0, 0, 0);
+	charge.PushBack({ 551,1025,65,104 }, 0.1, 0, 0, 0, 0);
+	charge.PushBack({ 623,1025,65,104 }, 0.1, 0, 0, 0, 0);
+	charge.PushBack({ 694,1025,65,104 }, 0.1, 0, 0, 0, 0);
+	charge.PushBack({ 551,1025,65,104 }, 0.1, 0, 0, 0, 0);
+	charge.PushBack({ 623,1025,65,104 }, 0.1, 0, 0, 0, 0);
+	charge.PushBack({ 694,1025,65,104 }, 0.1, 0, 0, 0, 0);
+	charge.PushBack({ 551,1025,65,104 }, 0.1, 0, 0, 0, 0);
+	charge.PushBack({ 623,1025,65,104 }, 0.1, 0, 0, 0, 0);
+	charge.PushBack({ 694,1025,65,104 }, 0.1, 0, 0, 0, 0);
+	charge.PushBack({ 551,1025,65,104 }, 0.1, 0, 0, 0, 0);
+	charge.PushBack({ 623,1025,65,104 }, 0.1, 0, 0, 0, 0);
+	charge.PushBack({ 694,1025,65,104 }, 0.1, 0, 0, 0, 0);
+	charge.PushBack({ 551,1025,65,104 }, 0.1, 0, 0, 0, 0);
+	charge.PushBack({ 623,1025,65,104 }, 0.1, 0, 0, 0, 0);
+	charge.PushBack({ 694,1025,65,104 }, 0.1, 0, 0, 0, 0);
 	charge.loop = false;
 
 	//taunt animation
