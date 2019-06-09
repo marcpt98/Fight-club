@@ -204,6 +204,7 @@ bool ModulePlayer2::Start()
 	kingdamagekick = App->audio->LoadFX("media/FX/king_hit_by_high_kick.wav");
 	kingtaunt = App->audio->LoadFX("media/FX/king_taunt.wav");
 	KingMoushuuKyaku = App->audio->LoadFX("media/FX/king_combo_2.wav");
+	kickneardamage = App->audio->LoadFX("media/FX/king_hit_by_low_kick.wav");
 	//KingProtect=App->audio->LoadFX("");
 
 	position.x = 420;
@@ -267,6 +268,7 @@ bool ModulePlayer2::CleanUp()
 	App->audio->UnLoadFX(kingdamagekick);
 	App->audio->UnLoadFX(kingtaunt);
 	App->audio->UnLoadFX(KingMoushuuKyaku);
+	App->audio->UnLoadFX(kickneardamage);
 	//App->audio->UnLoadFX(KingProtect);
 
 	return true;
@@ -820,7 +822,7 @@ update_status ModulePlayer2::Update()
 			{
 				if (damagekick == true && damageHit == true)
 				{
-					App->audio->PlayFX(kingdamagekick);
+					App->audio->PlayFX(kickneardamage);
 					damagekick = false;
 					SFXsound3 = false;
 					damageHit = false;
@@ -1897,6 +1899,7 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 		if (damageHit = true) {
 			damagekick = true;
 		}
+		App->render->StartCameraShake(150, 2);
 		App->SlowDownShake->StartSlowDownShake(500, 40);
 		if (App->player->blockleftP1 == false && App->player->position.x<position.x) {
 			kickneardmg = true;

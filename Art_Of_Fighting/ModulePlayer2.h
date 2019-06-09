@@ -118,6 +118,7 @@ public:
 	int kingkick = 0;
 
 	// FX
+	int kickneardamage = 0;
 	int kingpunch = 0;
 	int kingjump = 0;
 	int king_punch_crouch = 0;
@@ -133,6 +134,7 @@ public:
 	int kingdamagekick = 0;
 	bool damagekick = false;
 	bool damageHit = false;
+
 
 	int GodMode = false;
 	int printMode = false;
