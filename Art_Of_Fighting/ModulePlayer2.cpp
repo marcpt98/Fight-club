@@ -824,7 +824,11 @@ update_status ModulePlayer2::Update()
 			{
 				current_animation = &taunt;
 			}
-			App->player->Stamina--;
+			if (DrainEnergy == true)
+			{
+				App->player->Stamina = (App->player->Stamina - 20);
+				DrainEnergy = false;
+			}
 			LOG("TAUNT2 --\n")
 				break;
 		case ST_HADOUKEN:
@@ -1507,7 +1511,8 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 		{
 			switch (last_input)
 			{
-			case IN_TAUNT_FINISH2: state = ST_IDLE; animstart = 0;  SFXsound = true; break;
+			case IN_TAUNT_FINISH2: state = ST_IDLE; animstart = 0;  SFXsound = true; DrainEnergy = true; break;
+			case IN_DAMAGE2: state = ST_DAMAGE, App->input->damage_timer = SDL_GetTicks(); break;
 			}
 			break;
 		}

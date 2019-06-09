@@ -39,6 +39,7 @@ public:
 	bool JumpMax = false;
 	bool JumpMin = false;
 	bool Activehadouken = true;
+	bool DrainEnergy = true;
 	bool hit = false;
 	bool collision = false;
 	bool shoot = false;
