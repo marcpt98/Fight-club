@@ -86,6 +86,9 @@ public:
 	bool paintBallforP1 = false;
 	bool paintBallforP2 = false;
 	bool gameEnd = false;
+	bool fightStart = false;
+	bool fight2Start = false;
+	bool fight3Start = false;
 	int RoundsWinP1 = 0;
 	int RoundsWinP2 = 0;
 

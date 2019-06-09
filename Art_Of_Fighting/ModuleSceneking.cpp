@@ -311,13 +311,30 @@ update_status ModuleSceneking::Update()
 		App->render->Blit(graphicsUI, App->player2->position.x - 10, 203, &Shadow, 1.0);
 	}	
 
-	//Draw Round 1
+	
 	if (App->scene_King->Zoom == true) 
 	{
 		App->scene_King->Zoom = false;   //this works for not making zoom to the UI
 		zoomcounter = true;
 	}
 
+	//DRAW FIGHT
+	if (fightStart == true)
+	{
+		App->render->BlitWithScale(graphicsUI, 195, 90, &Fight, 1, 0.0f, 1.0f, TOP_RIGHT);
+	}
+
+	if (fight2Start == true)
+	{
+		App->render->BlitWithScale(graphicsUI, 195, 90, &Fight, 1, 0.0f, 1.0f, TOP_RIGHT);
+	}
+
+	if (fight3Start == true)
+	{
+		App->render->BlitWithScale(graphicsUI, 195, 90, &Fight, 1, 0.0f, 1.0f, TOP_RIGHT);
+	}
+
+	//Draw Round 1
 	if (RoundStart == true)
 	{
 		App->render->BlitWithScale(graphicsUI, 210, 90, &Round1, 1, 0.0f, 1.0f, TOP_RIGHT);
@@ -353,25 +370,41 @@ update_status ModuleSceneking::Update()
 		
 	}
 
-	//Makes disappear Round2 Rectangle
+	//Makes disappear Round1 Rectangle
 	if (SDL_GetTicks() - starttime >= 1500)
 	{
 		RoundStart = false;
-		
+		fightStart = true;
 
+		if (SDL_GetTicks() - starttime >= 3500)
+		{
+			fightStart = false;
+		}
 	}
 
 	//Makes disappear Round2 Rectangle
 	if (SDL_GetTicks() - starttime >= 1500)
 	{
 		Round2Start = false;
+		fight2Start = true;
 
+		if (SDL_GetTicks() - starttime >= 3500)
+		{
+			fight2Start = false;
+		}
+		
 	}
 
 	//Makes disappear FinalRound Rectangle
 	if (SDL_GetTicks() - starttime >= 1500)
 	{
 		FinalRoundStart = false;
+		fight3Start = true;
+
+		if (SDL_GetTicks() - starttime >= 3500)
+		{
+			fight3Start = false;
+		}
 	}
 
 
