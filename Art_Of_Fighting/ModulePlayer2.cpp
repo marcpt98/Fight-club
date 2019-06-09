@@ -190,6 +190,7 @@ bool ModulePlayer2::Start()
 	ryoKoOuKensound = App->audio->LoadFX("media/FX/ryoKoOuKensound.wav");
 	kingcharge = App->audio->LoadFX("media/FX/king_charge.wav");
 	kingdamagepunch = App->audio->LoadFX("media/FX/king_hit_by_punch.wav");
+	kingdamagekick = App->audio->LoadFX("media/FX/king_hit_by_high_kick.wav");
 	//kingtaunt=App->audio->LoadFX("");
 	//KingMoushuuKyaku=App->audio->LoadFX("");
 
@@ -249,6 +250,7 @@ bool ModulePlayer2::CleanUp()
 	App->audio->UnLoadFX(kingKoOuKen);
 	App->audio->UnLoadFX(kingcharge);
 	App->audio->UnLoadFX(kingdamagepunch);
+	App->audio->UnLoadFX(kingdamagekick);
 	//App->audio->UnLoadFX(kingtaunt);
 	//App->audio->UnLoadFX(KingMoushuuKyaku);
 
@@ -390,6 +392,17 @@ update_status ModulePlayer2::Update()
 							App->audio->PlayFX(kingpunch);
 							SFXsound2 = false;
 						}
+						if (SFXsound3 == true)
+						{
+							if (damagepunch == true && damageHit == true)
+							{
+								App->audio->PlayFX(kingdamagepunch);
+								damagepunch = false;
+								SFXsound3 = false;
+								damageHit = false;
+								LOG("PUNCH HIT");
+							}
+						}
 						time = SDL_GetTicks();
 						LOG("JUMP PUNCH \n");
 					}
@@ -402,6 +415,17 @@ update_status ModulePlayer2::Update()
 						{
 							App->audio->PlayFX(kingkick);
 							SFXsound2 = false;
+						}
+						if (SFXsound3 == true)
+						{
+							if (damagekick == true && damageHit == true)
+							{
+								App->audio->PlayFX(kingdamagekick);
+								damagekick = false;
+								SFXsound3 = false;
+								damageHit = false;
+								LOG("KICK HIT");
+							}
 						}
 						time = SDL_GetTicks();
 						LOG("JUMP KICK \n");
@@ -447,6 +471,17 @@ update_status ModulePlayer2::Update()
 							App->audio->PlayFX(kingpunch);
 							SFXsound2 = false;
 						}
+						if (SFXsound3 == true)
+						{
+							if (damagepunch == true && damageHit == true)
+							{
+								App->audio->PlayFX(kingdamagepunch);
+								damagepunch = false;
+								SFXsound3 = false;
+								damageHit = false;
+								LOG("PUNCH HIT");
+							}
+						}
 						time = SDL_GetTicks();
 						LOG("JUMP PUNCH FORWARD\n");
 					}
@@ -459,6 +494,17 @@ update_status ModulePlayer2::Update()
 						{
 							App->audio->PlayFX(kingkick);
 							SFXsound2 = false;
+						}
+						if (SFXsound3 == true)
+						{
+							if (damagekick == true && damageHit == true)
+							{
+								App->audio->PlayFX(kingdamagekick);
+								damagekick = false;
+								SFXsound3 = false;
+								damageHit = false;
+								LOG("PUNCH HIT");
+							}
 						}
 						time = SDL_GetTicks();
 						LOG("JUMP KICK FORWARD \n");
@@ -509,6 +555,17 @@ update_status ModulePlayer2::Update()
 							App->audio->PlayFX(kingpunch);
 							SFXsound2 = false;
 						}
+						if (SFXsound3 == true)
+						{
+							if (damagepunch == true && damageHit == true)
+							{
+								App->audio->PlayFX(kingdamagepunch);
+								damagepunch = false;
+								SFXsound3 = false;
+								damageHit = false;
+								LOG("PUNCH HIT");
+							}
+						}
 						time = SDL_GetTicks();
 						LOG("JUMP PUNCH BACKWARDS\n");
 					}
@@ -521,6 +578,17 @@ update_status ModulePlayer2::Update()
 						{
 							App->audio->PlayFX(kingkick);
 							SFXsound2 = false;
+						}
+						if (SFXsound3 == true)
+						{
+							if (damagekick == true && damageHit == true)
+							{
+								App->audio->PlayFX(kingdamagekick);
+								damagekick = false;
+								SFXsound3 = false;
+								damageHit = false;
+								LOG("PUNCH HIT");
+							}
 						}
 						time = SDL_GetTicks();
 						LOG("JUMP KICK BACKWARD \n");
@@ -560,6 +628,17 @@ update_status ModulePlayer2::Update()
 			{
 				App->audio->PlayFX(king_punch_crouch);
 				SFXsound = false;
+			}
+			if (SFXsound3 == true)
+			{
+				if (damagepunch == true && damageHit == true)
+				{
+					App->audio->PlayFX(kingdamagepunch);
+					damagepunch = false;
+					SFXsound3 = false;
+					damageHit = false;
+					LOG("PUNCH HIT");
+				}
 			}
 			if (animstart == 0)
 			{
@@ -606,13 +685,14 @@ update_status ModulePlayer2::Update()
 				App->audio->PlayFX(kingpunch);
 				SFXsound = false;
 			}
-			if (SFXsound2 == true)
+			if (SFXsound3 == true)
 			{
 				if (damagepunch == true && damageHit == true)
 				{
 					App->audio->PlayFX(kingdamagepunch);
 					damagepunch = false;
-					SFXsound2 = false;
+					SFXsound3 = false;
+					damageHit = false;
 					LOG("PUNCH HIT");
 				}
 			}
@@ -630,8 +710,18 @@ update_status ModulePlayer2::Update()
 			{
 				App->audio->PlayFX(king_punch_crouch);
 				App->audio->PlayFX(slize_sound);
-
 				SFXsound = false;
+			}
+			if (SFXsound3 == true)
+			{
+				if (damagekick == true && damageHit == true)
+				{
+					App->audio->PlayFX(kingdamagekick);
+					damagekick = false;
+					SFXsound3 = false;
+					damageHit = false;
+					LOG("PUNCH HIT");
+				}
 			}
 			if (animstart == 0)
 			{
@@ -676,6 +766,17 @@ update_status ModulePlayer2::Update()
 			{
 				App->audio->PlayFX(kingkick);
 				SFXsound = false;
+			}
+			if (SFXsound3 == true)
+			{
+				if (damagekick == true && damageHit == true)
+				{
+					App->audio->PlayFX(kingdamagekick);
+					damagekick = false;
+					SFXsound3 = false;
+					damageHit = false;
+					LOG("PUNCH HIT");
+				}
 			}
 			LOG("KICK --\n")
 				break;
@@ -1014,7 +1115,7 @@ update_status ModulePlayer2::Update()
 			kickCrouchCollider->Enabled = false;
 		}
 
-		if (r == &kickCrouch.frames[kickCrouch.last_frame - 1] && App->scene_King->Zoom == true)
+		if (r == &kickCrouch.frames[kickCrouch.last_frame - 6] && App->scene_King->Zoom == true)
 		{
 			kickCrouchCollider->SetPos((position.x + 30)*1.3, position.y + 30 - r->h + 40);
 
@@ -1242,7 +1343,7 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 		{
 			switch (last_input)
 			{
-			case IN_JUMP_FINISH2: state = ST_IDLE; animstart = 0; jumpanim = 0; SFXsound = true; SFXsound2 = true; jumping.Reset(); break;
+			case IN_JUMP_FINISH2: state = ST_IDLE; animstart = 0; jumpanim = 0; SFXsound = true; SFXsound2 = true; SFXsound3 = true; damageHit = false; jumping.Reset(); break;
 			case IN_WIN2: state = ST_WIN; animstart = 0; break;
 			case IN_DEFEAT2: state = ST_DEFEAT; animstart = 0; break;
 			case IN_Y: if (SDL_GetTicks() - jumptimer > 300) { if (jumpanim == 0)jumpanim = 1; } break;
@@ -1256,7 +1357,7 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 		{
 			switch (last_input)
 			{
-			case IN_JUMP_FINISH2: state = ST_IDLE; animstart = 0; jumpanim = 0; SFXsound = true; SFXsound2 = true; jumping.Reset(); break;
+			case IN_JUMP_FINISH2: state = ST_IDLE; animstart = 0; jumpanim = 0; SFXsound = true; SFXsound2 = true; SFXsound3 = true; damageHit = false; jumping.Reset(); break;
 			case IN_WIN2: state = ST_WIN; animstart = 0; break;
 			case IN_DEFEAT2: state = ST_DEFEAT; animstart = 0; break;
 			case IN_Y: if (SDL_GetTicks() - jumptimer > 300) { if (jumpanim == 0)jumpanim = 1; } break;
@@ -1271,7 +1372,7 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 		{
 			switch (last_input)
 			{
-			case IN_JUMP_FINISH2: state = ST_IDLE; animstart = 0; jumpanim = 0; SFXsound = true; SFXsound2 = true; jumping.Reset(); break;
+			case IN_JUMP_FINISH2: state = ST_IDLE; animstart = 0; jumpanim = 0; SFXsound = true; SFXsound2 = true; SFXsound3 = true; damageHit = false; jumping.Reset(); break;
 			case IN_WIN2: state = ST_WIN; animstart = 0; break;
 			case IN_DEFEAT2: state = ST_DEFEAT; animstart = 0; break;
 			case IN_Y: if (SDL_GetTicks() - jumptimer > 300) { if (jumpanim == 0)jumpanim = 1; } break;
@@ -1286,7 +1387,7 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 		{
 			switch (last_input)
 			{
-			case IN_PUNCH_FINISH2: state = ST_IDLE; animstart = 0; SFXsound = true; SFXsound2 = true; damageHit = false; break;
+			case IN_PUNCH_FINISH2: state = ST_IDLE; animstart = 0; SFXsound = true; SFXsound3 = true; damageHit = false; break;
 			case IN_DAMAGE2: state = ST_DAMAGE, App->input->damage_timer2 = SDL_GetTicks(); break;
 			case IN_DAMAGE_HADOKEN2: state = ST_DAMAGE_HADOKEN, App->input->damageHadoken_timer2 = SDL_GetTicks(); break;
 			case IN_WIN2: state = ST_WIN; break;
@@ -1334,12 +1435,12 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 			case IN_PUNCH_CROUCH_FINISH2:
 				if (IN_CROUCH_DOWN2 == true)
 				{
-					state = ST_CROUCH; animstart = 0; SFXsound = true;
+					state = ST_CROUCH; animstart = 0; SFXsound = true; SFXsound3 = true; damageHit = false;
 
 				}
 				else
 				{
-					state = ST_IDLE; animstart = 0; SFXsound = true;
+					state = ST_IDLE; animstart = 0; SFXsound = true; SFXsound3 = true; damageHit = false;
 				}
 			}
 		}
@@ -1349,7 +1450,7 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 		{
 			switch (last_input)
 			{
-			case IN_KICK_FINISH2: state = ST_IDLE; animstart = 0; SFXsound = true; break;
+			case IN_KICK_FINISH2: state = ST_IDLE; animstart = 0; SFXsound = true; SFXsound3 = true; damageHit = false; break;
 			case IN_DAMAGE_HADOKEN2: state = ST_DAMAGE_HADOKEN, App->input->damageHadoken_timer2 = SDL_GetTicks(); break;
 			case IN_DAMAGE2: state = ST_DAMAGE, App->input->damage_timer2 = SDL_GetTicks(); break;
 			case IN_WIN2: state = ST_WIN; break;
@@ -1368,11 +1469,11 @@ king_states ModulePlayer2::process_fsm(p2Qeue<king_inputs>& inputs)
 			case IN_KICK_CROUCH_FINISH2:
 				if (IN_CROUCH_DOWN2 == true)
 				{
-					state = ST_CROUCH; animstart = 0; SFXsound = true;
+					state = ST_CROUCH; animstart = 0; SFXsound = true; SFXsound3 = true; damageHit = false; break;
 				}
 				else
 				{
-					state = ST_IDLE; animstart = 0; SFXsound = true;
+					state = ST_IDLE; animstart = 0; SFXsound = true; SFXsound3 = true; damageHit = false; break;
 				}
 			
 			}
@@ -1543,6 +1644,9 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 
 	if (kickCollider == c1 && c2->type == COLLIDER_PLAYER)
 	{
+		if (damageHit = true) {
+			damagekick = true;
+		}
 		App->render->StartCameraShake(300, 3);
 		App->SlowDownShake->StartSlowDownShake(200, 40);
 		App->player->Life= App->player->Life-3;
@@ -1607,9 +1711,28 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 		App->input->inputs.Push(IN_DAMAGE);
 
 	}
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////// PUNCH CROUCH HITBOX
+	if (punchCrouchCollider == c1 && c2->type == COLLIDER_PLAYER)
+	{
+		if (damageHit = true) {
+			damagepunch = true;
+		}
+		//INSERT CODE HERE
+		
+
+
+	}
+
+
+
+
+
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////// KICK NEAR HITBOX
 	if (kicknearCollider == c1 && c2->type == COLLIDER_PLAYER)
 	{
+		if (damageHit = true) {
+			damagekick = true;
+		}
 		App->SlowDownShake->StartSlowDownShake(500, 40);
 		App->player->Life= App->player->Life-3;
 		damageP1 = true;
@@ -1638,6 +1761,9 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 	/////////////////////////////////////////////////////////////////////////////////////////////////// KICK CROUCH HITBOX
 	if (kickCrouchCollider == c1 && c2->type == COLLIDER_PLAYER)
 	{
+		if (damageHit = true) {
+			damagekick = true;
+		}
 		App->SlowDownShake->StartSlowDownShake(500, 40);
 		App->player->Life = App->player->Life - 4;
 		damageP1 = true;
@@ -1666,6 +1792,9 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 	/////////////////////////////////////////////////////////////////////////////////////////////////// KICK JUMP HITBOX
 	if (kickjump == c1 && c2->type == COLLIDER_PLAYER)
 	{
+		if (damageHit = true) {
+			damagekick = true;
+		}
 		App->SlowDownShake->StartSlowDownShake(500, 40);
 		App->render->StartCameraShake(150, 20);
 		App->player->Life = App->player->Life - 6;
@@ -1696,6 +1825,9 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 	/////////////////////////////////////////////////////////////////////////////////////////////////// PUNCH JUMP HITBOX
 	if (punchjump == c1 && c2->type == COLLIDER_PLAYER)
 	{
+		if (damageHit = true) {
+			damagepunch = true;
+		}
 		App->SlowDownShake->StartSlowDownShake(500, 40);
 		App->render->StartCameraShake(150, 20);
 		App->player->Life = App->player->Life - 6;

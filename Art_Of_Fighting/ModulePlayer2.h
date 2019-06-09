@@ -23,6 +23,7 @@ private:
 	bool SFXsound2 = true;
 	int initialPos;
 	bool SFXsound = true;
+	bool SFXsound3 = true;
 public:
 	ModulePlayer2();
 	~ModulePlayer2();
@@ -120,6 +121,8 @@ public:
 	// FX DAMAGE
 	int kingdamagepunch = 0;
 	bool damagepunch = false;
+	int kingdamagekick = 0;
+	bool damagekick = false;
 	bool damageHit = false;
 
 	int GodMode = false;
