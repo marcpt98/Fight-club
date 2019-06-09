@@ -191,7 +191,7 @@ bool ModulePlayer2::Start()
 	kingcharge = App->audio->LoadFX("media/FX/king_charge.wav");
 	kingdamagepunch = App->audio->LoadFX("media/FX/king_hit_by_punch.wav");
 	kingdamagekick = App->audio->LoadFX("media/FX/king_hit_by_high_kick.wav");
-	//kingtaunt=App->audio->LoadFX("");
+	kingtaunt = App->audio->LoadFX("media/FX/king_taunt.wav");
 	//KingMoushuuKyaku=App->audio->LoadFX("");
 
 	position.x = 420;
@@ -251,7 +251,7 @@ bool ModulePlayer2::CleanUp()
 	App->audio->UnLoadFX(kingcharge);
 	App->audio->UnLoadFX(kingdamagepunch);
 	App->audio->UnLoadFX(kingdamagekick);
-	//App->audio->UnLoadFX(kingtaunt);
+	App->audio->UnLoadFX(kingtaunt);
 	//App->audio->UnLoadFX(KingMoushuuKyaku);
 
 	return true;
@@ -817,7 +817,7 @@ update_status ModulePlayer2::Update()
 		case ST_TAUNT:
 			if (SFXsound == true)
 			{
-				//App->audio->PlayFX(kingtaunt);
+				App->audio->PlayFX(kingtaunt);
 				SFXsound = false;
 			}
 			if (animstart == 0)
