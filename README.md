@@ -69,21 +69,36 @@ When the installation is finished, it's time to click on the .exe file and enjoy
  # Controls (Gamepad):
     
 - Joystick right(Player 1): Move forward.
+
 - Joystick left(Player 1): Move backward.
+
 - Joystick left(Player 2): Move forward.
+
 - Joystick right(Player 2): Move backward.
+
 - Joystick up: Jump.
+
 - Joystick down: Crouch.
+
 - X: Punch.
+
 - Y: Kick.
+
 - Joystick down + X: Punch crouch.
+
 - Joystick down + Y: Kick crouch.
+
 - Joystick up + X: Jump punch.
+
 - Joystick up + Y: Jump Kick.
+
 - Joystick left (Player 1, when other player is attacking): Protect.
+
 - Joystick right (Player 2, when other player is attacking): Protect.
-- START: Pass scene.</br>
-- BACK: Exit game.</br>
+
+- START: Pass scene.
+
+- BACK: Exit game.
 
 # Changes for each version
 
@@ -108,27 +123,39 @@ SFX from moves implemented. Hadouken implemented.
 Collisions added to both players and to hadouken.
 
 ## 0.5
-Added new character spritesheet and background
-Implemented gamepad state machine
-Added some SFX from moves and 
-solving esc bug
+Added new character spritesheet and background.
+
+Implemented gamepad state machine.
+
+Added some SFX from moves and solving esc bug.
 
 ## 0.65
 
 Added basic movements with gamepad. Only SFX from moves.
+
 Pivot for animations added.
 
 ## 1.0
 All SFX added.
+
 King spritesheed 1 and 2 reimplemented.
+
 All animations implemented.
+
 Character selection added.
+
 King vs king added.
+
 Round system implemented.
+
 Combos implemented.
+
 Block animation implemented.
+
 All UI system added, with health bars, stamine and scoreboard working.
+
 Scene win implemented with score working, and it changes depending on the winner.
+
 Crashing between rounds bug solved.
 
 # Links
