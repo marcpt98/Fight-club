@@ -43,6 +43,8 @@ public:
 	bool shoot = false;
 	bool shootNo = false;
 	bool damageP1 = false;
+	bool blockrightP2 = false;
+	bool blockleftP2 = false;
 	bool damageHadokenP1 = false;
 public:
 

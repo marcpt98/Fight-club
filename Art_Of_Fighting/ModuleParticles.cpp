@@ -68,13 +68,6 @@ bool ModuleParticles::Start()
 	HadoukenFlipEnergy2.anim.PushBack({ 1533, 766, 36, 44 }, 0.3, 0, 0, 0, 0);
 	HadoukenFlipEnergy2.anim.PushBack({ 1584, 766, 29, 46 }, 0.1, 0, 0, 0, 0);
 
-	//HADOUKEN IMPACT FLIP
-	HadoukenImpact.anim.PushBack({ 1412, 700, 26, 26 }, 0.2, 0, 0, 0, 0);
-	HadoukenImpact.anim.PushBack({ 1648, 719, 30, 39 }, 0.2, 0, 0, 0, 0);
-	HadoukenImpact.anim.PushBack({ 1533, 766, 36, 44 }, 0.2, 0, 0, 0, 0);
-	HadoukenImpact.anim.PushBack({ 1462, 768, 36, 44 }, 0.25, 0, 0, 0, 0);
-	HadoukenImpact.anim.PushBack({ 1584, 766, 29, 46 }, 0.1, 0, 0, 0, 0);
-
 	HadoukenFlip2.anim.loop = true;
 	HadoukenFlip2.life = 3000;
 	HadoukenFlip2.speed.x = -3;
@@ -91,6 +84,13 @@ bool ModuleParticles::Start()
 	starP2.anim.PushBack({ 1466, 700, 31, 34 }, 0.3, 0, 0, 0, 0);
 	starP2.anim.loop = false;
 	starP2.life = 100;
+
+	//HADOUKEN IMPACT FLIP
+	HadoukenImpact.anim.PushBack({ 1412, 700, 26, 26 }, 0.2, 0, 0, 0, 0);
+	HadoukenImpact.anim.PushBack({ 1648, 719, 30, 39 }, 0.2, 0, 0, 0, 0);
+	HadoukenImpact.anim.PushBack({ 1533, 766, 36, 44 }, 0.2, 0, 0, 0, 0);
+	HadoukenImpact.anim.PushBack({ 1462, 768, 36, 44 }, 0.25, 0, 0, 0, 0);
+	HadoukenImpact.anim.PushBack({ 1584, 766, 29, 46 }, 0.1, 0, 0, 0, 0);
 	return true;
 }
 

@@ -158,8 +158,9 @@ ModulePlayer::ModulePlayer()
 	damageHadoken.PushBack({ 1204,1024,63,87 }, 0.1, -8, 2, 0, 0);
 
 	//protect animation
-	protect.PushBack({ 541, 841, 52,102 }, 0.1, 0, 0, 0, 0);
-	protect.PushBack({ 599, 890, 51,103 }, 0.1, 0, 0, 0, 0);
+	protect.PushBack({ 543, 893, 49,100 }, 0.1, 0, 0, 0, 0);
+	protect.PushBack({ 600, 893, 49,100 }, 0.1, 0, 0, 0, 0);
+	protect.PushBack({ 543, 893, 49,100 }, 0.1, 0, 0, 0, 0);
 
 	//HITS ANIMATION
 	yellow.PushBack({ 1971, 52, 26,31 }, 0.1, 0, 0, 0, 0);
@@ -191,6 +192,7 @@ bool ModulePlayer::Start()
 	kingdamagekick = App->audio->LoadFX("media/FX/king_hit_by_high_kick.wav");
 	kingtaunt = App->audio->LoadFX("media/FX/king_taunt.wav");
 	KingMoushuuKyaku = App->audio->LoadFX("media/FX/king_combo_2.wav");
+	//KingProtect=App->audio->LoadFX("");
 
 	position.x = 200;
 	position.y = 210;
@@ -255,6 +257,7 @@ bool ModulePlayer::CleanUp()
 	App->audio->UnLoadFX(kingdamagekick);
 	App->audio->UnLoadFX(kingtaunt);
 	App->audio->UnLoadFX(KingMoushuuKyaku);
+	//App->audio->UnLoadFX(KingProtect);
 
 	return true;
 }
@@ -817,12 +820,22 @@ update_status ModulePlayer::Update()
 				//App->audio->PlayFX(kingdamage);
 				SFXsound = false;
 			}
-			if (App->player2->damageP1 == true)
+			if (App->player2->damageP1 == true && blockleftP1 == false || App->player2->damageP1 == true && blockrightP1 == false)
 			{
 				current_animation = &damage;
 				App->particles->AddParticle(App->particles->starP1, position.x + 15, position.y - 100, NO_COLLIDER);
+				LOG("AAAAAAAAAAAAA ^^--\n");
 			}
-			LOG("AAAAAAAAAAAAA ^^--\n");
+			if (blockleftP1 == true && position.x<App->player2->position.x)
+			{
+				current_animation = &protect;
+				LOG("BLOCK LEFT ^^--\n");
+			}
+			if (blockrightP1 == true && position.x>App->player2->position.x)
+			{
+				current_animation = &protect;
+				LOG("BLOCK RIGHT ^^--\n");
+			}
 			break;
 		case ST_DAMAGE_HADOKEN:
 
@@ -1287,6 +1300,9 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 		{
 		case ST_IDLE:
 		{
+			blockleftP1 = false;
+			blockrightP1 = false;
+
 			switch (last_input)
 			{
 			case IN_RIGHT_DOWN: state = ST_WALK_FORWARD; break;
@@ -1328,6 +1344,9 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 
 		case ST_WALK_FORWARD:
 		{
+			blockleftP1 = false;
+			blockrightP1 = true;
+
 			//NOTSUAMARU RIGHT SIDE
 			if ((position.x + 25) >= (App->player2->position.x - 25))
 			{
@@ -1377,6 +1396,9 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 
 		case ST_WALK_BACKWARD:
 		{
+			blockleftP1 = true;
+			blockrightP1 = false;
+
 			//MOSTUAMARU LEFT SIDE
 			if (SDL_GetTicks() - combotime < 120) {
 				if (combo2 == 1)combo2 = 2;
@@ -1412,6 +1434,7 @@ king_states ModulePlayer::process_fsm(p2Qeue<king_inputs>& inputs)
 			case IN_C: state = ST_MOUSHUUKYAKU, App->input->moshuukyaku_timer = SDL_GetTicks(); break;
 			case IN_X: state = ST_TORNADOKICK, App->input->tornadokick_timer = SDL_GetTicks(); break;
 			case IN_TAUNT: state = ST_TAUNT, App->input->taunt_timer = SDL_GetTicks(); break;
+			case IN_DAMAGE: state = ST_DAMAGE, App->input->damage_timer = SDL_GetTicks(); break;
 			case IN_DAMAGE_HADOKEN: state = ST_DAMAGE_HADOKEN, App->input->damageHadoken_timer = SDL_GetTicks(); break;
 			case IN_WIN: state = ST_WIN; break;
 			case IN_DEFEAT: state = ST_DEFEAT; break;
@@ -1734,7 +1757,12 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		}
 		App->render->StartCameraShake(300, 3);
 		App->SlowDownShake->StartSlowDownShake(200, 40);
-		App->player2->Life = App->player2->Life - 3;
+		if (App->player2->blockleftP2 == false && App->player2->position.x<position.x) {
+			App->player2->Life = App->player2->Life - 3;
+		}
+		if (App->player2->blockrightP2 == false && App->player2->position.x > position.x) {
+			App->player2->Life = App->player2->Life - 3;
+		}
 		damageP2 = true;
 		App->input->inputs2.Push(IN_DAMAGE2);
 
@@ -1771,7 +1799,12 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		}
 		App->render->StartCameraShake(150, 2);
 		App->SlowDownShake->StartSlowDownShake(500, 40);
-		App->player2->Life = App->player2->Life - 2;
+		if (App->player2->blockleftP2 == false && App->player2->position.x<position.x) {
+			App->player2->Life = App->player2->Life - 2;
+		}
+		if (App->player2->blockrightP2 == false && App->player2->position.x > position.x) {
+			App->player2->Life = App->player2->Life - 2;
+		}
 		
 		damageP2 = true;
 		App->input->inputs2.Push(IN_DAMAGE2);
@@ -1900,7 +1933,12 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 			damagekick = true;
 		}
 		App->SlowDownShake->StartSlowDownShake(500, 40);
-		App->player2->Life= App->player2->Life-3;
+		if (App->player2->blockleftP2 == false && App->player2->position.x<position.x) {
+			App->player2->Life = App->player2->Life - 3;
+		}
+		if (App->player2->blockrightP2 == false && App->player2->position.x > position.x) {
+			App->player2->Life = App->player2->Life - 3;
+		}
 		damageP2 = true;
 		App->input->inputs2.Push(IN_DAMAGE2);
 		collision = true;
@@ -1934,7 +1972,12 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		}
 		App->render->StartCameraShake(100, 2);
 		App->SlowDownShake->StartSlowDownShake(500, 40);
-		App->player2->Life= App->player2->Life-2;
+		if (App->player2->blockleftP2 == false && App->player2->position.x<position.x) {
+			App->player2->Life = App->player2->Life - 2;
+		}
+		if (App->player2->blockrightP2 == false && App->player2->position.x > position.x) {
+			App->player2->Life = App->player2->Life - 2;
+		}
 		damageP2 = true;
 		
 		App->input->inputs2.Push(IN_DAMAGE2);
@@ -1974,7 +2017,12 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		}
 		App->SlowDownShake->StartSlowDownShake(500, 40);
 		App->render->StartCameraShake(150, 20);
-		App->player2->Life = App->player2->Life - 6;
+		if (App->player2->blockleftP2 == false && App->player2->position.x<position.x) {
+			App->player2->Life = App->player2->Life - 6;
+		}
+		if (App->player2->blockrightP2 == false && App->player2->position.x > position.x) {
+			App->player2->Life = App->player2->Life - 6;
+		}
 		damageP2 = true;
 		App->input->inputs.Push(IN_DAMAGE);
 		collision = true;
@@ -2006,7 +2054,12 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		}
 		App->SlowDownShake->StartSlowDownShake(500, 40);
 		App->render->StartCameraShake(150, 20);
-		App->player2->Life = App->player2->Life - 6;
+		if (App->player2->blockleftP2 == false && App->player2->position.x<position.x) {
+			App->player2->Life = App->player2->Life - 6;
+		}
+		if (App->player2->blockrightP2 == false && App->player2->position.x > position.x) {
+			App->player2->Life = App->player2->Life - 6;
+		}
 		damageP2 = true;
 		App->input->inputs2.Push(IN_DAMAGE2);
 		collision = true;
@@ -2042,7 +2095,9 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 			collision = true;
 			App->SlowDownShake->StartSlowDownShake(250, 20);
 			App->render->StartCameraShake(75, 10);
-			App->player2->Life = App->player2->Life - 0.5;
+			if (App->player->blockleftP1 == false) {
+				App->player2->Life = App->player2->Life - 0.5;
+			}
 			App->input->inputs2.Push(IN_DAMAGE2);
 
 			if ((position.x + 25) >= (App->player2->position.x))

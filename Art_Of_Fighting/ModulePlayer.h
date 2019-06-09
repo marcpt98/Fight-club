@@ -45,6 +45,8 @@ public:
 	bool shoot = false;
 	bool shootNo = false;
 	bool damageP2 = false;
+	bool blockleftP1 = false;
+	bool blockrightP1 = false;
 	bool damageHadokenP2 = false;
 public:
 
@@ -118,6 +120,7 @@ public:
 	int kingcharge = 0;
 	int kingtaunt = 0;
 	int KingMoushuuKyaku = 0;
+	//int KingProtect = 0;
 	// FX DAMAGE
 	int kingdamagepunch = 0;
 	bool damagepunch = false;
