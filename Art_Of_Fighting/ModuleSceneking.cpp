@@ -103,9 +103,9 @@ ModuleSceneking::ModuleSceneking()
 	FinalRound.w = 167;
 	FinalRound.h = 16;
 
-	ball.x = 30;
+	ball.x = 29;
 	ball.y = 79;
-	ball.w = 14;
+	ball.w = 15;
 	ball.h = 15;
 
 }
