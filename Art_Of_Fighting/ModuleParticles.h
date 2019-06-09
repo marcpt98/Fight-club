@@ -56,12 +56,14 @@ public:
 	Particle Hadouken2;
 	Particle HadoukenEnergy;
 	Particle HadoukenEnergy2;
+	Particle HadoukenImpact;
 
 	//HADOUKEN FLIP
 	Particle HadoukenFlip;
 	Particle HadoukenFlip2;
 	Particle HadoukenFlipEnergy;
 	Particle HadoukenFlipEnergy2;
+	Particle HadoukenFlipImpact;
 
 	Particle starP1;
 	Particle starP2;
