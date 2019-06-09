@@ -986,7 +986,7 @@ update_status ModulePlayer2::Update()
 
 		if (r == &punch.frames[punch.last_frame - 1] && App->scene_King->Zoom == true)
 		{
-			punchCollider->SetPos((position.x - 40)*1.3, position.y + 12 - r->h + 40);
+			punchCollider->SetPos((position.x - 40)*1.3, position.y + 12 - r->h + 20);
 
 			punchCollider->Enabled = true;
 		}
@@ -997,7 +997,7 @@ update_status ModulePlayer2::Update()
 
 		if (r == &punch_Near.frames[punch_Near.last_frame - 1] && App->scene_King->Zoom == true)
 		{
-			punchNearCollider->SetPos((position.x - 40)*1.3, position.y + 12 - r->h + 40);
+			punchNearCollider->SetPos((position.x - 40)*1.3, position.y + 12 - r->h + 20);
 
 			punchNearCollider->Enabled = true;
 		}
@@ -1017,7 +1017,7 @@ update_status ModulePlayer2::Update()
 			kicknearCollider->Enabled = false;
 		}
 
-		if (r == &kickCrouch.frames[kickCrouch.last_frame - 1] && App->scene_King->Zoom == true)
+		if (r == &kickCrouch.frames[kickCrouch.last_frame - 6] && App->scene_King->Zoom == true)
 		{
 			kickCrouchCollider->SetPos((position.x - 30)*1.3, position.y + 30 - r->h + 40);
 
@@ -1095,7 +1095,7 @@ update_status ModulePlayer2::Update()
 
 		if (r == &punch.frames[punch.last_frame - 1] && App->scene_King->Zoom == true)
 		{
-			punchCollider->SetPos((position.x + 32)*1.3, position.y + 12 - r->h + 40);
+			punchCollider->SetPos((position.x + 32)*1.3, position.y + 12 - r->h + 20);
 
 			punchCollider->Enabled = true;
 		}
@@ -1127,7 +1127,7 @@ update_status ModulePlayer2::Update()
 		}
 		if (r == &punch_Near.frames[punch_Near.last_frame - 1] && App->scene_King->Zoom == true)
 		{
-			punchNearCollider->SetPos((position.x + 32)*1.3, position.y + 12 - r->h + 40);
+			punchNearCollider->SetPos((position.x + 32)*1.3, position.y + 12 - r->h + 20);
 
 			punchNearCollider->Enabled = true;
 		}

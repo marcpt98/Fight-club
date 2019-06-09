@@ -94,7 +94,7 @@ public:
 	Collider *punchNearCollider;
 	Collider *kickjump;
 	Collider *punchjump;
-
+	Collider *kickcombo;
 
 	void OnCollision(Collider* c1, Collider* c2);
 	king_states process_fsm(p2Qeue<king_inputs>& inputs);
