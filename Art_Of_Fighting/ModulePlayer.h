@@ -120,6 +120,7 @@ public:
 	int kingcharge = 0;
 	int kingtaunt = 0;
 	int KingMoushuuKyaku = 0;
+	int kickneardamage = 0;
 	//int KingProtect = 0;
 	// FX DAMAGE
 	int kingdamagepunch = 0;

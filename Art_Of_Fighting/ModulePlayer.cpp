@@ -208,6 +208,7 @@ bool ModulePlayer::Start()
 	kingdamagekick = App->audio->LoadFX("media/FX/king_hit_by_high_kick.wav");
 	kingtaunt = App->audio->LoadFX("media/FX/king_taunt.wav");
 	KingMoushuuKyaku = App->audio->LoadFX("media/FX/king_combo_2.wav");
+	kickneardamage = App->audio->LoadFX("media/FX/king_hit_by_low_kick.wav");
 	//KingProtect=App->audio->LoadFX("");
 
 	position.x = 200;
@@ -273,6 +274,7 @@ bool ModulePlayer::CleanUp()
 	App->audio->UnLoadFX(kingdamagekick);
 	App->audio->UnLoadFX(kingtaunt);
 	App->audio->UnLoadFX(KingMoushuuKyaku);
+	App->audio->UnLoadFX(kickneardamage);
 	//App->audio->UnLoadFX(KingProtect);
 
 	return true;
@@ -854,7 +856,7 @@ update_status ModulePlayer::Update()
 			{
 				if (damagekick == true && damageHit == true)
 				{
-					App->audio->PlayFX(kingdamagekick);
+					App->audio->PlayFX(kickneardamage);
 					damagekick = false;
 					SFXsound3 = false;
 					damageHit = false;
@@ -1910,6 +1912,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		if (damageHit = true) {
 			damagepunch = true;
 		}
+		App->render->StartCameraShake(150, 2);
 		App->SlowDownShake->StartSlowDownShake(500, 40);
 		App->player2->Life= App->player2->Life-1;
 		damageP2 = true;
@@ -1938,6 +1941,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		if (damageHit = true) {
 			damagekick = true;
 		}
+		App->render->StartCameraShake(150, 2);
 		App->SlowDownShake->StartSlowDownShake(500, 40);
 		App->player2->Life= App->player2->Life-1;
 		damageP2 = true;
@@ -2001,6 +2005,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		if (damageHit = true) {
 			damagekick = true;
 		}
+		App->render->StartCameraShake(350, 20);
 		App->SlowDownShake->StartSlowDownShake(500, 40);
 		if (App->player2->blockleftP2 == false && App->player2->position.x<position.x) {
 			kickneardmg = true;
@@ -2014,12 +2019,12 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 
 		if ((position.x) >= (App->player2->position.x + 25))
 		{
-			App->player2->position.x -= 10;
+			App->player2->position.x -= 15;
 		}
 
 		else
 		{
-			App->player2->position.x += 10;
+			App->player2->position.x += 15;
 			if ((App->player2->position.x) <= (App->scene_King->positionlimitright.x + 300)) {
 				App->player2->position.x += 5;
 			}
